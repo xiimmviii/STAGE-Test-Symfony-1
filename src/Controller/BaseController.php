@@ -9,7 +9,7 @@ use Symfony\Component\HttpFoundation\Request;
 class BaseController extends AbstractController
 {
     /**
-     * @Route("/base", name="base")
+     * @Route("/", name="index")
      */
     public function index()
     {
@@ -17,4 +17,16 @@ class BaseController extends AbstractController
             'controller_name' => 'BaseController',
         ]);
     }
+
+    /**
+     * @Route("/realisations", name="index")
+     */
+    public function index()
+    {
+        return $this->render('base/realisations.html.twig', [
+            'controller_name' => 'BaseController',
+        ]);
+    }
+
+
 }
