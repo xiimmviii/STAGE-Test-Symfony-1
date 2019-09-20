@@ -158,7 +158,7 @@ a.copyright-a:hover {
 ----------------------------------------------------------------------------- */ 
 
 main {
-    background: url('image/background-para.jpg') no-repeat fixed;
+    background: url('../images/background-para.jpg') no-repeat fixed;
     background-size: cover;
     background-color: #e9e5e3;
 }
@@ -191,7 +191,7 @@ letter-spacing: 1px;
 /* ---------------------------------------------------- */
 
 .presentation {
-    background: url('image/Abstract-background-white-12.jpg') no-repeat fixed;
+    background: url('../images/Abstract-background-white-12.jpg') no-repeat fixed;
     background-size: cover;
     background-color: #e9e5e3;
 }
