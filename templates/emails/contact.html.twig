@@ -130,9 +130,7 @@
                                                 <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="border-collapse:collapse;border-spacing:0px;">
                                                     <tbody>
                                                         <tr>
-                                                            <td style="width:100px;">
-                                                                <img height="auto" src="/assets/img/logo-small.png" style="border:0;display:block;outline:none;text-decoration:none;height:auto;width:100%;" width="100"/>
-                                                            </td>
+                                                         <h1> EMAIL TEST </h1>
                                                         </tr>
                                                     </tbody>
                                                 </table>
@@ -159,9 +157,14 @@
                                                 <div style="font-family:helvetica;font-size:20px;line-height:1;text-align:left;color:#F45E43;">
                                                     <div class="row">Envoyé par :
                                                         {{data.prenom}}
-                                                        {{data.nom}}, 
-                                                         société {{data.societe}}, 
-                                                        {{data.telephone}} 
+                                                        {{data.nom}} 
+                                                        {% if data.societe is null %} 
+                                                        {% else %}, société {{data.societe}}
+                                                        {% endif %}
+                                                           {% if data.telephone is null %} 
+                                                        {% else %}, n° {{data.telephone}}
+                                                        {% endif %}
+                                                   
                                                     </div>
                                                     <div class="row">Email :
                                                         {{ data.email}}

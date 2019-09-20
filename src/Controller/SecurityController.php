@@ -16,19 +16,14 @@ class SecurityController extends AbstractController
      */
     public function login(AuthenticationUtils $auth)
     {
-
         $lastUsername = $auth->getLastUsername();
-        // récupérer le pseudo qui a été utilisé la dernière fois
-
         $error = $auth->getLastAuthenticationError();
-        // récupérer les erreurs
 
         if (!empty($error)) {
-            $this->addFlash('errors', 'Problème d\'identifiant !');
+            $this->addflash('errors', 'Problème d\'identifiant!');
         }
 
-
-        return $this->render('security/login.html.twig', [
+        return $this->render("security/login.html.twig", [
             'lastUsername' => $lastUsername
         ]);
     }

@@ -2,7 +2,7 @@ security:
 
     encoders:
         Symfony\Component\Security\Core\User\User: bcrypt
-        App\Entity\Membre: 'auto'
+        App\Entity\User: 'auto'
 
         #php bin/console security:encode-password
 
@@ -53,8 +53,8 @@ security:
     access_control:
         - { path: ^/admin, roles: ROLE_ADMIN }
         #- { path: ^/admin/membre, roles: ROLE_SUPER_ADMIN }
-        - { path: ^/connexion, allow_if: "not is_granted('ROLE_USER')" }
-        - { path: ^/inscription, allow_if: "not is_granted('ROLE_USER')" }
+        #- { path: ^/connexion, allow_if: "not is_granted('ROLE_USER')" }
+        #- { path: ^/inscription, allow_if: "not is_granted('ROLE_USER')" }
 
 
         
