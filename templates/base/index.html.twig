@@ -1,5 +1,10 @@
 {% extends 'base.html.twig' %}
 
 {% block content %}
-<h1>Hello Bitches !</h1>
+    {{ include('./sections/section-presentation-etp.html.twig') }}
+    {{ include('./sections/section-label-plus.html.twig') }}
+    {{ include('./sections/section-historique-etp.html.twig') }}
+    {{ include('./sections/section-cptces.html.twig') }}
+    {{ include('./sections/section-partenaires.html.twig') }}
+    {{ include('./sections/section-contact-localisation.html.twig') }}
 {% endblock %}
