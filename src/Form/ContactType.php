@@ -20,7 +20,7 @@ class ContactType extends AbstractType
         $builder
             ->add('prenom', TextType::class)
             ->add('nom', TextType::class)
-            ->add('societe', TextType::class)
+            ->add('societe', TextType::class,array('required' => false))
             ->add('email',EmailType::class,array(
                 'constraints' => array(
                     new Assert\Email(array(
@@ -28,7 +28,7 @@ class ContactType extends AbstractType
                     ))
                 )
             ))
-            ->add('telephone', TextType::class)
+            ->add('telephone', TextType::class,array('required' => false))
             ->add('objet', TextType::class)
             ->add('message', TextareaType::class)
 
