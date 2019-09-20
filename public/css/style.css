@@ -1,0 +1,269 @@
+/* ----------------------------------------------------------------------------
+
+██████╗  ██████╗ ██████╗ ██╗   ██╗
+██╔══██╗██╔═══██╗██╔══██╗╚██╗ ██╔╝
+██████╔╝██║   ██║██║  ██║ ╚████╔╝ 
+██╔══██╗██║   ██║██║  ██║  ╚██╔╝  
+██████╔╝╚██████╔╝██████╔╝   ██║   
+╚═════╝  ╚═════╝ ╚═════╝    ╚═╝   
+ 
+----------------------------------------------------------------------------- */                                
+
+body
+{
+    overflow-x: hidden;
+}
+
+.row {
+    padding: 0px!important;
+    margin: 0px!important;
+}
+
+
+p {
+    text-align: justify;
+    text-align-last: center;
+}
+
+
+
+
+
+/* ----------------------------------------------------------------------------
+██╗  ██╗███████╗ █████╗ ██████╗ ███████╗██████╗ 
+██║  ██║██╔════╝██╔══██╗██╔══██╗██╔════╝██╔══██╗
+███████║█████╗  ███████║██║  ██║█████╗  ██████╔╝
+██╔══██║██╔══╝  ██╔══██║██║  ██║██╔══╝  ██╔══██╗
+██║  ██║███████╗██║  ██║██████╔╝███████╗██║  ██║
+╚═╝  ╚═╝╚══════╝╚═╝  ╚═╝╚═════╝ ╚══════╝╚═╝  ╚═╝
+----------------------------------------------------------------------------- */
+
+nav
+{
+    font-size: 1.3em;
+    border-bottom: 1px solid rgba(161, 75, 75, 0.25);
+    border-top: 1px solid rgba(128, 128, 128, 0.25);
+    position: sticky!important;
+    top: 0px;
+}
+
+.nav-item a
+{
+    color:rgba(0, 0, 0, 0.644)!important;
+}
+
+.nav-item a:hover
+{
+    color: rgb(86, 149, 221)!important;
+    border: 2px solid rgb(86, 149, 221);
+     margin: -3px; /*pour rétablir la taille de la nav avec la border en hover */
+}
+
+.navbar-toggler
+{
+    align-self: center;
+}
+
+
+
+
+
+
+/* ----------------------------------------------------------------------------
+
+███████╗ ██████╗  ██████╗ ████████╗███████╗██████╗ 
+██╔════╝██╔═══██╗██╔═══██╗╚══██╔══╝██╔════╝██╔══██╗
+█████╗  ██║   ██║██║   ██║   ██║   █████╗  ██████╔╝
+██╔══╝  ██║   ██║██║   ██║   ██║   ██╔══╝  ██╔══██╗
+██║     ╚██████╔╝╚██████╔╝   ██║   ███████╗██║  ██║
+╚═╝      ╚═════╝  ╚═════╝    ╚═╝   ╚══════╝╚═╝  ╚═╝
+                                                   
+----------------------------------------------------------------------------- */
+
+footer{
+color: lightgray; 
+}
+
+.footerh3 {
+    font-size: 1.3em;
+    font-weight: bolder;
+    color: white;
+}
+
+.footeradresse {
+font-size: 1em;
+}
+
+.footercontact {
+    font-size: 0.8em;
+    }
+
+a.footertel {
+color: white!important;
+}
+
+a.footertel:hover {
+letter-spacing: 1px;
+transition-duration: 1s;
+text-decoration: none;
+}
+
+a.footermail {
+    color: white!important;
+}
+
+a.footermail:hover {
+    letter-spacing: 1px;
+    transition-duration: 1s;
+    text-decoration: none;
+}
+
+.boutonavis{
+    color: white;
+    background-color: rgba(71, 181, 255, 0.842);
+}
+
+.boutonavis:hover {
+    color: white;
+    background-color: rgba(230, 201, 38, 0.842);
+}
+
+.copyrow {
+    background-color: black;
+    font-size: 0.8em;
+}
+
+a.copyright-a {
+    color: rgb(86, 149, 221);
+    text-decoration: none!important;
+}
+
+a.copyright-a:hover {
+    color: rgb(172, 200, 231);
+    text-decoration: none!important;
+    letter-spacing: 1px;
+    transition-duration: 1s;
+}
+
+
+/* ----------------------------------------------------------------------------
+
+██╗███╗   ██╗██████╗ ███████╗██╗  ██╗
+██║████╗  ██║██╔══██╗██╔════╝╚██╗██╔╝
+██║██╔██╗ ██║██║  ██║█████╗   ╚███╔╝ 
+██║██║╚██╗██║██║  ██║██╔══╝   ██╔██╗ 
+██║██║ ╚████║██████╔╝███████╗██╔╝ ██╗
+╚═╝╚═╝  ╚═══╝╚═════╝ ╚══════╝╚═╝  ╚═╝
+                                     
+----------------------------------------------------------------------------- */ 
+
+main {
+    background: url('image/background-para.jpg') no-repeat fixed;
+    background-size: cover;
+    background-color: #e9e5e3;
+}
+
+.index-img-titre {
+    background-color: rgba(71, 181, 255, 0.603);
+    color: white;
+    font-weight: bolder; 
+}
+
+.index-img-description {
+    background-color: rgba(255, 255, 255, 0.87);
+    color:rgb(26, 25, 25)!important;
+    border-radius: 10px;
+}
+
+a.indexliens {
+color: white!important;
+background-color: rgba(71, 181, 255, 0.603);
+}
+
+a.indexliens:hover {
+text-decoration: none;
+background-color: rgba(71, 181, 255, 0.842);
+font-weight: bolder!important;
+letter-spacing: 1px;
+
+}
+
+/* ---------------------------------------------------- */
+
+.presentation {
+    background: url('image/Abstract-background-white-12.jpg') no-repeat fixed;
+    background-size: cover;
+    background-color: #e9e5e3;
+}
+
+
+.boutontel {
+    border-radius: 10px;
+    background-color: rgb(0,123,255);
+}
+
+.bottomdevis {
+    background: linear-gradient(#87baec, #badbee);
+}
+
+.btnrond {
+    border-radius: 50%;
+    font-size: 3em;
+    width:85px;
+	height:85px;
+}
+
+.localisation {
+    font-size: 1.1em;
+}
+/* ----------------------------------------------------------------------------
+
+██████╗ ██████╗ ███╗   ██╗████████╗ █████╗  ██████╗████████╗
+██╔════╝██╔═══██╗████╗  ██║╚══██╔══╝██╔══██╗██╔════╝╚══██╔══╝
+██║     ██║   ██║██╔██╗ ██║   ██║   ███████║██║        ██║   
+██║     ██║   ██║██║╚██╗██║   ██║   ██╔══██║██║        ██║   
+╚██████╗╚██████╔╝██║ ╚████║   ██║   ██║  ██║╚██████╗   ██║   
+ ╚═════╝ ╚═════╝ ╚═╝  ╚═══╝   ╚═╝   ╚═╝  ╚═╝ ╚═════╝   ╚═╝   
+                                                             
+
+----------------------------------------------------------------------------- */
+
+.btn-telephone
+{
+    border-radius: 50px;
+    font-size: 1.4em;
+    border: 3px solid rgb(0,123,255);
+}
+
+
+
+
+/* -------------------------------------------------------------------------
+
+██████╗ ███████╗ █████╗ ██╗     ██╗███████╗ █████╗ ████████╗██╗ ██████╗ ███╗   ██╗███████╗
+██╔══██╗██╔════╝██╔══██╗██║     ██║██╔════╝██╔══██╗╚══██╔══╝██║██╔═══██╗████╗  ██║██╔════╝
+██████╔╝█████╗  ███████║██║     ██║███████╗███████║   ██║   ██║██║   ██║██╔██╗ ██║███████╗
+██╔══██╗██╔══╝  ██╔══██║██║     ██║╚════██║██╔══██║   ██║   ██║██║   ██║██║╚██╗██║╚════██║
+██║  ██║███████╗██║  ██║███████╗██║███████║██║  ██║   ██║   ██║╚██████╔╝██║ ╚████║███████║
+╚═╝  ╚═╝╚══════╝╚═╝  ╚═╝╚══════╝╚═╝╚══════╝╚═╝  ╚═╝   ╚═╝   ╚═╝ ╚═════╝ ╚═╝  ╚═══╝╚══════╝
+                                                                                          
+
+------------------------------------------------------------------------------- */ 
+
+.img-thumbnail {
+border: none!important;
+}
+
+.modal-dialog {
+    max-width: 70%!important;
+    max-height: 80%;
+    height: auto;
+   text-align: center;
+}
+
+.modal-content {
+    width: auto;
+    background: none; 
+    border: none;
+    margin: 0 auto; 
+}
