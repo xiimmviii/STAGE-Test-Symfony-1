@@ -1,12 +1,68 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
-    </head>
-    <body>
-        {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
-    </body>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0-11/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <title>Test site électricien</title>
+</head>
+
+<body>
+
+    <header>
+        <img src="image/logo.jpg" alt="logo de l'etp" class="img-fluid">
+    </header>
+
+    <nav class="navbar navbar-expand-lg sticky-top navbar-light bg-light">
+        <button class="navbar-toggler mx-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto mx-auto p-3">
+                <li class="nav-item mx-3">
+                    <a class="nav-link font-weight-bold" href="index.php"><i class="fas fa-home"></i> Accueil</a>
+                </li>
+                <li class="nav-item mx-3">
+                    <a class="nav-link font-weight-bold" href="realisations.php"><i class="far fa-lightbulb"></i> Réalisations</a>
+                </li>
+                <li class="nav-item mx-3">
+                    <a class="nav-link font-weight-bold" href="contact.php"><i class="fas fa-phone-alt"></i> Contact</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+{% block content %}
+{% endblock %}
+
+<footer class="bg-dark">
+    <div class="row justify-content-center">
+        <div class="col-md-4 col-sm-12 m-3">
+            <div class="footerh3 pb-3"> Nom de la société </div>
+            <div class="footeradresse"> Adresse ligne 1 <br> Adresse ligne 2 </div>
+            <div class="footercontact"> Téléphone : <a href="tel:+33000000000" class="footertel"> 00.00.00.00.00</a> </div>
+            <div class="footercontact"> Mail : <a href="mailto:mail@mail.com" class="footermail"> mail@mail.com</a> </div>
+        </div>
+        <div class="col-md-4 col-sm-12 text-center m-3">
+            <div class="footerh3 pb-3"> Laissez votre témoignage sur Google </div>
+            <a href="pagegoogle">
+                <div class="col-10 btn boutonavis"> <i class="fas fa-star"></i> Laissez votre avis ! </div>
+            </a>
+        </div>
+    </div>
+    <div class="row copyrow text-light">
+        <div class="col-12 copyright m-3"> Copyright © 2019 SOCIETE | <a href="mentionslegales" class="copyright-a">Mentions légales</a> | <a href="CGU" class="copyright-a">CGU</a></div>
+    </div>
+
+</footer>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.15.0/umd/popper.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+
 </html>
