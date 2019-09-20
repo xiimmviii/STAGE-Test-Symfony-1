@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
@@ -10,6 +11,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
  */
 class User implements UserInterface
 {
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -20,17 +22,44 @@ class User implements UserInterface
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $mail;
+    private $username;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $motDePasse;
+    private $password;
 
     /**
 	* @ORM\Column(name="role", type="string", length=20)
 	*/
     private $role = 'ROLE_ADMIN';
+
+    /**
+	* @ORM\Column(name="salt", type="string", length=255, nullable=true)
+	*/
+    private $salt;
+
+
+    public function getUsername(): ?string
+    {
+        return $this->username;
+    }
+
+    public function setUsername(string $username): self
+    {
+        $this->username = $username;
+
+        return $this;
+    }
+
+    public function setSalt($salt){
+		$this -> salt = $salt;
+		return $this;
+	}
+	
+	public function getSalt(){
+		return $this -> salt;
+	}
 
     public function getId(): ?int
     {
@@ -49,14 +78,14 @@ class User implements UserInterface
         return $this;
     }
 
-    public function getMotDePasse(): ?string
+    public function getPassword(): ?string
     {
-        return $this->motDePasse;
+        return $this->password;
     }
 
-    public function setMotDePasse(string $motDePasse): self
+    public function setPassword(string $password): self
     {
-        $this->motDePasse = $motDePasse;
+        $this->password = $password;
 
         return $this;
     }

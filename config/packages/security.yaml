@@ -8,11 +8,13 @@ security:
 
     # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
     providers:
-        #in_memory:
-        #    memory:
-        #        users: 
+        # in_memory:
+        #     memory:
+        #         users: 
                     
-        #            admin: 
+        #             admin:
+        #                 password: test123
+        #                 roles: 'ROLE_ADMIN'
 
         
         membre_provider: 
