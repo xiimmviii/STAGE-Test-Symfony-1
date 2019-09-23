@@ -18,30 +18,19 @@ class BaseController extends AbstractController
      */
     public function index()
     {
-        return $this->render('base/index.html.twig', [
-            'controller_name' => 'BaseController',
-        ]);
-
-        // $repository = $this->getDoctrine()->getRepository(Partenaires::class);
-        // $logos = $repository->findAll();
-        // return $this->render('sections/section-partenaires.html.twig', [
-        //     'logos' => $logos,
+        // return $this->render('base/index.html.twig', [
+        //     'controller_name' => 'BaseController',
         // ]);
+
+        $repository = $this->getDoctrine()->getRepository(Partenaires::class);
+        $logos = $repository->findAll();
+        return $this->render('base/index.html.twig', [
+            'logos' => $logos,
+        ]);
 
         
     }
 
-    /**
-     * @Route("/partenaires", name="partenaires")
-     */
-    public function partenaires()
-    {
-    $repository = $this->getDoctrine()->getRepository(Partenaires::class);
-        $logos = $repository->findAll();
-        return $this->render('sections/section-partenaires.html.twig', [
-            'logos' => $logos,
-        ]);
-    }
 
     /**
      * @Route("/realisations", name="realisations")
