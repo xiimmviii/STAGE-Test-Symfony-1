@@ -14,6 +14,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class BaseController extends AbstractController
 {
+
     /**
      * @Route("/", name="index")
      */
@@ -44,8 +45,13 @@ class BaseController extends AbstractController
 
         $repository = $this->getDoctrine()->getRepository(Galerie::class);
         $photos = $repository->findAll();
+
+        $repository = $this->getDoctrine()->getRepository(Entreprise::class);
+        $entreprise = $repository->findOneById(1);
+
         return $this->render('base/realisations.html.twig', [
             'photos' => $photos,
+            'entreprise' => $entreprise
         ]);
     }
 
@@ -54,8 +60,13 @@ class BaseController extends AbstractController
      */
     public function contact()
     {
+
+        $repository = $this->getDoctrine()->getRepository(Entreprise::class);
+        $entreprise = $repository->findOneById(1);
+
         return $this->render('base/contact.html.twig', [
             'controller_name' => 'BaseController',
+            'entreprise' => $entreprise
         ]);
     }
 
@@ -65,8 +76,13 @@ class BaseController extends AbstractController
      */
     public function mentions()
     {
+
+        $repository = $this->getDoctrine()->getRepository(Entreprise::class);
+        $entreprise = $repository->findOneById(1);
+
         return $this->render('base/mentions.html.twig', [
             'controller_name' => 'BaseController',
+            'entreprise' => $entreprise
         ]);
     }
 
@@ -75,8 +91,12 @@ class BaseController extends AbstractController
      */
     public function CGU()
     {
+        $repository = $this->getDoctrine()->getRepository(Entreprise::class);
+        $entreprise = $repository->findOneById(1);
+
         return $this->render('base/CGU.html.twig', [
             'controller_name' => 'BaseController',
+            'entreprise' => $entreprise
         ]);
     }
 
@@ -85,6 +105,9 @@ class BaseController extends AbstractController
      */
     public function Formulaire(Request $request, \Swift_Mailer $mailer)
     {
+
+        $repository = $this->getDoctrine()->getRepository(Entreprise::class);
+        $entreprise = $repository->findOneById(1);
 
         $form = $this->createForm(ContactType::class, null);
         $form->handleRequest($request);
@@ -109,6 +132,7 @@ class BaseController extends AbstractController
 
         return $this->render('base/contact.html.twig', [
             'form' => $form->createView(),
+            'entreprise' => $entreprise
         ]);
     }
 
