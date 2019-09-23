@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Contact;
+use App\Entity\Galerie;
 use App\Form\ContactType;
 use App\Notification\ContactNotification;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -26,8 +27,11 @@ class BaseController extends AbstractController
      */
     public function realisations()
     {
+
+        $repository = $this->getDoctrine()->getRepository(Galerie::class);
+        $photos = $repository->findAll();
         return $this->render('base/realisations.html.twig', [
-            'controller_name' => 'BaseController',
+            'photos' => $photos,
         ]);
     }
 

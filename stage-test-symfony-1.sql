@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le :  lun. 23 sep. 2019 à 08:07
+-- Généré le :  lun. 23 sep. 2019 à 12:14
 -- Version du serveur :  5.7.26
 -- Version de PHP :  7.3.5
 
@@ -90,9 +90,19 @@ CREATE TABLE IF NOT EXISTS `entreprise` (
 DROP TABLE IF EXISTS `galerie`;
 CREATE TABLE IF NOT EXISTS `galerie` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `photo` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `photo` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Déchargement des données de la table `galerie`
+--
+
+INSERT INTO `galerie` (`id`, `photo`) VALUES
+(1, 'test-photo-1.jpg'),
+(2, 'test-photo-1.jpg'),
+(3, 'test-photo-1.jpg'),
+(4, 'test-photo-2.jpg');
 
 -- --------------------------------------------------------
 
