@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le :  lun. 23 sep. 2019 à 12:14
+-- Généré le :  lun. 23 sep. 2019 à 13:25
 -- Version du serveur :  5.7.26
 -- Version de PHP :  7.3.5
 
@@ -137,9 +137,20 @@ CREATE TABLE IF NOT EXISTS `partenaires` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `nom_partenaire` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `site_partenaire` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `logo` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `logo` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Déchargement des données de la table `partenaires`
+--
+
+INSERT INTO `partenaires` (`id`, `nom_partenaire`, `site_partenaire`, `logo`) VALUES
+(1, 'TEST1', 'http://wwww.google.com', 'logo1.jpg'),
+(2, 'TEST2', 'http://wwwW.yahoo.com', 'logo2.jpg'),
+(3, 'test3', 'http://wwww.amazon.fr', 'logo3.jpg'),
+(4, 'test4', 'http://www.fnac.com', 'logo4.jpg'),
+(5, 'test5', 'http://www.imdb.com', 'logo5.jpg');
 
 -- --------------------------------------------------------
 

@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Contact;
 use App\Entity\Galerie;
+use App\Entity\Partenaires;
 use App\Form\ContactType;
 use App\Notification\ContactNotification;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -20,6 +21,26 @@ class BaseController extends AbstractController
         return $this->render('base/index.html.twig', [
             'controller_name' => 'BaseController',
         ]);
+
+        // $repository = $this->getDoctrine()->getRepository(Partenaires::class);
+        // $logos = $repository->findAll();
+        // return $this->render('sections/section-partenaires.html.twig', [
+        //     'logos' => $logos,
+        // ]);
+
+        
+    }
+
+    /**
+     * @Route("/partenaires", name="partenaires")
+     */
+    public function partenaires()
+    {
+    $repository = $this->getDoctrine()->getRepository(Partenaires::class);
+        $logos = $repository->findAll();
+        return $this->render('sections/section-partenaires.html.twig', [
+            'logos' => $logos,
+        ]);
     }
 
     /**
@@ -35,7 +56,7 @@ class BaseController extends AbstractController
         ]);
     }
 
-        /**
+    /**
      * @Route("/contact", name="contact")
      */
     public function contact()
@@ -66,11 +87,9 @@ class BaseController extends AbstractController
         ]);
     }
 
- /**
+    /**
      * @Route("/contact", name="contact")
      */
-
-
     public function Formulaire(Request $request, \Swift_Mailer $mailer)
     {
 
