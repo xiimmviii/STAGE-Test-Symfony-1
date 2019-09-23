@@ -2,7 +2,7 @@
 
 {% block content %}
 
-<h1 class="col-md-7 mx-auto">Connexion au panneau administrateur.</h1>
+<h1 class="text-center">Connexion au panneau administrateur.</h1>
 
 <form method="post" class="col-md-4 mx-auto">
     {% if error %}
@@ -13,8 +13,8 @@
         <div class="mb-3">
             Vous êtes connecté(e) sous l'identifiant {{ app.user.username }}, <b><a href="{{ path('app_logout') }}">se déconnecter</a></b>
         </div>
-    {% endif %}
 
+    {% else %}
     <h1 class="h3 mb-3 font-weight-normal my-3">Merci de vous connecter</h1>
     <div class="my-3">
         <label for="inputEmail" class="sr-only">Email</label>
@@ -34,5 +34,6 @@
             Se connecter
         </button>
     </div>
+    {% endif %}
 </form>
 {% endblock %}
