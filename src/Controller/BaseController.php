@@ -29,7 +29,7 @@ class BaseController extends AbstractController
 
         return $this->render('base/index.html.twig', [
             'entreprise' => $entreprise,
-            'logos' => $logos
+            'logos' => $logos,
         ]);
 
 
