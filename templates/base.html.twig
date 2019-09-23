@@ -61,10 +61,10 @@
 <footer class="bg-dark">
     <div class="row justify-content-center">
         <div class="col-md-4 col-sm-12 m-3">
-            <div class="footerh3 pb-3"> Nom de la société </div>
-            <div class="footeradresse"> Adresse ligne 1 <br> Adresse ligne 2 </div>
-            <div class="footercontact"> Téléphone : <a href="tel:+33000000000" class="footertel"> 00.00.00.00.00</a> </div>
-            <div class="footercontact"> Mail : <a href="mailto:mail@mail.com" class="footermail"> mail@mail.com</a> </div>
+            <div class="footerh3 pb-3"> {{entreprise.nom}} </div>
+            <div class="footeradresse"> {{entreprise.adresse}} <br> {{entreprise.cp}} {{entreprise.ville}} </div>
+            <div class="footercontact"> Téléphone : <a href="{{entreprise.telephone}}" class="footertel"> {{entreprise.telephone}}</a> </div>
+            <div class="footercontact"> Mail : <a href="mailto:mail@mail.com" class="footermail"> {{entreprise.mailContact}}</a> </div>
         </div>
         <div class="col-md-4 col-sm-12 text-center m-3">
             <div class="footerh3 pb-3"> Laissez votre témoignage sur Google </div>

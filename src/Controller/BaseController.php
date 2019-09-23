@@ -4,12 +4,13 @@ namespace App\Controller;
 
 use App\Entity\Contact;
 use App\Entity\Galerie;
-use App\Entity\Partenaires;
 use App\Form\ContactType;
+use App\Entity\Entreprise;
+use App\Entity\Partenaires;
 use App\Notification\ContactNotification;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class BaseController extends AbstractController
 {
@@ -18,9 +19,7 @@ class BaseController extends AbstractController
      */
     public function index()
     {
-        return $this->render('base/index.html.twig', [
-            'controller_name' => 'BaseController',
-        ]);
+       
 
         // $repository = $this->getDoctrine()->getRepository(Partenaires::class);
         // $logos = $repository->findAll();
@@ -28,6 +27,11 @@ class BaseController extends AbstractController
         //     'logos' => $logos,
         // ]);
 
+        $repository = $this->getDoctrine()->getRepository(Entreprise::class);
+        $entreprise = $repository->findOneById(1);
+        return $this->render('base/index.html.twig', [
+            'entreprise' => $entreprise
+        ]);
         
     }
 
