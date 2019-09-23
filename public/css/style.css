@@ -47,19 +47,19 @@ nav
     top: 0px;
 }
 
-.nav-item a
+.nav-ind a, .nav-real a, .nav-cont a
 {
     color:rgba(0, 0, 0, 0.644)!important;
 }
 
-.nav-item a:hover
+.nav-ind a:hover, .nav-real a:hover, .nav-cont a:hover
 {
     color: rgb(86, 149, 221)!important;
     border: 2px solid rgb(86, 149, 221);
-     margin: -3px; /*pour rétablir la taille de la nav avec la border en hover */
+    margin: -3px; /*pour rétablir la taille de la nav avec la border en hover */
 }
 
-.navbar-toggler
+.toggler1
 {
     align-self: center;
 }
