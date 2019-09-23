@@ -3,10 +3,12 @@
 namespace App\Controller;
 
 use App\Entity\Contact;
+use App\Entity\Contenu;
 use App\Entity\Galerie;
 use App\Form\ContactType;
 use App\Entity\Entreprise;
 use App\Entity\Partenaires;
+use App\Entity\Specificites;
 use App\Notification\ContactNotification;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -27,9 +29,17 @@ class BaseController extends AbstractController
         $repository = $this->getDoctrine()->getRepository(Entreprise::class);
         $entreprise = $repository->findOneById(1);
 
+        $repository = $this->getDoctrine()->getRepository(Specificites::class);
+        $specificites = $repository->findOneById(1);
+
+        $repository = $this->getDoctrine()->getRepository(Contenu::class);
+        $contenu = $repository->findAll();
+
 
         return $this->render('base/index.html.twig', [
             'entreprise' => $entreprise,
+            'specificites' => $specificites,
+            'contenu' => $contenu,
             'logos' => $logos
         ]);
 
