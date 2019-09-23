@@ -4,16 +4,15 @@ namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\HttpFoundation\Request;
 
 class AdminController extends AbstractController
 {
     /**
      * @Route("/admin", name="admin")
      */
-    public function index()
+    public function admin()
     {
-        return $this->render('admin/index.html.twig', [
+        return $this->render('admin/espaceadmin.html.twig', [
             'controller_name' => 'AdminController',
         ]);
     }

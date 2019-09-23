@@ -3,42 +3,34 @@
 namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class SecurityController extends AbstractController
 {
     /**
-     * @Route("/login", name="login")
-     *
+     * @Route("/login", name="app_login")
      */
-    public function login(AuthenticationUtils $auth)
+    public function login(AuthenticationUtils $authenticationUtils): Response
     {
-        $lastUsername = $auth->getLastUsername();
-        $error = $auth->getLastAuthenticationError();
+        // if ($this->getUser()) {
+        //    $this->redirectToRoute('target_path');
+        // }
 
-        if (!empty($error)) {
-            $this->addflash('errors', 'Problème d\'identifiant!');
-        }
+        // get the login error if there is one
+        $error = $authenticationUtils->getLastAuthenticationError();
+        // last username entered by the user
+        $lastUsername = $authenticationUtils->getLastUsername();
 
-        return $this->render("security/login.html.twig", [
-            'lastUsername' => $lastUsername
-        ]);
+        return $this->render('security/login.html.twig', ['last_username' => $lastUsername, 'error' => $error]);
     }
 
     /**
-     * @Route("/deconnexion", name="deconnexion")
-     *
+     * @Route("/logout", name="app_logout")
      */
-    public function deconnexion()
-    { }
-
-    /**
-     * @Route("/connexion_check", name="connexion_check")
-     *
-     */
-    public function connexionCheck()
-    { }
+    public function logout()
+    {
+        
+    }
 }

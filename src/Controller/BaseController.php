@@ -31,7 +31,7 @@ class BaseController extends AbstractController
         ]);
     }
 
-    /**
+        /**
      * @Route("/contact", name="contact")
      */
     public function contact()
@@ -40,6 +40,7 @@ class BaseController extends AbstractController
             'controller_name' => 'BaseController',
         ]);
     }
+
 
     /**
      * @Route("/mentions-legales", name="mentions")

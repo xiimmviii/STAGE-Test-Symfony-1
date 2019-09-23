@@ -3,7 +3,6 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
@@ -11,7 +10,6 @@ use Symfony\Component\Security\Core\User\UserInterface;
  */
 class User implements UserInterface
 {
-
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -20,67 +18,73 @@ class User implements UserInterface
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=180, unique=true)
      */
-    private $username;
+    private $email;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(name="role", type="string", length=20)
      */
-    private $password;
-
-    /**
-	* @ORM\Column(name="role", type="string", length=20)
-	*/
     private $role = 'ROLE_ADMIN';
 
     /**
-	* @ORM\Column(name="salt", type="string", length=255, nullable=true)
-	*/
-    private $salt;
-
-
-    public function getUsername(): ?string
-    {
-        return $this->username;
-    }
-
-    public function setUsername(string $username): self
-    {
-        $this->username = $username;
-
-        return $this;
-    }
-
-    public function setSalt($salt){
-		$this -> salt = $salt;
-		return $this;
-	}
-	
-	public function getSalt(){
-		return $this -> salt;
-	}
+     * @var string The hashed password
+     * @ORM\Column(type="string")
+     */
+    private $password;
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getMail(): ?string
+    public function getEmail(): ?string
     {
-        return $this->mail;
+        return $this->email;
     }
 
-    public function setMail(string $mail): self
+    public function setEmail(string $email): self
     {
-        $this->mail = $mail;
+        $this->email = $email;
 
         return $this;
     }
 
-    public function getPassword(): ?string
+    /**
+     * A visual identifier that represents this user.
+     *
+     * @see UserInterface
+     */
+    public function getUsername(): string
     {
-        return $this->password;
+        return (string) $this->email;
+    }
+
+    /**
+     * @see UserInterface
+     */
+    public function setRole($role)
+    {
+        $this->role = $role;
+        return $this;
+    }
+
+    public function getRole()
+    {
+        return $this->role;
+    }
+
+    public function getRoles()
+    {
+        return [$this->role];
+    }
+
+    /**
+     * @see UserInterface
+     */
+    public function getPassword(): string
+    {
+        return (string) $this->password;
     }
 
     public function setPassword(string $password): self
@@ -90,19 +94,20 @@ class User implements UserInterface
         return $this;
     }
 
-    public function setRole($role){
-		$this -> role = $role;
-		return $this;
-	}
-
-	public function getRole(){
-		return $this -> role;
-	}
-
-    public function getRoles(){
-		return [$this -> role];
+    /**
+     * @see UserInterface
+     */
+    public function getSalt()
+    {
+        // not needed when using the "bcrypt" algorithm in security.yaml
     }
 
-    public function eraseCredentials(){}
-
+    /**
+     * @see UserInterface
+     */
+    public function eraseCredentials()
+    {
+        // If you store any temporary, sensitive data on the user, clear it here
+        // $this->plainPassword = null;
+    }
 }
