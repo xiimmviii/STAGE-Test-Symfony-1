@@ -1,22 +1,28 @@
 {% extends 'base.html.twig' %}
 
 {% block content %}
-   {{ include('./admin/navbaradmin.html.twig') }}
+{{ include('./admin/navbaradmin.html.twig') }}
 
 <div class="row mt-4 pt-4">
-<div class="col-10 mx-auto border border-info rounded p-3"> <h2> Entreprise  </h2><hr>
-<p>Dans cette section, il est possible de modifier les informations relatives à l'entreprise afin de pouvoir les mettre à jour de façon aisée sur le site web. Changement d'adresse, de numéro de téléphone ou de mail ne sont plus un soucis. </p></div>
+    <div class="col-10 mx-auto border border-info rounded p-3">
+        <h2> Entreprise </h2>
+        <hr>
+        <p>Dans cette section, il est possible de modifier les informations relatives à l'entreprise afin de pouvoir les
+            mettre à jour de façon aisée sur le site web. Changement d'adresse, de numéro de téléphone ou de mail ne
+            sont plus un soucis. </p>
+    </div>
 </div>
 <div class="row m-4 justify-content-center">
-<div class="col-lg-4 col-md-3 col-sm-10 alert-warning m-3 order-md-5 order-lg-5 zindex1 "> 
-Documentation 
- </div>
-<div class="col-lg-6 col-md-8 col-sm-10 alert-info m-3 order-md-0 order-lg-0 zindex1"> {{ form_start(EntrepriseForm) }}
-{{ form_end(EntrepriseForm) }}
- <div class="col-lg-6">
-                {{ form_row(EntrepriseForm.submit, { 'label' : 'Envoyer' } ) }}
-            </div>
-</div>
+    <div class="col-lg-4 col-md-3 col-sm-10 alert-warning m-3 order-md-5 order-lg-5 zindex1 ">
+        Documentation
+    </div>
+    <div class="col-lg-6 col-md-8 col-sm-10 alert-info m-3 order-md-0 order-lg-0 zindex1">
+        {{ form_start(EntrepriseForm) }}
+        {{ form_end(EntrepriseForm) }}
+        <div class="col-lg-6">
+            {{ form_row(EntrepriseForm.submit, { 'label' : 'Envoyer' } ) }}
+        </div>
+    </div>
 </div>
 
 {% endblock %}

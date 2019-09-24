@@ -7,6 +7,7 @@ use App\Form\GalerieType;
 use App\Entity\Entreprise;
 use App\Entity\Specificites;
 use App\Form\EntrepriseType;
+use App\Form\SpecificitesType;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Routing\Annotation\Route;
@@ -46,7 +47,6 @@ class AdminController extends AbstractController
         // -----------------------------------------------------------------------------------
 
         $manager = $this->getDoctrine()->getManager();
-      
 
         $form = $this->createForm(EntrepriseType::class, $entreprise);
         $form->handleRequest($request);
@@ -189,9 +189,9 @@ class AdminController extends AbstractController
     }
 
     /**
-     * @Route("/admin/competences", name="competences")
+     * @Route("/admin/specificites", name="specificites")
      */
-    public function competences()
+    public function competences(Request $request)
     {
         $repository = $this->getDoctrine()->getRepository(Entreprise::class);
         $entreprise = $repository->findOneById(1);
@@ -199,10 +199,29 @@ class AdminController extends AbstractController
         $repository = $this->getDoctrine()->getRepository(Specificites::class);
         $specificites = $repository->findOneById(1);
 
-        return $this->render('admin/competences.html.twig', [
+        // -----------------------------------------------------------------------------------
+
+        $manager = $this->getDoctrine()->getManager();
+
+        $form = $this->createForm(SpecificitesType::class, $specificites);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $manager->persist($specificites);
+
+            $manager->flush();
+
+            $this->addFlash('success', 'Les modifications ont été effectuées ! ');
+            return $this->redirectToRoute('admin');
+        }
+
+
+        return $this->render('admin/specificites.html.twig', [
             'controller_name' => 'AdminController',
             'entreprise' => $entreprise,
             'specificites' => $specificites,
+            'specificitesForm' => $form->createView(),
         ]);
     }
 
@@ -218,24 +237,6 @@ class AdminController extends AbstractController
         $specificites = $repository->findOneById(1);
 
         return $this->render('admin/partenaires.html.twig', [
-            'controller_name' => 'AdminController',
-            'entreprise' => $entreprise,
-            'specificites' => $specificites,
-        ]);
-    }
-
-    /**
-     * @Route("/admin/contact-localisation", name="contactlocalisation")
-     */
-    public function contactLocalisation()
-    {
-        $repository = $this->getDoctrine()->getRepository(Entreprise::class);
-        $entreprise = $repository->findOneById(1);
-
-        $repository = $this->getDoctrine()->getRepository(Specificites::class);
-        $specificites = $repository->findOneById(1);
-
-        return $this->render('admin/contact-localisation.html.twig', [
             'controller_name' => 'AdminController',
             'entreprise' => $entreprise,
             'specificites' => $specificites,

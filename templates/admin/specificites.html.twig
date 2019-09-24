@@ -1,0 +1,76 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+{{ include('./admin/navbaradmin.html.twig') }}
+
+<div class="row mt-4 pt-4">
+    <div class="col-10 mx-auto border border-info rounded p-3">
+        <h2> Compétences </h2>
+        <hr>
+        <p> Description </p>
+    </div>
+</div>
+
+<div class="row m-4 justify-content-center">
+    <div class="col-lg-4 col-md-3 col-sm-10 alert-warning m-3 order-md-5 order-lg-5 "> BLOC DE DOCUMENTATION </div>
+    <div class="col-lg-6 col-md-8 col-sm-10 alert-info m-3 order-md-0 order-lg-0 ">
+            {{ form_start(specificitesForm) }}
+        <h2 class="text-align-center">Compétences</h2>
+        <div class="row">
+            <div class="col-lg-6 col-md-8 col-sm-10 alert-info my-3 order-md-0 order-lg-0 ">
+                {{ form_row(specificitesForm.competence1) }}
+                {{ form_row(specificitesForm.competence2) }}
+                {{ form_row(specificitesForm.competence3) }}
+                {{ form_row(specificitesForm.competence4) }}
+                {{ form_row(specificitesForm.competence5) }}
+            </div>
+            <div class="col-lg-6 col-md-8 col-sm-10 alert-info my-3 order-md-0 order-lg-0 ">
+                {{ form_row(specificitesForm.competence6) }}
+                {{ form_row(specificitesForm.competence7) }}
+                {{ form_row(specificitesForm.competence8) }}
+                {{ form_row(specificitesForm.competence9) }}
+                {{ form_row(specificitesForm.competence10) }}
+            </div>
+        </div>
+
+        <h2 class="text-align-center">Localisations</h2>
+        <div class="row">
+            <div class="col-lg-6 col-md-8 col-sm-10 alert-info my-3 order-md-0 order-lg-0 ">
+                {{ form_row(specificitesForm.localisation1) }}
+                {{ form_row(specificitesForm.localisation2) }}
+                {{ form_row(specificitesForm.localisation3) }}
+                {{ form_row(specificitesForm.localisation4) }}
+                {{ form_row(specificitesForm.localisation5) }}
+            </div>
+            <div class="col-lg-6 col-md-8 col-sm-10 alert-info my-3 order-md-0 order-lg-0 ">
+                {{ form_row(specificitesForm.localisation6) }}
+                {{ form_row(specificitesForm.localisation7) }}
+                {{ form_row(specificitesForm.localisation8) }}
+                {{ form_row(specificitesForm.localisation9) }}
+                {{ form_row(specificitesForm.localisation10) }}
+            </div>
+        </div>
+
+        <h2 class="text-align-center">Réseaux sociaux</h2>
+        <div class="row">
+            <div class="col-lg-4 col-md-8 col-sm-10 alert-info my-3 order-md-0 order-lg-0 ">
+                {{ form_row(specificitesForm.facebook) }}
+            </div>
+            <div class="col-lg-4 col-md-8 col-sm-10 alert-info my-3 order-md-0 order-lg-0 ">
+                {{ form_row(specificitesForm.instagram) }}
+            </div>
+            <div class="col-lg-4 col-md-8 col-sm-10 alert-info my-3 order-md-0 order-lg-0 ">
+                {{ form_row(specificitesForm.pageGoogle) }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-4 col-md-8 col-sm-10 alert-info my-3 mx-auto order-md-0 order-lg-0 ">
+                {{ form_row(specificitesForm.submit, { 'label' : 'Envoyer' } ) }}
+            </div>
+        </div>
+        {{ form_end(specificitesForm) }}
+
+    </div>
+</div>
+
+{% endblock %}

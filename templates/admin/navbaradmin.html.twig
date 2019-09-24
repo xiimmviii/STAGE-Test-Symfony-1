@@ -1,6 +1,7 @@
 <div class="navbar navbar-expand-lg navbar-light bg-light mb-4">
     Gérer les informations
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+        aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse justify-content-around" id="navbarNavDropdown">
@@ -16,21 +17,21 @@
                 </a>
             </li>
             <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="{{path('admin')}}" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <a class="nav-link dropdown-toggle" href="{{path('admin')}}" id="navbarDropdownMenuLink" role="button"
+                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Contenu du site
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                     <a class="dropdown-item" href="{{path('presentationentreprise')}}">Présentation de l'entreprise</a>
                     <a class="dropdown-item" href="{{path('histoireentreprise')}}">Histoire de l'entreprise</a>
-                    <a class="dropdown-item" href="{{path('competences')}}">Section Compétences</a>
+                    <a class="dropdown-item" href="{{path('specificites')}}">Spécificités</a>
                     <a class="dropdown-item" href="{{path('partenaires')}}">Logos des partenaires</a>
-                    <a class="dropdown-item" href="{{path('contactlocalisation')}}">Section Contact & Localisation</a>
                 </div>
             </li>
         </ul>
     </div>
 
     <a class="nav-link btn alert-danger" href="{{path('app_logout')}}">
-                    Déconnexion 
-                </a>
+        Déconnexion
+    </a>
 </div>
