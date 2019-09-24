@@ -9,8 +9,9 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 class SpecificitesType extends AbstractType
@@ -22,7 +23,7 @@ class SpecificitesType extends AbstractType
             ->add('titre', TextType::class)
             ->add('sousTitre', TextType::class,array('required' => false))
             ->add('texte', TextareaType::class)
-            ->add('sousTitre', TextType::class,array('required' => false, 'empty_data' => '0',))
+            ->add('statut', HiddenType::class,array('required' => false, 'empty_data' => '0',))
         
             ->add('submit', SubmitType::class);
         ;
