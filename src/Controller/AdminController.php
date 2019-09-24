@@ -253,17 +253,37 @@ class AdminController extends AbstractController
     }
 
     /**
-     * @Route("/admin/histoire-entreprise/update/{id}", name="histoireentreprise_update")
+     * @Route("/admin/histoire-entreprise/update/{id}", name="update_histoireentreprise")
      */
     public function updateHistoireEntreprise()
     {
     }
 
     /**
-     * @Route("/admin/histoire-entreprise/delete/{id}", name="histoireentreprise—delete")
+     * @Route("/admin/histoire-entreprise/delete/{id}", name="delete_histoireentreprise")
      */
     public function deleteHistoireEntreprise()
     {
+        $manager = $this->getDoctrine()->getManager();
+        $historique = $manager->find(Contenu::class, $id);
+
+        $manager->remove($historique);
+        $manager->flush();
+
+        $this->addFlash('success', 'Le texte de présentation a bien été supprimé.');
+        return $this->redirectToRoute('presentationentreprise');
+
+        $repository = $this->getDoctrine()->getRepository(Entreprise::class);
+        $entreprise = $repository->findOneById(1);
+
+        $repository = $this->getDoctrine()->getRepository(Specificites::class);
+        $specificites = $repository->findOneById(1);
+
+        return $this->render('admin/espaceadmin.html.twig', [
+            'controller_name' => 'AdminController',
+            'entreprise' => $entreprise,
+            'specificites' => $specificites,
+        ]);
     }
 
 
