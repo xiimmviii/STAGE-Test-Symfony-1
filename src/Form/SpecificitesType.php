@@ -35,6 +35,17 @@ class SpecificitesType extends AbstractType
             ->add('localisation9', TextType::class,array('required' => false))
             ->add('localisation10', TextType::class,array('required' => false))
 
+            ->add('competence1', TextType::class,array('required' => false))
+            ->add('competence2', TextType::class,array('required' => false))
+            ->add('competence3', TextType::class,array('required' => false))
+            ->add('competence4', TextType::class,array('required' => false))
+            ->add('competence5', TextType::class,array('required' => false))
+            ->add('competence6', TextType::class,array('required' => false))
+            ->add('competence7', TextType::class,array('required' => false))
+            ->add('competence8', TextType::class,array('required' => false))
+            ->add('competence9', TextType::class,array('required' => false))
+            ->add('competence10', TextType::class,array('required' => false))
+
             ->add('submit', SubmitType::class);
         ;
     }
