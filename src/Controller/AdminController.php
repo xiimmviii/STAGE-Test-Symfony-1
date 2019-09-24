@@ -260,7 +260,7 @@ class AdminController extends AbstractController
             $manager->flush();
 
             $this->addFlash('success', 'Les modifications ont été effectuées ! ');
-            return $this->redirectToRoute('admin');
+            return $this->redirectToRoute('histoireentreprise');
 
         }
 
