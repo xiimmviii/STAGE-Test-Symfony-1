@@ -22,27 +22,58 @@
             <h4 class="mt-3 text-center"> Votre artisan se déplace dans les secteurs suivants:</h4>
             <hr>
             <div class="row justify-content-center mb-4">
+                {% if specificites.localisation1 is not null %}
                 <div class="col-md-2 col-sm-10 localisation">
-                    <i class="fas fa-map-pin"></i> - {{specificites.localisation1}}
-                    <br>
-                    <i class="fas fa-map-pin"></i> - {{specificites.localisation2}} 
+                    <i class="fas fa-map-pin"></i> - {{specificites.localisation1}}                     
                 </div>
+                {% endif %}
+                 {% if specificites.localisation2 is not null %}
                 <div class="col-md-2 col-sm-10 localisation">
-                    <i class="fas fa-map-pin"></i> - {{specificites.localisation3}}
-                    <br>
-                    <i class="fas fa-map-pin"></i> - {{specificites.localisation4}} 
+                    <i class="fas fa-map-pin"></i> - {{specificites.localisation2}}                     
                 </div>
+                {% endif %}
+                 {% if specificites.localisation3 is not null %}
                 <div class="col-md-2 col-sm-10 localisation">
-                    <i class="fas fa-map-pin"></i> - {{specificites.localisation5}}
-                    <br>
-                    <i class="fas fa-map-pin"></i> - {{specificites.localisation6}} 
+                    <i class="fas fa-map-pin"></i> - {{specificites.localisation3}}                     
                 </div>
+                {% endif %}
+                 {% if specificites.localisation4 is not null %}
                 <div class="col-md-2 col-sm-10 localisation">
-                    <i class="fas fa-map-pin"></i> - {{specificites.localisation7}}
-                    <br>
-                    <i class="fas fa-map-pin"></i> - {{specificites.localisation8}}
+                    <i class="fas fa-map-pin"></i> - {{specificites.localisation4}}                     
                 </div>
-
+                {% endif %}
+                 {% if specificites.localisation5 is not null %}
+                <div class="col-md-2 col-sm-10 localisation">
+                    <i class="fas fa-map-pin"></i> - {{specificites.localisation5}}                     
+                </div>
+                {% endif %}
+            </div>
+            <div class="row justify-content-center mb-4">
+                {% if specificites.localisation6 is not null %}
+                <div class="col-md-2 col-sm-10 localisation">
+                    <i class="fas fa-map-pin"></i> - {{specificites.localisation6}}                     
+                </div>
+                {% endif %}
+                 {% if specificites.localisation7 is not null %}
+                <div class="col-md-2 col-sm-10 localisation">
+                    <i class="fas fa-map-pin"></i> - {{specificites.localisation7}}                     
+                </div>
+                {% endif %}
+                 {% if specificites.localisation8 is not null %}
+                <div class="col-md-2 col-sm-10 localisation">
+                    <i class="fas fa-map-pin"></i> - {{specificites.localisation8}}                     
+                </div>
+                {% endif %}
+                 {% if specificites.localisation9 is not null %}
+                <div class="col-md-2 col-sm-10 localisation">
+                    <i class="fas fa-map-pin"></i> - {{specificites.localisation9}}                     
+                </div>
+                {% endif %}
+                 {% if specificites.localisation10 is not null %}
+                <div class="col-md-2 col-sm-10 localisation">
+                    <i class="fas fa-map-pin"></i> - {{specificites.localisation10}}                     
+                </div>
+                {% endif %}
             </div>
         </div>
     </div>
