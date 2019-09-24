@@ -53,8 +53,35 @@ class AdminController extends AbstractController
      * Affiche les photos sous forme de tableau avec icone supprimer et formulaire d'ajout de photo
      * @Route("/admin/galeriephotos", name="galeriephotos")
      */
-    public function galeriePhoto()
+    public function galeriePhoto(Request $request)
     {
+
+        $photo = new Galerie; //objet vide
+
+        // On récupère le formulaire
+        $form = $this->createForm(GalerieType::class, $photo);
+        // On récupère les infos saisies dans le formulaire ($_POST)
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $manager = $this->getDoctrine()->getManager();
+            $manager->persist($photo);
+            // Enregistrer la $photo dans le système 
+
+            // On enregistre la photo en BDD et sur le serveur. 
+            if ($photo->getFile() != NULL) {
+                $photo->uploadFile();
+            }
+
+            $manager->flush();
+            // va enregistrer $photo en BDD
+
+            $this->addFlash('success', 'La photo a bien été enregistrée !');
+
+            return $this->redirectToRoute('galeriephotos');
+        }
+
         $repository = $this->getDoctrine()->getRepository(Entreprise::class);
         $entreprise = $repository->findOneById(1);
 
@@ -62,57 +89,12 @@ class AdminController extends AbstractController
         $specificites = $repository->findOneById(1);
 
         return $this->render('admin/galeriephotos.html.twig', [
-            'controller_name' => 'AdminController',
+            'galerieForm' => $form->createView(),
             'entreprise' => $entreprise,
             'specificites' => $specificites,
         ]);
     }
 
-    /**
-     * Ajoute une photo à la BDD
-     * @Route("/admin/galeriephotos/add", name="add_photo")
-     */
-    public function addPhoto(Request $request)
-    {
-        $photo = new Galerie; //objet vide
-
-		// On récupère le formulaire
-		$form = $this->createForm(GalerieType::class, $photo);
-		// On récupère les infos saisies dans le formulaire ($_POST)
-		$form->handleRequest($request);
-
-		if ($form->isSubmitted() && $form->isValid()) {
-
-			$manager = $this->getDoctrine()->getManager();
-			$manager->persist($photo);
-			// Enregistrer le $produit dans le système 
-
-			// On enregistre la photo en BDD et sur le serveur. 
-			if ($photo->getFile() != NULL) {
-				$photo->uploadFile();
-			}
-
-			$manager->flush();
-			// va enregistrer $produit en BDD
-
-			$this->addFlash('success', 'La photo a bien été enregistrée !');
-
-			return $this->redirectToRoute('galeriephotos');
-        }
-        
-        $repository = $this->getDoctrine()->getRepository(Entreprise::class);
-        $entreprise = $repository->findOneById(1);
-
-        $repository = $this->getDoctrine()->getRepository(Specificites::class);
-        $specificites = $repository->findOneById(1);
-
-		return $this->render('admin/galeriephotos.html.twig', [
-            'galerieForm' => $form->createView(),
-            'entreprise' => $entreprise,
-            'specificites' => $specificites,
-		]);
-
-    }
 
     /**
      * Supprime une photo dans la BDD
