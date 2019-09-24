@@ -82,6 +82,10 @@ class AdminController extends AbstractController
             return $this->redirectToRoute('galeriephotos');
         }
 
+        //on récupère toutes les photos déjà dans la BDD
+		$repo = $this->getDoctrine()->getRepository(Galerie::class);
+		$photos = $repo->findAll();
+
         $repository = $this->getDoctrine()->getRepository(Entreprise::class);
         $entreprise = $repository->findOneById(1);
 
@@ -92,6 +96,7 @@ class AdminController extends AbstractController
             'galerieForm' => $form->createView(),
             'entreprise' => $entreprise,
             'specificites' => $specificites,
+            'photos' => $photos,
         ]);
     }
 
