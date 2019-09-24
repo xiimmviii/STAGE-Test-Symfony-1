@@ -281,9 +281,9 @@ class AdminController extends AbstractController
     }
 
     /**
-     * @Route("/admin/histoire-entreprise/delete/{id}", name="delete_histoireentreprise")
+     * @Route("/admin/histoire-entreprise/delete/{id}", name="delete_historiqueEntreprise")
      */
-    public function deleteHistoireEntreprise()
+    public function deleteHistoireEntreprise($id)
     {
         $manager = $this->getDoctrine()->getManager();
         $historique = $manager->find(Contenu::class, $id);
@@ -292,7 +292,7 @@ class AdminController extends AbstractController
         $manager->flush();
 
         $this->addFlash('success', 'Le texte de présentation a bien été supprimé.');
-        return $this->redirectToRoute('presentationentreprise');
+        return $this->redirectToRoute('histoireentreprise');
 
         $repository = $this->getDoctrine()->getRepository(Entreprise::class);
         $entreprise = $repository->findOneById(1);
