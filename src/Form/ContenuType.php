@@ -19,7 +19,7 @@ class SpecificitesType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-        ->add('section', TextType::class)
+            ->add('section', TextType::class)
             ->add('titre', TextType::class)
             ->add('sousTitre', TextType::class,array('required' => false))
             ->add('texte', TextareaType::class)
