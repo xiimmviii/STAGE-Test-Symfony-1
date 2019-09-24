@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ContenuRepository")
@@ -35,6 +36,12 @@ class Contenu
      * @ORM\Column(type="text")
      */
     private $texte;
+
+     /**
+     * @ORM\Column(type="string", length=1)
+     * @Assert\Choice({"0", "1"})
+     */
+    private $statut;
 
     public function getId(): ?int
     {
@@ -85,6 +92,19 @@ class Contenu
     public function setTexte(string $texte): self
     {
         $this->texte = $texte;
+
+        return $this;
+    }
+
+
+    public function getStatut(): ?string
+    {
+        return $this->statut;
+    }
+
+    public function setStatut(string $statut): self
+    {
+        $this->statut = $statut;
 
         return $this;
     }

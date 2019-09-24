@@ -33,13 +33,21 @@ class BaseController extends AbstractController
         $specificites = $repository->findOneById(1);
 
         $repository = $this->getDoctrine()->getRepository(Contenu::class);
-        $contenu = $repository->findAll();
+        $presentation = $repository->findOneBy(
+            array('section' => 'presentation', 'statut' => '1'), 
+        );
+
+        $repository = $this->getDoctrine()->getRepository(Contenu::class);
+        $historique = $repository->findOneBy(
+            array('section' => 'historique', 'statut' => '1'), 
+        );
 
 
         return $this->render('base/index.html.twig', [
             'entreprise' => $entreprise,
             'specificites' => $specificites,
-            'contenu' => $contenu,
+            'presentation' => $presentation,
+            'historique' => $historique,
             'logos' => $logos
         ]);
 
