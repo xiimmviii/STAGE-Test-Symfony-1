@@ -274,6 +274,21 @@ class AdminController extends AbstractController
     }
 
     /**
+     * @Route("/admin/histoire-entreprise/update/{id}", name="histoireentreprise_update")
+     */
+    public function updateHistoireEntreprise()
+    {
+    }
+
+    /**
+     * @Route("/admin/histoire-entreprise/delete/{id}", name="histoireentreprise—delete")
+     */
+    public function deleteHistoireEntreprise()
+    {
+    }
+
+
+    /**
      * @Route("/admin/specificites", name="specificites")
      */
     public function competences(Request $request)
