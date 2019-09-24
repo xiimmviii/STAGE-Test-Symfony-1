@@ -2,14 +2,15 @@
 
 namespace App\Controller;
 
+use App\Entity\Contenu;
 use App\Entity\Galerie;
 use App\Form\GalerieType;
 use App\Entity\Entreprise;
 use App\Entity\Partenaires;
 use App\Entity\Specificites;
 use App\Form\EntrepriseType;
-use App\Form\SpecificitesType;
 use App\Form\PartenairesType;
+use App\Form\SpecificitesType;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Routing\Annotation\Route;
@@ -164,10 +165,16 @@ class AdminController extends AbstractController
         $repository = $this->getDoctrine()->getRepository(Specificites::class);
         $specificites = $repository->findOneById(1);
 
+        // -----------------------------------------------------------------------------------
+
+        $repo = $this->getDoctrine()->getRepository(Contenu::class);
+		$presentations = $repo->findBySection('presentation');
+
         return $this->render('admin/presentation-entreprise.html.twig', [
             'controller_name' => 'AdminController',
             'entreprise' => $entreprise,
             'specificites' => $specificites,
+            'presentations' => $presentations,
         ]);
     }
 
