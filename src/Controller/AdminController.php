@@ -5,9 +5,11 @@ namespace App\Controller;
 use App\Entity\Galerie;
 use App\Form\GalerieType;
 use App\Entity\Entreprise;
+use App\Entity\Partenaires;
 use App\Entity\Specificites;
 use App\Form\EntrepriseType;
 use App\Form\SpecificitesType;
+use App\Form\PartenairesType;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Routing\Annotation\Route;
@@ -218,7 +220,6 @@ class AdminController extends AbstractController
 
 
         return $this->render('admin/specificites.html.twig', [
-            'controller_name' => 'AdminController',
             'entreprise' => $entreprise,
             'specificites' => $specificites,
             'specificitesForm' => $form->createView(),
@@ -228,15 +229,73 @@ class AdminController extends AbstractController
     /**
      * @Route("/admin/partenaires", name="partenaires")
      */
-    public function partenaires()
+    public function partenaires(Request $request)
     {
+
+        $logo = new Partenaires; //objet vide
+
+        $form = $this->createForm(PartenairesType::class, $logo);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $manager = $this->getDoctrine()->getManager();
+            $manager->persist($logo);
+
+            if ($logo->getFile() != NULL) {
+                $logo->uploadFile();
+            }
+
+            $manager->flush();
+
+            $this->addFlash('success', 'Le partenaire a bien été ajouté !');
+        
+        }
+
+    //-------------------------------------------------------------------------------
+
+    $repository = $this->getDoctrine()->getRepository(Partenaires::class);
+		$logos = $repository -> findAll();
+
+        $repository = $this->getDoctrine()->getRepository(Entreprise::class);
+        $entreprise = $repository->findOneById(1);
+
+
+        $repository = $this->getDoctrine()->getRepository(Specificites::class);
+        $specificites = $repository->findOneById(1);
+
+        return $this->render('admin/partenaires.html.twig', [
+            'PartenairesForm' => $form->createView(),
+            'controller_name' => 'AdminController',
+            'entreprise' => $entreprise,
+            'specificites' => $specificites,
+            'logos' => $logos
+        ]);
+    }
+
+    /**
+     * Supprime un partenaire
+     * @Route("/admin/partenaires/delete/{id}", name="delete_partenaire")
+     */
+    public function deletePartenaire($id)
+    {
+        $manager = $this->getDoctrine()->getManager();
+		$partenaire = $manager->find(Partenaires::class, $id);
+
+		$partenaire->removeLogo();
+		$manager->remove($partenaire);
+		$manager->flush();
+
+		$this->addFlash('success', 'Le partenaire a bien été supprimé');
+		return $this->redirectToRoute('partenaires');
+
         $repository = $this->getDoctrine()->getRepository(Entreprise::class);
         $entreprise = $repository->findOneById(1);
 
         $repository = $this->getDoctrine()->getRepository(Specificites::class);
         $specificites = $repository->findOneById(1);
 
-        return $this->render('admin/partenaires.html.twig', [
+        return $this->render('admin/espaceadmin.html.twig', [
             'controller_name' => 'AdminController',
             'entreprise' => $entreprise,
             'specificites' => $specificites,
