@@ -34,12 +34,12 @@ class BaseController extends AbstractController
 
         $repository = $this->getDoctrine()->getRepository(Contenu::class);
         $presentation = $repository->findOneBy(
-            array('section' => 'presentation', 'statut' => '1'), 
+            array('section' => 'presentation', 'statut' => '1') 
         );
 
         $repository = $this->getDoctrine()->getRepository(Contenu::class);
         $historique = $repository->findOneBy(
-            array('section' => 'historique', 'statut' => '1'), 
+            array('section' => 'historique', 'statut' => '1')
         );
 
 
