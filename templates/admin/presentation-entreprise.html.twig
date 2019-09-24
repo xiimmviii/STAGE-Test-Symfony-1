@@ -1,15 +1,84 @@
 {% extends 'base.html.twig' %}
 
 {% block content %}
-    {{ include('./admin/navbaradmin.html.twig') }}
+{{ include('./admin/navbaradmin.html.twig') }}
 
 <div class="row mt-4 pt-4">
-<div class="col-10 mx-auto border border-info rounded p-3"> <h2> Présensation de l'entreprise   </h2><hr>
-<p>Dans cette section, il est possible de modifier les informations relatives à l'entreprise afin de pouvoir les mettre à jour de façon aisée sur le site web. Changement d'adresse, de numéro de téléphone ou de mail ne sont plus un soucis. </p></div>
+    <div class="col-10 mx-auto border border-info rounded p-3">
+        <h2> Présensation de l'entreprise </h2>
+        <hr>
+        <p>Dans cette section, il est possible de modifier les informations relatives à l'entreprise afin de pouvoir les
+            mettre à jour de façon aisée sur le site web. Changement d'adresse, de numéro de téléphone ou de mail ne
+            sont plus un soucis. </p>
+    </div>
 </div>
 <div class="row m-4 justify-content-center">
-<div class="col-lg-4 col-md-3 col-sm-10 alert-warning m-3 order-md-2 order-lg-2 "> BLOC DE DOCUMENTATION </div>
-<div class="col-lg-6 col-md-8 col-sm-10 alert-info m-3 order-md-1 order-lg-1 "> BLOC DE MODIF</div>
+    <div class="col-lg-4 col-md-3 col-sm-10 alert-warning m-3 order-md-2 order-lg-2 "> BLOC DE DOCUMENTATION </div>
+    <div class="col-lg-6 col-md-8 col-sm-10 alert-info m-3 order-md-1 order-lg-1 ">
+
+
+        {{form_start(ContenuForm)}}
+        <div class="invisble">{{ form_row(ContenuForm.section, {'value' : 'historique'}) }}</div>
+        {{ form_row(ContenuForm.titre) }}
+        {{ form_row(ContenuForm.sousTitre) }}
+        {{ form_row(ContenuForm.texte) }}
+        <div class="col-lg-6">
+            {{ form_row(ContenuForm.submit, { 'label' : 'Envoyer' } ) }}
+        </div>
+        {{form_end(ContenuForm)}}
+
+
+
+
+
+        <h1>Tableau de gestion des textes de présentation</h1>
+
+        <div class="row m-4 justify-content-center">
+            <table class="col-10 table table-hover">
+                <thead>
+                    <tr class="row">
+                        <th class="col-2">TITRE </th>
+                        <th class="col-2">SOUS TITRE </th>
+                        <th class="col-5"> TEXTE </th>
+                        <th class="col-1"> STATUT </th>
+                        <th class="col-1"> MODIFIER</th>
+                        <th class="col-1"> SUPPRIMER</th>
+                </thead>
+
+                <tbody>
+                    {% for presentation in presentations %}
+                    <tr class="row">
+                        <td class="col-2">
+                            <h5>{{ presentation.titre }} </h5>
+                        </td>
+                        <td class="col-2">
+                            {{ presentation.sousTitre }}
+                        </td>
+                        <td class="col-5 overflow-auto" height="100">
+                            {{ presentation.texte }}
+                        </td>
+                        <td class="col-1">
+                            {{ presentation.statut }}
+                        </td>
+                        <td class="col-1">
+                            <a href="{{ path('delete_presentation', {id : presentation.id } ) }}"
+                                onclick="return confirm('Etes-vous certain(e) de vouloir supprimer le texte de présentation ?')">
+                                <i class="fas fa-trash-alt"></i>
+                            </a>
+                        </td>
+                        <td class="col-1">
+                            <!-- <a href="{{ path('delete_presentation', {id : presentation.id } ) }}"
+                                onclick="return confirm('Etes-vous certain(e) de vouloir supprimer le texte de présentation ?')"> -->
+                            <i class="fas fa-pen-alt"></i>
+                            <!-- </a> -->
+                        </td>
+                    </tr>
+                    {% endfor %}
+
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
 
 {% endblock %}

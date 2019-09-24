@@ -158,7 +158,7 @@ class AdminController extends AbstractController
     /**
      * @Route("/admin/presensation-entreprise", name="presentationentreprise")
      */
-    public function presentationEntreprise()
+    public function presentationEntreprise(Request $request)
     {
         $repository = $this->getDoctrine()->getRepository(Entreprise::class);
         $entreprise = $repository->findOneById(1);
@@ -171,11 +171,32 @@ class AdminController extends AbstractController
         $repo = $this->getDoctrine()->getRepository(Contenu::class);
         $presentations = $repo->findBySection('presentation');
 
+        // -----------------------------------------------------------------------------------
+
+        $presentation = new Contenu; 
+
+        $form = $this->createForm(ContenuType::class, $presentation);
+        $form->handleRequest($request);
+
+        $manager = $this->getDoctrine()->getManager();
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $manager->persist($presentation);
+
+            $manager->flush();
+
+            $this->addFlash('success', 'Les modifications ont été effectuées ! ');
+            return $this->redirectToRoute('presentationentreprise');
+
+        }
+
         return $this->render('admin/presentation-entreprise.html.twig', [
             'controller_name' => 'AdminController',
             'entreprise' => $entreprise,
             'specificites' => $specificites,
             'presentations' => $presentations,
+            'ContenuForm' => $form->createView(),
         ]);
     }
     
