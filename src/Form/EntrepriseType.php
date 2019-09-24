@@ -21,7 +21,7 @@ class EntrepriseType extends AbstractType
     {
         $builder
             ->add('nom', TextType::class)
-            ->add('statut_rcs', TextType::class)
+            ->add('statut_rcs', TextType::class,array('required' => false))
             ->add('adresse', TextType::class)
             ->add('cp', IntegerType::class)
             ->add('ville', TextType::class)
@@ -30,9 +30,10 @@ class EntrepriseType extends AbstractType
                 'constraints' => array(
                     new Assert\Email(array(
                         'message' => '{{ value }} n\'est pas un email valide'
-                    ))
+                    )),
                 )
-            ))
+                )
+                )
             ->add('mailContact',EmailType::class,array(
                 'constraints' => array(
                     new Assert\Email(array(
@@ -40,10 +41,10 @@ class EntrepriseType extends AbstractType
                     ))
                 )
             ))
-            ->add('siren', IntegerType::class)
-            ->add('siret', IntegerType::class)
+            ->add('siren', IntegerType::class,array('required' => false))
+            ->add('siret', IntegerType::class,array('required' => false))
             ->add('activite', TextType::class)
-            ->add('nomGerant', TextType::class)
+            ->add('nomGerant', TextType::class,array('required' => false))
             ->add('submit', SubmitType::class);
         ;
     }

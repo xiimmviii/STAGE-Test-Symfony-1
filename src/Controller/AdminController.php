@@ -159,23 +159,6 @@ class AdminController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/admin/barre-de-labels", name="barredelabels")
-     */
-    public function barreLabels()
-    {
-        $repository = $this->getDoctrine()->getRepository(Entreprise::class);
-        $entreprise = $repository->findOneById(1);
-
-        $repository = $this->getDoctrine()->getRepository(Specificites::class);
-        $specificites = $repository->findOneById(1);
-
-        return $this->render('admin/barre-de-labels.html.twig', [
-            'controller_name' => 'AdminController',
-            'entreprise' => $entreprise,
-            'specificites' => $specificites,
-        ]);
-    }
 
     /**
      * @Route("/admin/histoire-entreprise", name="histoireentreprise")
