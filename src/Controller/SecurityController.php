@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Entreprise;
+use App\Entity\Specificites;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -15,6 +16,8 @@ class SecurityController extends AbstractController
      */
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
+        $repository = $this->getDoctrine()->getRepository(Specificites::class);
+        $specificites = $repository->findOneById(1);
 
         $repository = $this->getDoctrine()->getRepository(Entreprise::class);
         $entreprise = $repository->findOneById(1);
@@ -31,7 +34,8 @@ class SecurityController extends AbstractController
         return $this->render('security/login.html.twig', 
         ['last_username' => $lastUsername, 
         'error' => $error, 
-        'entreprise' => $entreprise 
+        'entreprise' => $entreprise,
+        'specificites' => $specificites  
         ]);
     }
 
