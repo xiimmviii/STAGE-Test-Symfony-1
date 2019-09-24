@@ -34,12 +34,12 @@ class BaseController extends AbstractController
 
         $repository = $this->getDoctrine()->getRepository(Contenu::class);
         $presentation = $repository->findOneBy(
-            array('section' => 'presentation', 'statut' => '1'), 
+            array('section' => 'presentation', 'statut' => '1') 
         );
 
         $repository = $this->getDoctrine()->getRepository(Contenu::class);
         $historique = $repository->findOneBy(
-            array('section' => 'historique', 'statut' => '1'), 
+            array('section' => 'historique', 'statut' => '1') 
         );
 
 
@@ -67,9 +67,13 @@ class BaseController extends AbstractController
         $repository = $this->getDoctrine()->getRepository(Entreprise::class);
         $entreprise = $repository->findOneById(1);
 
+        $repository = $this->getDoctrine()->getRepository(Specificites::class);
+        $specificites = $repository->findOneById(1);
+
         return $this->render('base/realisations.html.twig', [
             'photos' => $photos,
-            'entreprise' => $entreprise
+            'entreprise' => $entreprise,
+            'specificites' => $specificites
         ]);
     }
 
@@ -82,8 +86,12 @@ class BaseController extends AbstractController
         $repository = $this->getDoctrine()->getRepository(Entreprise::class);
         $entreprise = $repository->findOneById(1);
 
+        $repository = $this->getDoctrine()->getRepository(Specificites::class);
+        $specificites = $repository->findOneById(1);
+
         return $this->render('base/contact.html.twig', [
             'controller_name' => 'BaseController',
+            'specificites' => $specificites,
             'entreprise' => $entreprise
         ]);
     }
@@ -98,8 +106,12 @@ class BaseController extends AbstractController
         $repository = $this->getDoctrine()->getRepository(Entreprise::class);
         $entreprise = $repository->findOneById(1);
 
+        $repository = $this->getDoctrine()->getRepository(Specificites::class);
+        $specificites = $repository->findOneById(1);
+
         return $this->render('base/mentions.html.twig', [
             'controller_name' => 'BaseController',
+            'specificites' => $specificites,
             'entreprise' => $entreprise
         ]);
     }
@@ -112,8 +124,12 @@ class BaseController extends AbstractController
         $repository = $this->getDoctrine()->getRepository(Entreprise::class);
         $entreprise = $repository->findOneById(1);
 
+        $repository = $this->getDoctrine()->getRepository(Specificites::class);
+        $specificites = $repository->findOneById(1);
+
         return $this->render('base/CGU.html.twig', [
             'controller_name' => 'BaseController',
+            'specificites' => $specificites,
             'entreprise' => $entreprise
         ]);
     }
@@ -126,6 +142,9 @@ class BaseController extends AbstractController
 
         $repository = $this->getDoctrine()->getRepository(Entreprise::class);
         $entreprise = $repository->findOneById(1);
+
+        $repository = $this->getDoctrine()->getRepository(Specificites::class);
+        $specificites = $repository->findOneById(1);
 
         $form = $this->createForm(ContactType::class, null);
         $form->handleRequest($request);
@@ -150,6 +169,7 @@ class BaseController extends AbstractController
 
         return $this->render('base/contact.html.twig', [
             'form' => $form->createView(),
+            'specificites' => $specificites,
             'entreprise' => $entreprise
         ]);
     }
