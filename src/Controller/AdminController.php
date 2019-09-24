@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Contenu;
 use App\Entity\Galerie;
+use App\Form\ContenuType;
 use App\Form\GalerieType;
 use App\Entity\Entreprise;
 use App\Entity\Partenaires;
@@ -209,7 +210,7 @@ class AdminController extends AbstractController
     /**
      * @Route("/admin/histoire-entreprise", name="histoireentreprise")
      */
-    public function histoireEntreprise()
+    public function histoireEntreprise(Request $request)
     {
         $repository = $this->getDoctrine()->getRepository(Entreprise::class);
         $entreprise = $repository->findOneById(1);
@@ -217,10 +218,37 @@ class AdminController extends AbstractController
         $repository = $this->getDoctrine()->getRepository(Specificites::class);
         $specificites = $repository->findOneById(1);
 
+        // -------------------------------------------------------------------
+
+        $repository = $this->getDoctrine()->getRepository(Contenu::class);
+        $historiques = $repository->findBySection('historique');
+
+        // --------------------------------------------------------------------
+
+        $historique = new Contenu; 
+
+        $form = $this->createForm(ContenuType::class, $historique);
+        $form->handleRequest($request);
+
+        $manager = $this->getDoctrine()->getManager();
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $manager->persist($historique);
+
+            $manager->flush();
+
+            $this->addFlash('success', 'Les modifications ont été effectuées ! ');
+            return $this->redirectToRoute('admin');
+
+        }
+
         return $this->render('admin/histoire-entreprise.html.twig', [
             'controller_name' => 'AdminController',
             'entreprise' => $entreprise,
             'specificites' => $specificites,
+            'historiques' => $historiques,
+            'ContenuForm' => $form->createView()
         ]);
     }
 
