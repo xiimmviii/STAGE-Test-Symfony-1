@@ -1,32 +1,55 @@
 <section>
     <div class="row bg-dark">
         <div class="col-12 mt-3 mb-3">
-            <h3 class="text-center text-warning"> <i class="fas fa-star"></i> <i class="fas fa-star"></i> <i
-                    class="fas fa-star"></i> </h3>
-            <h2 class="text-center text-light">Compétence , Suivi, Engagements </h2>
-            <h3 class="text-warning text-center"> <i class="fas fa-star"></i> <i class="fas fa-star"></i> <i
-                    class="fas fa-star"></i> </h3>
-            <div class="row">
-                <div class="col-md-2 col-sm-12 mx-auto text-light mt-4"> {{specificites.competence1}}</div>
-                <div class="col-md-2 col-sm-12 mx-auto text-light mt-4"> {{specificites.competence2}}</div>
-            </div>
-            <div class="row">
-                <div class="col-md-2 col-sm-12 mx-auto text-light mt-4"> {{specificites.competence3}}</div>
-                <div class="col-md-2 col-sm-12 mx-auto text-light mt-4"> {{specificites.competence4}}</div>
-            </div>
-            <div class="row">
-                <div class="col-md-2 col-sm-12 mx-auto text-light mt-4"> {{specificites.competence5}}</div>
-                <div class="col-md-2 col-sm-12 mx-auto text-light mt-4"> {{specificites.competence6}}</div>
-            </div>
-            <div class="row">
-                <div class="col-md-2 col-sm-12 mx-auto text-light mt-4"> {{specificites.competence7}}</div>
-                <div class="col-md-2 col-sm-12 mx-auto text-light mt-4"> {{specificites.competence8}}</div>
-            </div>
-            <div class="row">
-                <div class="col-md-2 col-sm-12 mx-auto text-light mt-4"> {{specificites.competence9}}</div>
-                <div class="col-md-2 col-sm-12 mx-auto text-light mt-4"> {{specificites.competence10}}</div>
+            <h3 class="text-center text-warning">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+            </h3>
+            <h2 class="text-center text-light">Compétence , Suivi, Engagements
+            </h2>
+            <h3 class="text-warning text-center">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+            </h3>
+            <div class="row justify-content-center text-light">
+                <div class="col-md-5 col-sm-10 localisation text-center">
+                    {% if specificites.competence1 is not null %}
+                        {{specificites.competence1}}
+                    {% endif %}
+                    {% if specificites.competence3 is not null %}
+                        <br>{{specificites.competence3}}
+                    {% endif %}
+                    {% if specificites.competence5 is not null %}
+                        <br>{{specificites.competence5}}
+                    {% endif %}
+                    {% if specificites.competence7 is not null %}
+                       <br> {{specificites.competence7}}
+                    {% endif %}
+                    {% if specificites.competence9 is not null %}
+                       <br> {{specificites.competence9}}
+                    {% endif %}
+                </div>
+                <div class="col-md-5 col-sm-10 localisation text-center">
+                    {% if specificites.competence2 is not null %}
+                        {{specificites.competence2}}
+                    {% endif %}
+                    {% if specificites.competence4 is not null %}
+                       <br> {{specificites.competence4}}
+                    {% endif %}
+                    {% if specificites.competence6 is not null %}
+                       <br> {{specificites.competence6}}
+                    {% endif %}
+                    {% if specificites.competence8 is not null %}
+                       <br> {{specificites.competence8}}
+                    {% endif %}
+                    {% if specificites.competence10 is not null %}
+                       <br> {{specificites.competence10}}
+                    {% endif %}
+                </div>
+
             </div>
         </div>
-    </div>
 
-</section>
+    </section>
