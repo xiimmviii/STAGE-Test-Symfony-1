@@ -27,8 +27,11 @@ class AdminController extends AbstractController
      */
     public function showEntreprise()
     {
+        $repository = $this->getDoctrine()->getRepository(Entreprise::class);
+        $entreprise = $repository->findOneById(1);
         return $this->render('admin/entreprise.html.twig', [
             'controller_name' => 'AdminController',
+            'entreprise' => $entreprise
         ]);
     }
 
@@ -37,8 +40,11 @@ class AdminController extends AbstractController
      */
     public function galeriePhoto()
     {
+        $repository = $this->getDoctrine()->getRepository(Entreprise::class);
+        $entreprise = $repository->findOneById(1);
         return $this->render('admin/galeriephotos.html.twig', [
             'controller_name' => 'AdminController',
+            'entreprise' => $entreprise
         ]);
     }
 
@@ -47,8 +53,11 @@ class AdminController extends AbstractController
      */
     public function presentationEntreprise()
     {
+        $repository = $this->getDoctrine()->getRepository(Entreprise::class);
+        $entreprise = $repository->findOneById(1);
         return $this->render('admin/presentation-entreprise.html.twig', [
             'controller_name' => 'AdminController',
+            'entreprise' => $entreprise
         ]);
     }
 
@@ -57,8 +66,11 @@ class AdminController extends AbstractController
      */
     public function barreLabels()
     {
+        $repository = $this->getDoctrine()->getRepository(Entreprise::class);
+        $entreprise = $repository->findOneById(1);
         return $this->render('admin/barre-de-labels.html.twig', [
             'controller_name' => 'AdminController',
+            'entreprise' => $entreprise
         ]);
     }
 
@@ -67,8 +79,11 @@ class AdminController extends AbstractController
      */
     public function histoireEntreprise()
     {
+        $repository = $this->getDoctrine()->getRepository(Entreprise::class);
+        $entreprise = $repository->findOneById(1);
         return $this->render('admin/histoire-entreprise.html.twig', [
             'controller_name' => 'AdminController',
+            'entreprise' => $entreprise
         ]);
     }
 
@@ -77,8 +92,11 @@ class AdminController extends AbstractController
      */
     public function competences()
     {
+        $repository = $this->getDoctrine()->getRepository(Entreprise::class);
+        $entreprise = $repository->findOneById(1);
         return $this->render('admin/competences.html.twig', [
             'controller_name' => 'AdminController',
+            'entreprise' => $entreprise
         ]);
     }
 
@@ -87,8 +105,11 @@ class AdminController extends AbstractController
      */
     public function partenaires()
     {
+        $repository = $this->getDoctrine()->getRepository(Entreprise::class);
+        $entreprise = $repository->findOneById(1);
         return $this->render('admin/partenaires.html.twig', [
             'controller_name' => 'AdminController',
+            'entreprise' => $entreprise
         ]);
     }
 
@@ -97,8 +118,11 @@ class AdminController extends AbstractController
      */
     public function contactLocalisation()
     {
+        $repository = $this->getDoctrine()->getRepository(Entreprise::class);
+        $entreprise = $repository->findOneById(1);
         return $this->render('admin/contact-localisation.html.twig', [
             'controller_name' => 'AdminController',
+            'entreprise' => $entreprise
         ]);
     }
 
