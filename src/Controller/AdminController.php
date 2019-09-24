@@ -128,6 +128,16 @@ class AdminController extends AbstractController
      */
     public function deletePhoto($id)
     {
+        $manager = $this->getDoctrine()->getManager();
+		$photo = $manager->find(Galerie::class, $id);
+
+		$photo->removePhoto();
+		$manager->remove($photo);
+		$manager->flush();
+
+		$this->addFlash('success', 'La photo a bien été modifiée');
+		return $this->redirectToRoute('galeriephotos');
+
         $repository = $this->getDoctrine()->getRepository(Entreprise::class);
         $entreprise = $repository->findOneById(1);
 
