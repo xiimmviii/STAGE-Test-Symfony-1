@@ -6,6 +6,7 @@ use App\Entity\Galerie;
 use App\Form\GalerieType;
 use App\Entity\Entreprise;
 use App\Entity\Specificites;
+use App\Form\EntrepriseType;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Routing\Annotation\Route;
@@ -34,7 +35,7 @@ class AdminController extends AbstractController
     /**
      * @Route("/admin/entreprise", name="entreprise")
      */
-    public function showEntreprise()
+    public function showEntreprise(Request $request)
     {
         $repository = $this->getDoctrine()->getRepository(Entreprise::class);
         $entreprise = $repository->findOneById(1);
@@ -42,10 +43,30 @@ class AdminController extends AbstractController
         $repository = $this->getDoctrine()->getRepository(Specificites::class);
         $specificites = $repository->findOneById(1);
 
+        // -----------------------------------------------------------------------------------
+
+        $manager = $this->getDoctrine()->getManager();
+      
+
+        $form = $this->createForm(EntrepriseType::class, $entreprise);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $manager->persist($entreprise);
+
+            $manager->flush();
+
+            $this->addFlash('success', 'Les modifications ont été effectuées ! ');
+            return $this->redirectToRoute('admin');
+        }
+
+
         return $this->render('admin/entreprise.html.twig', [
             'controller_name' => 'AdminController',
             'entreprise' => $entreprise,
             'specificites' => $specificites,
+            'EntrepriseForm' => $form->createView()
         ]);
     }
 
