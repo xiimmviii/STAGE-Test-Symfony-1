@@ -2,8 +2,9 @@
 
 namespace App\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Entity\Entreprise;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class AdminController extends AbstractController
 {
@@ -12,8 +13,12 @@ class AdminController extends AbstractController
      */
     public function admin()
     {
+        $repository = $this->getDoctrine()->getRepository(Entreprise::class);
+        $entreprise = $repository->findOneById(1);
+
         return $this->render('admin/espaceadmin.html.twig', [
             'controller_name' => 'AdminController',
+            'entreprise' => $entreprise
         ]);
     }
 
