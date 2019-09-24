@@ -43,7 +43,7 @@
 
                         {% for photo in photos %}
                         <tr>
-                            <td><img src="{{ asset('/photo/' ~ photo.photo) }}" alt=" photo d'une réalisation" class="w-50"></img></td>
+                            <td><img src="{{ asset('/photo/' ~ photo.photo) }}" alt=" photo d'une réalisation" class="img-thumbnail w-25"></img></td>
                             <td>
                                 <a href="{{ path('delete_photo', {id : photo.id } ) }}"
                                     onclick="return confirm('Etes-vous certain(e) de vobloir supprimer la photo ?')">
