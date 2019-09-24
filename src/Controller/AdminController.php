@@ -107,8 +107,8 @@ class AdminController extends AbstractController
         }
 
         //on récupère toutes les photos déjà dans la BDD
-		$repo = $this->getDoctrine()->getRepository(Galerie::class);
-		$photos = $repo->findAll();
+        $repo = $this->getDoctrine()->getRepository(Galerie::class);
+        $photos = $repo->findAll();
 
         $repository = $this->getDoctrine()->getRepository(Entreprise::class);
         $entreprise = $repository->findOneById(1);
@@ -132,14 +132,14 @@ class AdminController extends AbstractController
     public function deletePhoto($id)
     {
         $manager = $this->getDoctrine()->getManager();
-		$photo = $manager->find(Galerie::class, $id);
+        $photo = $manager->find(Galerie::class, $id);
 
-		$photo->removePhoto();
-		$manager->remove($photo);
-		$manager->flush();
+        $photo->removePhoto();
+        $manager->remove($photo);
+        $manager->flush();
 
-		$this->addFlash('success', 'La photo a bien été modifiée');
-		return $this->redirectToRoute('galeriephotos');
+        $this->addFlash('success', 'La photo a bien été supprimée.');
+        return $this->redirectToRoute('galeriephotos');
 
         $repository = $this->getDoctrine()->getRepository(Entreprise::class);
         $entreprise = $repository->findOneById(1);
@@ -168,13 +168,40 @@ class AdminController extends AbstractController
         // -----------------------------------------------------------------------------------
 
         $repo = $this->getDoctrine()->getRepository(Contenu::class);
-		$presentations = $repo->findBySection('presentation');
+        $presentations = $repo->findBySection('presentation');
 
         return $this->render('admin/presentation-entreprise.html.twig', [
             'controller_name' => 'AdminController',
             'entreprise' => $entreprise,
             'specificites' => $specificites,
             'presentations' => $presentations,
+        ]);
+    }
+    
+        /**
+     * @Route("/admin/presentation-entreprise/delete/{id}", name="delete_presentation")
+     */
+    public function deletePresentation($id)
+    {
+        $manager = $this->getDoctrine()->getManager();
+        $presentation = $manager->find(Contenu::class, $id);
+
+        $manager->remove($presentation);
+        $manager->flush();
+
+        $this->addFlash('success', 'Le texte de présentation a bien été supprimé.');
+        return $this->redirectToRoute('presentationentreprise');
+
+        $repository = $this->getDoctrine()->getRepository(Entreprise::class);
+        $entreprise = $repository->findOneById(1);
+
+        $repository = $this->getDoctrine()->getRepository(Specificites::class);
+        $specificites = $repository->findOneById(1);
+
+        return $this->render('admin/espaceadmin.html.twig', [
+            'controller_name' => 'AdminController',
+            'entreprise' => $entreprise,
+            'specificites' => $specificites,
         ]);
     }
 
@@ -256,13 +283,12 @@ class AdminController extends AbstractController
             $manager->flush();
 
             $this->addFlash('success', 'Le partenaire a bien été ajouté !');
-        
         }
 
-    //-------------------------------------------------------------------------------
+        //-------------------------------------------------------------------------------
 
-    $repository = $this->getDoctrine()->getRepository(Partenaires::class);
-		$logos = $repository -> findAll();
+        $repository = $this->getDoctrine()->getRepository(Partenaires::class);
+        $logos = $repository->findAll();
 
         $repository = $this->getDoctrine()->getRepository(Entreprise::class);
         $entreprise = $repository->findOneById(1);
@@ -287,14 +313,14 @@ class AdminController extends AbstractController
     public function deletePartenaire($id)
     {
         $manager = $this->getDoctrine()->getManager();
-		$partenaire = $manager->find(Partenaires::class, $id);
+        $partenaire = $manager->find(Partenaires::class, $id);
 
-		$partenaire->removeLogo();
-		$manager->remove($partenaire);
-		$manager->flush();
+        $partenaire->removeLogo();
+        $manager->remove($partenaire);
+        $manager->flush();
 
-		$this->addFlash('success', 'Le partenaire a bien été supprimé');
-		return $this->redirectToRoute('partenaires');
+        $this->addFlash('success', 'Le partenaire a bien été supprimé');
+        return $this->redirectToRoute('partenaires');
 
         $repository = $this->getDoctrine()->getRepository(Entreprise::class);
         $entreprise = $repository->findOneById(1);
