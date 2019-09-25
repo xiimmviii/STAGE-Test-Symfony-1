@@ -316,6 +316,40 @@ class AdminController extends AbstractController
         ]);
     }
 
+/**
+     * @Route("/admin/histoire-entreprise/affichage/{id}", name="affichage_histoireEntreprise")
+     */
+    public function setStatutHistorique (Request $request)
+    {
+        $repository = $this->getDoctrine()->getRepository(Entreprise::class);
+        $entreprise = $repository->findOneById(1);
+
+        $repository = $this->getDoctrine()->getRepository(Specificites::class);
+        $specificites = $repository->findOneById(1);
+
+        $historique = New Contenu;
+
+        $form = $this->createForm(ContenuType::class, $historique);
+        $form->handleRequest($request);
+
+        $repository = $this->getDoctrine()->getRepository(Contenu::class);
+        $historiques = $repository->findBySection('historique');
+
+
+        // -------------------------------------------------------------------
+        
+       
+
+       return $this->render('admin/histoire-entreprise.html.twig', [
+        'controller_name' => 'AdminController',
+        'entreprise' => $entreprise,
+        'specificites' => $specificites,
+        'historiques' => $historiques,
+        'ContenuForm' => $form->createView()
+    ]);
+    }
+
+
     /**
      * @Route("/admin/histoire-entreprise/update/{id}", name="update_histoireEntreprise")
      */
