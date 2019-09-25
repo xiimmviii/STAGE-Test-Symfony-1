@@ -52,7 +52,7 @@
             </thead>
 
             <tbody>
-                {% for presentation in presentations %}
+                {% for presentation in presentations | sortByField('dateAffichage') %}
                 <tr class="row">
                     <td class="col-2">
                         <h5>{{ presentation.titre }} </h5>
