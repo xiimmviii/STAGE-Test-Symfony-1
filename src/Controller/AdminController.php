@@ -361,20 +361,22 @@ class AdminController extends AbstractController
             $this->addFlash('success', 'Les modifications ont été effectuées ! ');
             return $this->redirectToRoute('histoireentreprise');
         }
+        $date = ''; 
 
         return $this->render('admin/histoire-entreprise.html.twig', [
             'controller_name' => 'AdminController',
             'entreprise' => $entreprise,
             'specificites' => $specificites,
             'historiques' => $historiques,
-            'ContenuForm' => $form->createView()
+            'ContenuForm' => $form->createView(),
+            'date' => $date
         ]);
     }
 
 /**
      * @Route("/admin/histoire-entreprise/affichage/{id}", name="affichage_histoireEntreprise")
      */
-    public function setStatutHistorique (Request $request)
+    public function setStatutHistorique (Request $request, $id)
     {
          // -------------------------------------------------------------------
 
@@ -407,13 +409,16 @@ class AdminController extends AbstractController
              $this->addFlash('success', 'Les modifications ont été effectuées ! ');
              return $this->redirectToRoute('histoireentreprise');
          }
+
+         $date = date("Y-m-d H-i-s");
  
          return $this->render('admin/histoire-entreprise.html.twig', [
              'controller_name' => 'AdminController',
              'entreprise' => $entreprise,
              'specificites' => $specificites,
              'historiques' => $historiques,
-             'ContenuForm' => $form->createView()
+             'ContenuForm' => $form->createView(),
+             'date' => $date
          ]);
     }
 
@@ -456,12 +461,14 @@ class AdminController extends AbstractController
             return $this->redirectToRoute('histoireentreprise');
         }
 
+        $date = ''; 
         return $this->render('admin/histoire-entreprise.html.twig', [
             'controller_name' => 'AdminController',
             'entreprise' => $entreprise,
             'specificites' => $specificites,
             'historiques' => $historiques,
-            'ContenuForm' => $form->createView()
+            'ContenuForm' => $form->createView(),
+            'date' => $date
         ]);
     }
 
@@ -484,11 +491,13 @@ class AdminController extends AbstractController
 
         $repository = $this->getDoctrine()->getRepository(Specificites::class);
         $specificites = $repository->findOneById(1);
+        $date = ''; 
 
         return $this->render('admin/espaceadmin.html.twig', [
             'controller_name' => 'AdminController',
             'entreprise' => $entreprise,
             'specificites' => $specificites,
+            'date' => $date
         ]);
     }
 

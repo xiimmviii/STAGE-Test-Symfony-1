@@ -12,7 +12,12 @@
 <div class="col-lg-4 col-md-3 col-sm-10 alert-warning m-3 order-md-5 order-lg-5 "> BLOC DE DOCUMENTATION </div>
 <div class="col-lg-6 col-md-8 col-sm-10 alert-info m-3 order-md-0 order-lg-0 "> 
 {{form_start(ContenuForm)}}
-<div style="display: none">{{ form_row(ContenuForm.section, {'value' : 'historique'}) }}</div>
+    <div style="display: none">
+        {{ form_row(ContenuForm.section, {'value' : 'historique'}) }}
+        {{ form_label(ContenuForm.dateAffichage) }}
+        {{ form_widget(ContenuForm.dateAffichage, {'value': date}) }}
+    </div>
+
 {{ form_row(ContenuForm.titre) }}
 {{ form_row(ContenuForm.sousTitre) }}
 {{ form_row(ContenuForm.texte) }}
@@ -30,7 +35,7 @@
 <th class="col-2">TITRE </th>
 <th class="col-2">SOUS TITRE </th>
 <th class="col-5"> TEXTE </th>
-<th class="col-1"> STATUT </th>
+<th class="col-1"> PUBLIER </th>
 <th class="col-1"> MODIFIER</th>
 <th class="col-1"> SUPPRIMER</th>
 </thead>
@@ -40,7 +45,8 @@
 <td class="col-2"> {{historique.titre}} </td>
 <td class="col-2"> {{historique.sousTitre}} </td>
 <td class="col-5 overflow-auto" height="100"> {{historique.texte}} </td>
-<td class="col-1"> {{historique.statut}} </td>
+<td class="col-1"> <a href="{{ path('affichage_histoireEntreprise', {id : historique.id } ) }}">
+                                <i class="fas fa-upload"></i> </a> </td>
 <td class="col-1"> <a href="{{ path('update_histoireEntreprise', {id : historique.id } ) }}">
                                 <i class="fas fa-edit"></i> </a> </td>
 <td class="col-1"> <a href="{{ path('delete_historiqueEntreprise', {id : historique.id } ) }}"
