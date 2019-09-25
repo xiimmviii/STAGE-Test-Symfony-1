@@ -23,9 +23,8 @@
         {{ form_row(ContenuForm.titre) }}
         {{ form_row(ContenuForm.sousTitre) }}
         {{ form_row(ContenuForm.texte) }}
-        {% set now = "now"|date("Y/m/d H:i:s") %}
         {{ form_label(ContenuForm.dateAffichage) }}
-        {{ form_widget(ContenuForm.dateAffichage, {'value': now}) }}
+        {{ form_widget(ContenuForm.dateAffichage, {'value': date}) }}
         <div class="col-lg-6">
             {{ form_row(ContenuForm.submit, { 'label' : 'Envoyer' } ) }}
         </div>
@@ -61,7 +60,9 @@
                         {{ presentation.texte }}
                     </td>
                     <td class="col-1">
-                        {{ presentation.statut }}
+                        <a href="{{ path('affichage_presentation', {id : presentation.id } ) }}">
+                            <i class="fas fa-pen-alt"></i>
+                        </a>
                     </td>
                     <td class="col-1">
                         <a href="{{ path('update_presentation', {id : presentation.id } ) }}">

@@ -15,6 +15,8 @@ use App\Form\SpecificitesType;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Validator\Constraints\Date;
+use Symfony\Component\Validator\Constraints\DateTime;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class AdminController extends AbstractController
@@ -188,7 +190,11 @@ class AdminController extends AbstractController
 
             $this->addFlash('success', 'Les modifications ont été effectuées ! ');
             return $this->redirectToRoute('presentationentreprise');
+
+            
         }
+        
+        $date = '';
 
         return $this->render('admin/presentation-entreprise.html.twig', [
             'controller_name' => 'AdminController',
@@ -196,6 +202,7 @@ class AdminController extends AbstractController
             'specificites' => $specificites,
             'presentations' => $presentations,
             'ContenuForm' => $form->createView(),
+            'date'=> $date,
         ]);
     }
 
@@ -271,6 +278,54 @@ class AdminController extends AbstractController
         ]);
     }
 
+    /**
+     * @Route("/admin/presentation-entreprise/affichage/{id}", name="affichage_presentation")
+     */
+    public function affichagePresentation($id, ObjectManager $manager, Request $request)
+    {
+
+        $repository = $this->getDoctrine()->getRepository(Entreprise::class);
+        $entreprise = $repository->findOneById(1);
+
+        $repository = $this->getDoctrine()->getRepository(Specificites::class);
+        $specificites = $repository->findOneById(1);
+
+        $repo = $this->getDoctrine()->getRepository(Contenu::class);
+        $presentations = $repo->findBySection('presentation');
+
+        // -----------------------------------------------------------------------------------
+
+        $manager = $this -> getDoctrine() -> getManager();
+        $presentation = $manager -> find(Contenu::class, $id);
+
+        $form = $this -> createForm(ContenuType::class, $presentation);
+        $form -> handleRequest($request);
+
+        if($form -> isSubmitted() && $form -> isValid()){
+
+            $manager -> persist($presentation);
+
+            $manager -> flush();
+
+            $this -> addFlash('success', 'La présentation a bien été modifiée');
+            return $this -> redirectToRoute('presentationentreprise');
+        }
+
+
+
+        $date = date("Y-m-d H-i-s");
+
+        // -----------------------------------------------------------------------------------
+
+        return $this->render('admin/presentation-entreprise.html.twig', [
+            'controller_name' => 'AdminController',
+            'entreprise' => $entreprise,
+            'specificites' => $specificites,
+            'ContenuForm' => $form -> createView(),
+            'presentations' => $presentations,
+            'date' => $date,
+        ]);
+    }
 
     /**
      * @Route("/admin/histoire-entreprise", name="histoireentreprise")
