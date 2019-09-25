@@ -60,10 +60,9 @@
                         {{ presentation.statut }}
                     </td>
                     <td class="col-1">
-                        <!-- <a href="{{ path('delete_presentation', {id : presentation.id } ) }}"
-                            onclick="return confirm('Etes-vous certain(e) de vouloir supprimer le texte de présentation ?')"> -->
+                        <a href="{{ path('update_presentation', {id : presentation.id } ) }}">
                             <i class="fas fa-pen-alt"></i>
-                        <!-- </a> -->
+                        </a>
                     </td>
                     <td class="col-1">
                         <a href="{{ path('delete_presentation', {id : presentation.id } ) }}"

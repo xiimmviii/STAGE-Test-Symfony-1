@@ -173,7 +173,7 @@ class AdminController extends AbstractController
 
         // -----------------------------------------------------------------------------------
 
-        $presentation = new Contenu; 
+        $presentation = new Contenu;
 
         $form = $this->createForm(ContenuType::class, $presentation);
         $form->handleRequest($request);
@@ -188,7 +188,6 @@ class AdminController extends AbstractController
 
             $this->addFlash('success', 'Les modifications ont été effectuées ! ');
             return $this->redirectToRoute('presentationentreprise');
-
         }
 
         return $this->render('admin/presentation-entreprise.html.twig', [
@@ -199,8 +198,8 @@ class AdminController extends AbstractController
             'ContenuForm' => $form->createView(),
         ]);
     }
-    
-        /**
+
+    /**
      * @Route("/admin/presentation-entreprise/delete/{id}", name="delete_presentation")
      */
     public function deletePresentation($id)
@@ -229,6 +228,51 @@ class AdminController extends AbstractController
 
 
     /**
+     * @Route("/admin/presentation-entreprise/update/{id}", name="update_presentation")
+     */
+    public function updatePresentation($id, ObjectManager $manager, Request $request)
+    {
+
+        $repository = $this->getDoctrine()->getRepository(Entreprise::class);
+        $entreprise = $repository->findOneById(1);
+
+        $repository = $this->getDoctrine()->getRepository(Specificites::class);
+        $specificites = $repository->findOneById(1);
+
+        $repo = $this->getDoctrine()->getRepository(Contenu::class);
+        $presentations = $repo->findBySection('presentation');
+
+        // -----------------------------------------------------------------------------------
+
+        $manager = $this -> getDoctrine() -> getManager();
+        $presentation = $manager -> find(Contenu::class, $id);
+
+        $form = $this -> createForm(ContenuType::class, $presentation);
+        $form -> handleRequest($request);
+
+        if($form -> isSubmitted() && $form -> isValid()){
+
+            $manager -> persist($presentation);
+
+            $manager -> flush();
+
+            $this -> addFlash('success', 'La présentation a bien été modifiée');
+            return $this -> redirectToRoute('presentationentreprise');
+        }
+
+        // -----------------------------------------------------------------------------------
+
+        return $this->render('admin/presentation-entreprise.html.twig', [
+            'controller_name' => 'AdminController',
+            'entreprise' => $entreprise,
+            'specificites' => $specificites,
+            'ContenuForm' => $form -> createView(),
+            'presentations' => $presentations,
+        ]);
+    }
+
+
+    /**
      * @Route("/admin/histoire-entreprise", name="histoireentreprise")
      */
     public function histoireEntreprise(Request $request)
@@ -246,7 +290,7 @@ class AdminController extends AbstractController
 
         // --------------------------------------------------------------------
 
-        $historique = new Contenu; 
+        $historique = new Contenu;
 
         $form = $this->createForm(ContenuType::class, $historique);
         $form->handleRequest($request);
@@ -261,7 +305,6 @@ class AdminController extends AbstractController
 
             $this->addFlash('success', 'Les modifications ont été effectuées ! ');
             return $this->redirectToRoute('histoireentreprise');
-
         }
 
         return $this->render('admin/histoire-entreprise.html.twig', [
