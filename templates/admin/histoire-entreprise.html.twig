@@ -40,16 +40,30 @@
 <th class="col-1"> SUPPRIMER</th>
 </thead>
 <tbody >
-{% for historique in historiques | sortbyfield('dateAffichage') %}
+{% for historique in historiques | sortbyfield('dateAffichage') | slice(0, 1) %}
+<tr class="row alert-success">
+<td class="col-2"> {{historique.titre}} </td>
+<td class="col-2"> {{historique.sousTitre}} </td>
+<td class="col-5 overflow-auto" height="100"> {{historique.texte}} </td>
+<td class="col-1 text-center">  EN LIGNE <br> <h1><i class="fas fa-globe-asia"></i></h1> </td>
+<td class="col-1 text-center"> <a href="{{ path('update_histoireEntreprise', {id : historique.id } ) }}">
+                                <i class="fas fa-edit"></i> </a> </td>
+<td class="col-1 text-center"> <a href="{{ path('delete_historiqueEntreprise', {id : historique.id } ) }}"
+                                onclick="return confirm('Etes-vous certain(e) de vouloir supprimer le texte de présentation ?')">
+                                <i class="fas fa-trash-alt"></i>
+                            </a> </td>
+</tr>
+{% endfor %}
+{% for historique in historiques | sortbyfield('dateAffichage') |slice(1, 50) %}
 <tr class="row">
 <td class="col-2"> {{historique.titre}} </td>
 <td class="col-2"> {{historique.sousTitre}} </td>
 <td class="col-5 overflow-auto" height="100"> {{historique.texte}} </td>
-<td class="col-1"> <a href="{{ path('affichage_histoireEntreprise', {id : historique.id } ) }}">
+<td class="col-1 text-center"> <a href="{{ path('affichage_histoireEntreprise', {id : historique.id } ) }}">
                                 <i class="fas fa-upload"></i> </a> </td>
-<td class="col-1"> <a href="{{ path('update_histoireEntreprise', {id : historique.id } ) }}">
+<td class="col-1 text-center"> <a href="{{ path('update_histoireEntreprise', {id : historique.id } ) }}">
                                 <i class="fas fa-edit"></i> </a> </td>
-<td class="col-1"> <a href="{{ path('delete_historiqueEntreprise', {id : historique.id } ) }}"
+<td class="col-1 text-center"> <a href="{{ path('delete_historiqueEntreprise', {id : historique.id } ) }}"
                                 onclick="return confirm('Etes-vous certain(e) de vouloir supprimer le texte de présentation ?')">
                                 <i class="fas fa-trash-alt"></i>
                             </a> </td>

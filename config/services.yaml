@@ -30,5 +30,12 @@ services:
         class: Snilius\Twig\SortByFieldExtension
         tags:
             - { name: twig.extension }
+    #TRIER PAR CHAMP EN TWIG - EXTENSION 
     # Dans le Terminal, il faut faire cette ligne de cmd : composer require snilius/twig-sort-by-field
-    # Ceci permet de trier par "champ"
+    # Ensuite, pour changer l'affichage en DESC, il faut aller dans vendor > snilius > src > SortByFieldExtension.php
+    # Il faut rajouter --- | sortbyfield('dateAffichage') -- dans la boucle dans la vue Twig
+    # Ne pas oublier d'ajouter à services.yaml >>>> 
+    # twig.extension.sortbyfield:
+    #     class: Snilius\Twig\SortByFieldExtension
+    #     tags:
+    #         - { name: twig.extension }
