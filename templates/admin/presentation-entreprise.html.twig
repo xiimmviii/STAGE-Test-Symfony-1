@@ -19,12 +19,16 @@
 
 
         {{form_start(ContenuForm)}}
-        <div style="display: none">{{ form_row(ContenuForm.section, {'value' : 'presentation'}) }}</div>
+        <div style="display: none">
+            {{ form_row(ContenuForm.section, {'value' : 'presentation'}) }}
+            {{ form_label(ContenuForm.dateAffichage) }}
+            {{ form_widget(ContenuForm.dateAffichage, {'value': date}) }}
+        </div>
         {{ form_row(ContenuForm.titre) }}
         {{ form_row(ContenuForm.sousTitre) }}
         {{ form_row(ContenuForm.texte) }}
-        {{ form_label(ContenuForm.dateAffichage) }}
-        {{ form_widget(ContenuForm.dateAffichage, {'value': date}) }}
+
+
         <div class="col-lg-6">
             {{ form_row(ContenuForm.submit, { 'label' : 'Envoyer' } ) }}
         </div>

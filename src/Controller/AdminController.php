@@ -226,10 +226,13 @@ class AdminController extends AbstractController
         $repository = $this->getDoctrine()->getRepository(Specificites::class);
         $specificites = $repository->findOneById(1);
 
+        $date = '';
+
         return $this->render('admin/espaceadmin.html.twig', [
             'controller_name' => 'AdminController',
             'entreprise' => $entreprise,
             'specificites' => $specificites,
+            'date' => $date,
         ]);
     }
 
@@ -269,12 +272,15 @@ class AdminController extends AbstractController
 
         // -----------------------------------------------------------------------------------
 
+        $date = ''; 
+
         return $this->render('admin/presentation-entreprise.html.twig', [
             'controller_name' => 'AdminController',
             'entreprise' => $entreprise,
             'specificites' => $specificites,
             'ContenuForm' => $form -> createView(),
             'presentations' => $presentations,
+            'date' => $date,
         ]);
     }
 
