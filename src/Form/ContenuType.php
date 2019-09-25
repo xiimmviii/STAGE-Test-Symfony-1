@@ -2,8 +2,6 @@
 
 namespace App\Form;
 
-use App\Entity\Contenu;
-use DateTimeZone;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -25,7 +23,7 @@ class ContenuType extends AbstractType
             ->add('sousTitre', TextType::class,array('required' => false))
             ->add('texte', TextareaType::class)
             ->add('statut', HiddenType::class,array('required' => false, 'empty_data' => '0',))
-            ->add('dateAffichage', DateTimeType::class)
+            ->add('dateAffichage', TextType::class,array('required' => false))
         
             ->add('submit', SubmitType::class);
         ;

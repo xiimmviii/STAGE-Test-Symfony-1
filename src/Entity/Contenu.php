@@ -2,7 +2,6 @@
 
 namespace App\Entity;
 
-use Doctrine\DBAL\Types\DateTimeTzImmutableType;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -45,7 +44,7 @@ class Contenu
     private $statut;
 
       /**
-     * @ORM\Column(type="datetimetz", nullable=true)
+     * @ORM\Column(type="string", nullable=true)
      */
     private $dateAffichage;
 
@@ -115,12 +114,12 @@ class Contenu
         return $this;
     }
 
-    public function getDateAffichage(): ?DateTimeTz
+    public function getDateAffichage(): ?string
     {
         return $this->dateAffichage;
     }
 
-    public function setDateAffichage(datetimetz $dateAffichage): self
+    public function setDateAffichage(string $dateAffichage): self
     {
         $this->dateAffichage = $dateAffichage;
 

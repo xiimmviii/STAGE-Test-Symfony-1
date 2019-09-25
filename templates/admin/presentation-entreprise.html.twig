@@ -10,6 +10,7 @@
         <p>Dans cette section, il est possible de modifier les informations relatives à l'entreprise afin de pouvoir les
             mettre à jour de façon aisée sur le site web. Changement d'adresse, de numéro de téléphone ou de mail ne
             sont plus un soucis. </p>
+            
     </div>
 </div>
 <div class="row m-4 justify-content-center">
@@ -22,7 +23,9 @@
         {{ form_row(ContenuForm.titre) }}
         {{ form_row(ContenuForm.sousTitre) }}
         {{ form_row(ContenuForm.texte) }}
-        {{ form_row(ContenuForm.dateAffichage) }}
+        {% set now = "now"|date("Y/m/d H:i:s") %}
+        {{ form_label(ContenuForm.dateAffichage) }}
+        {{ form_widget(ContenuForm.dateAffichage, {'value': now}) }}
         <div class="col-lg-6">
             {{ form_row(ContenuForm.submit, { 'label' : 'Envoyer' } ) }}
         </div>
