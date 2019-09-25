@@ -22,3 +22,5 @@
 composer.lock
 .env
 composer.lock
+src/Migrations/Version20190925114658.php
+composer.lock
