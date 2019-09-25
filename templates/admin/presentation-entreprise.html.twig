@@ -10,7 +10,7 @@
         <p>Dans cette section, il est possible de modifier les informations relatives à l'entreprise afin de pouvoir les
             mettre à jour de façon aisée sur le site web. Changement d'adresse, de numéro de téléphone ou de mail ne
             sont plus un soucis. </p>
-            
+
     </div>
 </div>
 <div class="row m-4 justify-content-center">
@@ -52,7 +52,36 @@
             </thead>
 
             <tbody>
-                {% for presentation in presentations | sortByField('dateAffichage') %}
+                {% for presentation in presentations | sortbyfield('dateAffichage') | slice (0,1) %}
+                <tr class="row alert-success">
+                    <td class="col-2">
+                        <h5>{{ presentation.titre }} </h5>
+                    </td>
+                    <td class="col-2">
+                        {{ presentation.sousTitre }}
+                    </td>
+                    <td class="col-5 overflow-auto" height="100">
+                        {{ presentation.texte }}
+                    </td>
+                    <td class=“col-1 text-center”> EN LIGNE <br>
+                        <h1><i class="fas fa-globe-asia"></i></h1>
+                    </td>
+
+                    <td class="col-1">
+                        <a href="{{ path('update_presentation', {id : presentation.id } ) }}">
+                            <i class="fas fa-pen-alt"></i>
+                        </a>
+                    </td>
+                    <td class="col-1">
+                        <a href="{{ path('delete_presentation', {id : presentation.id } ) }}"
+                            onclick="return confirm('Etes-vous certain(e) de vouloir supprimer le texte de présentation ?')">
+                            <i class="fas fa-trash-alt"></i>
+                        </a>
+                    </td>
+                </tr>
+                {% endfor %}
+
+                {% for presentation in presentations | sortbyfield('dateAffichage') | slice (1,50) %}
                 <tr class="row">
                     <td class="col-2">
                         <h5>{{ presentation.titre }} </h5>
@@ -75,8 +104,8 @@
                     </td>
                     <td class="col-1">
                         <a href="{{ path('delete_presentation', {id : presentation.id } ) }}"
-                                onclick="return confirm('Etes-vous certain(e) de vouloir supprimer le texte de présentation ?')">
-                        <i class="fas fa-trash-alt"></i>
+                            onclick="return confirm('Etes-vous certain(e) de vouloir supprimer le texte de présentation ?')">
+                            <i class="fas fa-trash-alt"></i>
                         </a>
                     </td>
                 </tr>
