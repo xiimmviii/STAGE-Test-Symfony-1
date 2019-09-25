@@ -274,10 +274,50 @@ class AdminController extends AbstractController
     }
 
     /**
-     * @Route("/admin/histoire-entreprise/update/{id}", name="update_histoireentreprise")
+     * @Route("/admin/histoire-entreprise/update/{id}", name="update_histoireEntreprise")
      */
-    public function updateHistoireEntreprise()
+    public function updateHistoireEntreprise($id, Request $request)
     {
+
+           // -------------------------------------------------------------------
+
+
+        $repository = $this->getDoctrine()->getRepository(Entreprise::class);
+        $entreprise = $repository->findOneById(1);
+
+        $repository = $this->getDoctrine()->getRepository(Specificites::class);
+        $specificites = $repository->findOneById(1);
+
+        $repository = $this->getDoctrine()->getRepository(Contenu::class);
+        $historiques = $repository->findBySection('historique');
+   
+           // --------------------------------------------------------------------
+
+
+        $manager = $this->getDoctrine()->getManager();
+        $historique = $manager->find(Contenu::class, $id);
+
+
+        $form = $this->createForm(ContenuType::class, $historique);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $manager->persist($historique);
+
+            $manager->flush();
+
+            $this->addFlash('success', 'Les modifications ont été effectuées ! ');
+            return $this->redirectToRoute('histoireentreprise');
+        }
+
+        return $this->render('admin/histoire-entreprise.html.twig', [
+            'controller_name' => 'AdminController',
+            'entreprise' => $entreprise,
+            'specificites' => $specificites,
+            'historiques' => $historiques,
+            'ContenuForm' => $form->createView()
+        ]);
     }
 
     /**

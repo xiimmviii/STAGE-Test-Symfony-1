@@ -41,7 +41,8 @@
 <td class="col-2"> {{historique.sousTitre}} </td>
 <td class="col-5 overflow-auto" height="100"> {{historique.texte}} </td>
 <td class="col-1"> {{historique.statut}} </td>
-<td class="col-1"> <i class="fas fa-edit"></i> </td>
+<td class="col-1"> <a href="{{ path('update_histoireEntreprise', {id : historique.id } ) }}">
+                                <i class="fas fa-edit"></i> </a> </td>
 <td class="col-1"> <a href="{{ path('delete_historiqueEntreprise', {id : historique.id } ) }}"
                                 onclick="return confirm('Etes-vous certain(e) de vouloir supprimer le texte de présentation ?')">
                                 <i class="fas fa-trash-alt"></i>
