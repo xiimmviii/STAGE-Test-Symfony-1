@@ -190,11 +190,10 @@ class AdminController extends AbstractController
 
             $this->addFlash('success', 'Les modifications ont été effectuées ! ');
             return $this->redirectToRoute('presentationentreprise');
-
-            
         }
-        
+
         $date = '';
+        $boutonenvoi = 'Envoyer';
 
         return $this->render('admin/presentation-entreprise.html.twig', [
             'controller_name' => 'AdminController',
@@ -202,7 +201,8 @@ class AdminController extends AbstractController
             'specificites' => $specificites,
             'presentations' => $presentations,
             'ContenuForm' => $form->createView(),
-            'date'=> $date,
+            'date' => $date,
+            'boutonenvoi' => $boutonenvoi,
         ]);
     }
 
@@ -227,12 +227,14 @@ class AdminController extends AbstractController
         $specificites = $repository->findOneById(1);
 
         $date = '';
+        $boutonenvoi = 'Envoyer';
 
         return $this->render('admin/espaceadmin.html.twig', [
             'controller_name' => 'AdminController',
             'entreprise' => $entreprise,
             'specificites' => $specificites,
             'date' => $date,
+            'boutonenvoi' => $boutonenvoi,
         ]);
     }
 
@@ -254,33 +256,35 @@ class AdminController extends AbstractController
 
         // -----------------------------------------------------------------------------------
 
-        $manager = $this -> getDoctrine() -> getManager();
-        $presentation = $manager -> find(Contenu::class, $id);
+        $manager = $this->getDoctrine()->getManager();
+        $presentation = $manager->find(Contenu::class, $id);
 
-        $form = $this -> createForm(ContenuType::class, $presentation);
-        $form -> handleRequest($request);
+        $form = $this->createForm(ContenuType::class, $presentation);
+        $form->handleRequest($request);
 
-        if($form -> isSubmitted() && $form -> isValid()){
+        if ($form->isSubmitted() && $form->isValid()) {
 
-            $manager -> persist($presentation);
+            $manager->persist($presentation);
 
-            $manager -> flush();
+            $manager->flush();
 
-            $this -> addFlash('success', 'La présentation a bien été modifiée');
-            return $this -> redirectToRoute('presentationentreprise');
+            $this->addFlash('success', 'La présentation a bien été modifiée');
+            return $this->redirectToRoute('presentationentreprise');
         }
 
         // -----------------------------------------------------------------------------------
 
-        $date = ''; 
+        $date = '';
+        $boutonenvoi = 'Modifier';
 
         return $this->render('admin/presentation-entreprise.html.twig', [
             'controller_name' => 'AdminController',
             'entreprise' => $entreprise,
             'specificites' => $specificites,
-            'ContenuForm' => $form -> createView(),
+            'ContenuForm' => $form->createView(),
             'presentations' => $presentations,
             'date' => $date,
+            'boutonenvoi' => $boutonenvoi,
         ]);
     }
 
@@ -301,25 +305,26 @@ class AdminController extends AbstractController
 
         // -----------------------------------------------------------------------------------
 
-        $manager = $this -> getDoctrine() -> getManager();
-        $presentation = $manager -> find(Contenu::class, $id);
+        $manager = $this->getDoctrine()->getManager();
+        $presentation = $manager->find(Contenu::class, $id);
 
-        $form = $this -> createForm(ContenuType::class, $presentation);
-        $form -> handleRequest($request);
+        $form = $this->createForm(ContenuType::class, $presentation);
+        $form->handleRequest($request);
 
-        if($form -> isSubmitted() && $form -> isValid()){
+        if ($form->isSubmitted() && $form->isValid()) {
 
-            $manager -> persist($presentation);
+            $manager->persist($presentation);
 
-            $manager -> flush();
+            $manager->flush();
 
-            $this -> addFlash('success', 'La présentation a bien été modifiée');
-            return $this -> redirectToRoute('presentationentreprise');
+            $this->addFlash('success', 'La présentation a bien été modifiée');
+            return $this->redirectToRoute('presentationentreprise');
         }
 
 
 
         $date = date("Y-m-d H-i-s");
+        $boutonenvoi = 'Publier';
 
         // -----------------------------------------------------------------------------------
 
@@ -327,9 +332,10 @@ class AdminController extends AbstractController
             'controller_name' => 'AdminController',
             'entreprise' => $entreprise,
             'specificites' => $specificites,
-            'ContenuForm' => $form -> createView(),
+            'ContenuForm' => $form->createView(),
             'presentations' => $presentations,
             'date' => $date,
+            'boutonenvoi' => $boutonenvoi,
         ]);
     }
 
@@ -367,7 +373,8 @@ class AdminController extends AbstractController
             $this->addFlash('success', 'Les modifications ont été effectuées ! ');
             return $this->redirectToRoute('histoireentreprise');
         }
-        $date = ''; 
+        $date = '';
+        $boutonenvoi = 'Envoyer';
 
         return $this->render('admin/histoire-entreprise.html.twig', [
             'controller_name' => 'AdminController',
@@ -375,67 +382,17 @@ class AdminController extends AbstractController
             'specificites' => $specificites,
             'historiques' => $historiques,
             'ContenuForm' => $form->createView(),
-            'date' => $date
+            'date' => $date,
+            'boutonenvoi' => $boutonenvoi,
         ]);
     }
 
-/**
+    /**
      * @Route("/admin/histoire-entreprise/affichage/{id}", name="affichage_histoireEntreprise")
      */
-    public function setStatutHistorique (Request $request, $id)
+    public function setStatutHistorique(Request $request, $id)
     {
-         // -------------------------------------------------------------------
-
-
-         $repository = $this->getDoctrine()->getRepository(Entreprise::class);
-         $entreprise = $repository->findOneById(1);
- 
-         $repository = $this->getDoctrine()->getRepository(Specificites::class);
-         $specificites = $repository->findOneById(1);
- 
-         $repository = $this->getDoctrine()->getRepository(Contenu::class);
-         $historiques = $repository->findBySection('historique');
-    
-            // --------------------------------------------------------------------
- 
- 
-         $manager = $this->getDoctrine()->getManager();
-         $historique = $manager->find(Contenu::class, $id);
- 
- 
-         $form = $this->createForm(ContenuType::class, $historique);
-         $form->handleRequest($request);
- 
-         if ($form->isSubmitted() && $form->isValid()) {
- 
-             $manager->persist($historique);
- 
-             $manager->flush();
- 
-             $this->addFlash('success', 'Les modifications ont été effectuées ! ');
-             return $this->redirectToRoute('histoireentreprise');
-         }
-
-         $date = date("Y-m-d H-i-s");
- 
-         return $this->render('admin/histoire-entreprise.html.twig', [
-             'controller_name' => 'AdminController',
-             'entreprise' => $entreprise,
-             'specificites' => $specificites,
-             'historiques' => $historiques,
-             'ContenuForm' => $form->createView(),
-             'date' => $date
-         ]);
-    }
-
-
-    /**
-     * @Route("/admin/histoire-entreprise/update/{id}", name="update_histoireEntreprise")
-     */
-    public function updateHistoireEntreprise($id, Request $request)
-    {
-
-           // -------------------------------------------------------------------
+        // -------------------------------------------------------------------
 
 
         $repository = $this->getDoctrine()->getRepository(Entreprise::class);
@@ -446,8 +403,8 @@ class AdminController extends AbstractController
 
         $repository = $this->getDoctrine()->getRepository(Contenu::class);
         $historiques = $repository->findBySection('historique');
-   
-           // --------------------------------------------------------------------
+
+        // --------------------------------------------------------------------
 
 
         $manager = $this->getDoctrine()->getManager();
@@ -467,14 +424,70 @@ class AdminController extends AbstractController
             return $this->redirectToRoute('histoireentreprise');
         }
 
-        $date = ''; 
+        $date = date("Y-m-d H-i-s");
+        $boutonenvoi = 'Publier';
+
         return $this->render('admin/histoire-entreprise.html.twig', [
             'controller_name' => 'AdminController',
             'entreprise' => $entreprise,
             'specificites' => $specificites,
             'historiques' => $historiques,
             'ContenuForm' => $form->createView(),
-            'date' => $date
+            'date' => $date,
+            'boutonenvoi' => $boutonenvoi,
+        ]);
+    }
+
+
+    /**
+     * @Route("/admin/histoire-entreprise/update/{id}", name="update_histoireEntreprise")
+     */
+    public function updateHistoireEntreprise($id, Request $request)
+    {
+
+        // -------------------------------------------------------------------
+
+
+        $repository = $this->getDoctrine()->getRepository(Entreprise::class);
+        $entreprise = $repository->findOneById(1);
+
+        $repository = $this->getDoctrine()->getRepository(Specificites::class);
+        $specificites = $repository->findOneById(1);
+
+        $repository = $this->getDoctrine()->getRepository(Contenu::class);
+        $historiques = $repository->findBySection('historique');
+
+        // --------------------------------------------------------------------
+
+
+        $manager = $this->getDoctrine()->getManager();
+        $historique = $manager->find(Contenu::class, $id);
+
+
+        $form = $this->createForm(ContenuType::class, $historique);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $manager->persist($historique);
+
+            $manager->flush();
+
+            $this->addFlash('success', 'Les modifications ont été effectuées ! ');
+            return $this->redirectToRoute('histoireentreprise');
+        }
+
+        $date = '';
+        $boutonenvoi = 'Modifier';
+
+        return $this->render('admin/histoire-entreprise.html.twig', [
+            'controller_name' => 'AdminController',
+            'entreprise' => $entreprise,
+            'specificites' => $specificites,
+            'historiques' => $historiques,
+            'ContenuForm' => $form->createView(),
+            'date' => $date,
+            'boutonenvoi' => $boutonenvoi,
         ]);
     }
 
@@ -497,13 +510,16 @@ class AdminController extends AbstractController
 
         $repository = $this->getDoctrine()->getRepository(Specificites::class);
         $specificites = $repository->findOneById(1);
-        $date = ''; 
+
+        $date = '';
+        $boutonenvoi = 'Envoyer';
 
         return $this->render('admin/espaceadmin.html.twig', [
             'controller_name' => 'AdminController',
             'entreprise' => $entreprise,
             'specificites' => $specificites,
-            'date' => $date
+            'date' => $date,
+            'boutonenvoi' => $boutonenvoi,
         ]);
     }
 
