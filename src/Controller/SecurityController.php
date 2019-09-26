@@ -37,7 +37,7 @@ class SecurityController extends AbstractController
         $lastUsername = $authenticationUtils->getLastUsername();
 
 
-        //on injecte les données dans la vue (avec les données pour le footer)
+        //on injecte les données dans la vue (en incluant les données pour le footer)
         return $this->render('security/login.html.twig', 
         ['last_username' => $lastUsername, 
         'error' => $error, 
