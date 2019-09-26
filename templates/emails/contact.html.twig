@@ -4,47 +4,75 @@
     <head>
         <!-- The character set should be utf-8 -->
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-        <meta
-        name="viewport" content="width=device-width"/>
-        <!-- Link to the email's CSS, which will be inlined into the email -->
-        <link rel="stylesheet" href="assets/css/foundation-emails.css">
+        <meta name="viewport" content="width=device-width"/>
+
+        <style>
+
+            .sendby {
+                background-color: #4CBF8E;
+                color: white !important;
+                font-size: 1.5em;
+            }
+
+            .addInfo {
+                border-top: 3px solid #4CBF8E;
+                 font-size: 1.3em;
+            }
+
+            .lastInfo {
+                border-bottom: 3px solid #4CBF8E;
+                 font-size: 1.3em;
+            }
+
+            .borderInfo {
+                border-bottom: 3px solid #4CBF8E;
+            }
+
+            a.mail { color: white!important;}
+
+            a {
+                color: white!important;
+            }
+        </style>
 
     </head>
 
     <body>
-        <!-- Wrapper for the body of the email -->
-        <table class="body" data-made-with-foundation>
-            <tr>
-                <!-- The class, align, and <center> tag center the container -->
-                <td class="float-center" align="center" valign="top">
-                        Email envoyé par :
-                        {{data.prenom}}
-                        {{data.nom}}
-                        {% if data.societe is null %}
-                                {% else %}, société
-                                {{data.societe}}
-                        {% endif %}
-                        {% if data.telephone is null %}
-                                {% else %}, n°
-                                {{data.telephone}}
-                        {% endif %}
 
+        <div class="sendby">
+            Email envoyé par :
+            {{data.prenom}}
+            {{data.nom}}
+            <br>
+            Email :
+            <span class='mail'>{{ data.email}}</span>
+        </div>
 
-                        <div class="row">Email :
-                            {{ data.email}}
-                        </div>
+        {% if data.societe is null %}
+            {% else %}
+                <div class="addInfo">
+                    Société :
+                    {{data.societe}}
+                </div>
 
-                        <div class="row">Objet :
-                            {{data.objet}}</div>
-                        <div class="row">
-                            <div class="col-3">Message:
-                            </div>
-                            <div class="col-8 offset-1">
-                                {{data.message}}
-                            </div>
-                    </td>
-                </td>
-            </tr>
-        </table>
+        {% endif %}
+
+        {% if data.telephone is null %}
+            {% else %}
+                <div class="lastInfo">
+                    N° de téléphone :
+                    {{data.telephone}}
+                </div>
+
+        {% endif %}
+
+        <div class="row">Objet :
+            {{data.objet}}
+        </div>
+        <hr>
+
+        <div class=" borderInfo">
+            {{data.message}}
+        </div>
     </body>
-</html>
+</html></body></html>
