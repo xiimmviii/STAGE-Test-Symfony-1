@@ -79,24 +79,7 @@ class BaseController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/contact", name="contact")
-     */
-    public function contact()
-    {
-
-        $repository = $this->getDoctrine()->getRepository(Entreprise::class);
-        $entreprise = $repository->findOneById(1);
-
-        $repository = $this->getDoctrine()->getRepository(Specificites::class);
-        $specificites = $repository->findOneById(1);
-
-        return $this->render('base/contact.html.twig', [
-            'controller_name' => 'BaseController',
-            'specificites' => $specificites,
-            'entreprise' => $entreprise
-        ]);
-    }
+   
 
 
     /**

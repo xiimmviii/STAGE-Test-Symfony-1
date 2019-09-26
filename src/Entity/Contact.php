@@ -1,142 +1,228 @@
-<?php
+<?php 
 
 namespace App\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
-/**
- * @ORM\Entity(repositoryClass="App\Repository\ContactRepository")
- */
-class Contact
-{
-    /**
-     * @ORM\Id()
-     * @ORM\GeneratedValue()
-     * @ORM\Column(type="integer")
-     */
-    private $id;
+class Contact {
 
     /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $nom;
-
-    /**
-     * @ORM\Column(type="string", length=255)
+     * 
+     * @var string|null
+     * @Assert\NotBlank()
+     * @Assert\Length(min=2, max=35)
      */
     private $prenom;
 
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+/**
+ * Getter for Prenom
+ *
+ * @return [type]
+ */
+public function getPrenom()
+{
+    return $this->prenom;
+}
+
+/**
+ * Setter for Prenom
+ * @var [type] prenom
+ * exactMessage = "Vous devez renseigner {{ limit }} caractères"
+ * @return self
+ */
+public function setPrenom($prenom)
+{
+    $this->prenom = $prenom;
+    return $this;
+}
+
+
+     /**
+     * 
+     * @var string|null
+     * @Assert\NotBlank()
+     * @Assert\Length(min=2, max=35)
+     */
+    private $nom;
+
+ /**
+  * Getter for Nom
+  *
+  * @return [type]
+  */
+ public function getNom()
+ {
+     return $this->nom;
+ }
+
+ /**
+  * Setter for Nom
+  * @var [type] nom
+  *
+  * @return self
+  */
+ public function setNom($nom)
+ {
+     $this->nom = $nom;
+     return $this;
+ }
+
+
+     /**
+     * 
+     * 
+     * @Assert\NotBlank()
+     * @Assert\Length(
+     *      min=2, 
+     *      max=35
+     * )
      */
     private $societe;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $email;
+ /**
+  * Getter for Societe
+  *
+  * @return [type]
+  */
+ public function getSociete()
+ {
+     return $this->societe;
+ }
 
-    /**
-     * @ORM\Column(type="string", length=17, nullable=true)
+ /**
+  * Setter for Societe
+  * @var [type] societe
+  *
+  * @return self
+  */
+ public function setSociete($societe)
+ {
+     $this->societe = $societe;
+     return $this;
+ }
+
+
+ /**
+     * 
+     * @var string|null
+     *
+     * @Assert\Telephone
      */
     private $telephone;
 
-    /**
-     * @ORM\Column(type="string", length=255)
+   /**
+    * Getter for Telephone
+    *
+    * @return [type]
+    */
+   public function getTelephone()
+   {
+       return $this->telephone;
+   }
+
+   /**
+    * Setter for Telephone
+    * @var [type] telephone
+    *
+    * @return self
+    */
+   public function setTelephone($telephone)
+   {
+       $this->telephone = $telephone;
+       return $this;
+   }
+
+
+     /**
+     * 
+     * @var string|null
+     * @Assert\NotBlank()
+     * @Assert\Email
+     */
+    private $email;
+
+   /**
+    * Getter for Email
+    *
+    * @return [type]
+    */
+   public function getEmail()
+   {
+       return $this->email;
+   }
+
+   /**
+    * Setter for Email
+    * @var [type] email
+    *
+    * @return self
+    */
+   public function setEmail($email)
+   {
+       $this->email = $email;
+       return $this;
+   }
+
+
+     /**
+     * 
+     * @var string|null
+     * @Assert\NotBlank()
+     * @Assert\Length(min=5, max=255)
      */
     private $objet;
 
-    /**
-     * @ORM\Column(type="text")
+  /**
+   * Getter for Objet
+   *
+   * @return [type]
+   */
+  public function getObjet()
+  {
+      return $this->objet;
+  }
+
+  /**
+   * Setter for Objet
+   * @var [type] objet
+   *
+   * @return self
+   */
+  public function setObjet($objet)
+  {
+      $this->objet = $objet;
+      return $this;
+  }
+
+
+     /**
+     * 
+     * @var string|null
+     * @Assert\NotBlank()
+     * @Assert\Length(min=15)
      */
     private $message;
 
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
+  /**
+   * Getter for Message
+   *
+   * @return [type]
+   */
+  public function getMessage()
+  {
+      return $this->message;
+  }
 
-    public function getNom(): ?string
-    {
-        return $this->nom;
-    }
+  /**
+   * Setter for Message
+   * @var [type] message
+   *
+   * @return self
+   */
+  public function setMessage($message)
+  {
+      $this->message = $message;
+      return $this;
+  }
 
-    public function setNom(string $nom): self
-    {
-        $this->nom = $nom;
-
-        return $this;
-    }
-
-    public function getPrenom(): ?string
-    {
-        return $this->prenom;
-    }
-
-    public function setPrenom(string $prenom): self
-    {
-        $this->prenom = $prenom;
-
-        return $this;
-    }
-
-    public function getSociete(): ?string
-    {
-        return $this->societe;
-    }
-
-    public function setSociete(?string $societe): self
-    {
-        $this->societe = $societe;
-
-        return $this;
-    }
-
-    public function getEmail(): ?string
-    {
-        return $this->email;
-    }
-
-    public function setEmail(string $email): self
-    {
-        $this->email = $email;
-
-        return $this;
-    }
-
-    public function getTelephone(): ?string
-    {
-        return $this->telephone;
-    }
-
-    public function setTelephone(?string $telephone): self
-    {
-        $this->telephone = $telephone;
-
-        return $this;
-    }
-
-    public function getObjet(): ?string
-    {
-        return $this->objet;
-    }
-
-    public function setObjet(string $objet): self
-    {
-        $this->objet = $objet;
-
-        return $this;
-    }
-
-    public function getMessage(): ?string
-    {
-        return $this->message;
-    }
-
-    public function setMessage(string $message): self
-    {
-        $this->message = $message;
-
-        return $this;
-    }
 }
