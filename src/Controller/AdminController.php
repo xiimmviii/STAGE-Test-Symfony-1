@@ -110,8 +110,8 @@ class AdminController extends AbstractController
         }
 
         //on récupère toutes les photos déjà dans la BDD
-        $repo = $this->getDoctrine()->getRepository(Galerie::class);
-        $photos = $repo->findAll();
+        $repository = $this->getDoctrine()->getRepository(Galerie::class);
+        $photos = $repository ->findAll();
 
         $repository = $this->getDoctrine()->getRepository(Entreprise::class);
         $entreprise = $repository->findOneById(1);
