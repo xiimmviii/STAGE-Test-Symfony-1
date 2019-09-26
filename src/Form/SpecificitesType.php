@@ -19,6 +19,11 @@ class SpecificitesType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+        // On construit le formulaire en déclinant les champs 
+        // On déclare le champ, on lui applique une classe qui définit son type
+        // On peut ensuite ajouter des spécificités à ces champs 
+            // Required permet de préciser si le contenu est obligatoire (true) ou non (false)
+
             ->add('facebook', TextType::class,array('required' => false))
             ->add('instagram', TextType::class,array('required' => false))
             ->add('pageGoogle', TextType::class)

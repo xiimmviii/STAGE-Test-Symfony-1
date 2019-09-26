@@ -16,9 +16,14 @@ class GalerieType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder
+		$builder
+        // On construit le formulaire en déclinant les champs 
+        // On déclare le champ, on lui applique une classe qui définit son type
+        // On peut ensuite ajouter des spécificités à ces champs 
+
             ->add('file', FileType::class, array(
 				'constraints' => array(
+					// On définit les formats d'image qui peuvent être envoyés 
 					new Assert\Image(array(
 						'mimeTypes' => array(
 							'image/png',
@@ -29,6 +34,7 @@ class GalerieType extends AbstractType
 						'mimeTypesMessage' => 'Veuillez sélectionner une image PNG, JPG, JPEG ou GIF' ,
 					)),
 					new Assert\File(array(
+						// On définit la taille maximale du fichier qui peut être envoyé 
 						'maxSize' => '3M',
 						'maxSizeMessage' => '>Veuillez sélectionner une image de 3Mo maximum'
 					)),
