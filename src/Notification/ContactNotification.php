@@ -23,6 +23,7 @@ class ContactNotification{
     public function __construct(\Swift_Mailer $mailer, Environment $renderer)
     {
 
+        // On créé des variables pour pouvoir générer l'envoi du message via SwiftMailer
         $this->mailer = $mailer;
         $this->renderer = $renderer;
        
@@ -30,6 +31,7 @@ class ContactNotification{
 
     public function notify(Contact $contact)
     { 
+        // On récupère les informations qui proviennent du formulaire de contact via le CONTACTTYPE.PHP et le controller BASE 
         $message = (new \Swift_Message('Contact'))
             ->setFrom($contact->getEmail())
             ->setTo($contact->getEmail())
