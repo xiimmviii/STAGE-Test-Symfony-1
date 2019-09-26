@@ -6,7 +6,7 @@
                     class="fas fa-handshake"></i> </h3>
             <div class="row justify-content-around">
                 {% for logo in logos %}
-                <div class="col-md-2 col-sm-6"><a class="text-decoration-none" href="{{ logo.sitePartenaire }}"><img src="{{ asset('/photo/logos/' ~ logo.logo) }}" class="img-fluid" /> <p class="text-dark font-weight-light text-center">{{ logo.nomPartenaire}}</p></a>
+                <div class="col-md-2 col-sm-6"><a class="text-decoration-none" href="{{ logo.sitePartenaire }}"><img src="{{ asset('/photo/logos/' ~ logo.logo) }}" class="img-fluid" alt="logo de {{ logo.nomPartenaire }}, partenaire" /> <p class="text-dark font-weight-light text-center">{{ logo.nomPartenaire}}</p></a>
                 </div>
                 {% endfor %}
             </div>
