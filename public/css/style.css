@@ -250,6 +250,9 @@ letter-spacing: 1px;
 
 .img-thumbnail {
 border: none!important;
+width: 200px;
+height: 150px;
+object-fit: cover;
 }
 
 .modal-dialog {
@@ -264,4 +267,15 @@ border: none!important;
     background: none; 
     border: none;
     margin: 0 auto; 
+}
+
+.text-modal {
+    background-color: black;
+    color: white;
+    font-size: 1.3em;
+    opacity: 0.7;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    padding: 2vh;
 }
