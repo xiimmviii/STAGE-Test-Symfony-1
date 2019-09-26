@@ -8,6 +8,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Validator\Constraints as Assert; 
 
 
@@ -34,6 +35,7 @@ class GalerieType extends AbstractType
 				), 
 				'label' => 'Photo'
 			))
+			->add('description', TextType::class)
 
             ->add('submit', SubmitType::class);
         ;

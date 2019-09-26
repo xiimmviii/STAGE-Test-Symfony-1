@@ -20,8 +20,13 @@ class Galerie implements \Serializable
     private $id;
 
     /**
+     * @ORM\Column(type="string", length=255, nullable=false)
+     */
+    private $description;
+
+    /**
      * @var string|null
-     * @ORM\Column(name="photo", type="string", length=255, nullable=true)
+     * @ORM\Column(name="photo", type="string", length=255, nullable=false)
      */
     private $photo = 'default.jpg'; 
 
@@ -41,6 +46,18 @@ class Galerie implements \Serializable
     public function setPhoto(?string $photo): self
     {
         $this->photo = $photo;
+
+        return $this;
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(string $description): self
+    {
+        $this->description = $description;
 
         return $this;
     }

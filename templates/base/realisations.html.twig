@@ -8,6 +8,7 @@
         {% set modal = 'modal' %}
         <div class="col-md-2">
             <img class="img-thumbnail" data-toggle="modal" data-target="#{{ modal ~ photo.id }}" src="{{ asset('/photo/' ~ photo.photo) }}">
+            <p class="font-weight-light font-italic text-center">{{ photo.description }}<p>
 
             <div class="modal fade" id="{{ modal ~ photo.id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
                 aria-hidden="true">
