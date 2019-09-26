@@ -68,8 +68,6 @@ class AdminController extends AbstractController
         $repository = $this->getDoctrine()->getRepository(Specificites::class);
         $specificites = $repository->findOneById(1);
 
-        t
-
         // On utilise le manager pour pouvoir traiter les informations en BDD >> Entreprise 
         $manager = $this->getDoctrine()->getManager();
 
