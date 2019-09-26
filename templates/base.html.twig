@@ -11,6 +11,7 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+        {# Ce SCRIPT permet que le message d'erreur ou de succès lors d'une action admin ou l'envoi d'un formulaire de contact disparaisse en fondu  #}
         <script>
             $("document").ready(() => {
                 $("#jsflash").delay(1500).animate({
@@ -20,6 +21,7 @@
                 });
             });
         </script>
+        {# Le script suivant permet l'affichage du nom du fichier dans un champ d'envoi  #}
         <script src="https://cdn.jsdelivr.net/npm/bs-custom-file-input/dist/bs-custom-file-input.min.js"></script>
 <script>
     $(document).ready(function () {
@@ -31,7 +33,7 @@
 
     <body>
 
-        <header>
+        <header> {# HEADER du site avec affichage du logo en utilisant la méthode ASSET de Symfony #}
             <img src="{{asset('/images/logo.jpg')}}" alt="logo de l'etp" class="img-fluid">
         </header>
 
@@ -57,12 +59,11 @@
                             <i class="fas fa-phone-alt"></i>
                             Contact</a>
                     </li>
-                    {% if app.user %}
+                    {% if app.user %} {# Ici, on affiche l'espace admin et la déconnexion SEULEMENT si l'admin est connecté #}
                         <li class="nav-item nav-cont mx-3">
                             <a class="nav-link font-weight-bold" href="{{path('admin')}}">
                                 <i class="fas fa-toolbox"></i>
-                                Espace
-                                                        admin</a>
+                                Espace admin</a>
                         </li>
                         <li class="nav-item nav-cont mx-3">
                             <a class="nav-link alert-danger rounded font-weight-bold" href="{{path('app_logout')}}">
@@ -74,25 +75,26 @@
                 </ul>
             </div>
         </nav>
-        {% for message in app.flashes('success') %}
+        {% for message in app.flashes('success') %} {# Message de réussite d'une action  #}
             <div id="jsflash" class="alert alert-success mx-auto">
                 {{ message | raw }}
             </div>
         {% endfor %}
 
-        {% for message in app.flashes('error') %}
+        {% for message in app.flashes('error') %} {# Message d'erreur d'une action #}
             <div id="jsflash" class="alert alert-danger m-0">
                 {{ message | raw }}
             </div>
         {% endfor %}
 
+        {# Ici, on ajoute le contenu de façon dynamique  #}
         {% block content %}{% endblock %}
 
         <footer class="bg-dark">
             <div class="row justify-content-center">
                 <div class="col-md-4 col-sm-12 m-3">
                     <div class="footerh3 pb-3">
-                        {{entreprise.nom}}
+                        {{entreprise.nom}} 
                     </div>
                     <div class="footeradresse">
                         {{entreprise.adresse}}
@@ -121,8 +123,8 @@
                             Laissez votre avis !
                         </div>
                     </a>
-
-                    <div class="reseauxsociaux">
+                    <br><br>
+                    <div class=" reseauxsociaux">
                         <a class="h1" href="{{specificites.facebook}}"><i class="fab fa-facebook text-light"></i></a>
                         <a class="h1" href="{{specificites.instagram}}"><i class="fab fa-instagram text-light"></i></a>
                     </div>
