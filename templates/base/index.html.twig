@@ -1,5 +1,7 @@
 {% extends 'base.html.twig' %}
 
+{# On utilise les include pour pouvoir changer l'ordre des sections, le choix des sections, comme on veut selon les thèmes/les besoins du client. #}
+
 {% block content %}
     {{ include('./sections/section-presentation-etp.html.twig') }}
     {{ include('./sections/section-label-plus.html.twig') }}

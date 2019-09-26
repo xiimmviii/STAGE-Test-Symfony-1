@@ -7,6 +7,7 @@
         {% for photo in photos %} 
         {% set modal = 'modal' %}
         <div class="col-md-3">
+            <!-- On utilise une variable "modal" dans "data-target" pour pouvoir la concaténer avec l'id de la photo en dynamique et ensuite faire la même chose dans l'id de la modal qui sert de cible pour afficher la bonne photo. On crée la variable directemennt dans twig (ligne 8) parce qu'on n'a pas besoin de la rendre dynamique dans le controller. -->
             <img class="img-thumbnail" data-toggle="modal" data-target="#{{ modal ~ photo.id }}" src="{{ asset('/photo/' ~ photo.photo) }}" alt="{{ photo.description }}">
 
 
