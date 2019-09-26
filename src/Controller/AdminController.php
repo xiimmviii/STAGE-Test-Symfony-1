@@ -274,7 +274,7 @@ class AdminController extends AbstractController
 
         // -----------------------------------------------------------------------------------
 
-        $date = '';
+        $date = '0';
         $boutonenvoi = 'Modifier';
 
         return $this->render('admin/presentation-entreprise.html.twig', [
@@ -477,7 +477,7 @@ class AdminController extends AbstractController
             return $this->redirectToRoute('histoireentreprise');
         }
 
-        $date = '';
+        $date = '0';
         $boutonenvoi = 'Modifier';
 
         return $this->render('admin/histoire-entreprise.html.twig', [
