@@ -14,6 +14,7 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 class SecurityController extends AbstractController
 {
     /**
+     * route du login, affiche le formulaire de login (c'est l'adresse à envoyer au client pour qu'il puisse changer le contenu de son site)
      * @Route("/login", name="app_login")
      */
     public function login(AuthenticationUtils $authenticationUtils): Response
@@ -50,6 +51,7 @@ class SecurityController extends AbstractController
     }
 
     /**
+     * route de déconnexion
      * @Route("/logout", name="app_logout")
      */
     public function logout()

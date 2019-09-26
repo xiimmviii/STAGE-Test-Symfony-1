@@ -20,7 +20,10 @@
 
         {{form_start(ContenuForm)}}
         <div style="display: none">
+            <!-- On met en display none ces champs pour pouvoir y injecter des valeurs sans que l'utilisateur s'en rende compte /sans qu'il puisse y toucher. -->
+            <!-- Comme on veut que ces textes soient pour la section "présentation" on injecte en dur la valeur "présentation" dans le champ "section" -->
             {{ form_row(ContenuForm.section, {'value' : 'presentation'}) }}
+            <!-- Dans BaseController on crée une variable $date. Dedans on injecte des données selon la route sélectionée (update, delete, afficher...). On met ensuite cette variable en valeur du champ "dateAffichage" afin d'injecter ces données. (c'est ce qui nous permet de gérer le choix de l'affichage. CF. AdminController.-->
             {{ form_label(ContenuForm.dateAffichage) }}
             {{ form_widget(ContenuForm.dateAffichage, {'value': date}) }}
         </div>
@@ -30,6 +33,7 @@
 
 
         <div class="col-lg-6">
+            <!-- Même principe que pour la variable $date, pour gérer le changement de label dans le bouton envoi selon la route dans laquelle on est -->
             {{ form_row(ContenuForm.submit, { 'label' : boutonenvoi } ) }}
         </div>
         {{form_end(ContenuForm)}}
@@ -52,6 +56,8 @@
             </thead>
 
             <tbody>
+                <!-- Pour afficher en premier le texte affiché, on ordonne nos résultats de notre boucle for par la date d'affichage en DESC. Pour cela on utilise l'extension twig sortbyfield : https://github.com/victorhaggqvist/Twig-sort-by-field/blob/master/src/SortByFieldExtension.php 
+                On break le for et on récupère que le premier de la liste pour mettre un design spécial-->
                 {% for presentation in presentations | sortbyfield('dateAffichage') | slice (0,1) %}
                 <tr class="row alert-success">
                     <td class="col-2">
@@ -82,6 +88,7 @@
                 {% endfor %}
 
                 {% for presentation in presentations | sortbyfield('dateAffichage') | slice (1,50) %}
+                <!-- On récupère le reste des textes et on les affiche à la suite dans le tableau -->
                 <tr class="row">
                     <td class="col-2">
                         <h5>{{ presentation.titre }} </h5>

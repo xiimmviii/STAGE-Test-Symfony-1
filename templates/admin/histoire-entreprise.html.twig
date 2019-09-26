@@ -1,77 +1,95 @@
 {% extends 'base.html.twig' %}
 
 {% block content %}
-    {{ include('./admin/navbaradmin.html.twig') }}
+{{ include('./admin/navbaradmin.html.twig') }}
 
-    <div class="row mt-4 pt-4">
-<div class="col-10 mx-auto border border-info rounded p-3"> <h2> L'histoire de l'entreprise  </h2><hr>
-<p> Description </p></div>
+<div class="row mt-4 pt-4">
+    <div class="col-10 mx-auto border border-info rounded p-3">
+        <h2> L'histoire de l'entreprise </h2>
+        <hr>
+        <p> Description </p>
+    </div>
 </div>
 
 <div class="row m-4 justify-content-center">
-<div class="col-lg-4 col-md-3 col-sm-10 alert-warning m-3 order-md-5 order-lg-5 "> BLOC DE DOCUMENTATION </div>
-<div class="col-lg-6 col-md-8 col-sm-10 alert-info m-3 order-md-0 order-lg-0 "> 
-{{form_start(ContenuForm)}}
-    <div style="display: none">
-        {{ form_row(ContenuForm.section, {'value' : 'historique'}) }}
-        {{ form_label(ContenuForm.dateAffichage) }}
-        {{ form_widget(ContenuForm.dateAffichage, {'value': date}) }}
-    </div>
+    <div class="col-lg-4 col-md-3 col-sm-10 alert-warning m-3 order-md-5 order-lg-5 "> BLOC DE DOCUMENTATION </div>
+    <div class="col-lg-6 col-md-8 col-sm-10 alert-info m-3 order-md-0 order-lg-0 ">
+        {{form_start(ContenuForm)}}
+        <div style="display: none">
+            <!-- On met en display none ces champs pour pouvoir y injecter des valeurs sans que l'utilisateur s'en rende compte /sans qu'il puisse y toucher. -->
+            <!-- Comme on veut que ces textes soient pour la section "historique" on injecte en dur la valeur "historique" dans le champ "section" -->
+            {{ form_row(ContenuForm.section, {'value' : 'historique'}) }}
+            <!-- Dans BaseController on crée une variable $date. Dedans on injecte des données selon la route sélectionée (update, delete, afficher...). On met ensuite cette variable en valeur du champ "dateAffichage" afin d'injecter ces données. (c'est ce qui nous permet de gérer le choix de l'affichage. CF. AdminController.-->
+            {{ form_label(ContenuForm.dateAffichage) }}
+            {{ form_widget(ContenuForm.dateAffichage, {'value': date}) }}
+        </div>
 
-{{ form_row(ContenuForm.titre) }}
-{{ form_row(ContenuForm.sousTitre) }}
-{{ form_row(ContenuForm.texte) }}
+        {{ form_row(ContenuForm.titre) }}
+        {{ form_row(ContenuForm.sousTitre) }}
+        {{ form_row(ContenuForm.texte) }}
         <div class="col-lg-6">
+            <!-- Même principe que pour la variable $date, pour gérer le changement de label dans le bouton envoi selon la route dans laquelle on est -->
             {{ form_row(ContenuForm.submit, { 'label' : boutonenvoi } ) }}
         </div>
-  {{form_end(ContenuForm)}}
-      
-</div>
+        {{form_end(ContenuForm)}}
+
+    </div>
 </div>
 
 <div class="row m-4 justify-content-center">
-<table class="col-10 table table-hover">
-<thead> <tr class="row" >
-<th class="col-2">TITRE </th>
-<th class="col-2">SOUS TITRE </th>
-<th class="col-5"> TEXTE </th>
-<th class="col-1"> PUBLIER </th>
-<th class="col-1"> MODIFIER</th>
-<th class="col-1"> SUPPRIMER</th>
-</thead>
-<tbody >
-{% for historique in historiques | sortbyfield('dateAffichage') | slice(0, 1) %}
-<tr class="row alert-success">
-<td class="col-2"> {{historique.titre}} </td>
-<td class="col-2"> {{historique.sousTitre}} </td>
-<td class="col-5 overflow-auto" height="100"> {{historique.texte}} </td>
-<td class="col-1 text-center">  EN LIGNE <br> <h1><i class="fas fa-globe-asia"></i></h1> </td>
-<td class="col-1 text-center"> <a href="{{ path('update_histoireEntreprise', {id : historique.id } ) }}">
-                                <i class="fas fa-edit"></i> </a> </td>
-<td class="col-1 text-center"> <a href="{{ path('delete_historiqueEntreprise', {id : historique.id } ) }}"
-                                onclick="return confirm('Etes-vous certain(e) de vouloir supprimer le texte de présentation ?')">
-                                <i class="fas fa-trash-alt"></i>
-                            </a> </td>
-</tr>
-{% endfor %}
-{% for historique in historiques | sortbyfield('dateAffichage') |slice(1, 50) %}
-<tr class="row">
-<td class="col-2"> {{historique.titre}} </td>
-<td class="col-2"> {{historique.sousTitre}} </td>
-<td class="col-5 overflow-auto" height="100"> {{historique.texte}} </td>
-<td class="col-1 text-center"> <a href="{{ path('affichage_histoireEntreprise', {id : historique.id } ) }}">
-                                <i class="fas fa-upload"></i> </a> </td>
-<td class="col-1 text-center"> <a href="{{ path('update_histoireEntreprise', {id : historique.id } ) }}">
-                                <i class="fas fa-edit"></i> </a> </td>
-<td class="col-1 text-center"> <a href="{{ path('delete_historiqueEntreprise', {id : historique.id } ) }}"
-                                onclick="return confirm('Etes-vous certain(e) de vouloir supprimer le texte de présentation ?')">
-                                <i class="fas fa-trash-alt"></i>
-                            </a> </td>
-</tr>
-{% endfor %}
+    <table class="col-10 table table-hover">
+        <thead>
+            <tr class="row">
+                <th class="col-2">TITRE </th>
+                <th class="col-2">SOUS TITRE </th>
+                <th class="col-5"> TEXTE </th>
+                <th class="col-1"> PUBLIER </th>
+                <th class="col-1"> MODIFIER</th>
+                <th class="col-1"> SUPPRIMER</th>
+        </thead>
+        <tbody>
+            <!-- Pour afficher en premier le texte affiché, on ordonne nos résultats de notre boucle for par la date d'affichage en DESC. Pour cela on utilise l'extension twig sortbyfield : https://github.com/victorhaggqvist/Twig-sort-by-field/blob/master/src/SortByFieldExtension.php 
+                On break le for et on récupère que le premier de la liste pour mettre un design spécial-->
+            {% for historique in historiques | sortbyfield('dateAffichage') | slice(0, 1) %}
+            <tr class="row alert-success">
+                <td class="col-2"> {{historique.titre}} </td>
+                <td class="col-2"> {{historique.sousTitre}} </td>
+                <td class="col-5 overflow-auto" height="100"> {{historique.texte}} </td>
+                <td class="col-1 text-center"> EN LIGNE <br>
+                    <h1><i class="fas fa-globe-asia"></i></h1>
+                </td>
+                <td class="col-1 text-center"> <a
+                        href="{{ path('update_histoireEntreprise', {id : historique.id } ) }}">
+                        <i class="fas fa-edit"></i> </a> </td>
+                <td class="col-1 text-center"> <a
+                        href="{{ path('delete_historiqueEntreprise', {id : historique.id } ) }}"
+                        onclick="return confirm('Etes-vous certain(e) de vouloir supprimer le texte de présentation ?')">
+                        <i class="fas fa-trash-alt"></i>
+                    </a> </td>
+            </tr>
+            {% endfor %}
+            {% for historique in historiques | sortbyfield('dateAffichage') |slice(1, 50) %}
+            <!-- On récupère le reste des textes et on les affiche à la suite dans le tableau -->
+            <tr class="row">
+                <td class="col-2"> {{historique.titre}} </td>
+                <td class="col-2"> {{historique.sousTitre}} </td>
+                <td class="col-5 overflow-auto" height="100"> {{historique.texte}} </td>
+                <td class="col-1 text-center"> <a
+                        href="{{ path('affichage_histoireEntreprise', {id : historique.id } ) }}">
+                        <i class="fas fa-upload"></i> </a> </td>
+                <td class="col-1 text-center"> <a
+                        href="{{ path('update_histoireEntreprise', {id : historique.id } ) }}">
+                        <i class="fas fa-edit"></i> </a> </td>
+                <td class="col-1 text-center"> <a
+                        href="{{ path('delete_historiqueEntreprise', {id : historique.id } ) }}"
+                        onclick="return confirm('Etes-vous certain(e) de vouloir supprimer le texte de présentation ?')">
+                        <i class="fas fa-trash-alt"></i>
+                    </a> </td>
+            </tr>
+            {% endfor %}
 
-</tbody>
-</table>
+        </tbody>
+    </table>
 </div>
 
 {% endblock %}

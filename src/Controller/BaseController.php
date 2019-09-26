@@ -18,6 +18,7 @@ class BaseController extends AbstractController
 {
 
     /**
+     * page d'index, affiche les sections
      * @Route("/", name="index")
      */
     public function index()
@@ -63,6 +64,7 @@ class BaseController extends AbstractController
     }
 
     /**
+     * affiche la galerie de photos (en dynamique)
      * @Route("/realisations", name="realisations")
      */
     public function realisations()
@@ -96,6 +98,7 @@ class BaseController extends AbstractController
 
 
     /**
+     * affiche les mentions légales (statique)
      * @Route("/mentions-legales", name="mentions")
      */
     public function mentions()
@@ -123,6 +126,7 @@ class BaseController extends AbstractController
     }
 
     /**
+     * affiche les CGU (statique)
      * @Route("/CGU", name="CGU")
      */
     public function CGU()
@@ -151,6 +155,7 @@ class BaseController extends AbstractController
 
 
     /**
+     * affiche le formulaire de contact pour envoyer un mail directement par le site
      * @Route("/contact", name="contact")
      */
     public function Formulaire(Request $request, \Swift_Mailer $mailer)

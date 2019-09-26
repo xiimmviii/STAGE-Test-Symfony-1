@@ -132,7 +132,6 @@ class AdminController extends AbstractController
 
             // On enregistre la $photo dans le système 
             $manager->persist($photo);
-          
 
             // On enregistre la photo en BDD et sur le serveur. 
             // On émet une condition >> Si il y a un fichier sélectionné, alors on l'envoie 
