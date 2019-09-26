@@ -18,11 +18,13 @@ class ContenuType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+        // On construit le formulaire en déclinant les champs 
+        // On déclare le champ, on lui applique une classe qui définit son type
+        // On peut ensuite ajouter des spécificités à ces champs 
             ->add('section', TextType::class)
             ->add('titre', TextType::class)
             ->add('sousTitre', TextType::class,array('required' => false))
             ->add('texte', TextareaType::class)
-            ->add('statut', HiddenType::class,array('required' => false, 'empty_data' => '0',))
             ->add('dateAffichage', TextType::class,array('required' => false))
         
             ->add('submit', SubmitType::class);

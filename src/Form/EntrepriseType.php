@@ -20,13 +20,20 @@ class EntrepriseType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+        // On construit le formulaire en déclinant les champs 
+        // On déclare le champ, on lui applique une classe qui définit son type
+        // On peut ensuite ajouter des spécificités à ces champs 
             ->add('nom', TextType::class)
+            // Required permet de préciser si le contenu est obligatoire (true) ou non (false)
             ->add('statut_rcs', TextType::class,array('required' => false))
             ->add('adresse', TextType::class)
             ->add('cp', IntegerType::class)
             ->add('ville', TextType::class)
             ->add('telephone', TextType::class)
             ->add('mailGerant',EmailType::class,array(
+                // Ici, le constraint va permettre d'appliquer les pré-requis d'un champ mail
+                // Il faut absolument un @ et une extension à la suite pour pouvoir envoyer le formulaire
+                // Si ce qui est entré dans le champ ne correspond pas, on affiche un message d'erreur
                 'constraints' => array(
                     new Assert\Email(array(
                         'message' => '{{ value }} n\'est pas un email valide'
