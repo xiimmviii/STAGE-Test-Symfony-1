@@ -8,7 +8,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
  */
-class User implements UserInterface
+class User implements UserInterface //l'entité USER doit absolument implémenter UserInterface pour fonctionner
 {
     /**
      * @ORM\Id()
@@ -25,13 +25,15 @@ class User implements UserInterface
     /**
      * @ORM\Column(name="role", type="string", length=20)
      */
-    private $role = 'ROLE_ADMIN';
+    private $role = 'ROLE_ADMIN'; 
+    //comme on n'a besoin que d'utilisateurs admins sur ce site, c'est le role qu'on donne par défaut à tous nos utilisateurs
 
     /**
      * @var string The hashed password
      * @ORM\Column(type="string")
      */
     private $password;
+    //le mot de passe est sécurisé par un cryptage automatique (cf security.yaml)
 
     public function getId(): ?int
     {
@@ -50,18 +52,9 @@ class User implements UserInterface
         return $this;
     }
 
-    /**
-     * A visual identifier that represents this user.
-     *
+        /**
      * @see UserInterface
-     */
-    public function getUsername(): string
-    {
-        return (string) $this->email;
-    }
-
-    /**
-     * @see UserInterface
+     * 
      */
     public function setRole($role)
     {
@@ -74,13 +67,16 @@ class User implements UserInterface
         return $this->role;
     }
 
+    //ne pas oublier l'array : 
+
     public function getRoles()
     {
         return [$this->role];
     }
 
-    /**
+    /** 
      * @see UserInterface
+     * 
      */
     public function getPassword(): string
     {
@@ -94,12 +90,33 @@ class User implements UserInterface
         return $this;
     }
 
+
+    //-----------------------------------------
+
+
+    // ╔═╗╔═╗╔╗╔╔╗╔╔═╗═╗ ╦╦╔═╗╔╗╔   ┬   ╔╦╗╔═╗╔═╗╔═╗╔╗╔╔╗╔╔═╗═╗ ╦╦╔═╗╔╗╔
+    // ║  ║ ║║║║║║║║╣ ╔╩╦╝║║ ║║║║  ┌┼─   ║║║╣ ║  ║ ║║║║║║║║╣ ╔╩╦╝║║ ║║║║
+    // ╚═╝╚═╝╝╚╝╝╚╝╚═╝╩ ╚═╩╚═╝╝╚╝  └┘   ═╩╝╚═╝╚═╝╚═╝╝╚╝╝╚╝╚═╝╩ ╚═╩╚═╝╝╚╝
+    
+    //-----------------------------------------
+
+    /**
+     * on paramètre l'identifiant qui sera utilisé pour la connexion (en l'occurrence l'email)
+     *
+     * @see UserInterface
+     */
+    public function getUsername(): string
+    {
+        return (string) $this->email;
+    }
+
+
     /**
      * @see UserInterface
      */
     public function getSalt()
     {
-        // not needed when using the "bcrypt" algorithm in security.yaml
+        // non utilisé puisqu'on utilise le bcrypt dans security.yaml, sert normalement à crypter le mot de passe
     }
 
     /**
@@ -107,7 +124,6 @@ class User implements UserInterface
      */
     public function eraseCredentials()
     {
-        // If you store any temporary, sensitive data on the user, clear it here
-        // $this->plainPassword = null;
+        //sert à supprimer des données quand on stocke les données des utilisateurs (pas utile ici)
     }
 }

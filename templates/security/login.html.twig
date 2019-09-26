@@ -6,17 +6,23 @@
 
 <form method="post" class="col-md-4 mx-auto">
     {% if error %}
-        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+    <!-- S'il y a un erreur, elle s'affichera ici. -->
+    <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
     {% endif %}
 
     {% if app.user %}
-        <div class="mb-3">
-            Vous êtes connecté(e) sous l'identifiant {{ app.user.username }}, <b><a href="{{ path('app_logout') }}">se déconnecter</a></b>
-        </div>
+    <!-- Si l'utilisateur est connecté, on affiche ce message disant qu'il est déjà connecté et on fait un lien vers la déconnexion (on n'affiche pas le formulaire de connexion) -->
+    <div class="mb-3">
+        Vous êtes connecté(e) sous l'identifiant {{ app.user.username }}, <b><a href="{{ path('app_logout') }}">se
+                déconnecter</a></b>
+    </div>
+
 
     {% else %}
+    <!-- S'il n'est pas connecté, on affiche le formulaire de connection -->
     <h1 class="h3 mb-3 font-weight-normal my-3">Merci de vous connecter</h1>
     <div class="my-3">
+        <!-- On appelle la variable last_username pour que le dernier identifiant utilisé s'affiche automatiquement dans le champ de l'identifiant -->
         <label for="inputEmail" class="sr-only">Email</label>
         <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" placeholder="Email" required autofocus>
     </div>
@@ -25,9 +31,8 @@
         <input type="password" name="password" id="inputPassword" class="form-control" placeholder="Password" required>
     </div>
 
-    <input type="hidden" name="_csrf_token"
-           value="{{ csrf_token('authenticate') }}"
-    >
+    <!-- Input caché qui permet à la connexion d'être sécurisée (en utilisant la variable authenticate qui est dans le src/security/LoginFormAuthenticate.php) -->
+    <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
 
     <div class="my-3">
         <button class="btn btn-lg btn-outline-primary" type="submit">
