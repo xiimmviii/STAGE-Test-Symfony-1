@@ -19,6 +19,7 @@ use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 use Symfony\Component\Security\Guard\Authenticator\AbstractFormLoginAuthenticator;
 use Symfony\Component\Security\Http\Util\TargetPathTrait;
 
+//Ce code se fait automatiquement quand on suit la doc pour faire son login (https://symfony.com/doc/current/security/form_login_setup.html). On n'a rien touché à part la ligne 90.
 class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
 {
     use TargetPathTrait;
@@ -85,7 +86,7 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
             return new RedirectResponse($targetPath);
         }
 
-        // For example : return new RedirectResponse($this->urlGenerator->generate('some_route'));
+        // Décide de la redirection une fois qu'on est connecté (ici, l'espace admin)
         return new RedirectResponse($this->urlGenerator->generate('admin'));
     }
 
