@@ -37,13 +37,8 @@ class Contenu
      */
     private $texte;
 
-     /**
-     * @ORM\Column(type="string", length=1)
-     * @Assert\Choice({"0", "1"})
-     */
-    private $statut;
 
-      /**
+    /**
      * @ORM\Column(type="string", nullable=true)
      */
     private $dateAffichage;
@@ -101,18 +96,6 @@ class Contenu
         return $this;
     }
 
-
-    public function getStatut(): ?string
-    {
-        return $this->statut;
-    }
-
-    public function setStatut(string $statut): self
-    {
-        $this->statut = $statut;
-
-        return $this;
-    }
 
     public function getDateAffichage(): ?string
     {
