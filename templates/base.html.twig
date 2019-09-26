@@ -10,14 +10,15 @@
     <link rel="stylesheet" href="{{asset('/css/style.css')}}">
     <title>Test site électricien</title>
 
- <script>
+    <script>
         $("document").ready(() => {
             $("#jsflash").delay(3000).animate({ opacity: 0 }, 5000, () => {
                 $("#jsflash").css('display', 'none');
             });
         });
     </script>
-    </head>
+</head>
+
 <body>
 
     <header>
@@ -25,72 +26,88 @@
     </header>
 
     <nav class="navbar navbar-expand-lg sticky-top navbar-light bg-light">
-        <button class="navbar-toggler mx-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler mx-auto" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+            aria-label="Toggle navigation">
             <span class="navbar-toggler-icon toggler1"></span>
         </button>
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto mx-auto p-3">
                 <li class="nav-item nav-ind mx-3">
-                    <a class="nav-link font-weight-bold" href="{{path('index')}}"><i class="fas fa-home"></i> Accueil</a>
+                    <a class="nav-link font-weight-bold" href="{{path('index')}}"><i class="fas fa-home"></i>
+                        Accueil</a>
                 </li>
                 <li class="nav-item nav-real mx-3">
-                    <a class="nav-link font-weight-bold" href="{{path('realisations')}}"><i class="far fa-lightbulb"></i> Réalisations</a>
+                    <a class="nav-link font-weight-bold" href="{{path('realisations')}}"><i
+                            class="far fa-lightbulb"></i> Réalisations</a>
                 </li>
                 <li class="nav-item nav-cont mx-3">
-                    <a class="nav-link font-weight-bold" href="{{path('contact')}}"><i class="fas fa-phone-alt"></i> Contact</a>
+                    <a class="nav-link font-weight-bold" href="{{path('contact')}}"><i class="fas fa-phone-alt"></i>
+                        Contact</a>
                 </li>
                 {% if app.user %}
                 <li class="nav-item nav-cont mx-3">
-                    <a class="nav-link font-weight-bold" href="{{path('admin')}}"><i class="fas fa-toolbox"></i> Espace admin</a>
+                    <a class="nav-link font-weight-bold" href="{{path('admin')}}"><i class="fas fa-toolbox"></i> Espace
+                        admin</a>
                 </li>
-                                <li class="nav-item nav-cont mx-3">
-                    <a class="nav-link alert-danger rounded font-weight-bold" href="{{path('app_logout')}}"><i class="fas fa-sign-out-alt"></i> Déconnexion</a>
+                <li class="nav-item nav-cont mx-3">
+                    <a class="nav-link alert-danger rounded font-weight-bold" href="{{path('app_logout')}}"><i
+                            class="fas fa-sign-out-alt"></i> Déconnexion</a>
                 </li>
                 {% endif %}
 
             </ul>
         </div>
     </nav>
-        {% for message in app.flashes('success') %}
-        <div id="jsflash" class="alert alert-success m-0">
-            {{ message | raw }}
-        </div>
-        {% endfor %}
-
-        {% for message in app.flashes('error') %}
-        <div id="jsflash" class="alert alert-danger m-0">
-            {{ message | raw }}
-        </div>
-        {% endfor %}
-
-{% block content %}
-{% endblock %}
-
-<footer class="bg-dark">
-    <div class="row justify-content-center">
-        <div class="col-md-4 col-sm-12 m-3">
-            <div class="footerh3 pb-3"> {{entreprise.nom}} </div>
-            <div class="footeradresse"> {{entreprise.adresse}} <br> {{entreprise.cp}} {{entreprise.ville}} </div>
-            <div class="footercontact"> Téléphone : <a href="{{entreprise.telephone}}" class="footertel"> {{entreprise.telephone}}</a> </div>
-            <div class="footercontact"> Mail : <a href="mailto:mail@mail.com" class="footermail"> {{entreprise.mailContact}}</a> </div>
-        </div>
-        <div class="col-md-4 col-sm-12 text-center m-3">
-            <div class="footerh3 pb-3"> Laissez votre témoignage sur Google </div>
-            <a href="{{specificites.pageGoogle}}">
-                <div class="col-10 btn boutonavis"> <i class="fas fa-star"></i> Laissez votre avis ! </div>
-            </a>
-        </div>
+    {% for message in app.flashes('success') %}
+    <div id="jsflash" class="alert alert-success m-0">
+        {{ message | raw }}
     </div>
-    <div class="row copyrow text-light">
-        <div class="col-12 copyright m-3"> Copyright © 2019 {{entreprise.nom}} | <a href="{{path('mentions')}}" class="copyright-a">Mentions légales</a> | <a href="{{path('CGU')}}" class="copyright-a">CGU</a></div>
+    {% endfor %}
+
+    {% for message in app.flashes('error') %}
+    <div id="jsflash" class="alert alert-danger m-0">
+        {{ message | raw }}
     </div>
+    {% endfor %}
 
-</footer>
+    {% block content %}
+    {% endblock %}
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.slim.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.15.0/umd/popper.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <footer class="bg-dark">
+        <div class="row justify-content-center">
+            <div class="col-md-4 col-sm-12 m-3">
+                <div class="footerh3 pb-3"> {{entreprise.nom}} </div>
+                <div class="footeradresse"> {{entreprise.adresse}} <br> {{entreprise.cp}} {{entreprise.ville}} </div>
+                <div class="footercontact"> Téléphone : <a href="telto:{{entreprise.telephone}}" class="footertel">
+                        {{entreprise.telephone}}</a> </div>
+                <div class="footercontact"> Mail : <a href="mailto:{{entreprise.mailContact}}" class="footermail">
+                        {{entreprise.mailContact}}</a> </div>
+            </div>
+            <div class="col-md-4 col-sm-12 text-center m-3">
+                <div class="footerh3 pb-3"> Laissez votre témoignage sur Google </div>
+                <a href="{{specificites.pageGoogle}}">
+                    <div class="col-10 btn boutonavis"> <i class="fas fa-star"></i> Laissez votre avis ! </div>
+                </a>
+
+                <div class="reseauxsociaux">
+                    <a class="h1" href="{{specificites.facebook}}"><i class="fab fa-facebook text-light"></i></a>
+                    <a class="h1" href="{{specificites.instagram}}"><i class="fab fa-instagram text-light"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="row copyrow text-light">
+            <div class="col-12 copyright m-3"> Copyright © 2019 {{entreprise.nom}} | <a href="{{path('mentions')}}"
+                    class="copyright-a">Mentions légales</a> | <a href="{{path('CGU')}}" class="copyright-a">CGU</a>
+            </div>
+        </div>
+
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.15.0/umd/popper.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
 </body>
 
 </html>

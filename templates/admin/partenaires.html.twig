@@ -1,72 +1,82 @@
 {% extends 'base.html.twig' %}
 
 {% block content %}
-    {{ include('./admin/navbaradmin.html.twig') }}
+{{ include('./admin/navbaradmin.html.twig') }}
 
-    <div class="row mt-4 pt-4">
-        <div class="col-10 mx-auto border border-info rounded p-3">
-            <h2>
-                Partenaires
-            </h2><hr>
-            <p>
-                Description
-            </p>
-        </div>
+<div class="row mt-4 pt-4">
+    <div class="col-10 mx-auto border border-info rounded p-3">
+        <h2>
+            Partenaires
+        </h2>
+        <hr>
+        <p>
+            Description
+        </p>
     </div>
+</div>
 
-    <div class="row m-4 justify-content-center">
-        <div class="col-lg-4 col-md-3 col-sm-10 alert-warning m-3 order-md-5 order-lg-5 ">
-            BLOC DE DOCUMENTATION
-        </div>
-        <div class="col-lg-6 col-md-8 col-sm-10 alert-info m-3 order-md-0 order-lg-0 ">
+<div class="row m-4 justify-content-center">
+    <div class="col-lg-4 col-md-3 col-sm-10 alert-warning m-3 order-md-5 order-lg-5 ">
+        BLOC DE DOCUMENTATION
+    </div>
+    <div class="col-lg-6 col-md-8 col-sm-10 alert-info m-3 order-md-0 order-lg-0 ">
 
-            <h1>Ajout d'un partenaire</h1><hr>
-            {{ form_start(PartenairesForm) }}
-            <div class="row">
-                <div class="col-6">
-                    {{ form_row(PartenairesForm.nomPartenaire) }}
-                    {{ form_row(PartenairesForm.sitePartenaire) }}
-                </div>
-                <div class="col-6">
-                    {{ form_row(PartenairesForm.file) }}
-                    {{ form_row(PartenairesForm.submit, { 'label' : 'Envoyer' } ) }}
-                </div>
+        <h1>Ajout d'un partenaire</h1>
+        <hr>
+        {{ form_start(PartenairesForm) }}
+        <div class="row">
+            <div class="col-6">
+                {{ form_row(PartenairesForm.nomPartenaire) }}
+                {{ form_row(PartenairesForm.sitePartenaire) }}
             </div>
-            {{ form_end(PartenairesForm) }}
-
-            <div class="row">
-
-                <h1>Tableau de gestion des partenaires</h1>
-
-
-
-
-                    <table cellpadding="0" cellspacing="0" border="0" class="col-10 mx-auto table table-stripped">
-                        <thead>
-                            <tr>
-                                <th>Logo</th>
-                                <th>Nom</th>
-                                <th>Site</th>
-                                <th>Supprimer</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-
-                            {% for logo in logos %}
-                                <tr>
-                                    <td><img src="{{ asset('/photo/logos/' ~ logo.logo) }}" alt="logo_partenaire" class="w-50" /></td>
+            <div class="col-6">
+                {{ form_row(PartenairesForm.file) }}
+                {{ form_row(PartenairesForm.submit, { 'label' : 'Envoyer' } ) }}
+            </div>
+        </div>
+        {{ form_end(PartenairesForm) }}
+    </div>
+</div>
 
 
-                    <td>{{logo.nomPartenaire}}</td>
-                    <td>{{logo.sitePartenaire}}</td>
-                    <td>
-                        <a href="{{ path('delete_partenaire', {id : logo.id } ) }}" onclick="return confirm('Etes-vous certain(e) de vouloir supprimer le partenaire ?')">
-                            <i class="fas fa-trash-alt"></i>
-                        </a>
-                    </td>
-                </tr>
+
+<div class="row">
+
+    <h1 class="mx-auto">Tableau de gestion des partenaires</h1>
+
+
+
+
+    <table cellpadding="0" cellspacing="0" border="0" class="col-10 mx-auto table table-stripped">
+        <thead>
+            <tr class="row">
+                <th class="col-md-3 text-center">Logo</th>
+                <th class="col-md-4 text-center">Nom</th>
+                <th class="col-md-4 text-center">Site</th>
+                <th class="col-md-1 text-center">Supprimer</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            {% for logo in logos %}
+            <tr class="row">
+                <td class="col-md-3 text-center"><img src="{{ asset('/photo/logos/' ~ logo.logo) }}" alt="logo_partenaire" class="img-thumbnail w-50" />
+                </td>
+
+
+                <td class="col-md-4 text-center">{{logo.nomPartenaire}}</td>
+                <td class="col-md-4 text-center">{{logo.sitePartenaire}}</td>
+                <td class="col-md-1 text-center">
+                    <a href="{{ path('delete_partenaire', {id : logo.id } ) }}"
+                        onclick="return confirm('Etes-vous certain(e) de vouloir supprimer le partenaire ?')">
+                        <i class="fas fa-trash-alt"></i>
+                    </a>
+                </td>
+            </tr>
             {% endfor %}
 
         </tbody>
     </table>
-</div></div></div>{% endblock %}
+</div>
+
+{% endblock %}
