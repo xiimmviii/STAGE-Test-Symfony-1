@@ -1,30 +1,33 @@
 {% extends 'base.html.twig' %}
 
 {% block content %}
-<section class="mt-5 mb-5 text-center">
-    <div class="row justify-content-center">
+    <section class="mt-5 mb-5 text-center">
+        <div
+            class="row justify-content-center">
 
-        {% for photo in photos %} 
-        {% set modal = 'modal' %}
-        <div class="col-md-3">
-            <img class="img-thumbnail" data-toggle="modal" data-target="#{{ modal ~ photo.id }}" src="{{ asset('/photo/' ~ photo.photo) }}" alt="{{ photo.description }}">
+            {# On génère ici une boucle pour afficher les photos des réalisations présentes dans la BDD#}
+            {% for photo in photos %}
+                {% set modal = 'modal' %}
+                {# La partie modale permet l'affichage en grand sur l'écran de la photo sur laquelle on a cliqué #}
+                <div class="col-md-3">
+                    <img
+                    class="img-thumbnail" data-toggle="modal" data-target="#{{ modal ~ photo.id }}" src="{{ asset('/photo/' ~ photo.photo) }}" alt="{{ photo.description }}">
 
-
-            <div class="modal fade" id="{{ modal ~ photo.id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-                aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <img src="{{ asset('/photo/' ~ photo.photo) }}" class="img-fluid" />
-                        <div class="text-modal"> {{ photo.description }}</div>
+                    {# L'appel de la modal est dynamique, ce qui permet que tous les éléments correspondent entre eux : ID, description #}
+                    <div class="modal fade" id="{{ modal ~ photo.id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <img src="{{ asset('/photo/' ~ photo.photo) }}" class="img-fluid"/>
+                                <div class="text-modal">
+                                    {{ photo.description }}</div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
+            {% endfor %}
+
+
         </div>
-        {% endfor %}
 
-        
-
-    </div>
-
-</section>
+    </section>
 {% endblock %}

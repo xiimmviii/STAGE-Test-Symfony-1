@@ -1,5 +1,7 @@
 {% extends 'base.html.twig' %}
 
+{# Dans cette partie, on utilise des includes parce que nous avions plusieurs parties d'ynamiques à insérer dans l'index #}
+{# Cela nous permet de pouvoir modifier rapidement l'ordre d'affichage des sections ou d'en supprimer selon la demande #}
 {% block content %}
     {{ include('./sections/section-presentation-etp.html.twig') }}
     {{ include('./sections/section-label-plus.html.twig') }}
