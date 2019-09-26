@@ -22,16 +22,23 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class AdminController extends AbstractController
 {
     /**
+     * Récupérer les informations (en BDD) qui apparaissent sur la vue de base (header+footer) >> BASE.html.twig 
      * @Route("/admin", name="admin")
      */
     public function admin()
     {
+        // Ici, on récupère les informations en BDD en utilisant le Repository
+        // Récupération : des éléments de la table Entreprise puis ceux la table Spécificités 
+       
         $repository = $this->getDoctrine()->getRepository(Entreprise::class);
         $entreprise = $repository->findOneById(1);
+        // Le findOneById permet de trier les données et de ne récupérer que la donnée qui a l'ID #1 
 
         $repository = $this->getDoctrine()->getRepository(Specificites::class);
         $specificites = $repository->findOneById(1);
+        // Le findOneById permet de trier les données et de ne récupérer que la donnée qui a l'ID #1 
 
+         // On retourne ensuite les éléments récupérés dans la vue qu'on injectera entre {{}} dans la vue twig ADMIN -> espaceadmin.html.twig
         return $this->render('admin/espaceadmin.html.twig', [
             'controller_name' => 'AdminController',
             'entreprise' => $entreprise,
@@ -39,22 +46,41 @@ class AdminController extends AbstractController
         ]);
     }
 
+    /* ---------------------------------------------------------------------------------------------------
+    ╦╔╗╔╔═╗╔═╗  ╔═╗╔╗╔╔╦╗╦═╗╔═╗╔═╗╦═╗╦╔═╗╔═╗
+    ║║║║╠╣ ║ ║  ║╣ ║║║ ║ ╠╦╝║╣ ╠═╝╠╦╝║╚═╗║╣ 
+    ╩╝╚╝╚  ╚═╝  ╚═╝╝╚╝ ╩ ╩╚═╚═╝╩  ╩╚═╩╚═╝╚═╝
+    --------------------------------------------------------------------------------------------------- */
+
     /**
+     * Récupérer les informations de l'entreprise et les afficher dans la partie de modification des informations de l'entreprise
+     * L'affichage permet la modification ce qui permet d'avoir toujours en visuel les informations 
      * @Route("/admin/entreprise", name="entreprise")
      */
     public function showEntreprise(Request $request)
     {
+        // On récupère les informations en BDD en utilisant le Repository
+        // Récupération : des éléments de la table Entreprise puis ceux la table Spécificités  
+        
         $repository = $this->getDoctrine()->getRepository(Entreprise::class);
         $entreprise = $repository->findOneById(1);
 
         $repository = $this->getDoctrine()->getRepository(Specificites::class);
         $specificites = $repository->findOneById(1);
 
-
+        // On utilise le manager pour pouvoir traiter les informations en BDD >> Entreprise 
         $manager = $this->getDoctrine()->getManager();
 
+        // On créé la vue d'un formulaire qui provient du dossier FORM > EntrepriseType.php 
         $form = $this->createForm(EntrepriseType::class, $entreprise);
+        // handleRequest permet de récupérer les infos du formulaire lorsque celui-ci sera "envoyé" >> [$_POST]
         $form->handleRequest($request);
+
+        // On pose la condition : 
+        //      -> si le formulaire est soumis et que les éléments envoyés correspondent aux attentes définies dans le formulaire type
+        //      -> on "persist" , c-a-d qu'on indique à Doctrine que l'objet doit être enregistré 
+        //      -> on "flush", c-a-d qu'on valide l'envoi dans la BDD 
+        //      -> on affiche ensuite un message flash de succès sur la page, puis on redirige vers la route 'ADMIN' 
 
         if ($form->isSubmitted() && $form->isValid()) {
 
@@ -66,6 +92,9 @@ class AdminController extends AbstractController
             return $this->redirectToRoute('admin');
         }
 
+        // On renvoie les informations dans la vue ENTREPRISE.HTML.TWIG 
+            // Les informations récupérées des tables Entreprise, Spécificités 
+            // On renvoie aussi la vue du formulaire EntrepriseType.php
 
         return $this->render('admin/entreprise.html.twig', [
             'controller_name' => 'AdminController',
@@ -75,43 +104,59 @@ class AdminController extends AbstractController
         ]);
     }
 
+
+    /* ---------------------------------------------------------------------------------------------------
+    ╔═╗╔═╗╦  ╔═╗╦═╗╦╔═╗  ╔═╗╦ ╦╔═╗╔╦╗╔═╗╔═╗
+    ║ ╦╠═╣║  ║╣ ╠╦╝║║╣   ╠═╝╠═╣║ ║ ║ ║ ║╚═╗
+    ╚═╝╩ ╩╩═╝╚═╝╩╚═╩╚═╝  ╩  ╩ ╩╚═╝ ╩ ╚═╝╚═╝
+    --------------------------------------------------------------------------------------------------- */
+
     /**
-     * Affiche les photos sous forme de tableau avec icone supprimer et formulaire d'ajout de photo
+     * Affiche les photos sous forme de tableau avec icone "SUPPRIMER" et un formulaire d'ajout de photo
      * @Route("/admin/galeriephotos", name="galeriephotos")
      */
     public function galeriePhoto(Request $request)
     {
+        // On crée un objet vide qu'on pourra ensuite réutiliser
+        $photo = new Galerie; 
 
-        $photo = new Galerie; //objet vide
-
-        // On récupère le formulaire
+        // On créé la vue d'un formulaire qui provient du dossier FORM > EntrepriseType.php 
         $form = $this->createForm(GalerieType::class, $photo);
         // On récupère les infos saisies dans le formulaire ($_POST)
         $form->handleRequest($request);
 
+        // CF TRAITEMENT DU FORMULAIRE >> ligne 81-86 
         if ($form->isSubmitted() && $form->isValid()) {
 
             $manager = $this->getDoctrine()->getManager();
+
+            // On enregistre la $photo dans le système 
             $manager->persist($photo);
-            // Enregistrer la $photo dans le système 
+          
 
             // On enregistre la photo en BDD et sur le serveur. 
+            // On émet une condition >> Si il y a un fichier sélectionné, alors on l'envoie 
             if ($photo->getFile() != NULL) {
                 $photo->uploadFile();
             }
 
+            // On enregistre la photo en BDD 
             $manager->flush();
-            // va enregistrer $photo en BDD
 
+            // On affiche le message si l'action est réussie 
             $this->addFlash('success', 'La photo a bien été enregistrée !');
 
+            // On retourne à la vue >> Admin > GaleriePhoto 
             return $this->redirectToRoute('galeriephotos');
         }
 
-        //on récupère toutes les photos déjà dans la BDD
+        // On récupère toutes les photos déjà dans la BDD
         $repository = $this->getDoctrine()->getRepository(Galerie::class);
+        // Le findAll permet de récupérer toutes les informations stockées en BDB 
         $photos = $repository ->findAll();
 
+
+        // On récupère les informations et on les renvoie dans la VUE 
         $repository = $this->getDoctrine()->getRepository(Entreprise::class);
         $entreprise = $repository->findOneById(1);
 
@@ -128,21 +173,32 @@ class AdminController extends AbstractController
 
 
     /**
-     * Supprime une photo dans la BDD
+     * Supprime une photo dans la  via le panneau d'Admin 
      * @Route("/admin/galeriephotos/delete/{id}", name="delete_photo")
      */
     public function deletePhoto($id)
     {
+        // On récupère le MANAGER pour pouvoir gérer les informations en BDD >> Galerie
         $manager = $this->getDoctrine()->getManager();
+
+        // On trouve l'élément concerné dans la table Galerie via son $ID et on lui applique une variable
         $photo = $manager->find(Galerie::class, $id);
 
+        // On supprime la photo identifée dans la variable 
         $photo->removePhoto();
+
+        // Le MANAGER enregistre l'info et transmet ensuite à la BDD 
         $manager->remove($photo);
         $manager->flush();
-
+        
+        // Message de succès et renvoi à la vue ADMIN >> Galerie Photos 
         $this->addFlash('success', 'La photo a bien été supprimée.');
         return $this->redirectToRoute('galeriephotos');
 
+        // ----------------------------------------------------------------------
+        // ----------------------------------------------------------------------
+
+        // On récupère et on renvoie les informations nécessaires pour l'affichage de la VUE B
         $repository = $this->getDoctrine()->getRepository(Entreprise::class);
         $entreprise = $repository->findOneById(1);
 
@@ -156,6 +212,14 @@ class AdminController extends AbstractController
         ]);
     }
 
+
+    /* ---------------------------------------------------------------------------------------------------
+    ╔═╗╦═╗╔═╗╔═╗╔═╗╔╗╔╔╦╗╔═╗╔╦╗╦╔═╗╔╗╔  ╔═╗╔╗╔╔╦╗╦═╗╔═╗╔═╗╦═╗╦╔═╗╔═╗
+    ╠═╝╠╦╝║╣ ╚═╗║╣ ║║║ ║ ╠═╣ ║ ║║ ║║║║  ║╣ ║║║ ║ ╠╦╝║╣ ╠═╝╠╦╝║╚═╗║╣ 
+    ╩  ╩╚═╚═╝╚═╝╚═╝╝╚╝ ╩ ╩ ╩ ╩ ╩╚═╝╝╚╝  ╚═╝╝╚╝ ╩ ╩╚═╚═╝╩  ╩╚═╩╚═╝╚═╝
+    --------------------------------------------------------------------------------------------------- */
+
+
     /**
      * @Route("/admin/presensation-entreprise", name="presentationentreprise")
      */
@@ -167,20 +231,27 @@ class AdminController extends AbstractController
         $repository = $this->getDoctrine()->getRepository(Specificites::class);
         $specificites = $repository->findOneById(1);
 
-        // -----------------------------------------------------------------------------------
+        // ----------------------------------------------------------------------
+        // ----------------------------------------------------------------------
 
         $repo = $this->getDoctrine()->getRepository(Contenu::class);
+        // On récupère le contenu de la table CONTENU en fonction de la SECTION,
+            // -> On précise que l'on souhaite les éléments ayant "presensation" comme "Section"
         $presentations = $repo->findBySection('presentation');
 
-        // -----------------------------------------------------------------------------------
+       // ----------------------------------------------------------------------
+       // ----------------------------------------------------------------------
 
+        // On crée un objet vide 
         $presentation = new Contenu;
 
+        // On créé la vue d'un formulaire qui provient du dossier FORM > ContenuType.php 
         $form = $this->createForm(ContenuType::class, $presentation);
         $form->handleRequest($request);
 
         $manager = $this->getDoctrine()->getManager();
 
+        // On traite les donénes du formulaire >> CF lignes 81/85
         if ($form->isSubmitted() && $form->isValid()) {
 
             $manager->persist($presentation);
@@ -191,8 +262,21 @@ class AdminController extends AbstractController
             return $this->redirectToRoute('presentationentreprise');
         }
 
+        // On crée la variable date pour pouvoir ensuite généréer une date dynamique qui sera renvoyée dans le formulaire
+            // Cela permet de générer une date, que l'on traitera ensuite pour classer les éléments 
+            // Dans la VUE ADMIN >> prensatation-entreprise.html.twig ligne-25, on entre la variable dans le formulaire de façon automatique
+            // Ce qui permet d'afficher seulement celle que l'on désire dans la vue SECTIONS >> section-présentation-etp.html.twig
+            // Elle est ici vide, car pour l'affichage, cela n'est pas pertinent 
         $date = '';
+
+        // Cette variable permet de changer la valeur dans lebouton d'envoi afin de le rendre dynmaqieu dans les différentes vues
+            // Le bouton est adapté à chaque situation 
         $boutonenvoi = 'Envoyer';
+
+        // ----------------------------------------------------------------------
+        // ----------------------------------------------------------------------
+
+       // On renvoie les informations dans la VUE 
 
         return $this->render('admin/presentation-entreprise.html.twig', [
             'controller_name' => 'AdminController',
@@ -211,23 +295,38 @@ class AdminController extends AbstractController
     public function deletePresentation($id)
     {
         $manager = $this->getDoctrine()->getManager();
+        // On récupère l'objet de la BDD en fonction de son *ID
         $presentation = $manager->find(Contenu::class, $id);
 
+        // Grâce au MANAGER, on supprime l'élément de la BSS
         $manager->remove($presentation);
         $manager->flush();
 
+        // On confirme à l'utilisateur que la suppression a bien été effectuée.
         $this->addFlash('success', 'Le texte de présentation a bien été supprimé.');
         return $this->redirectToRoute('presentationentreprise');
 
+        // ----------------------------------------------------------------------
+        // ----------------------------------------------------------------------
+
+        // On récupère les informations de BASE nécessaires 
         $repository = $this->getDoctrine()->getRepository(Entreprise::class);
         $entreprise = $repository->findOneById(1);
 
         $repository = $this->getDoctrine()->getRepository(Specificites::class);
         $specificites = $repository->findOneById(1);
 
+        // ----------------------------------------------------------------------
+        // ----------------------------------------------------------------------
+
+        // De nouveau, on créé des variables pour le dynamisme de la page 
         $date = '';
         $boutonenvoi = 'Envoyer';
 
+        // ----------------------------------------------------------------------
+        // ----------------------------------------------------------------------
+
+        // On renvoie les informations dans la VUE 
         return $this->render('admin/espaceadmin.html.twig', [
             'controller_name' => 'AdminController',
             'entreprise' => $entreprise,
@@ -243,7 +342,7 @@ class AdminController extends AbstractController
      */
     public function updatePresentation($id, ObjectManager $manager, Request $request)
     {
-
+        // On récupère les informations en BDD 
         $repository = $this->getDoctrine()->getRepository(Entreprise::class);
         $entreprise = $repository->findOneById(1);
 
@@ -253,29 +352,45 @@ class AdminController extends AbstractController
         $repo = $this->getDoctrine()->getRepository(Contenu::class);
         $presentations = $repo->findBySection('presentation');
 
-        // -----------------------------------------------------------------------------------
+        // ----------------------------------------------------------------------        
+        // ----------------------------------------------------------------------
 
         $manager = $this->getDoctrine()->getManager();
         $presentation = $manager->find(Contenu::class, $id);
 
+        // On créé la vue d'un formulaire qui provient du dossier FORM > ContenuType.php 
         $form = $this->createForm(ContenuType::class, $presentation);
+
+        // On gère les informations du formulaire 
         $form->handleRequest($request);
 
+        // Conditions du formulaire >> CF l.81/85
         if ($form->isSubmitted() && $form->isValid()) {
 
             $manager->persist($presentation);
 
             $manager->flush();
 
+            // Message qui confirme l'action et retour à la route 
             $this->addFlash('success', 'La présentation a bien été modifiée');
             return $this->redirectToRoute('presentationentreprise');
         }
 
-        // -----------------------------------------------------------------------------------
+        // ----------------------------------------------------------------------
+        // ----------------------------------------------------------------------
 
+        // Ici, on indique que la variable $date passe à 0 pour que la date de l'entrée en BDD ne change pas
+            // Elle passe à 0 ce qui nous permet dans le tri effectué pour l'affichage de la VUE SECTIONS => section-presentation-etp 
+            // De n'afficher qu'une entrée : la plus récente 
         $date = '0';
+
+        // Le $boutonenvoi devient modofier et non plus envoyer pour indiquer qu'on modifie
         $boutonenvoi = 'Modifier';
 
+        // ----------------------------------------------------------------------
+        // ----------------------------------------------------------------------
+
+        // On renvoie les informations dans la VUE 
         return $this->render('admin/presentation-entreprise.html.twig', [
             'controller_name' => 'AdminController',
             'entreprise' => $entreprise,
@@ -292,7 +407,7 @@ class AdminController extends AbstractController
      */
     public function affichagePresentation($id, ObjectManager $manager, Request $request)
     {
-
+        // On récupère les informations en BDD
         $repository = $this->getDoctrine()->getRepository(Entreprise::class);
         $entreprise = $repository->findOneById(1);
 
@@ -302,11 +417,13 @@ class AdminController extends AbstractController
         $repo = $this->getDoctrine()->getRepository(Contenu::class);
         $presentations = $repo->findBySection('presentation');
 
-        // -----------------------------------------------------------------------------------
+        // ----------------------------------------------------------------------
+        // ----------------------------------------------------------------------
 
         $manager = $this->getDoctrine()->getManager();
         $presentation = $manager->find(Contenu::class, $id);
 
+        // On créé la vue d'un formulaire qui provient du dossier FORM > EntrepriseType.php 
         $form = $this->createForm(ContenuType::class, $presentation);
         $form->handleRequest($request);
 
@@ -320,9 +437,17 @@ class AdminController extends AbstractController
             return $this->redirectToRoute('presentationentreprise');
         }
 
+        // ----------------------------------------------------------------------
+        // ----------------------------------------------------------------------
 
 
+        // Dans ce cas-là, on modifie la variable date pour que la date actuelle soit générée
+        // Cela nous permet d'avoir la date la plus recénte qui permet un affichage dans la VUE principale
+        // C-A-D qu'on trie par DATE DESC et qu'on affiche 1 seule valur 
         $date = date("Y-m-d H-i-s");
+
+        // La variable permet à l'utilsateur de voir "publier" de façon dynamique
+        // Et non pas envoyer ou modifier comme les vues précédentes 
         $boutonenvoi = 'Publier';
 
         // -----------------------------------------------------------------------------------
@@ -338,6 +463,18 @@ class AdminController extends AbstractController
         ]);
     }
 
+    /* ---------------------------------------------------------------------------------------------------
+
+    ╦ ╦╦╔═╗╔╦╗╔═╗╦╦═╗╔═╗  ╔═╗╔╗╔╔╦╗╦═╗╔═╗╔═╗╦═╗╦╔═╗╔═╗
+    ╠═╣║╚═╗ ║ ║ ║║╠╦╝║╣   ║╣ ║║║ ║ ╠╦╝║╣ ╠═╝╠╦╝║╚═╗║╣ 
+    ╩ ╩╩╚═╝ ╩ ╚═╝╩╩╚═╚═╝  ╚═╝╝╚╝ ╩ ╩╚═╚═╝╩  ╩╚═╩╚═╝╚═╝
+
+    --------------------------------------------------------------------------------------------------- */
+    /* ---------------------------------------------------------------------------------------------------
+    /!\/!\/!\       TOUTES LES EXPLICATIONS DE PRÉSENSATION SONT VALABLES DANS CETTE PARTIE   /!\/!\/!\
+    ----------------------------------------------------------------------------------------------------- */
+
+
     /**
      * @Route("/admin/histoire-entreprise", name="histoireentreprise")
      */
@@ -350,11 +487,14 @@ class AdminController extends AbstractController
         $specificites = $repository->findOneById(1);
 
         // -------------------------------------------------------------------
+        // -------------------------------------------------------------------
 
         $repository = $this->getDoctrine()->getRepository(Contenu::class);
         $historiques = $repository->findBySection('historique');
 
         // --------------------------------------------------------------------
+        // -------------------------------------------------------------------
+
 
         $historique = new Contenu;
 
@@ -372,8 +512,15 @@ class AdminController extends AbstractController
             $this->addFlash('success', 'Les modifications ont été effectuées ! ');
             return $this->redirectToRoute('histoireentreprise');
         }
+
+        // -------------------------------------------------------------------
+        // -------------------------------------------------------------------
+
         $date = '';
         $boutonenvoi = 'Envoyer';
+
+        // -------------------------------------------------------------------
+        // -------------------------------------------------------------------
 
         return $this->render('admin/histoire-entreprise.html.twig', [
             'controller_name' => 'AdminController',
@@ -391,7 +538,6 @@ class AdminController extends AbstractController
      */
     public function setStatutHistorique(Request $request, $id)
     {
-        // -------------------------------------------------------------------
 
 
         $repository = $this->getDoctrine()->getRepository(Entreprise::class);
@@ -400,10 +546,15 @@ class AdminController extends AbstractController
         $repository = $this->getDoctrine()->getRepository(Specificites::class);
         $specificites = $repository->findOneById(1);
 
+        // -------------------------------------------------------------------
+        // -------------------------------------------------------------------
+
+
         $repository = $this->getDoctrine()->getRepository(Contenu::class);
         $historiques = $repository->findBySection('historique');
 
-        // --------------------------------------------------------------------
+        // -------------------------------------------------------------------
+        // -------------------------------------------------------------------
 
 
         $manager = $this->getDoctrine()->getManager();
@@ -423,8 +574,14 @@ class AdminController extends AbstractController
             return $this->redirectToRoute('histoireentreprise');
         }
 
+        // -------------------------------------------------------------------
+        // -------------------------------------------------------------------
+
         $date = date("Y-m-d H-i-s");
         $boutonenvoi = 'Publier';
+
+        // -------------------------------------------------------------------
+        // -------------------------------------------------------------------
 
         return $this->render('admin/histoire-entreprise.html.twig', [
             'controller_name' => 'AdminController',
@@ -444,9 +601,6 @@ class AdminController extends AbstractController
     public function updateHistoireEntreprise($id, Request $request)
     {
 
-        // -------------------------------------------------------------------
-
-
         $repository = $this->getDoctrine()->getRepository(Entreprise::class);
         $entreprise = $repository->findOneById(1);
 
@@ -456,8 +610,8 @@ class AdminController extends AbstractController
         $repository = $this->getDoctrine()->getRepository(Contenu::class);
         $historiques = $repository->findBySection('historique');
 
-        // --------------------------------------------------------------------
-
+        // -------------------------------------------------------------------
+        // -------------------------------------------------------------------
 
         $manager = $this->getDoctrine()->getManager();
         $historique = $manager->find(Contenu::class, $id);
@@ -476,8 +630,14 @@ class AdminController extends AbstractController
             return $this->redirectToRoute('histoireentreprise');
         }
 
+        // -------------------------------------------------------------------
+        // -------------------------------------------------------------------
+
         $date = '0';
         $boutonenvoi = 'Modifier';
+
+        // -------------------------------------------------------------------
+        // -------------------------------------------------------------------
 
         return $this->render('admin/histoire-entreprise.html.twig', [
             'controller_name' => 'AdminController',
@@ -504,14 +664,26 @@ class AdminController extends AbstractController
         $this->addFlash('success', 'Le texte de présentation a bien été supprimé.');
         return $this->redirectToRoute('histoireentreprise');
 
+        // -------------------------------------------------------------------
+        // -------------------------------------------------------------------
+
+
         $repository = $this->getDoctrine()->getRepository(Entreprise::class);
         $entreprise = $repository->findOneById(1);
 
         $repository = $this->getDoctrine()->getRepository(Specificites::class);
         $specificites = $repository->findOneById(1);
 
+        // -------------------------------------------------------------------
+        // -------------------------------------------------------------------
+
+
         $date = '';
         $boutonenvoi = 'Envoyer';
+
+        // -------------------------------------------------------------------
+        // -------------------------------------------------------------------
+
 
         return $this->render('admin/espaceadmin.html.twig', [
             'controller_name' => 'AdminController',
@@ -522,22 +694,31 @@ class AdminController extends AbstractController
         ]);
     }
 
+/* ---------------------------------------------------------------------------------------------------
+    ╔═╗╔═╗╔═╗╔═╗╦╔═╗╦╔═╗╦╔╦╗╔═╗╔═╗
+    ╚═╗╠═╝║╣ ║  ║╠╣ ║║  ║ ║ ║╣ ╚═╗
+    ╚═╝╩  ╚═╝╚═╝╩╚  ╩╚═╝╩ ╩ ╚═╝╚═╝
+--------------------------------------------------------------------------------------------------- */
+
 
     /**
      * @Route("/admin/specificites", name="specificites")
      */
     public function competences(Request $request)
     {
+        // On récupère les informations nécessaires à la VUE
         $repository = $this->getDoctrine()->getRepository(Entreprise::class);
         $entreprise = $repository->findOneById(1);
 
         $repository = $this->getDoctrine()->getRepository(Specificites::class);
         $specificites = $repository->findOneById(1);
 
-        // -----------------------------------------------------------------------------------
+        // -------------------------------------------------------------------
+
 
         $manager = $this->getDoctrine()->getManager();
 
+        // On traite les données du formulaire >> CF L.81-85
         $form = $this->createForm(SpecificitesType::class, $specificites);
         $form->handleRequest($request);
 
@@ -551,7 +732,10 @@ class AdminController extends AbstractController
             return $this->redirectToRoute('admin');
         }
 
+        // -------------------------------------------------------------------
+        // -------------------------------------------------------------------
 
+        // On renvoie les informations dans la VUE
         return $this->render('admin/specificites.html.twig', [
             'entreprise' => $entreprise,
             'specificites' => $specificites,
@@ -559,14 +743,23 @@ class AdminController extends AbstractController
         ]);
     }
 
+   /* ---------------------------------------------------------------------------------------------------
+   
+    ╔═╗╔═╗╦═╗╔╦╗╔═╗╔╗╔╔═╗╦╦═╗╔═╗
+    ╠═╝╠═╣╠╦╝ ║ ║╣ ║║║╠═╣║╠╦╝║╣ 
+    ╩  ╩ ╩╩╚═ ╩ ╚═╝╝╚╝╩ ╩╩╩╚═╚═╝
+
+    --------------------------------------------------------------------------------------------------- */
+
     /**
      * @Route("/admin/partenaires", name="partenaires")
      */
     public function partenaires(Request $request)
     {
-
+        // On créé une variable vide 
         $logo = new Partenaires; //objet vide
 
+        // On traite le formulaire, on envoie les infos en BDD, on confirme l'action par un message 
         $form = $this->createForm(PartenairesType::class, $logo);
         $form->handleRequest($request);
 
@@ -575,6 +768,8 @@ class AdminController extends AbstractController
             $manager = $this->getDoctrine()->getManager();
             $manager->persist($logo);
 
+            // On applique une condition
+                // Si on a bien un fichier choisit, alors on l'envoie 
             if ($logo->getFile() != NULL) {
                 $logo->uploadFile();
             }
@@ -584,18 +779,23 @@ class AdminController extends AbstractController
             $this->addFlash('success', 'Le partenaire a bien été ajouté !');
         }
 
-        //-------------------------------------------------------------------------------
+        // -------------------------------------------------------------------
+        // -------------------------------------------------------------------
 
+        // On récupère les informations nécessaires en BDD 
         $repository = $this->getDoctrine()->getRepository(Partenaires::class);
         $logos = $repository->findAll();
 
         $repository = $this->getDoctrine()->getRepository(Entreprise::class);
         $entreprise = $repository->findOneById(1);
 
-
         $repository = $this->getDoctrine()->getRepository(Specificites::class);
         $specificites = $repository->findOneById(1);
 
+        // -------------------------------------------------------------------
+        // -------------------------------------------------------------------
+
+        // On renvoie les informations à la vue 
         return $this->render('admin/partenaires.html.twig', [
             'PartenairesForm' => $form->createView(),
             'controller_name' => 'AdminController',
@@ -612,21 +812,35 @@ class AdminController extends AbstractController
     public function deletePartenaire($id)
     {
         $manager = $this->getDoctrine()->getManager();
+        // On récupère les informations d'un partenaire par son $ID
         $partenaire = $manager->find(Partenaires::class, $id);
 
+        // -------------------------------------------------------------------
+        // -------------------------------------------------------------------
+        
+        // On supprime le logo puis le partenaire et on enregistre/envoie l'information en BDD 
         $partenaire->removeLogo();
         $manager->remove($partenaire);
         $manager->flush();
 
+        // Message de réussite / validation de l'action
         $this->addFlash('success', 'Le partenaire a bien été supprimé');
         return $this->redirectToRoute('partenaires');
 
+        // -------------------------------------------------------------------
+        // -------------------------------------------------------------------
+
+        // On récupère les informations nécessaires à l'affichage de la vue 
         $repository = $this->getDoctrine()->getRepository(Entreprise::class);
         $entreprise = $repository->findOneById(1);
 
         $repository = $this->getDoctrine()->getRepository(Specificites::class);
         $specificites = $repository->findOneById(1);
 
+        // -------------------------------------------------------------------
+        // -------------------------------------------------------------------
+
+        // On renvoie les informations nécessaires à la VUE 
         return $this->render('admin/espaceadmin.html.twig', [
             'controller_name' => 'AdminController',
             'entreprise' => $entreprise,
