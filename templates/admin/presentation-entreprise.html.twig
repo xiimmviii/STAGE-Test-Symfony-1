@@ -33,9 +33,9 @@
         <li> <strong>SUPPRIMER :</strong> <span class="text-danger"><i class="fas fa-exclamation-triangle"></i> Action irréversible <i class="fas fa-exclamation-triangle"></i> </span></li>
         </ul>
         </div>
-    <div class="col-lg-6 col-md-8 col-sm-10 alert-info m-3 order-md-1 order-lg-1 ">
 
 
+    <div class="col-lg-6 col-md-8 col-sm-10 border rounded m-3 p-3 order-lg-0 ">
         {{form_start(ContenuForm)}}
         <div style="display: none">
             <!-- On met en display none ces champs pour pouvoir y injecter des valeurs sans que l'utilisateur s'en rende compte /sans qu'il puisse y toucher. -->
@@ -45,15 +45,14 @@
             {{ form_label(ContenuForm.dateAffichage) }}
             {{ form_widget(ContenuForm.dateAffichage, {'value': date}) }}
         </div>
-        {{ form_row(ContenuForm.titre) }}
-        {{ form_row(ContenuForm.sousTitre) }}
-        {{ form_row(ContenuForm.texte) }}
+        {{ form_row(ContenuForm.titre, {'label' : 'Titre *'}) }}
+        {{ form_row(ContenuForm.sousTitre, {'label' : 'Sous-titre *'}) }}
+        {{ form_row(ContenuForm.texte, {'label' : 'Texte *'}) }}
 
 
-        <div class="col-lg-6">
             <!-- Même principe que pour la variable $date, pour gérer le changement de label dans le bouton envoi selon la route dans laquelle on est -->
-            {{ form_row(ContenuForm.submit, { 'label' : boutonenvoi } ) }}
-        </div>
+            {{ form_row(ContenuForm.submit, { 'label' : boutonenvoi, 'attr' : {'class': 'col-12 btn btn-success'} } ) }}
+
         {{form_end(ContenuForm)}}
     </div>
 </div>
