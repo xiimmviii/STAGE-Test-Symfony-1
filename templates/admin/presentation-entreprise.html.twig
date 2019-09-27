@@ -3,18 +3,37 @@
 {% block content %}
 {{ include('./admin/navbaradmin.html.twig') }}
 
-<div class="row mt-4 pt-4">
-    <div class="col-10 mx-auto border border-info rounded p-3">
-        <h2> Présensation de l'entreprise </h2>
+<div class="row m-4 justify-content-center">
+    <div class="col-md-6 col-sm-8 mx-auto alert-info border border-info rounded m-3 p-3">
+        <h2>
+            Présentation de l'entreprise
+        </h2>
         <hr>
-        <p>Dans cette section, il est possible de modifier les informations relatives à l'entreprise afin de pouvoir les
-            mettre à jour de façon aisée sur le site web. Changement d'adresse, de numéro de téléphone ou de mail ne
-            sont plus un soucis. </p>
-
+        <center><p> Cette section vous permet de présenter votre entreprise. <br> C'est l'introduction du site qui permet d'accrocher le client.  </p></center>
     </div>
 </div>
+
 <div class="row m-4 justify-content-center">
-    <div class="col-lg-4 col-md-3 col-sm-10 alert-warning m-3 order-md-2 order-lg-2 "> BLOC DE DOCUMENTATION </div>
+    <div
+        class="col-lg-4 col-md-3 col-sm-10 alert-warning border border-warning rounded m-3 p-3  order-lg-5 text-justify">
+        <center>
+            <h1>
+                <i class="fas fa-info-circle"></i>
+            </h1>
+        </center>
+        <hr> 
+        <center>Cette section permet de présenter rapidement votre entreprise. 
+        <br><b>Il serait mieux que votre texte fasse <u>moins de 200 mots</u></b>.
+        <br><i> Le champ "sous-titre" n'est pas obligatoire </i></center>
+        <hr> 
+        Ces présentations sont gérables en dessous. Vous ne pouvez en afficher <strong> qu'une seule </strong> à la fois. La présentation affichée est celle stipulée en ligne, en fond vert, et toujours en haut de ce tableau.
+        Dans ce tableau, trois colonnes pour gérer votre affichage et vos textes. 
+        <br><br><ul>
+        <li> <strong>PUBLIER :</strong> Vous pouvez modifier votre présentation une dernière fois avant sa publication. </li>
+        <li> <strong>MODIFIER :</strong> Vous pouvez modifier une présentation sans pour autant la publier par la suite. </li>
+        <li> <strong>SUPPRIMER :</strong> <span class="text-danger"><i class="fas fa-exclamation-triangle"></i> Action irréversible <i class="fas fa-exclamation-triangle"></i> </span></li>
+        </ul>
+        </div>
     <div class="col-lg-6 col-md-8 col-sm-10 alert-info m-3 order-md-1 order-lg-1 ">
 
 
