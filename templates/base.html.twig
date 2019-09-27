@@ -41,7 +41,7 @@
 
         {% if app.user %}
             {# Ici, on affiche l'espace admin et la déconnexion SEULEMENT si l'admin est connecté #}
-            <nav class="navbar navbar-expand-lg navbar-light bg-light mb-4 sticky-top justify-content-around">
+            <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top justify-content-around">
                 <a class="nav-link" href="{{path('admin')}}">
                     Gérer les informations
                 </a>
@@ -117,6 +117,19 @@
                 </div>
             </nav>
         {% endif %}
+
+                <div class="panier sticky-top justify-content-end ">
+            <a href="telto:{{entreprise.telephone}}" class="cart-lien">
+                <div class="cart">
+                    <i class="fas fa-phone-alt"></i>
+                </div>
+            </a>
+             <a href="mailto:{{entreprise.mailContact}}" class="cart-lien">
+                <div class="cart">
+                    <i class="far fa-envelope-alt"></i>
+                </div>
+            </a>
+        </div>
 
         {% for message in app.flashes('success') %}
             {# Message de réussite d'une action  #}
