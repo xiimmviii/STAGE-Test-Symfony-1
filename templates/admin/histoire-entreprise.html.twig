@@ -4,16 +4,37 @@
 {{ include('./admin/navbaradmin.html.twig') }}
 
 <div class="row mt-4 pt-4">
-    <div class="col-10 mx-auto border border-info rounded p-3">
-        <h2> L'histoire de l'entreprise </h2>
+   <div class="col-md-6 col-sm-8 mx-auto alert-info border border-info rounded m-3 p-3">
+        <h2>
+           Histoire de l'entreprise
+        </h2>
         <hr>
-        <p> Description </p>
+        <center><p> Cette section vous permet de parler de votre entreprise. <br> Son histoire, son évolution ses actualités...  </p></center>
     </div>
 </div>
 
 <div class="row m-4 justify-content-center">
-    <div class="col-lg-4 col-md-3 col-sm-10 alert-warning m-3 order-md-5 order-lg-5 "> BLOC DE DOCUMENTATION </div>
-    <div class="col-lg-6 col-md-8 col-sm-10 alert-info m-3 order-md-0 order-lg-0 ">
+    <div
+        class="col-lg-4 col-md-3 col-sm-10 alert-warning border border-warning rounded m-3 p-3  order-lg-5 text-justify">
+        <center>
+            <h1>
+                <i class="fas fa-info-circle"></i>
+            </h1>
+        </center>
+        <hr> 
+        <center>Cette section permet de poster un texte sur votre entreprise. 
+        <br><b>Ce texte doit faire <u>plus de 300 mots</u> pour favoriser votre référencement.  </b>
+        <br><i> Le champ "sous-titre" n'est pas obligatoire </i></center>
+        <hr> 
+        Ces articles sont gérables en dessous. Vous ne pouvez en afficher <strong> qu'un seul </strong> à la fois. L'article affiché est celui stipulé en ligne, en fond vert, et toujours en haut de ce tableau.
+        Dans ce tableau, trois colonnes pour gérer votre affiche et vos textes. 
+        <br><br><ul>
+        <li> <strong>PUBLIER :</strong> Vous pouvez modifier votre article une dernière fois avant sa publication. </li>
+        <li> <strong>MODIFIER :</strong> Vous pouvez modifier un article sans pour autant le publier par la suite. </li>
+        <li> <strong>SUPPRIMER :</strong> <span class="text-danger"><i class="fas fa-exclamation-triangle"></i> Action irréversible <i class="fas fa-exclamation-triangle"></i> </span></li>
+        </ul>
+        </div>
+    <div class="col-lg-6 col-md-8 col-sm-10 border rounded m-3 p-3 order-lg-0 ">
         {{form_start(ContenuForm)}}
         <div style="display: none">
             <!-- On met en display none ces champs pour pouvoir y injecter des valeurs sans que l'utilisateur s'en rende compte /sans qu'il puisse y toucher. -->
@@ -24,20 +45,19 @@
             {{ form_widget(ContenuForm.dateAffichage, {'value': date}) }}
         </div>
 
-        {{ form_row(ContenuForm.titre) }}
-        {{ form_row(ContenuForm.sousTitre) }}
-        {{ form_row(ContenuForm.texte) }}
-        <div class="col-lg-6">
+        {{ form_row(ContenuForm.titre, {'label' : 'Titre *'}) }}
+        {{ form_row(ContenuForm.sousTitre, {'label' : 'Sous-titre'}) }}
+        {{ form_row(ContenuForm.texte, {'label' : 'Texte *', 'attr': { 'style' : 'height: 28vh;'}}) }}
+
             <!-- Même principe que pour la variable $date, pour gérer le changement de label dans le bouton envoi selon la route dans laquelle on est -->
-            {{ form_row(ContenuForm.submit, { 'label' : boutonenvoi } ) }}
-        </div>
+            {{ form_row(ContenuForm.submit, { 'label' : boutonenvoi, 'attr' : {'class': 'col-12 btn btn-success'} } ) }}
         {{form_end(ContenuForm)}}
 
     </div>
 </div>
 
 <div class="row m-4 justify-content-center">
-    <table class="col-10 table table-hover">
+    <table class="col-10 table">
         <thead>
             <tr class="row">
                 <th class="col-2">TITRE </th>
@@ -74,13 +94,13 @@
                 <td class="col-2"> {{historique.titre}} </td>
                 <td class="col-2"> {{historique.sousTitre}} </td>
                 <td class="col-5 overflow-auto" height="100"> {{historique.texte}} </td>
-                <td class="col-1 text-center"> <a
+                <td class="col-1 text-center"> <a class="text-success h3"
                         href="{{ path('affichage_histoireEntreprise', {id : historique.id } ) }}">
                         <i class="fas fa-upload"></i> </a> </td>
-                <td class="col-1 text-center"> <a
+                <td class="col-1 text-center"> <a class="text-warning h3"
                         href="{{ path('update_histoireEntreprise', {id : historique.id } ) }}">
                         <i class="fas fa-edit"></i> </a> </td>
-                <td class="col-1 text-center"> <a
+                <td class="col-1 text-center"> <a class="text-danger h3"
                         href="{{ path('delete_historiqueEntreprise', {id : historique.id } ) }}"
                         onclick="return confirm('Etes-vous certain(e) de vouloir supprimer le texte de présentation ?')">
                         <i class="fas fa-trash-alt"></i>
