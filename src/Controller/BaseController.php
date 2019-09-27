@@ -84,7 +84,7 @@ class BaseController extends AbstractController
         //on utilise le repository pour accéder à la table Galerie
         $repository = $this->getDoctrine()->getRepository(Galerie::class);
         //On récupère toutes les données de la table Galerie et on les injecte dans l'objet $photos
-        $photos = $repository->findAll();
+        $photos = $repository->findAll(array('id' => 'DESC'));
 
         // -----------------------------------------------------------------------------------
 

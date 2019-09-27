@@ -6,7 +6,7 @@
             class="row justify-content-center">
 
             {# On génère ici une boucle pour afficher les photos des réalisations présentes dans la BDD#}
-            {% for photo in photos %}
+            {% for photo in photos | sortbyfield('id') %}
                 {% set modal = 'modal' %}
                 {# La partie modale permet l'affichage en grand sur l'écran de la photo sur laquelle on a cliqué #}
                 <div class="col-md-3">
