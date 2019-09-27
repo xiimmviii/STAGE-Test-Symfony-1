@@ -42,7 +42,7 @@ class Entreprise
     private $ville;
 
     /**
-     * @ORM\Column(type="string", length=17)
+     * @ORM\Column(type="string", length=17, nullable=true)
      */
     private $telephone;
 
@@ -62,7 +62,7 @@ class Entreprise
     private $siren;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
+     * @ORM\Column(type="integer")
      */
     private $siret;
 

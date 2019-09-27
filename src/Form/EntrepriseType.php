@@ -29,7 +29,7 @@ class EntrepriseType extends AbstractType
             ->add('adresse', TextType::class)
             ->add('cp', IntegerType::class)
             ->add('ville', TextType::class)
-            ->add('telephone', TextType::class)
+            ->add('telephone', TextType::class,array('required' => false))
             ->add('mailGerant',EmailType::class,array(
                 // Ici, le constraint va permettre d'appliquer les pré-requis d'un champ mail
                 // Il faut absolument un @ et une extension à la suite pour pouvoir envoyer le formulaire
@@ -49,8 +49,8 @@ class EntrepriseType extends AbstractType
                 )
             ))
             ->add('siren', IntegerType::class,array('required' => false))
-            ->add('siret', IntegerType::class,array('required' => false))
-            ->add('activite', TextType::class)
+            ->add('siret', IntegerType::class,array('required' => true))
+            ->add('activite', TextType::class,array('required' => true))
             ->add('nomGerant', TextType::class,array('required' => false))
             ->add('submit', SubmitType::class);
         ;

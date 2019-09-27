@@ -92,17 +92,14 @@
                         <h1><i class="fas fa-globe-asia"></i></h1>
                     </td>
 
-                    <td class="col-1">
-                        <a href="{{ path('update_presentation', {id : presentation.id } ) }}">
-                            <i class="fas fa-pen-alt"></i>
-                        </a>
-                    </td>
-                    <td class="col-1">
-                        <a href="{{ path('delete_presentation', {id : presentation.id } ) }}"
-                            onclick="return confirm('Etes-vous certain(e) de vouloir supprimer le texte de présentation ?')">
-                            <i class="fas fa-trash-alt"></i>
-                        </a>
-                    </td>
+                    <td class="col-1 text-center"> <a class="text-warning h3"
+                        href="{{ path('update_presentation', {id : presentation.id } ) }}">
+                        <i class="fas fa-edit"></i> </a> </td>
+                <td class="col-1 text-center"> <a class="text-danger h3"
+                        href="{{ path('delete_presentation', {id : presentation.id } ) }}"
+                        onclick="return confirm('Etes-vous certain(e) de vouloir supprimer le texte de présentation ?')">
+                        <i class="fas fa-trash-alt"></i>
+                    </a> </td>
                 </tr>
                 {% endfor %}
 
@@ -118,22 +115,18 @@
                     <td class="col-5 overflow-auto" height="100">
                         {{ presentation.texte | raw }}
                     </td>
-                    <td class="col-1">
-                        <a href="{{ path('affichage_presentation', {id : presentation.id } ) }}">
-                            <i class="fas fa-upload"></i>
-                        </a>
-                    </td>
-                    <td class="col-1">
-                        <a href="{{ path('update_presentation', {id : presentation.id } ) }}">
-                            <i class="fas fa-pen-alt"></i>
-                        </a>
-                    </td>
-                    <td class="col-1">
-                        <a href="{{ path('delete_presentation', {id : presentation.id } ) }}"
+
+                    <td class="col-1 text-center"> <a class="text-success h3"
+                        href="{{ path('affichage_presentation', {id : presentation.id } ) }}">
+                        <i class="fas fa-upload"></i> </a> </td>
+                <td class="col-1 text-center"> <a class="text-warning h3"
+                        href="{{ path('update_presentation', {id : presentation.id } ) }}">
+                        <i class="fas fa-edit"></i> </a> </td>
+                <td class="col-1 text-center"> <a class="text-danger h3"
+                        href="{{ path('delete_presentation', {id : presentation.id } ) }}"
                             onclick="return confirm('Etes-vous certain(e) de vouloir supprimer le texte de présentation ?')">
-                            <i class="fas fa-trash-alt"></i>
-                        </a>
-                    </td>
+                        <i class="fas fa-trash-alt"></i>
+                    </a> </td>
                 </tr>
                 {% endfor %}
 
