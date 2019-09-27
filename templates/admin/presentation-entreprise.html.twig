@@ -86,7 +86,7 @@
                         {{ presentation.sousTitre }}
                     </td>
                     <td class="col-5 overflow-auto" height="100">
-                        {{ presentation.texte }}
+                        {{ presentation.texte | raw}}
                     </td>
                     <td class=“col-1 text-center”> EN LIGNE <br>
                         <h1><i class="fas fa-globe-asia"></i></h1>
@@ -116,7 +116,7 @@
                         {{ presentation.sousTitre }}
                     </td>
                     <td class="col-5 overflow-auto" height="100">
-                        {{ presentation.texte }}
+                        {{ presentation.texte | raw }}
                     </td>
                     <td class="col-1">
                         <a href="{{ path('affichage_presentation', {id : presentation.id } ) }}">
