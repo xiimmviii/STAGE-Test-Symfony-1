@@ -16,19 +16,27 @@
     </div>
 
     <div class="row m-4 justify-content-center">
-        <div class="col-lg-4 col-md-3 col-sm-10 alert-warning m-3 order-md-5 order-lg-5 ">
-            BLOC DE DOCUMENTATION
+         <div
+        class="col-lg-4 col-md-3 col-sm-10 alert-warning border border-warning rounded m-3 p-3 order-md-5 order-lg-5 text-justify">
+        <center>
+            <h1>
+                <i class="fas fa-info-circle"></i>
+            </h1>
+        </center>
+        <hr>
+        Cette partie vous sert à ajouter des photos dans la galerie de vos réalisations. 
+        <br> Vous ne pouvez ajouter <u>qu'une seule</u> photo à la fois. La description est obligatoire et elle s'affiche lorsque les clients clique sur la photo pour la voir en plus grand. 
+        Il vous suffit de choisir votre photo, inscrire la descrption et envoyer le formulaire pour que votre photo apparaisse immédiatement dans la galerie. <hr> Ci-dessous, vous pouvez supprimer les photos individuelles. <strong>Toute suppression est irréversible.</strong>
         </div>
 
-        <div class="col-lg-6 col-md-8 col-sm-10 alert-info m-3 order-md-0 order-lg-0 ">
-            BLOC DE MODIF
-            <h1>Ajout de photo</h1>
+        <div class="col-lg-6 col-md-8 col-sm-10 rounded border m-3 p-3 order-md-0 order-lg-0 text-center">
+            <h1>Ajout de photo</h1><hr>
             {{ form_start(galerieForm) }}
-            <div class="row">
-                <div class="col-lg-6">
+            <div class="row justify-content-center">
+                <div class="col-10 mt-3">
                     {{ form_row(galerieForm.file) }}
                     {{ form_row(galerieForm.description) }}
-                    {{ form_row(galerieForm.submit, { 'label' : 'Envoyer' } ) }}
+                    {{ form_row(galerieForm.submit, { 'label' : 'Envoyer', 'attr': {'class': 'col-12 btn btn-success mt-3'} } ) }} 
                 </div>
             </div>
             {{ form_end(galerieForm) }}
@@ -50,11 +58,9 @@
                             <div class=" card-block">
                                 {{ photo.description }}
                             </div>
-                            <div class="card-footer bg-danger">
-                                <a class="text-decoration-none text-light" href="{{ path('delete_photo', {id : photo.id } ) }}" onclick="return confirm('Etes-vous certain(e) de vouloir supprimer la photo ?')">
+                                <a class="card-footer bg-danger text-decoration-none text-light" href="{{ path('delete_photo', {id : photo.id } ) }}" onclick="return confirm('Etes-vous certain(e) de vouloir supprimer la photo ?')">
                                     <i class="fas fa-trash-alt mx-2"></i> Supprimer
                                 </a>
-                            </div>
 
                         </div>
                     {% endfor %}
