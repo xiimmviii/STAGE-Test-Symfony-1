@@ -33,8 +33,40 @@
 
 <div class="row m-4 justify-content-center">
 
-    <h1>Tableau de gestion des photos</h1>
+    <h1>Gestion des photos</h1>
 
+    <div class="row">
+        <div class="col-md-10 mx-auto">
+            <div class="row">
+                {% for photo in photos %}
+                <div class="card col-md-2 m-2 card-admin1">
+                    <div class="row">
+                        <img class="col mx-auto mt-2" src="{{ asset('/photo/' ~ photo.photo) }}"
+                            alt="{{ photo.description }}">
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <p class="text-center">{{ photo.description }}</p>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <!-- <a  type="button" class="btn btn-danger w-100" href="{{ path('delete_photo', {id : photo.id } ) }}"
+                            onclick="return confirm('Etes-vous certain(e) de vouloir supprimer la photo ?')">
+                            <i class="fas fa-trash-alt mx-2"></i> Supprimer
+                        </a> -->
+                        <div class="col-md-12 bg-danger bas-card-admin1">
+                            <a class="text-decoration-none text-light"
+                                href="{{ path('delete_photo', {id : photo.id } ) }}"
+                                onclick="return confirm('Etes-vous certain(e) de vouloir supprimer la photo ?')">
+                                <i class="fas fa-trash-alt mx-2"></i> Supprimer
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
 
     <div class="table table-striped">
 
