@@ -18,36 +18,36 @@
         <h2 class="text-align-center">Compétences</h2>
         <div class="row">
             <div class="col-lg-6 col-md-8 col-sm-10 alert-info my-4  ">
-                {{ form_row(specificitesForm.competence1) }}
-                {{ form_row(specificitesForm.competence2) }}
-                {{ form_row(specificitesForm.competence3) }}
-                {{ form_row(specificitesForm.competence4) }}
-                {{ form_row(specificitesForm.competence5) }}
+                {{ form_row(specificitesForm.competence1, {'label' : 'Compétence 1 *'}) }}
+                {{ form_row(specificitesForm.competence2, {'label' : 'Compétence 2 *'}) }}
+                {{ form_row(specificitesForm.competence3, {'label' : 'Compétence 3 *'}) }}
+                {{ form_row(specificitesForm.competence4, {'label' : 'Compétence 4 *'}) }}
+                {{ form_row(specificitesForm.competence5, {'label' : 'Compétence 5'}) }}
             </div>
             <div class="col-lg-6 col-md-8 col-sm-10 alert-info my-4 ">
-                {{ form_row(specificitesForm.competence6) }}
-                {{ form_row(specificitesForm.competence7) }}
-                {{ form_row(specificitesForm.competence8) }}
-                {{ form_row(specificitesForm.competence9) }}
-                {{ form_row(specificitesForm.competence10) }}
+                {{ form_row(specificitesForm.competence6, {'label' : 'Compétence 6'}) }}
+                {{ form_row(specificitesForm.competence7, {'label' : 'Compétence 7'}) }}
+                {{ form_row(specificitesForm.competence8, {'label' : 'Compétence 8'}) }}
+                {{ form_row(specificitesForm.competence9, {'label' : 'Compétence 9'}) }}
+                {{ form_row(specificitesForm.competence10, {'label' : 'Compétence 10'}) }}
             </div>
         </div>
 
         <h2 class="text-align-center">Localisations</h2>
         <div class="row text-center">
-            <div class="col-lg-6 col-md-8 col-sm-8 alert-info my-4 p-5">
-                {{ form_row(specificitesForm.localisation1) }}
-                {{ form_row(specificitesForm.localisation2) }}
-                {{ form_row(specificitesForm.localisation3) }}
-                {{ form_row(specificitesForm.localisation4) }}
-                {{ form_row(specificitesForm.localisation5) }}
+            <div class="col-lg-6 col-md-8 col-sm-8 alert-info my-4">
+                {{ form_row(specificitesForm.localisation1, {'label' : 'Localisation 1 *'}) }}
+                {{ form_row(specificitesForm.localisation2, {'label' : 'Localisation 2 *'}) }}
+                {{ form_row(specificitesForm.localisation3, {'label' : 'Localisation 3 *'}) }}
+                {{ form_row(specificitesForm.localisation4, {'label' : 'Localisation 4 *'}) }}
+                {{ form_row(specificitesForm.localisation5, {'label' : 'Localisation 5 *'}) }}
             </div>
-            <div class="col-lg-6 col-md-8 col-sm-8 alert-info my-4 p-5">
-                {{ form_row(specificitesForm.localisation6) }}
-                {{ form_row(specificitesForm.localisation7) }}
-                {{ form_row(specificitesForm.localisation8) }}
-                {{ form_row(specificitesForm.localisation9) }}
-                {{ form_row(specificitesForm.localisation10) }}
+            <div class="col-lg-6 col-md-8 col-sm-8 alert-info my-4">
+                {{ form_row(specificitesForm.localisation6, {'label' : 'Localisation 6'}) }}
+                {{ form_row(specificitesForm.localisation7, {'label' : 'Localisation 7'}) }}
+                {{ form_row(specificitesForm.localisation8, {'label' : 'Localisation 8'}) }}
+                {{ form_row(specificitesForm.localisation9, {'label' : 'Localisation 9'}) }}
+                {{ form_row(specificitesForm.localisation10, {'label' : 'Localisation 10'}) }}
             </div>
         </div>
 
@@ -63,11 +63,9 @@
                 {{ form_row(specificitesForm.pageGoogle) }}
             </div>
         </div>
-        <div class="row">
-            <div class="col-lg-4 col-md-8 col-sm-10 alert-info my-3 mx-auto order-md-0 order-lg-0 ">
-                {{ form_row(specificitesForm.submit, { 'label' : 'Envoyer' } ) }}
-            </div>
-        </div>
+
+        {{ form_row(specificitesForm.submit, { 'label' : 'Envoyer', 'attr': {'class': 'col-12 btn btn-success'}}) }}
+
         {{ form_end(specificitesForm) }}
 
     </div>
