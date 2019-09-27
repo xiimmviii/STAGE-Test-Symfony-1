@@ -31,7 +31,7 @@ class Partenaires
 
     /**
      * @var string|null
-     * @ORM\Column(name="logo", type="string", length=255, nullable=true)
+     * @ORM\Column(name="logo", type="string", length=255)
      */
     private $logo = 'defaultlogo.jpg';
 
