@@ -294,15 +294,42 @@ object-fit: cover;
 
 ------------------------------------------------------------------------------- */
 
-.card-admin1
-{
-    border-radius: 15%;
+.card {
+    font-size: 1em;
+    overflow: hidden;
+    padding: 0;
+    border: none;
+    border-radius: 2em;
+    box-shadow: 0 1px 3px 0 #d4d4d5, 0 0 0 1px #d4d4d5;
 }
 
-.bas-card-admin1
-{
-    border-bottom-left-radius: 15%;
-    border-bottom-right-radius: 15%;
-    padding: 0!important;
-    margin: 0!important;
+.card-block {
+    font-size: 1em;
+    position: relative;
+    margin: 0;
+    padding: 1em;
+    border: none;
+    border-top: 1px solid rgba(34, 36, 38, .1);
+    box-shadow: none;
+    height: 10vh;
+    text-align: center;
+}
+
+.card-img-top {
+    display: block;
+    width: auto;
+    height: 150px;
+    object-fit: cover;
+}
+
+.card-footer {
+    font-size: 1em;
+    text-align: center;
+    position: static;
+    top: 0;
+    left: 0;
+    max-width: 100%;
+    padding: .75em 1em;
+    color: rgba(255, 255, 255, 0.4);
+    border-top: 1px solid rgba(0, 0, 0, .05) !important;
 }
