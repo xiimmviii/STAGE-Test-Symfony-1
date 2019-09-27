@@ -39,13 +39,15 @@ class BaseController extends AbstractController
 
         //pour la présentation on sélectionne seulement dans la table contenu les lignes qui ont pour section le terme "presentation"
         $presentation = $repository->findOneBy(
-            array('section' => 'presentation')
+            array('section' => 'presentation'),
+            array('dateAffichage' => 'DESC') 
         );
 
         $repository = $this->getDoctrine()->getRepository(Contenu::class);
         //pour l'historique on sélectionne seulement dans la table contenu les lignes qui ont pour section le terme "historique"
         $historique = $repository->findOneBy(
-            array('section' => 'historique')
+            array('section' => 'historique'),
+            array('dateAffichage' => 'DESC') 
         );
 
         // -----------------------------------------------------------------------------------
