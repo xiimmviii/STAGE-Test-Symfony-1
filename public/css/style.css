@@ -41,7 +41,6 @@ nav
     font-size: 1.3em;
     border-bottom: 1px solid rgba(161, 75, 75, 0.25);
     border-top: 1px solid rgba(128, 128, 128, 0.25);
-    position: sticky!important;
     top: 0px;
 }
 

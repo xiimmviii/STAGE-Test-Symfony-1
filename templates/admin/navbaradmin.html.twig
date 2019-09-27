@@ -1,27 +1,15 @@
 <div class="navbar navbar-expand-lg navbar-light bg-light mb-4">
-   <a class="nav-link" href="{{path('admin')}}">
-                   Gérer les informations 
-                </a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
-        aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+    <a class="nav-link" href="{{path('admin')}}">
+        Gérer les informations
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNavDropdown">
         <ul class="navbar-nav">
-            <li class="nav-item">
-                <a class="nav-link" href="{{path('entreprise')}}">
-                    Entreprise
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{{path('galeriephotos')}}">
-                    Galerie photos
-                </a>
-            </li>
             <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="{{path('admin')}}" id="navbarDropdownMenuLink" role="button"
-                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Contenu du site
+                <a class="nav-link dropdown-toggle" href="{{path('admin')}}" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Index
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                     <a class="dropdown-item" href="{{path('presentationentreprise')}}">Présentation de l'entreprise</a>
@@ -29,6 +17,31 @@
                     <a class="dropdown-item" href="{{path('specificites')}}">Spécificités</a>
                     <a class="dropdown-item" href="{{path('partenaires')}}">Partenaires</a>
                 </div>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{path('galeriephotos')}}">
+                    Galerie photos
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{path('entreprise')}}">
+                    Entreprise
+                </a>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="{{path('index')}}" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" target="blank">
+                    Accèder à votre site 
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                    <a class="dropdown-item" href="{{path('index')}}" target="blank">Index</a>
+                    <a class="dropdown-item" href="{{path('realisations')}}" target="blank">Galerie des réalisations </a>
+    <a class="dropdown-item" href="{{path('contact')}}" target="blank">Contact </a>
+                </div>
+            </li>
+            <li class="nav-item nav-cont mx-3">
+                <a class="nav-link alert-danger rounded font-weight-bold" href="{{path('app_logout')}}">
+                    <i class="fas fa-sign-out-alt"></i>
+                    Déconnexion</a>
             </li>
         </ul>
     </div>

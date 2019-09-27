@@ -23,65 +23,110 @@
         </script>
         {# Le script suivant permet l'affichage du nom du fichier dans un champ d'envoi  #}
         <script src="https://cdn.jsdelivr.net/npm/bs-custom-file-input/dist/bs-custom-file-input.min.js"></script>
-<script>
-    $(document).ready(function () {
-        bsCustomFileInput.init()
-    })
-</script>
+        <script>
+            $(document).ready(function () {
+                bsCustomFileInput.init()
+            })
+        </script>
         <title>Test site électricien</title>
     </head>
 
     <body>
 
-        <header> {# HEADER du site avec affichage du logo en utilisant la méthode ASSET de Symfony #}
+        <header>
+            {# HEADER du site avec affichage du logo en utilisant la méthode ASSET de Symfony #}
             <img src="{{asset('/images/logo.jpg')}}" alt="logo de l'etp" class="img-fluid">
         </header>
 
-        <nav class="navbar navbar-expand-lg sticky-top navbar-light bg-light">
-            <button class="navbar-toggler mx-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon toggler1"></span>
-            </button>
 
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav mr-auto mx-auto p-3">
-                    <li class="nav-item nav-ind mx-3">
-                        <a class="nav-link font-weight-bold" href="{{path('index')}}">
-                            <i class="fas fa-home"></i>
-                            Accueil</a>
-                    </li>
-                    <li class="nav-item nav-real mx-3">
-                        <a class="nav-link font-weight-bold" href="{{path('realisations')}}">
-                            <i class="far fa-lightbulb"></i>
-                            Réalisations</a>
-                    </li>
-                    <li class="nav-item nav-cont mx-3">
-                        <a class="nav-link font-weight-bold" href="{{path('contact')}}">
-                            <i class="fas fa-phone-alt"></i>
-                            Contact</a>
-                    </li>
-                    {% if app.user %} {# Ici, on affiche l'espace admin et la déconnexion SEULEMENT si l'admin est connecté #}
-                        <li class="nav-item nav-cont mx-3">
-                            <a class="nav-link font-weight-bold" href="{{path('admin')}}">
-                                <i class="fas fa-toolbox"></i>
-                                Espace admin</a>
+        {% if app.user %}
+            {# Ici, on affiche l'espace admin et la déconnexion SEULEMENT si l'admin est connecté #}
+            <nav class="navbar navbar-expand-lg navbar-light bg-light mb-4 sticky-top justify-content-around">
+                <a class="nav-link" href="{{path('admin')}}">
+                    Gérer les informations
+                </a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse mx-auto" id="navbarNavDropdown">
+                    <ul class="navbar-nav justify-content-between">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="{{path('admin')}}" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Index
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                <a class="dropdown-item" href="{{path('presentationentreprise')}}">Présentation de l'entreprise</a>
+                                <a class="dropdown-item" href="{{path('histoireentreprise')}}">Histoire de l'entreprise</a>
+                                <a class="dropdown-item" href="{{path('specificites')}}">Spécificités</a>
+                                <a class="dropdown-item" href="{{path('partenaires')}}">Partenaires</a>
+                            </div>
                         </li>
-                        <li class="nav-item nav-cont mx-3">
-                            <a class="nav-link alert-danger rounded font-weight-bold" href="{{path('app_logout')}}">
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{path('galeriephotos')}}">
+                                Galerie photos
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{path('entreprise')}}">
+                                Entreprise
+                            </a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="{{path('index')}}" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" target="blank">
+                                Accèder à votre site
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                <a class="dropdown-item" href="{{path('index')}}" target="blank">Index</a>
+                                <a class="dropdown-item" href="{{path('realisations')}}" target="blank">Galerie des réalisations
+                                </a>
+                                <a class="dropdown-item" href="{{path('contact')}}" target="blank">Contact
+                                </a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                 <a class="nav-link alert-danger rounded font-weight-bold" href="{{path('app_logout')}}">
                                 <i class="fas fa-sign-out-alt"></i>
                                 Déconnexion</a>
-                        </li>
-                    {% endif %}
+            </nav>
+        {% else %}
+            <nav class="navbar navbar-expand-lg sticky-top navbar-light bg-light">
+                <button class="navbar-toggler mx-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon toggler1"></span>
+                </button>
 
-                </ul>
-            </div>
-        </nav>
-        {% for message in app.flashes('success') %} {# Message de réussite d'une action  #}
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav mr-auto mx-auto p-3">
+                        <li class="nav-item nav-ind mx-3">
+                            <a class="nav-link font-weight-bold" href="{{path('index')}}">
+                                <i class="fas fa-home"></i>
+                                Accueil</a>
+                        </li>
+                        <li class="nav-item nav-real mx-3">
+                            <a class="nav-link font-weight-bold" href="{{path('realisations')}}">
+                                <i class="far fa-lightbulb"></i>
+                                Réalisations</a>
+                        </li>
+                        <li class="nav-item nav-cont mx-3">
+                            <a class="nav-link font-weight-bold" href="{{path('contact')}}">
+                                <i class="fas fa-phone-alt"></i>
+                                Contact</a>
+                        </li>
+
+                    </ul>
+                </div>
+            </nav>
+        {% endif %}
+
+        {% for message in app.flashes('success') %}
+            {# Message de réussite d'une action  #}
             <div id="jsflash" class="alert alert-success mx-auto">
                 {{ message | raw }}
             </div>
         {% endfor %}
 
-        {% for message in app.flashes('error') %} {# Message d'erreur d'une action #}
+        {% for message in app.flashes('error') %}
+            {# Message d'erreur d'une action #}
             <div id="jsflash" class="alert alert-danger m-0">
                 {{ message | raw }}
             </div>
@@ -94,7 +139,7 @@
             <div class="row justify-content-center">
                 <div class="col-md-4 col-sm-12 m-3">
                     <div class="footerh3 pb-3">
-                        {{entreprise.nom}} 
+                        {{entreprise.nom}}
                     </div>
                     <div class="footeradresse">
                         {{entreprise.adresse}}
@@ -125,8 +170,12 @@
                     </a>
                     <br><br>
                     <div class=" reseauxsociaux">
-                        <a class="h1" href="{{specificites.facebook}}"><i class="fab fa-facebook text-light"></i></a>
-                        <a class="h1" href="{{specificites.instagram}}"><i class="fab fa-instagram text-light"></i></a>
+                        <a class="h1" href="{{specificites.facebook}}">
+                            <i class="fab fa-facebook text-light"></i>
+                        </a>
+                        <a class="h1" href="{{specificites.instagram}}">
+                            <i class="fab fa-instagram text-light"></i>
+                        </a>
                     </div>
                 </div>
             </div>
