@@ -22,17 +22,17 @@ class Tarifs
     private $prestation;
 
     /**
-     * @ORM\Column(type="float")
+     * @ORM\Column(type="decimal", scale=2, nullable=true)
      */
     private $tarifJour;
 
     /**
-     * @ORM\Column(type="float", nullable=true)
+ * @ORM\Column(type="decimal", scale=2, nullable=true)
      */
     private $tarifNuit;
 
     /**
-     * @ORM\Column(type="float", nullable=true)
+* @ORM\Column(type="decimal", scale=2, nullable=true)
      */
     private $tarifWeekend;
 
