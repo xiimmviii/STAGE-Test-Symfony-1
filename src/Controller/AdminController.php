@@ -879,6 +879,7 @@ class AdminController extends AbstractController
         // --------------------------------------------------------------------
         // -------------------------------------------------------------------
 
+        $boutonenvoi = 'Ajouter';
 
         $tarif = new Tarifs;
 
@@ -903,57 +904,7 @@ class AdminController extends AbstractController
             'specificites' => $specificites,
             'tarifs' => $tarifs,
             'TarifsForm' => $form->createView(),
-        ]);
-    }
-
-    /**
-     * @Route("/admin/tarifs/affichage/{id}", name="affichage_tarifs")
-     */
-    public function setTarifsAdmin(Request $request, $id)
-    {
-
-
-        $repository = $this->getDoctrine()->getRepository(Entreprise::class);
-        $entreprise = $repository->findOneById(1);
-
-        $repository = $this->getDoctrine()->getRepository(Specificites::class);
-        $specificites = $repository->findOneById(1);
-
-        // -------------------------------------------------------------------
-        // -------------------------------------------------------------------
-
-
-        $repository = $this->getDoctrine()->getRepository(Tarifs::class);
-        $tarifs = $repository->findAll();
-
-        // -------------------------------------------------------------------
-        // -------------------------------------------------------------------
-
-
-        $manager = $this->getDoctrine()->getManager();
-        $tarif = $manager->find(Tarifs::class, $id);
-
-
-        $form = $this->createForm(TarifsType::class, $tarif);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-
-            $manager->persist($tarif);
-
-            $manager->flush();
-
-            $this->addFlash('success', 'La nouvelle prestation a été ajoutée ');
-            return $this->redirectToRoute('tarifs-admin');
-        }
-
-       
-        return $this->render('admin/tarifs.html.twig', [
-            'controller_name' => 'AdminController',
-            'entreprise' => $entreprise,
-            'specificites' => $specificites,
-            'tarifs' => $tarifs,
-            'TarifsForm' => $form->createView(),
+            'boutonenvoi' => $boutonenvoi
         ]);
     }
 
@@ -976,8 +927,10 @@ class AdminController extends AbstractController
         // -------------------------------------------------------------------
         // -------------------------------------------------------------------
 
+        $boutonenvoi = 'Modifier';
+
         $manager = $this->getDoctrine()->getManager();
-        $tarif = $manager->find(Tarif::class, $id);
+        $tarif = $manager->find(Tarifs::class, $id);
 
 
         $form = $this->createForm(TarifsType::class, $tarif);
@@ -1001,6 +954,8 @@ class AdminController extends AbstractController
             'specificites' => $specificites,
             'tarifs' => $tarifs,
             'TarifsForm' => $form->createView(),
+            'boutonenvoi' => $boutonenvoi
+
         ]);
     }
 
@@ -1035,6 +990,8 @@ class AdminController extends AbstractController
             'controller_name' => 'AdminController',
             'entreprise' => $entreprise,
             'specificites' => $specificites,
+            'boutonenvoi' => $boutonenvoi
+
 
         ]);
     }

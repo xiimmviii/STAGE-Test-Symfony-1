@@ -2,69 +2,120 @@
 
 {% block content %}
 
-<div class="row mt-4 pt-4">
-   <div class="col-md-6 col-sm-8 mx-auto alert-info border border-info rounded m-3 p-3">
-        <h2>
-          Tarifs
-        </h2>
-        <hr>
-        <center><p> Cette section vous permet de parler de votre entreprise. <br> Son histoire, son évolution ses actualités...  </p></center>
-    </div>
-</div>
-
-<div class="row m-4 justify-content-center">
-    <div
-        class="col-lg-4 col-md-3 col-sm-10 alert-warning border border-warning rounded m-3 p-3  order-lg-5 text-justify">
-        <center>
-            <h1>
-                <i class="fas fa-info-circle"></i>
-            </h1>
-        </center>
-        <hr> 
-        <center>Cette section permet de poster un texte sur votre entreprise. 
-        <br><b>Ce texte doit faire <u>plus de 300 mots</u> pour favoriser votre référencement.  </b>
-        <br><i> Le champ "sous-titre" n'est pas obligatoire </i></center>
-        <hr> 
-        Ces articles sont gérables en dessous. Vous ne pouvez en afficher <strong> qu'un seul </strong> à la fois. L'article affiché est celui stipulé en ligne, en fond vert, et toujours en haut de ce tableau.
-        Dans ce tableau, trois colonnes pour gérer votre affichage et vos textes. 
-        <br><br><ul>
-        <li> <strong>PUBLIER :</strong> Vous pouvez modifier votre article une dernière fois avant sa publication. </li>
-        <li> <strong>MODIFIER :</strong> Vous pouvez modifier un article sans pour autant le publier par la suite. </li>
-        <li> <strong>SUPPRIMER :</strong> <span class="text-danger"><i class="fas fa-exclamation-triangle"></i> Action irréversible <i class="fas fa-exclamation-triangle"></i> </span></li>
-        </ul>
+    <div class="row mt-4 pt-4">
+        <div class="col-md-6 col-sm-8 mx-auto alert-info border border-info rounded m-3 p-3">
+            <h2>
+                Tarifs
+            </h2>
+            <hr>
+            <center>
+                <p>
+                    Cette section vous permet faire une liste de vos prestations et tarifs.
+                    <br>
+                </p>
+            </center>
         </div>
-    <div class="col-lg-6 col-md-8 col-sm-10 border rounded m-3 p-3 order-lg-0 ">
-        {{form_start(TarifsForm)}}
-        {{form_end(TarifsForm)}}
-
     </div>
-</div>
 
-<div class="row m-4 justify-content-center">
-    <table class="col-10 table">
-        <thead>
-            <tr class="row text-center">
-                <th class="col-6"> PRESTATION </th>
-                <th class="col-2"> TARIF JOUR </th>
-                <th class="col-2"> TARIF NUIT</th>
-                <th class="col-2"> TARIF WEEK_END </th>
+    <div class="row m-4 justify-content-center">
+        <div class="col-lg-4 col-md-3 col-sm-10 alert-warning border border-warning rounded m-3 p-3  order-lg-5 text-justify">
+            <center>
+                <h1>
+                    <i class="fas fa-info-circle"></i>
+                </h1>
+            </center>
+            <hr>
+            <center>Cette section permet de poster les prestations et tarifs sur votre entreprise.
+            <br><br> <b>Les champs obligatoires sont : prestation et tarif de jour.  </b>
+            <u>Par défaut, le tarif est standard.   </u>
+            </center>
 
-        </thead>
-        <tbody>
-            <!-- Pour afficher en premier le texte affiché, on ordonne nos résultats de notre boucle for par la date d'affichage en DESC. Pour cela on utilise l'extension twig sortbyfield : https://github.com/victorhaggqvist/Twig-sort-by-field/blob/master/src/SortByFieldExtension.php 
-                On break le for et on récupère que le premier de la liste pour mettre un design spécial-->
-            {% for tarif in tarifs | sortbyfield('dateAffichage') |slice(1, 50) %}
-            <!-- On récupère le reste des textes et on les affiche à la suite dans le tableau -->
-            <tr class="row">
-                <td class="col-6"> {{tarif.prestation}} </td>
-                <td class="col-2"> {{tarif.tarif_jour}} </td>
-                <td class="col-2"> {{tarif.tarif_nuit}} </td>
-                <td class="col-2"> {{tarif.tarif_weekend}} </td>
-            </tr>
-            {% endfor %}
+            <br><br><ul>
+                <li class="mb-4">
+                    <strong>MODIFIER :</strong>
+                    Vous pouvez modifier une prestation en modifiant seulement l'intitulé, les prix de façon individuelle ou globale.
+                </li>
+                <li>
+                    <strong>SUPPRIMER :</strong>
+                    <span class="text-danger">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        Action irréversible
+                        <i class="fas fa-exclamation-triangle"></i>
+                    </span>
+                </li>
+            </ul>
+        </div>
+        <div class="col-lg-6 col-md-8 col-sm-10 border rounded m-3 p-3 order-lg-0 ">
+        <h2> Gérer les tarifs  </h2><hr>
+            {{form_start(TarifsForm)}}
+            {{ form_row(TarifsForm.prestation, { 'label' : 'Prestation *' } ) }}
 
-        </tbody>
-    </table>
-</div>
+            {{ form_row(TarifsForm.tarif_jour, { 'label' : 'Tarif standard * ' } ) }}
+
+            {{ form_row(TarifsForm.tarif_nuit, { 'label' : 'Tarif de nuit' } ) }}
+
+            {{ form_row(TarifsForm.tarif_weekend, { 'label' : 'Tarif le week-end'} ) }}
+
+            {{ form_row(TarifsForm.submit, { 'label' : boutonenvoi, 'attr' : {'class': 'col-12 btn btn-success'} } ) }}
+            {{form_end(TarifsForm)}}
+
+        </div>
+    </div>
+
+    <div class="row m-4 justify-content-center">
+        <table class="col-10 table">
+            <thead>
+                <tr class="row text-center">
+                    <th class="col-4">
+                        PRESTATION
+                    </th>
+                    <th class="col-2">
+                        TARIF STANDARD
+                    </th>
+                    <th class="col-2">
+                        TARIF NUIT</th>
+                    <th class="col-2">
+                        TARIF WEEK-END
+                    </th>
+                    <th class="col-1">
+                        MODIFIER</th>
+                    <th class="col-1">
+                        SUPPRIMER</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Pour afficher en premier le texte affiché, on ordonne nos résultats de notre boucle for par la date d'affichage en DESC. Pour cela on utilise l'extension twig sortbyfield : https://github.com/victorhaggqvist/Twig-sort-by-field/blob/master/src/SortByFieldExtension.php 
+                                On break le for et on récupère que le premier de la liste pour mettre un design spécial-->
+                {% for tarif in tarifs %}
+                    <!-- On récupère le reste des textes et on les affiche à la suite dans le tableau -->
+                    <tr class="row">
+                        <td class="col-4">
+                            {{tarif.prestation}}
+                        </td>
+                        <td class="col-2 text-center">
+                            {{tarif.tarifJour}} €
+                        </td>
+                        <td class="col-2 text-center">
+                            {{tarif.tarifNuit}} €
+                        </td>
+                        <td class="col-2 text-center">
+                            {{tarif.tarifWeekend}} €
+                        </td>
+                        <td class="col-1 text-center">
+                            <a class="text-warning h3" href="{{ path('update_tarifs-admin', {id : tarif.id } ) }}">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                        </td>
+                        <td class="col-1 text-center">
+                            <a class="text-danger h3" href="{{ path('delete_tarifs-admin', {id : tarif.id } ) }}" onclick="return confirm('Etes-vous certain(e) de vouloir supprimer le texte de présentation ?')">
+                                <i class="fas fa-trash-alt"></i>
+                            </a>
+                        </td>
+                    </tr>
+                {% endfor %}
+
+            </tbody>
+        </table>
+    </div>
 
 {% endblock %}
