@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\EntrepriseRepository")
@@ -32,7 +33,8 @@ class Entreprise
     private $adresse;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="string")
+     * @Assert\Regex("/^[0-9]*$/")
      */
     private $cp;
 
@@ -43,6 +45,7 @@ class Entreprise
 
     /**
      * @ORM\Column(type="string", length=17, nullable=true)
+     *      
      */
     private $telephone;
 
@@ -57,12 +60,14 @@ class Entreprise
     private $mailContact;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
+     * @ORM\Column(type="string", nullable=true)
+     * @Assert\Regex("/^[0-9]*$/")
      */
     private $siren;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="string")
+     * @Assert\Regex("/^[0-9]*$/")
      */
     private $siret;
 
@@ -117,12 +122,12 @@ class Entreprise
         return $this;
     }
 
-    public function getCp(): ?int
+    public function getCp(): ?string
     {
         return $this->cp;
     }
 
-    public function setCp(int $cp): self
+    public function setCp(string $cp): self
     {
         $this->cp = $cp;
 
@@ -177,24 +182,24 @@ class Entreprise
         return $this;
     }
 
-    public function getSiren(): ?int
+    public function getSiren(): ?string
     {
         return $this->siren;
     }
 
-    public function setSiren(?int $siren): self
+    public function setSiren(?string $siren): self
     {
         $this->siren = $siren;
 
         return $this;
     }
 
-    public function getSiret(): ?int
+    public function getSiret(): ?string
     {
         return $this->siret;
     }
 
-    public function setSiret(?int $siret): self
+    public function setSiret(?string $siret): self
     {
         $this->siret = $siret;
 
