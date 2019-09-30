@@ -1,217 +1,226 @@
 <!DOCTYPE html>
 <html lang="fr">
 
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0-11/css/all.min.css">
-        <link rel="stylesheet" href="{{asset('/css/style.css')}}">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-        {# Ce SCRIPT permet que le message d'erreur ou de succès lors d'une action admin ou l'envoi d'un formulaire de contact disparaisse en fondu  #}
-        <script>
-            $("document").ready(() => {
-                $("#jsflash").delay(1500).animate({
-                    opacity: 0
-                }, 1500, () => {
-                    $("#jsflash").css('display', 'none');
-                });
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0-11/css/all.min.css">
+    <link rel="stylesheet" href="{{asset('/css/style.css')}}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    {# Ce SCRIPT permet que le message d'erreur ou de succès lors d'une action admin ou l'envoi d'un formulaire de contact disparaisse en fondu  #}
+    <script>
+        $("document").ready(() => {
+            $("#jsflash").delay(1500).animate({
+                opacity: 0
+            }, 1500, () => {
+                $("#jsflash").css('display', 'none');
             });
-        </script>
-        {# Le script suivant permet l'affichage du nom du fichier dans un champ d'envoi  #}
-        <script src="https://cdn.jsdelivr.net/npm/bs-custom-file-input/dist/bs-custom-file-input.min.js"></script>
-        <script>
-            $(document).ready(function () {
-                bsCustomFileInput.init()
-            })
-        </script>
-        <title>Test site électricien</title>
-    </head>
+        });
+    </script>
+    {# Le script suivant permet l'affichage du nom du fichier dans un champ d'envoi  #}
+    <script src="https://cdn.jsdelivr.net/npm/bs-custom-file-input/dist/bs-custom-file-input.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            bsCustomFileInput.init()
+        })
+    </script>
+    <title>Test site électricien</title>
+</head>
 
-    <body>
+<body>
 
-        <header>
-            {# HEADER du site avec affichage du logo en utilisant la méthode ASSET de Symfony #}
-            <img src="{{asset('/images/logo.jpg')}}" alt="logo de l'etp" class="img-fluid">
-        </header>
+    <header>
+        {# HEADER du site avec affichage du logo en utilisant la méthode ASSET de Symfony #}
+        <img src="{{asset('/images/logo.jpg')}}" alt="logo de l'etp" class="img-fluid">
+    </header>
 
 
-        {% if app.user %}
-            {# Ici, on affiche l'espace admin et la déconnexion SEULEMENT si l'admin est connecté #}
-            <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top justify-content-around">
-                <a class="nav-link" href="{{path('admin')}}">
-                    Gérer les informations
+    {% if app.user %}
+    {# Ici, on affiche l'espace admin et la déconnexion SEULEMENT si l'admin est connecté #}
+    <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top justify-content-around">
+        <a class="nav-link" href="{{path('admin')}}">
+            Gérer les informations
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+            aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse mx-auto" id="navbarNavDropdown">
+            <ul class="navbar-nav justify-content-between">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="{{path('admin')}}" id="navbarDropdownMenuLink"
+                        role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Index
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <a class="dropdown-item" href="{{path('presentationentreprise')}}">Présentation de
+                            l'entreprise</a>
+                        <a class="dropdown-item" href="{{path('histoireentreprise')}}">Histoire de l'entreprise</a>
+                        <a class="dropdown-item" href="{{path('specificites')}}">Spécificités</a>
+                        <a class="dropdown-item" href="{{path('partenaires')}}">Partenaires</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{path('galeriephotos')}}">
+                        Galerie photos
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{path('tarifs-admin')}}">Tarifs</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{path('entreprise')}}">
+                        Entreprise
+                    </a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="{{path('index')}}" id="navbarDropdownMenuLink"
+                        role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" target="blank">
+                        Accèder à votre site
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <a class="dropdown-item" href="{{path('index')}}" target="blank">Index</a>
+                        <a class="dropdown-item" href="{{path('realisations')}}" target="blank">Galerie des réalisations
+                        </a>
+                        <a class="dropdown-item" href="{{path('tarifs')}}">Tarifs</a>
+                        <a class="dropdown-item" href="{{path('contact')}}" target="blank">Contact
+                        </a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <a class="nav-link alert-danger rounded font-weight-bold" href="{{path('app_logout')}}">
+            <i class="fas fa-sign-out-alt"></i>
+            Déconnexion</a>
+    </nav>
+    {% else %}
+    <nav class="navbar navbar-expand-lg sticky-top navbar-light bg-light">
+        <button class="navbar-toggler mx-auto" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+            aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon toggler1"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto mx-auto p-3">
+                <li class="nav-item nav-ind mx-3">
+                    <a class="nav-link font-weight-bold" href="{{path('index')}}">
+                        <i class="fas fa-home"></i>
+                        Accueil</a>
+                </li>
+                <li class="nav-item nav-real mx-3">
+                    <a class="nav-link font-weight-bold" href="{{path('realisations')}}">
+                        <i class="far fa-lightbulb"></i>
+                        Réalisations</a>
+                </li>
+                <li class="nav-item nav-real mx-3">
+                    <a class="nav-link font-weight-bold" href="{{path('tarifs')}}">
+                        <i class="fas fa-tag"></i>
+                        Tarifs</a>
+                </li>
+                <li class="nav-item nav-cont mx-3">
+                    <a class="nav-link font-weight-bold" href="{{path('contact')}}">
+                        <i class="fas fa-phone-alt"></i>
+                        Contact</a>
+                </li>
+
+            </ul>
+        </div>
+    </nav>
+    {% endif %}
+
+    <div class="panier sticky-top justify-content-end ">
+        <a href="telto:{{entreprise.telephone}}" class="cart-lien">
+            <div class="cart">
+                <i class="fas fa-phone-alt"></i>
+            </div>
+        </a>
+        <a href="mailto:{{entreprise.mailContact}}" class="cart-lien">
+            <div class="cart">
+                <i class="far fa-envelope-alt"></i>
+            </div>
+        </a>
+    </div>
+
+    {% for message in app.flashes('success') %}
+    {# Message de réussite d'une action  #}
+    <div id="jsflash" class="alert alert-success mx-auto">
+        {{ message | raw }}
+    </div>
+    {% endfor %}
+
+    {% for message in app.flashes('error') %}
+    {# Message d'erreur d'une action #}
+    <div id="jsflash" class="alert alert-danger m-0">
+        {{ message | raw }}
+    </div>
+    {% endfor %}
+
+    {# Ici, on ajoute le contenu de façon dynamique  #}
+    {% block content %}{% endblock %}
+
+    <footer class="bg-dark">
+        <div class="row justify-content-center">
+            <div class="col-md-4 col-sm-12 m-3">
+                <div class="footerh3 pb-3">
+                    {{entreprise.nom}}
+                </div>
+                <div class="footeradresse">
+                    {{entreprise.adresse}}
+                    <br>
+                    {{entreprise.cp}}
+                    {{entreprise.ville}}
+                </div>
+                <div class="footercontact">
+                    Téléphone :
+                    <a href="telto:{{entreprise.telephone}}" class="footertel">
+                        {{entreprise.telephone}}</a>
+                </div>
+                <div class="footercontact">
+                    Mail :
+                    <a href="mailto:{{entreprise.mailContact}}" class="footermail">
+                        {{entreprise.mailContact}}</a>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-12 text-center m-3">
+                <div class="footerh3 pb-3">
+                    Laissez votre témoignage sur Google
+                </div>
+                <a href="{{specificites.pageGoogle}}">
+                    <div class="col-10 btn boutonavis">
+                        <i class="fas fa-star"></i>
+                        Laissez votre avis !
+                    </div>
                 </a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse mx-auto" id="navbarNavDropdown">
-                    <ul class="navbar-nav justify-content-between">
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="{{path('admin')}}" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Index
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                <a class="dropdown-item" href="{{path('presentationentreprise')}}">Présentation de l'entreprise</a>
-                                <a class="dropdown-item" href="{{path('histoireentreprise')}}">Histoire de l'entreprise</a>
-                                <a class="dropdown-item" href="{{path('specificites')}}">Spécificités</a>
-                                <a class="dropdown-item" href="{{path('partenaires')}}">Partenaires</a>
-                                 <a class="dropdown-item" href="{{path('tarifs-admin')}}">Tarifs</a>
-                            </div>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{path('galeriephotos')}}">
-                                Galerie photos
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{path('entreprise')}}">
-                                Entreprise
-                            </a>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="{{path('index')}}" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" target="blank">
-                                Accèder à votre site
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                <a class="dropdown-item" href="{{path('index')}}" target="blank">Index</a>
-                                <a class="dropdown-item" href="{{path('realisations')}}" target="blank">Galerie des réalisations
-                                </a>
-                                <a class="dropdown-item" href="{{path('contact')}}" target="blank">Contact
-                                </a>
-                            </div>
-                        </li>
-                    </ul>
+                <br><br>
+                <div class=" reseauxsociaux">
+                    <a class="h1" href="{{specificites.facebook}}">
+                        <i class="fab fa-facebook text-light"></i>
+                    </a>
+                    <a class="h1" href="{{specificites.instagram}}">
+                        <i class="fab fa-instagram text-light"></i>
+                    </a>
                 </div>
-                 <a class="nav-link alert-danger rounded font-weight-bold" href="{{path('app_logout')}}">
-                                <i class="fas fa-sign-out-alt"></i>
-                                Déconnexion</a>
-            </nav>
-        {% else %}
-            <nav class="navbar navbar-expand-lg sticky-top navbar-light bg-light">
-                <button class="navbar-toggler mx-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon toggler1"></span>
-                </button>
-
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav mr-auto mx-auto p-3">
-                        <li class="nav-item nav-ind mx-3">
-                            <a class="nav-link font-weight-bold" href="{{path('index')}}">
-                                <i class="fas fa-home"></i>
-                                Accueil</a>
-                        </li>
-                        <li class="nav-item nav-real mx-3">
-                            <a class="nav-link font-weight-bold" href="{{path('realisations')}}">
-                                <i class="far fa-lightbulb"></i>
-                                Réalisations</a>
-                        </li>
-                        <li class="nav-item nav-real mx-3">
-                            <a class="nav-link font-weight-bold" href="{{path('tarifs')}}">
-                                <i class="fas fa-tag"></i>
-                                Tarifs</a>
-                        </li>
-                        <li class="nav-item nav-cont mx-3">
-                            <a class="nav-link font-weight-bold" href="{{path('contact')}}">
-                                <i class="fas fa-phone-alt"></i>
-                                Contact</a>
-                        </li>
-
-                    </ul>
-                </div>
-            </nav>
-        {% endif %}
-
-                <div class="panier sticky-top justify-content-end ">
-            <a href="telto:{{entreprise.telephone}}" class="cart-lien">
-                <div class="cart">
-                    <i class="fas fa-phone-alt"></i>
-                </div>
-            </a>
-             <a href="mailto:{{entreprise.mailContact}}" class="cart-lien">
-                <div class="cart">
-                    <i class="far fa-envelope-alt"></i>
-                </div>
-            </a>
+            </div>
+        </div>
+        <div class="row copyrow text-light">
+            <div class="col-12 copyright m-3">
+                Copyright © 2019
+                {{entreprise.nom}}
+                |
+                <a href="{{path('mentions')}}" class="copyright-a">Mentions légales</a>
+                |
+                <a href="{{path('CGU')}}" class="copyright-a">CGU</a>
+            </div>
         </div>
 
-        {% for message in app.flashes('success') %}
-            {# Message de réussite d'une action  #}
-            <div id="jsflash" class="alert alert-success mx-auto">
-                {{ message | raw }}
-            </div>
-        {% endfor %}
-
-        {% for message in app.flashes('error') %}
-            {# Message d'erreur d'une action #}
-            <div id="jsflash" class="alert alert-danger m-0">
-                {{ message | raw }}
-            </div>
-        {% endfor %}
-
-        {# Ici, on ajoute le contenu de façon dynamique  #}
-        {% block content %}{% endblock %}
-
-        <footer class="bg-dark">
-            <div class="row justify-content-center">
-                <div class="col-md-4 col-sm-12 m-3">
-                    <div class="footerh3 pb-3">
-                        {{entreprise.nom}}
-                    </div>
-                    <div class="footeradresse">
-                        {{entreprise.adresse}}
-                        <br>
-                        {{entreprise.cp}}
-                        {{entreprise.ville}}
-                    </div>
-                    <div class="footercontact">
-                        Téléphone :
-                        <a href="telto:{{entreprise.telephone}}" class="footertel">
-                            {{entreprise.telephone}}</a>
-                    </div>
-                    <div class="footercontact">
-                        Mail :
-                        <a href="mailto:{{entreprise.mailContact}}" class="footermail">
-                            {{entreprise.mailContact}}</a>
-                    </div>
-                </div>
-                <div class="col-md-4 col-sm-12 text-center m-3">
-                    <div class="footerh3 pb-3">
-                        Laissez votre témoignage sur Google
-                    </div>
-                    <a href="{{specificites.pageGoogle}}">
-                        <div class="col-10 btn boutonavis">
-                            <i class="fas fa-star"></i>
-                            Laissez votre avis !
-                        </div>
-                    </a>
-                    <br><br>
-                    <div class=" reseauxsociaux">
-                        <a class="h1" href="{{specificites.facebook}}">
-                            <i class="fab fa-facebook text-light"></i>
-                        </a>
-                        <a class="h1" href="{{specificites.instagram}}">
-                            <i class="fab fa-instagram text-light"></i>
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <div class="row copyrow text-light">
-                <div class="col-12 copyright m-3">
-                    Copyright © 2019
-                    {{entreprise.nom}}
-                    |
-                    <a href="{{path('mentions')}}" class="copyright-a">Mentions légales</a>
-                    |
-                    <a href="{{path('CGU')}}" class="copyright-a">CGU</a>
-                </div>
-            </div>
-
-        </footer>
+    </footer>
 
 
-    </body>
+</body>
 
 </html>

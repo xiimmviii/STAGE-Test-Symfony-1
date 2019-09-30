@@ -9,6 +9,7 @@ use App\Form\ContactType;
 use App\Entity\Entreprise;
 use App\Entity\Partenaires;
 use App\Entity\Specificites;
+use App\Entity\Tarifs;
 use App\Notification\ContactNotification;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -96,6 +97,38 @@ class BaseController extends AbstractController
         ]);
     }
 
+
+        /**
+     * affiche les tarifs
+     * @Route("/tarifs", name="tarifs")
+     */
+    public function tarifs()
+    {
+        // Pour que le footer reçoive bien les données dont il a besoin, il faut aller chercher les données dans les tables Specificites et Entreprise
+
+        $repository = $this->getDoctrine()->getRepository(Entreprise::class);
+        $entreprise = $repository->findOneById(1);
+
+        $repository = $this->getDoctrine()->getRepository(Specificites::class);
+        $specificites = $repository->findOneById(1);
+
+        // -----------------------------------------------------------------------------------
+
+        //on utilise le repository pour accéder à la table Tarifs
+        $repository = $this->getDoctrine()->getRepository(Tarifs::class);
+        //On récupère toutes les données de la table Tarifs et on les injecte dans l'objet $tarifs
+        $tarifs = $repository->findAll();
+
+        // -----------------------------------------------------------------------------------
+
+        //on injecte les données dans la vue mentions (en incluant les données pour le footer)
+
+        return $this->render('base/tarifs.html.twig', [
+            'specificites' => $specificites,
+            'entreprise' => $entreprise,
+            'tarifs' => $tarifs,
+        ]);
+    }
 
 
 
