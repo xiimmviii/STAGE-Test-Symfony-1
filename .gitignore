@@ -31,3 +31,7 @@ templates/.DS_Store
 .DS_Store
 composer-setup.php
 composer.lock
+src/Migrations/Version20190930130542.php
+src/Migrations/Version20190930130958.php
+composer.lock
+.env
