@@ -27,3 +27,7 @@ composer.lock
 .env
 composer.lock
 src/Migrations/Version20190927092123.php
+templates/.DS_Store
+.DS_Store
+composer-setup.php
+composer.lock
