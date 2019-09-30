@@ -3,8 +3,10 @@
 namespace App\Controller;
 
 
+use App\Entity\Tarifs;
 use App\Entity\Contenu;
 use App\Entity\Galerie;
+use App\Form\TarifsType;
 use App\Form\ContenuType;
 use App\Form\GalerieType;
 use App\Entity\Entreprise;
@@ -847,6 +849,193 @@ class AdminController extends AbstractController
             'controller_name' => 'AdminController',
             'entreprise' => $entreprise,
             'specificites' => $specificites,
+        ]);
+    }
+
+    /* ---------------------------------------------------------------------------------------------------
+       ╔╦╗╔═╗╦═╗╦╔═╗╔═╗
+        ║ ╠═╣╠╦╝║╠╣ ╚═╗
+        ╩ ╩ ╩╩╚═╩╚  ╚═╝
+    --------------------------------------------------------------------------------------------------- */
+
+
+    /**
+     * @Route("/admin/tarifs", name="tarifs-admin")
+     */
+    public function tarifsAdmin(Request $request)
+    {
+        $repository = $this->getDoctrine()->getRepository(Entreprise::class);
+        $entreprise = $repository->findOneById(1);
+
+        $repository = $this->getDoctrine()->getRepository(Specificites::class);
+        $specificites = $repository->findOneById(1);
+
+        // -------------------------------------------------------------------
+        // -------------------------------------------------------------------
+
+        $repository = $this->getDoctrine()->getRepository(Tarifs::class);
+        $tarifs = $repository->findAll();
+
+        // --------------------------------------------------------------------
+        // -------------------------------------------------------------------
+
+
+        $tarif = new Tarifs;
+
+        $form = $this->createForm(TarifsType::class, $tarif);
+        $form->handleRequest($request);
+
+        $manager = $this->getDoctrine()->getManager();
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $manager->persist($tarif);
+
+            $manager->flush();
+
+            $this->addFlash('success', 'La prestation a été ajoutée ! ');
+            return $this->redirectToRoute('tarifs-admin');
+        }
+
+        return $this->render('admin/tarifs.html.twig', [
+            'controller_name' => 'AdminController',
+            'entreprise' => $entreprise,
+            'specificites' => $specificites,
+            'tarifs' => $tarifs,
+            'TarifsForm' => $form->createView(),
+        ]);
+    }
+
+    /**
+     * @Route("/admin/tarifs/affichage/{id}", name="affichage_tarifs")
+     */
+    public function setTarifsAdmin(Request $request, $id)
+    {
+
+
+        $repository = $this->getDoctrine()->getRepository(Entreprise::class);
+        $entreprise = $repository->findOneById(1);
+
+        $repository = $this->getDoctrine()->getRepository(Specificites::class);
+        $specificites = $repository->findOneById(1);
+
+        // -------------------------------------------------------------------
+        // -------------------------------------------------------------------
+
+
+        $repository = $this->getDoctrine()->getRepository(Tarifs::class);
+        $tarifs = $repository->findAll();
+
+        // -------------------------------------------------------------------
+        // -------------------------------------------------------------------
+
+
+        $manager = $this->getDoctrine()->getManager();
+        $tarif = $manager->find(Tarifs::class, $id);
+
+
+        $form = $this->createForm(TarifsType::class, $tarif);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $manager->persist($tarif);
+
+            $manager->flush();
+
+            $this->addFlash('success', 'La nouvelle prestation a été ajoutée ');
+            return $this->redirectToRoute('tarifs-admin');
+        }
+
+       
+        return $this->render('admin/tarifs.html.twig', [
+            'controller_name' => 'AdminController',
+            'entreprise' => $entreprise,
+            'specificites' => $specificites,
+            'tarifs' => $tarifs,
+            'TarifsForm' => $form->createView(),
+        ]);
+    }
+
+
+    /**
+     * @Route("/admin/tarifs/update/{id}", name="update_tarifs-admin")
+     */
+    public function updateTarifsAdmin($id, Request $request)
+    {
+
+        $repository = $this->getDoctrine()->getRepository(Entreprise::class);
+        $entreprise = $repository->findOneById(1);
+
+        $repository = $this->getDoctrine()->getRepository(Specificites::class);
+        $specificites = $repository->findOneById(1);
+
+        $repository = $this->getDoctrine()->getRepository(Tarifs::class);
+        $tarifs = $repository->findAll();
+
+        // -------------------------------------------------------------------
+        // -------------------------------------------------------------------
+
+        $manager = $this->getDoctrine()->getManager();
+        $tarif = $manager->find(Tarif::class, $id);
+
+
+        $form = $this->createForm(TarifsType::class, $tarif);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $manager->persist($tarif);
+
+            $manager->flush();
+
+            $this->addFlash('success', 'Les modifications ont été effectuées ! ');
+            return $this->redirectToRoute('tarifs-admin');
+        }
+
+
+
+        return $this->render('admin/tarifs.html.twig', [
+            'controller_name' => 'AdminController',
+            'entreprise' => $entreprise,
+            'specificites' => $specificites,
+            'tarifs' => $tarifs,
+            'TarifsForm' => $form->createView(),
+        ]);
+    }
+
+    /**
+     * @Route("/admin/tarifs/delete/{id}", name="delete_tarifs-admin")
+     */
+    public function deleteTarifsAdmin($id)
+    {
+        $manager = $this->getDoctrine()->getManager();
+        $tarif = $manager->find(Tarifs::class, $id);
+
+        $manager->remove($tarif);
+        $manager->flush();
+
+        $this->addFlash('success', 'La presation a bien été supprimée.');
+        return $this->redirectToRoute('tarifs-admin');
+
+        // -------------------------------------------------------------------
+        // -------------------------------------------------------------------
+
+
+        $repository = $this->getDoctrine()->getRepository(Entreprise::class);
+        $entreprise = $repository->findOneById(1);
+
+        $repository = $this->getDoctrine()->getRepository(Specificites::class);
+        $specificites = $repository->findOneById(1);
+
+        
+
+
+        return $this->render('admin/espaceadmin.html.twig', [
+            'controller_name' => 'AdminController',
+            'entreprise' => $entreprise,
+            'specificites' => $specificites,
+
         ]);
     }
 }

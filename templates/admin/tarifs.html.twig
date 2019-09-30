@@ -1,0 +1,70 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+
+<div class="row mt-4 pt-4">
+   <div class="col-md-6 col-sm-8 mx-auto alert-info border border-info rounded m-3 p-3">
+        <h2>
+          Tarifs
+        </h2>
+        <hr>
+        <center><p> Cette section vous permet de parler de votre entreprise. <br> Son histoire, son évolution ses actualités...  </p></center>
+    </div>
+</div>
+
+<div class="row m-4 justify-content-center">
+    <div
+        class="col-lg-4 col-md-3 col-sm-10 alert-warning border border-warning rounded m-3 p-3  order-lg-5 text-justify">
+        <center>
+            <h1>
+                <i class="fas fa-info-circle"></i>
+            </h1>
+        </center>
+        <hr> 
+        <center>Cette section permet de poster un texte sur votre entreprise. 
+        <br><b>Ce texte doit faire <u>plus de 300 mots</u> pour favoriser votre référencement.  </b>
+        <br><i> Le champ "sous-titre" n'est pas obligatoire </i></center>
+        <hr> 
+        Ces articles sont gérables en dessous. Vous ne pouvez en afficher <strong> qu'un seul </strong> à la fois. L'article affiché est celui stipulé en ligne, en fond vert, et toujours en haut de ce tableau.
+        Dans ce tableau, trois colonnes pour gérer votre affichage et vos textes. 
+        <br><br><ul>
+        <li> <strong>PUBLIER :</strong> Vous pouvez modifier votre article une dernière fois avant sa publication. </li>
+        <li> <strong>MODIFIER :</strong> Vous pouvez modifier un article sans pour autant le publier par la suite. </li>
+        <li> <strong>SUPPRIMER :</strong> <span class="text-danger"><i class="fas fa-exclamation-triangle"></i> Action irréversible <i class="fas fa-exclamation-triangle"></i> </span></li>
+        </ul>
+        </div>
+    <div class="col-lg-6 col-md-8 col-sm-10 border rounded m-3 p-3 order-lg-0 ">
+        {{form_start(TarifsForm)}}
+        {{form_end(TarifsForm)}}
+
+    </div>
+</div>
+
+<div class="row m-4 justify-content-center">
+    <table class="col-10 table">
+        <thead>
+            <tr class="row text-center">
+                <th class="col-6"> PRESTATION </th>
+                <th class="col-2"> TARIF JOUR </th>
+                <th class="col-2"> TARIF NUIT</th>
+                <th class="col-2"> TARIF WEEK_END </th>
+
+        </thead>
+        <tbody>
+            <!-- Pour afficher en premier le texte affiché, on ordonne nos résultats de notre boucle for par la date d'affichage en DESC. Pour cela on utilise l'extension twig sortbyfield : https://github.com/victorhaggqvist/Twig-sort-by-field/blob/master/src/SortByFieldExtension.php 
+                On break le for et on récupère que le premier de la liste pour mettre un design spécial-->
+            {% for tarif in tarifs | sortbyfield('dateAffichage') |slice(1, 50) %}
+            <!-- On récupère le reste des textes et on les affiche à la suite dans le tableau -->
+            <tr class="row">
+                <td class="col-6"> {{tarif.prestation}} </td>
+                <td class="col-2"> {{tarif.tarif_jour}} </td>
+                <td class="col-2"> {{tarif.tarif_nuit}} </td>
+                <td class="col-2"> {{tarif.tarif_weekend}} </td>
+            </tr>
+            {% endfor %}
+
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}
