@@ -22,9 +22,9 @@ class TarifsType extends AbstractType
         // On peut ensuite ajouter des spécificités à ces champs 
             ->add('prestation', TextType::class,array('required' => true))
             // Required permet de préciser si le contenu est obligatoire (true) ou non (false)
-            ->add('tarif journée', NumberType::class,array('required' => true))
-            ->add('tarif nuit', NumberType::class,array('required' => false))
-            ->add('tarif weekend', NumberType::class,array('required' => false))
+            ->add('tarif_jour', NumberType::class,array('required' => true))
+            ->add('tarif_nuit', NumberType::class,array('required' => false))
+            ->add('tarif_weekend', NumberType::class,array('required' => false))
 
             
             ->add('submit', SubmitType::class);
