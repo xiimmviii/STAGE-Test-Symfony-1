@@ -6,12 +6,13 @@ use App\Entity\Entreprise;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
@@ -27,9 +28,13 @@ class EntrepriseType extends AbstractType
             // Required permet de préciser si le contenu est obligatoire (true) ou non (false)
             ->add('statut_rcs', TextType::class,array('required' => false))
             ->add('adresse', TextType::class)
-            ->add('cp', IntegerType::class)
+            ->add('cp', TextType::class, [
+                'constraints' => new Length(['min' => 5, 'max' => 5]),
+            ])
             ->add('ville', TextType::class)
-            ->add('telephone', TextType::class,array('required' => false))
+            ->add('telephone', TextType::class,array('required' => false), [
+                'constraints' => new Length(['min' => 10, 'max' => 17]),
+            ])
             ->add('mailGerant',EmailType::class,array(
                 // Ici, le constraint va permettre d'appliquer les pré-requis d'un champ mail
                 // Il faut absolument un @ et une extension à la suite pour pouvoir envoyer le formulaire
@@ -48,8 +53,12 @@ class EntrepriseType extends AbstractType
                     ))
                 )
             ))
-            ->add('siren', IntegerType::class,array('required' => false))
-            ->add('siret', IntegerType::class,array('required' => true))
+            ->add('siren', TextType::class,array('required' => false), [
+                'constraints' => new Length(['min' => 5, 'max' => 5]),    
+            ])
+            ->add('siret', TextType::class,array('required' => true), [
+                'constraints' => new Length(['min' => 5, 'max' => 5]),
+            ])
             ->add('activite', TextType::class,array('required' => true))
             ->add('nomGerant', TextType::class,array('required' => false))
             ->add('submit', SubmitType::class);
