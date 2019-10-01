@@ -21,6 +21,11 @@ class Couleur
      */
     private $Couleur;
 
+      /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $dateAffichage;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -34,6 +39,18 @@ class Couleur
     public function setCouleur(string $Couleur): self
     {
         $this->Couleur = $Couleur;
+
+        return $this;
+    }
+
+    public function getDateAffichage(): ?string
+    {
+        return $this->dateAffichage;
+    }
+
+    public function setDateAffichage(string $dateAffichage): self
+    {
+        $this->dateAffichage = $dateAffichage;
 
         return $this;
     }
