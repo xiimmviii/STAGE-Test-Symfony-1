@@ -35,3 +35,12 @@ src/Migrations/Version20190930130542.php
 src/Migrations/Version20190930130958.php
 composer.lock
 .env
+
+###> symfony/webpack-encore-bundle ###
+/node_modules/
+/public/build/
+npm-debug.log
+yarn-error.log
+###< symfony/webpack-encore-bundle ###
+.DS_Store
+public/.DS_Store
