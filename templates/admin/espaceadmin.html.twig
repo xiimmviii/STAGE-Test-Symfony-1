@@ -2,7 +2,12 @@
 
 {% block content %}
 
-     <h1 class="text-center m-4">Bienvenue sur l'espace admin !</h1>
+    {% if is_granted('ROLE_ADMIN') %}
+     <h1 class="text-center m-4">Bienvenue sur l'espace Admin !</h1>
+    {% endif %}
+    {% if is_granted('ROLE_SUPER_ADMIN') %}
+          <h1 class="text-center m-4">Bienvenue sur l'espace Super Admin !</h1>
+      {% endif %}
 
     <div class="row mb-3">
         <div class="col-md-6 col-sm-8 alert-info text-justify mx-auto border border-info rounded p-3 m-3 mb-5">
