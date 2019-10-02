@@ -36,19 +36,44 @@
         <h1>Ajout de photo</h1>
         <hr>
         {{ form_start(galerieForm) }}
-        <div class="row justify-content-center">
-            <div class="col-10 mt-3">
-                {{ form_row(galerieForm.file, {'label' : 'Photo *'}) }}
-                {{ form_row(galerieForm.description, {'label' : 'Description *'}) }}
-                {{ form_row(galerieForm.submit, { 'label' : 'Envoyer', 'attr': {'class': 'col-12 btn btn-success mt-3'} } ) }}
-            </div>
-        </div>
         {{ form_end(galerieForm) }}
 
 
     </div>
 </div>
 
+
+
+<div class="row m-4 justify-content-center">
+
+    <h1>Gestion des photos</h1>
+
+    <div class="row">
+                {% for galerie in galeries %}
+                    <img class=3" src="{{ asset('/photo/' ~ galerie.photo1) }}" alt="{{ galerie.description1 }}">
+
+                    {{ galerie.description1 }} 
+                    <a class="card-footer bg-danger text-decoration-none text-light"
+                        href="{{ path('delete_photo', {id : photo.id } ) }}"
+                        onclick="return confirm('Etes-vous certain(e) de vouloir supprimer la photo ?')">
+                        <i class="fas fa-trash-alt mx-2"></i> Supprimer
+                    </a>
+                    {{ galerie.photo2 }}
+                    {{ galerie.description2 }}
+                    {{ galerie.photo3 }}
+                    {{ galerie.description3 }}
+                    {{ galerie.photo4}}
+                    {{ galerie.description4 }}
+
+                {% endfor %}
+
+    </div>
+</div>
+
+
+
+
+{# 
 <div class="row m-4 justify-content-center">
 
     <h1>Gestion des photos</h1>
@@ -74,7 +99,7 @@
             </div>
         </div>
     </div>
-</div>
+</div> #}
 
 
 {% endblock %}

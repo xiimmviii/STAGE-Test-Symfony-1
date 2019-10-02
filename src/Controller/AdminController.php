@@ -123,10 +123,10 @@ class AdminController extends AbstractController
     public function galeriePhoto(Request $request)
     {
         // On crée un objet vide qu'on pourra ensuite réutiliser
-        $photo = new Galerie; 
+        $galerie = new Galerie; 
 
-        // On créé la vue d'un formulaire qui provient du dossier FORM > EntrepriseType.php 
-        $form = $this->createForm(GalerieType::class, $photo);
+        // On créé la vue d'un formulaire qui provient du dossier FORM > GalerieType.php 
+        $form = $this->createForm(GalerieType::class, $galerie);
         // On récupère les infos saisies dans le formulaire ($_POST)
         $form->handleRequest($request);
 
@@ -136,28 +136,39 @@ class AdminController extends AbstractController
             $manager = $this->getDoctrine()->getManager();
 
             // On enregistre la $photo dans le système 
-            $manager->persist($photo);
+            $manager->persist($galerie);
 
             // On enregistre la photo en BDD et sur le serveur. 
             // On émet une condition >> Si il y a un fichier sélectionné, alors on l'envoie 
-            if ($photo->getFile() != NULL) {
-                $photo->uploadFile();
+            if ($galerie->getFile1() != NULL) {
+                $galerie->uploadFile1();
             }
+            if ($galerie->getFile2() != NULL) {
+                $galerie->uploadFile2();
+            }
+            if ($galerie->getFile3() != NULL) {
+                $galerie->uploadFile3();
+            }
+            if ($galerie->getFile4() != NULL) {
+                $galerie->uploadFile4();
+            }
+
+
 
             // On enregistre la photo en BDD 
             $manager->flush();
 
             // On affiche le message si l'action est réussie 
-            $this->addFlash('success', 'La photo a bien été enregistrée !');
+            $this->addFlash('success', 'La gallerie a bien été enregistrée !');
 
             // On retourne à la vue >> Admin > GaleriePhoto 
             return $this->redirectToRoute('galeriephotos');
         }
 
-        // On récupère toutes les photos déjà dans la BDD
+        // On récupère toutes les galeries déjà dans la BDD
         $repository = $this->getDoctrine()->getRepository(Galerie::class);
         // Le findAll permet de récupérer toutes les informations stockées en BDB 
-        $photos = $repository ->findAll();
+        $galeries = $repository ->findAll();
 
 
         // On récupère les informations et on les renvoie dans la VUE 
@@ -171,7 +182,7 @@ class AdminController extends AbstractController
             'galerieForm' => $form->createView(),
             'entreprise' => $entreprise,
             'specificites' => $specificites,
-            'photos' => $photos,
+            'galeries' => $galeries,
         ]);
     }
 
@@ -273,7 +284,7 @@ class AdminController extends AbstractController
             // Elle est ici vide, car pour l'affichage, cela n'est pas pertinent 
         $date = '';
 
-        // Cette variable permet de changer la valeur dans lebouton d'envoi afin de le rendre dynmaqieu dans les différentes vues
+        // Cette variable permet de changer la valeur dans le bouton d'envoi afin de le rendre dynmaqieu dans les différentes vues
             // Le bouton est adapté à chaque situation 
         $boutonenvoi = 'Envoyer';
 
