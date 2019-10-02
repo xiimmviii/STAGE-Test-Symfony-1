@@ -52,7 +52,7 @@ class AdminController extends AbstractController
             array('dateAffichage' => 'DESC')
         );
 
-         // On retourne ensuite les éléments récupérés dans la vue qu'on injectera entre {{}} dans la vue twig ADMIN -> espaceadmin.html.twig
+        // On retourne ensuite les éléments récupérés dans la vue qu'on injectera entre {{}} dans la vue twig ADMIN -> espaceadmin.html.twig
         return $this->render('admin/espaceadmin.html.twig', [
             'controller_name' => 'AdminController',
             'entreprise' => $entreprise,
@@ -76,7 +76,7 @@ class AdminController extends AbstractController
     {
         // On récupère les informations en BDD en utilisant le Repository
         // Récupération : des éléments de la table Entreprise puis ceux la table Spécificités  
-        
+
         $repository = $this->getDoctrine()->getRepository(Entreprise::class);
         $entreprise = $repository->findOneById(1);
 
@@ -113,8 +113,8 @@ class AdminController extends AbstractController
         }
 
         // On renvoie les informations dans la vue ENTREPRISE.HTML.TWIG 
-            // Les informations récupérées des tables Entreprise, Spécificités 
-            // On renvoie aussi la vue du formulaire EntrepriseType.php
+        // Les informations récupérées des tables Entreprise, Spécificités 
+        // On renvoie aussi la vue du formulaire EntrepriseType.php
 
         return $this->render('admin/entreprise.html.twig', [
             'controller_name' => 'AdminController',
@@ -139,7 +139,7 @@ class AdminController extends AbstractController
     public function galeriePhoto(Request $request)
     {
         // On crée un objet vide qu'on pourra ensuite réutiliser
-        $photo = new Photo; 
+        $photo = new Photo;
 
         // On créé la vue d'un formulaire qui provient du dossier FORM > GalerieType.php 
         $form = $this->createForm(PhotoType::class, $photo);
@@ -174,7 +174,7 @@ class AdminController extends AbstractController
         // On récupère toutes les photos déjà dans la BDD
         $repository = $this->getDoctrine()->getRepository(Photo::class);
         // Le findAll permet de récupérer toutes les informations stockées en BDB 
-        $photos = $repository ->findAll();
+        $photos = $repository->findAll();
 
 
         // On récupère les informations et on les renvoie dans la VUE 
@@ -208,7 +208,7 @@ class AdminController extends AbstractController
     public function galerieCreate(Request $request)
     {
         // On crée un objet vide qu'on pourra ensuite réutiliser
-        $galerie = new Galerie; 
+        $galerie = new Galerie;
 
         // On créé la vue d'un formulaire qui provient du dossier FORM > GalerieType.php 
         $form = $this->createForm(GalerieType::class, $galerie);
@@ -236,7 +236,7 @@ class AdminController extends AbstractController
         // On récupère toutes les galeries déjà dans la BDD
         $repository = $this->getDoctrine()->getRepository(Galerie::class);
         // Le findAll permet de récupérer toutes les informations stockées en BDB 
-        $galeries = $repository ->findAll();
+        $galeries = $repository->findAll();
 
 
         // On récupère les informations et on les renvoie dans la VUE 
@@ -259,10 +259,7 @@ class AdminController extends AbstractController
             'couleurs' => $couleurs
         ]);
     }
-
-
-
-
+ 
 
 
     /**
@@ -283,14 +280,12 @@ class AdminController extends AbstractController
         // Le MANAGER enregistre l'info et transmet ensuite à la BDD 
         $manager->remove($photo);
         $manager->flush();
-        
+
         // Message de succès et renvoi à la vue ADMIN >> Galerie Photos 
         $this->addFlash('success', 'La photo a bien été supprimée.');
         return $this->redirectToRoute('galeriephotos');
 
         // ----------------------------------------------------------------------
-        // ----------------------------------------------------------------------
-
         // On récupère et on renvoie les informations nécessaires pour l'affichage de la VUE B
         $repository = $this->getDoctrine()->getRepository(Entreprise::class);
         $entreprise = $repository->findOneById(1);
@@ -313,7 +308,7 @@ class AdminController extends AbstractController
 
 
 
-        /**
+    /**
      * Supprime une galerie dans la BDD via le panneau administrateur
      * @Route("/admin/galeriephotos/delete_galerie/{id}", name="delete_galerie")
      */
@@ -331,12 +326,11 @@ class AdminController extends AbstractController
         // Le MANAGER enregistre l'info et transmet ensuite à la BDD 
         $manager->remove($galerie);
         $manager->flush();
-        
+
         // Message de succès et renvoi à la vue ADMIN >> Galerie Photos 
         $this->addFlash('success', 'La galerie a bien été supprimée.');
         return $this->redirectToRoute('galeriecreate');
 
-        // ----------------------------------------------------------------------
         // ----------------------------------------------------------------------
 
         // On récupère et on renvoie les informations nécessaires pour l'affichage de la VUE
@@ -354,6 +348,83 @@ class AdminController extends AbstractController
         return $this->render('admin/espaceadmin.html.twig', [
             'entreprise' => $entreprise,
             'specificites' => $specificites,
+            'couleurs' => $couleurs
+        ]);
+    }
+
+
+    /**
+     * ajoute une photo dans une galerie précise
+     * @Route("/admin/ajoutphoto/{id}", name="ajoutphoto")
+     */
+    public function ajoutPhoto(Request $request, $id)
+    {
+
+        // On récupère le MANAGER pour pouvoir gérer les informations en BDD >> Galerie
+        $manager = $this->getDoctrine()->getManager();
+
+        // On trouve l'élément concerné dans la table Galerie via son $ID et on lui applique une variable
+        $galerie = $manager->find(Galerie::class, $id);
+
+        // On crée un objet vide qu'on pourra ensuite réutiliser
+        $photo = new Photo;
+
+        // On créé la vue d'un formulaire qui provient du dossier FORM > GalerieType.php 
+        $form = $this->createForm(PhotoType::class, $photo);
+
+        // On récupère les infos saisies dans le formulaire ($_POST)
+        $form->handleRequest($request);
+
+        // CF TRAITEMENT DU FORMULAIRE >> ligne 81-86 
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $manager = $this->getDoctrine()->getManager();
+
+            $galerie -> addPhotos($photo);
+            // On enregistre la $photo et l'id de la galerie dans le système 
+            $manager->persist($photo);
+            $manager->persist($galerie);
+
+            // On enregistre la photo en BDD et sur le serveur. 
+            // On émet une condition >> Si il y a un fichier sélectionné, alors on l'envoie 
+            if ($photo->getFile() != NULL) {
+                $photo->uploadFile();
+            }
+
+
+            // On enregistre la photo en BDD 
+            $manager->flush();
+
+            // On affiche le message si l'action est réussie 
+            $this->addFlash('success', 'La photo a bien été enregistrée !');
+
+            // On retourne à la vue >> Admin > GalerieCreate 
+            return $this->redirectToRoute('galeriecreate');
+        }
+
+        // On récupère toutes les photos déjà dans la BDD
+        $repository = $this->getDoctrine()->getRepository(Photo::class);
+        // Le findAll permet de récupérer toutes les informations stockées en BDB 
+        $photos = $repository->findAll();
+
+
+        // On récupère les informations et on les renvoie dans la VUE 
+        $repository = $this->getDoctrine()->getRepository(Entreprise::class);
+        $entreprise = $repository->findOneById(1);
+
+        $repository = $this->getDoctrine()->getRepository(Specificites::class);
+        $specificites = $repository->findOneById(1);
+
+        $repository = $this->getDoctrine()->getRepository(Couleur::class);
+        $couleurs = $repository->findAll(
+            array('dateAffichage' => 'DESC')
+        );
+
+        return $this->render('admin/galeriephotos.html.twig', [
+            'photoForm' => $form->createView(),
+            'entreprise' => $entreprise,
+            'specificites' => $specificites,
+            'photos' => $photos,
             'couleurs' => $couleurs
         ]);
     }
@@ -387,11 +458,11 @@ class AdminController extends AbstractController
 
         $repo = $this->getDoctrine()->getRepository(Contenu::class);
         // On récupère le contenu de la table CONTENU en fonction de la SECTION,
-            // -> On précise que l'on souhaite les éléments ayant "presensation" comme "Section"
+        // -> On précise que l'on souhaite les éléments ayant "presensation" comme "Section"
         $presentations = $repo->findBySection('presentation');
 
-       // ----------------------------------------------------------------------
-       // ----------------------------------------------------------------------
+        // ----------------------------------------------------------------------
+        // ----------------------------------------------------------------------
 
         // On crée un objet vide 
         $presentation = new Contenu;
@@ -414,20 +485,20 @@ class AdminController extends AbstractController
         }
 
         // On crée la variable date pour pouvoir ensuite généréer une date dynamique qui sera renvoyée dans le formulaire
-            // Cela permet de générer une date, que l'on traitera ensuite pour classer les éléments 
-            // Dans la VUE ADMIN >> prensatation-entreprise.html.twig ligne-25, on entre la variable dans le formulaire de façon automatique
-            // Ce qui permet d'afficher seulement celle que l'on désire dans la vue SECTIONS >> section-présentation-etp.html.twig
-            // Elle est ici vide, car pour l'affichage, cela n'est pas pertinent 
+        // Cela permet de générer une date, que l'on traitera ensuite pour classer les éléments 
+        // Dans la VUE ADMIN >> prensatation-entreprise.html.twig ligne-25, on entre la variable dans le formulaire de façon automatique
+        // Ce qui permet d'afficher seulement celle que l'on désire dans la vue SECTIONS >> section-présentation-etp.html.twig
+        // Elle est ici vide, car pour l'affichage, cela n'est pas pertinent 
         $date = '';
 
         // Cette variable permet de changer la valeur dans le bouton d'envoi afin de le rendre dynmaqieu dans les différentes vues
-            // Le bouton est adapté à chaque situation 
+        // Le bouton est adapté à chaque situation 
         $boutonenvoi = 'Envoyer';
 
         // ----------------------------------------------------------------------
         // ----------------------------------------------------------------------
 
-       // On renvoie les informations dans la VUE 
+        // On renvoie les informations dans la VUE 
 
         return $this->render('admin/presentation-entreprise.html.twig', [
             'controller_name' => 'AdminController',
@@ -543,8 +614,8 @@ class AdminController extends AbstractController
         // ----------------------------------------------------------------------
 
         // Ici, on indique que la variable $date passe à 0 pour que la date de l'entrée en BDD ne change pas
-            // Elle passe à 0 ce qui nous permet dans le tri effectué pour l'affichage de la VUE SECTIONS => section-presentation-etp 
-            // De n'afficher qu'une entrée : la plus récente 
+        // Elle passe à 0 ce qui nous permet dans le tri effectué pour l'affichage de la VUE SECTIONS => section-presentation-etp 
+        // De n'afficher qu'une entrée : la plus récente 
         $date = '0';
 
         // Le $boutonenvoi devient modofier et non plus envoyer pour indiquer qu'on modifie
@@ -886,7 +957,7 @@ class AdminController extends AbstractController
         ]);
     }
 
-/* ---------------------------------------------------------------------------------------------------
+    /* ---------------------------------------------------------------------------------------------------
     ╔═╗╔═╗╔═╗╔═╗╦╔═╗╦╔═╗╦╔╦╗╔═╗╔═╗
     ╚═╗╠═╝║╣ ║  ║╠╣ ║║  ║ ║ ║╣ ╚═╗
     ╚═╝╩  ╚═╝╚═╝╩╚  ╩╚═╝╩ ╩ ╚═╝╚═╝
@@ -941,7 +1012,7 @@ class AdminController extends AbstractController
         ]);
     }
 
-   /* ---------------------------------------------------------------------------------------------------
+    /* ---------------------------------------------------------------------------------------------------
    
     ╔═╗╔═╗╦═╗╔╦╗╔═╗╔╗╔╔═╗╦╦═╗╔═╗
     ╠═╝╠═╣╠╦╝ ║ ║╣ ║║║╠═╣║╠╦╝║╣ 
@@ -967,7 +1038,7 @@ class AdminController extends AbstractController
             $manager->persist($logo);
 
             // On applique une condition
-                // Si on a bien un fichier choisit, alors on l'envoie 
+            // Si on a bien un fichier choisit, alors on l'envoie 
             if ($logo->getFile() != NULL) {
                 $logo->uploadFile();
             }
@@ -1021,7 +1092,7 @@ class AdminController extends AbstractController
 
         // -------------------------------------------------------------------
         // -------------------------------------------------------------------
-        
+
         // On supprime le logo puis le partenaire et on enregistre/envoie l'information en BDD 
         $partenaire->removeLogo();
         $manager->remove($partenaire);
