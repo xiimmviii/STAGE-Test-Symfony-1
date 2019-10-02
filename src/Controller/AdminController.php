@@ -259,10 +259,7 @@ class AdminController extends AbstractController
             'couleurs' => $couleurs
         ]);
     }
-
-
-
-
+ 
 
 
     /**
