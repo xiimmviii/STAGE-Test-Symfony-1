@@ -25,7 +25,7 @@ class User implements UserInterface //l'entité USER doit absolument implémente
     /**
      * @ORM\Column(name="role", type="string", length=20)
      */
-    private $role = 'ROLE_ADMIN'; 
+    private $role; 
     //comme on n'a besoin que d'utilisateurs admins sur ce site, c'est le role qu'on donne par défaut à tous nos utilisateurs
 
     /**

@@ -2,15 +2,14 @@
 
 {% block content %}
 
-    <div class="row mt-4 pt-4">
-        <div class="col-md-6 col-sm-8 mx-auto alert-info border border-info rounded m-3 p-3">
-            <h2>
-                Galerie de vos réalisations
-            </h2>
-            <hr>
-            <p>Dans cette section vous pourrez ajouter/supprimer les photos de vos réalisations.</p>
-        
-        </div>
+<div class="row mt-4 pt-4">
+    <div class="col-md-6 col-sm-8 mx-auto alert-info border border-info rounded m-3 p-3">
+        <h2>
+            Galerie de vos réalisations
+        </h2>
+        <hr>
+        <p>Dans cette section vous pourrez ajouter/supprimer les photos de vos réalisations.</p>
+
     </div>
 </div>
 
@@ -33,23 +32,20 @@
     </div>
 
     <div class="col-lg-6 col-md-8 col-sm-10 rounded border m-3 p-3 order-md-0 order-lg-0 text-center">
+
+        <a href="{{ path('galeriecreate') }}" class="btn btn-success">Créer une nouvelle galerie</a>
+
         <h1>Ajout de photo</h1>
         <hr>
-        {{ form_start(galerieForm) }}
-        <div class="row justify-content-center">
-            <div class="col-10 mt-3">
-                {{ form_row(galerieForm.file, {'label' : 'Photo *'}) }}
-                {{ form_row(galerieForm.description, {'label' : 'Description *'}) }}
-                {{ form_row(galerieForm.submit, { 'label' : 'Envoyer', 'attr': {'class': 'col-12 btn btn-success mt-3'} } ) }}
-            </div>
-        </div>
-        {{ form_end(galerieForm) }}
-
-
+        {{ form_start(photoForm) }}
+        {{ form_end(photoForm) }}
     </div>
+
 </div>
 
-<div class="row m-4 justify-content-center">
+
+
+<div class="m-4 justify-content-center">
 
     <h1>Gestion des photos</h1>
 
@@ -58,9 +54,8 @@
             <div class="row text-center">
                 {% for photo in photos %}
                 <div class="card col-md-2 m-3">
-                    <img class=" card-img-top" src="{{ asset('/photo/' ~ photo.photo) }}" alt="{{ photo.description }}">
+                    <img class=" card-img-top" src="{{ asset('/photo/' ~ photo.photo) }}" alt="">
                     <div class=" card-block">
-                        {{ photo.description }}
                     </div>
                     <a class="card-footer bg-danger text-decoration-none text-light"
                         href="{{ path('delete_photo', {id : photo.id } ) }}"

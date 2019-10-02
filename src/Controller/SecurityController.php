@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Entreprise;
+use App\Entity\Couleur;
 use App\Entity\Specificites;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -27,6 +28,12 @@ class SecurityController extends AbstractController
         $repository = $this->getDoctrine()->getRepository(Entreprise::class);
         $entreprise = $repository->findOneById(1);
 
+
+        $repository = $this->getDoctrine()->getRepository(Couleur::class);
+        $couleurs = $repository->findAll(
+            array('dateAffichage' => 'DESC')
+        );
+
         // -----------------------------------------------------------------------------------
 
         //on a au préalable créé une table USER (cf src/entity/user.php)
@@ -43,7 +50,8 @@ class SecurityController extends AbstractController
         ['last_username' => $lastUsername, 
         'error' => $error, 
         'entreprise' => $entreprise,
-        'specificites' => $specificites  
+        'specificites' => $specificites,
+        'couleurs' => $couleurs  
         ]);
 
         //le reste du login est configuré dans config/packages/security.yaml et dans src/Security/LoginFormAuthenticator.php

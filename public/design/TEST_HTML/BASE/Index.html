@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!-- CSS Structural -->
+    <link rel="stylesheet" href="../CSS/base.css" type="text/css">
+    <!-- Feuille de CSS TAILWIND 
+    <link rel="stylesheet" href="../CSS/output.css" type="text/css">
+    -->
+    <!-- Feuille de style dynamique qui récupère le nom de la couleur du thème dans la BDD et permet de charger/changer la feuille de style gérant les couleurs -->
+    <link rel="stylesheet" href="../CSS/jaune.css" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Raleway:400,500,600,700&display=swap" rel="stylesheet">
+
+    <script>
+        $("document").ready(() => {
+            $("#jsflash").delay(1500).animate({
+                opacity: 0
+            }, 1500, () => {
+                $("#jsflash").css('display', 'none');
+            });
+        });
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bs-custom-file-input/dist/bs-custom-file-input.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            bsCustomFileInput.init()
+        })
+    </script>
+    <title> MAQUETTE HTML </title>
+</head>
+
+<body>
+<div class="flex navbar" >
+    <header class="w-1/2 sm:w-full">
+    LOGO 
+    </header>
+
+    <nav class="w-1/2 sm:w-full">
+    NAVBAR </nav>
+    </div>
+
+
+    <main></main>
+
+    <section></section>
+
+    <section></section>
+
+    <section></section>
+
+    <section></section>
+
+    <section></section>
+
+    <footer>
+        <div class="informations"></div>
+        <div class="copyright"></div>
+    </footer>
+
+
+
+
+</body>
+
+</html>
