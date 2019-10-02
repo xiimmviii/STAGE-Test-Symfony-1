@@ -6,15 +6,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!-- CSS BOOTSTRAP -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <!-- CSS FONT-AWESOME -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0-11/css/all.min.css">
     <!-- CSS Structural -->
     <link rel="stylesheet" href="../CSS/base.css" type="text/css">
-    <!-- Feuille de CSS TAILWIND 
-    <link rel="stylesheet" href="../CSS/output.css" type="text/css">
-    -->
     <!-- Feuille de style dynamique qui récupère le nom de la couleur du thème dans la BDD et permet de charger/changer la feuille de style gérant les couleurs -->
     <link rel="stylesheet" href="../CSS/jaune.css" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Raleway:400,500,600,700&display=swap" rel="stylesheet">
 
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
+    </script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
+    </script>
     <script>
         $("document").ready(() => {
             $("#jsflash").delay(1500).animate({
@@ -34,36 +45,98 @@
 </head>
 
 <body>
-<div class="flex navbar" >
-    <header class="w-1/2 sm:w-full">
-    LOGO 
-    </header>
+    <div class="container-fluid">
+        <div class="row bg p-3 sticky-top">
+            <div class="col-md-4 col-sm-12">
+                <h3 class="pl-5">logo</h3>
+            </div>
+            <div class="col-md-8 col-sm-12">
+                <nav class="navbar navbar-expand-lg col-12">
+                    <button class="navbar-toggler mx-auto text-dark" type="button" data-toggle="collapse"
+                        data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon toggler1"></span>
+                    </button>
 
-    <nav class="w-1/2 sm:w-full">
-    NAVBAR </nav>
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav mr-auto mx-auto">
+                            <li class="nav-item nav-ind mx-3">
+                                <a class="nav-link font-weight-bold" href="{{path('index')}}">
+                                    <i class="fas fa-home"></i>
+                                    Accueil
+                                </a>
+                            </li>
+                            <li class="nav-item nav-real mx-3">
+                                <a class="nav-link font-weight-bold" href="{{path('realisations')}}">
+                                    <i class="far fa-lightbulb"></i>
+                                    Réalisations
+                                </a>
+                            </li>
+                            <li class="nav-item nav-real mx-3">
+                                <a class="nav-link font-weight-bold" href="{{path('tarifs')}}">
+                                    <i class="fas fa-tag"></i>
+                                    Tarifs
+                                </a>
+                            </li>
+                            <li class="nav-item nav-cont mx-3">
+                                <a class="nav-link font-weight-bold" href="{{path('contact')}}">
+                                    <i class="fas fa-phone-alt"></i>
+                                    Contact
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+            </div>
+        </div>
+
+        <div class="link-box sticky-top justify-content-end align-items-center">
+                <a href="telto:0123456789" alt="Nous joindre par téléphone">
+                    <div class="link-item">
+                        <i class="fas fa-phone-alt"></i>
+                    </div>
+                </a>
+                <a href="mailto:mail@mail.com" alt="Nous contacter par mail">
+                    <div class="link-item">
+                        <i class="far fa-envelope"></i>
+                    </div>
+                </a>
+                <a href="google.com" alt="Laisser un avis sur Google">
+                    <div class="link-item">
+                        <i class="far fa-thumbs-up"></i>
+                    </div>
+                </a>
+        </div>
+
+
+        <main class="main-bg">
+            <div class="row">
+                <div class="col-sm-10 col-md-4 offset-md-7 my-4 p-4 main-contact"> 
+                    <h2> Une question ? </h2>
+
+                    <input placeholder="TEST" />
+                </div>
+            </div>
+        </main>
+
+        <section></section>
+
+        <section></section>
+
+        <section></section>
+
+        <section></section>
+
+        <section></section>
+
+        <footer>
+            <div class="informations"></div>
+            <div class="copyright"></div>
+        </footer>
+
+
+
     </div>
-
-
-    <main></main>
-
-    <section></section>
-
-    <section></section>
-
-    <section></section>
-
-    <section></section>
-
-    <section></section>
-
-    <footer>
-        <div class="informations"></div>
-        <div class="copyright"></div>
-    </footer>
-
-
-
-
 </body>
 
 </html>

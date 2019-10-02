@@ -8,9 +8,27 @@
 
 */
 
+a {
+    color: black!important;
+}
 
+a:hover {
+    color: dimgrey;
+}
 
-.navbar {
-    background: #F6E05E!important;
-    color: red;
+/* -------------------------------------
+
+-------------------------------------- */
+
+.bg{
+    background: #ECC94B!important;
+}
+
+/* -------------------------------------
+
+-------------------------------------- */
+
+.link-item {
+    background-color: #ECC94B;
+    color: white;
 }
