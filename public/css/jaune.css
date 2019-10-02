@@ -1,14 +1,5 @@
-/*
-
-#FFFFF0     - light
-#FEFCBF     - light medium 
-#FAF089     - medium
-#F6E05E     - medium dark
-#ECC94B     - dark
-
-*/
-
-.navbar {
-    background: #F6E05E!important;
-    color: red;
+body
+{
+    background-color: yellow!important;
+    overflow-x: hidden;
 }

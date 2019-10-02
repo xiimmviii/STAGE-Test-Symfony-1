@@ -13,7 +13,6 @@
             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0-11/css/all.min.css">
             <link rel="stylesheet" href="{{asset('/css/style.css')}}">
-            <link rel="stylesheet" href="{{asset('/styles/output.css')}}" type="text/css">
             <!-- Feuille de style dynamique qui récupère le nom de la couleur du thème dans la BDD et permet de charger/changer la feuille de style gérant les couleurs -->
             <link rel="stylesheet" href="{{asset('/css/' ~ couleur ~ '.css')}}">
             <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -41,7 +40,7 @@
     </head>
 
     <body>
-    
+
         <header>
             {# HEADER du site avec affichage du logo en utilisant la méthode ASSET de Symfony #}
             <img src="{{asset('/images/logo.jpg')}}" alt="logo de l'etp" class="img-fluid">
