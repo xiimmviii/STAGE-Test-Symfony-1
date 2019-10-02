@@ -76,6 +76,17 @@ class Galerie
         return $this;
     }
 
+
+    //pour joindre les deux tables photo et galerie
+    public function addPhotos(Photo $photo): self
+    {
+        if (!$this->photos->contains($photo)) {
+            $this->photo[] = $photo;
+            $photo->setGalerie($this);
+        }
+        return $this;
+    }
+
     public function getPhotos()
     {
         return $this->photos;

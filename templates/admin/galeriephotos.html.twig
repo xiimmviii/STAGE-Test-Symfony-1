@@ -2,15 +2,14 @@
 
 {% block content %}
 
-    <div class="row mt-4 pt-4">
-        <div class="col-md-6 col-sm-8 mx-auto alert-info border border-info rounded m-3 p-3">
-            <h2>
-                Galerie de vos réalisations
-            </h2>
-            <hr>
-            <p>Dans cette section vous pourrez ajouter/supprimer les photos de vos réalisations.</p>
-        
-        </div>
+<div class="row mt-4 pt-4">
+    <div class="col-md-6 col-sm-8 mx-auto alert-info border border-info rounded m-3 p-3">
+        <h2>
+            Galerie de vos réalisations
+        </h2>
+        <hr>
+        <p>Dans cette section vous pourrez ajouter/supprimer les photos de vos réalisations.</p>
+
     </div>
 </div>
 
@@ -33,48 +32,20 @@
     </div>
 
     <div class="col-lg-6 col-md-8 col-sm-10 rounded border m-3 p-3 order-md-0 order-lg-0 text-center">
+
+        <a href="{{ path('galeriecreate') }}" class="btn btn-success">Créer une nouvelle galerie</a>
+
         <h1>Ajout de photo</h1>
         <hr>
-        {{ form_start(galerieForm) }}
-        {{ form_end(galerieForm) }}
-
-
+        {{ form_start(photoForm) }}
+        {{ form_end(photoForm) }}
     </div>
+
 </div>
 
 
 
-<div class="row m-4 justify-content-center">
-
-    <h1>Gestion des photos</h1>
-
-    <div class="row">
-                {% for galerie in galeries %}
-                    <img class=3" src="{{ asset('/photo/' ~ galerie.photo1) }}" alt="{{ galerie.description1 }}">
-
-                    {{ galerie.description1 }} 
-                    <a class="card-footer bg-danger text-decoration-none text-light"
-                        href="{{ path('delete_photo', {id : photo.id } ) }}"
-                        onclick="return confirm('Etes-vous certain(e) de vouloir supprimer la photo ?')">
-                        <i class="fas fa-trash-alt mx-2"></i> Supprimer
-                    </a>
-                    {{ galerie.photo2 }}
-                    {{ galerie.description2 }}
-                    {{ galerie.photo3 }}
-                    {{ galerie.description3 }}
-                    {{ galerie.photo4}}
-                    {{ galerie.description4 }}
-
-                {% endfor %}
-
-    </div>
-</div>
-
-
-
-
-{# 
-<div class="row m-4 justify-content-center">
+<div class="m-4 justify-content-center">
 
     <h1>Gestion des photos</h1>
 
@@ -83,9 +54,8 @@
             <div class="row text-center">
                 {% for photo in photos %}
                 <div class="card col-md-2 m-3">
-                    <img class=" card-img-top" src="{{ asset('/photo/' ~ photo.photo) }}" alt="{{ photo.description }}">
+                    <img class=" card-img-top" src="{{ asset('/photo/' ~ photo.photo) }}" alt="">
                     <div class=" card-block">
-                        {{ photo.description }}
                     </div>
                     <a class="card-footer bg-danger text-decoration-none text-light"
                         href="{{ path('delete_photo', {id : photo.id } ) }}"
@@ -99,7 +69,7 @@
             </div>
         </div>
     </div>
-</div> #}
+</div>
 
 
 {% endblock %}
