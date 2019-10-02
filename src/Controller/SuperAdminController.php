@@ -2,38 +2,28 @@
 
 namespace App\Controller;
 
-
-use App\Entity\Tarifs;
-use App\Entity\Contenu;
 use App\Entity\Couleur;
-use App\Entity\Galerie;
-use App\Form\TarifsType;
-use App\Form\ContenuType;
 use App\Form\CouleurType;
-use App\Form\GalerieType;
 use App\Entity\Entreprise;
-use App\Entity\Partenaires;
 use App\Entity\Specificites;
-use App\Form\EntrepriseType;
-use App\Form\PartenairesType;
-use App\Form\SpecificitesType;
 use Symfony\Component\HttpFoundation\Request;
-use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Validator\Constraints\Date;
-use Symfony\Component\Validator\Constraints\DateTime;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
-
+/**
+* Require ROLE_SUPER_ADMIN for *every* controller method in this class.
+* @IsGranted("ROLE_SUPER_ADMIN")
+*/
 class SuperAdminController extends AbstractController
 {
 
  /**
      * Récupérer les informations (en BDD) qui apparaissent sur la vue de base (header+footer) >> BASE.html.twig 
-     * @Route("/admin", name="admin")
+     * @Route("/super-admin", name="super-admin")
      */
-    public function admin()
+    public function superAdmin()
     {
         // Ici, on récupère les informations en BDD en utilisant le Repository
         // Récupération : des éléments de la table Entreprise puis ceux la table Spécificités 
@@ -53,7 +43,7 @@ class SuperAdminController extends AbstractController
 
          // On retourne ensuite les éléments récupérés dans la vue qu'on injectera entre {{}} dans la vue twig ADMIN -> espaceadmin.html.twig
         return $this->render('admin/espaceadmin.html.twig', [
-            'controller_name' => 'AdminController',
+            'controller_name' => 'SuperAdminController',
             'entreprise' => $entreprise,
             'specificites' => $specificites,
             'couleurs' => $couleurs
@@ -72,7 +62,8 @@ class SuperAdminController extends AbstractController
 
  /**
      * Permet de gérer la couleur choisie pour le thème 
-     * @Route("/admin/couleur", name="choix-couleur")
+     *
+     * @Route("/super-admin/couleur", name="choix-couleur")
      */
     public function couleurTheme(Request $request)
     {
