@@ -35,3 +35,4 @@ src/Migrations/Version20190930130542.php
 src/Migrations/Version20190930130958.php
 composer.lock
 .env
+composer.lock
