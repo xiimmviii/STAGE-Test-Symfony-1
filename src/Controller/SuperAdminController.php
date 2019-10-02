@@ -12,10 +12,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
-/**
-* Require ROLE_SUPER_ADMIN for *every* controller method in this class.
-* @IsGranted("ROLE_SUPER_ADMIN")
-*/
+
 class SuperAdminController extends AbstractController
 {
 

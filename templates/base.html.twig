@@ -96,65 +96,8 @@
                                 </a>
                             </div>
                         </li>
-                    </ul>
-                </div>
-                <a class="nav-link alert-danger rounded font-weight-bold" href="{{path('app_logout')}}">
-                    <i class="fas fa-sign-out-alt"></i>
-                    Déconnexion</a>
-            </nav>
-
-
-            {% elseif is_granted('ROLE_SUPER_ADMIN') %}
-
-                {# Ici, on affiche l'espace SUPER-ADMIN et la déconnexion SEULEMENT si le super admin est connecté #}
-                <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top justify-content-around">
-                    <a class="nav-link" href="{{path('admin')}}">
-                        Gérer les informations
-                    </a>
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <div class="collapse navbar-collapse mx-auto" id="navbarNavDropdown">
-                        <ul class="navbar-nav justify-content-between">
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="{{path('admin')}}" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    Index
-                                </a>
-                                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                    <a class="dropdown-item" href="{{path('presentationentreprise')}}">Présentation de
-                                                                                                        l'entreprise</a>
-                                    <a class="dropdown-item" href="{{path('histoireentreprise')}}">Histoire de l'entreprise</a>
-                                    <a class="dropdown-item" href="{{path('specificites')}}">Spécificités</a>
-                                    <a class="dropdown-item" href="{{path('partenaires')}}">Partenaires</a>
-                                </div>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{path('galeriephotos')}}">
-                                    Galerie photos
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{path('tarifs-admin')}}">Tarifs</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{path('entreprise')}}">
-                                    Entreprise
-                                </a>
-                            </li>
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="{{path('index')}}" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" target="blank">
-                                    Accèder à votre site
-                                </a>
-                                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                    <a class="dropdown-item" href="{{path('index')}}" target="blank">Index</a>
-                                    <a class="dropdown-item" href="{{path('realisations')}}" target="blank">Galerie des réalisations
-                                    </a>
-                                    <a class="dropdown-item" href="{{path('tarifs')}}">Tarifs</a>
-                                    <a class="dropdown-item" href="{{path('contact')}}" target="blank">Contact
-                                    </a>
-                                </div>
-                            </li>
-                            <li class="nav-item dropdown">
+                        {% if is_granted('ROLE_SUPER_ADMIN') %}
+                        <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle btn alert-warning" href="{{path('index')}}" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" target="blank">
                                     SUPER ADMIN
                                 </a>
@@ -164,12 +107,14 @@
                                     </a>
                                 </div>
                             </li>
-                        </ul>
-                    </div>
-                    <a class="nav-link alert-danger rounded font-weight-bold" href="{{path('app_logout')}}">
-                        <i class="fas fa-sign-out-alt"></i>
-                        Déconnexion</a>
-                </nav>
+                            {% endif %}
+                    </ul>
+                </div>
+                <a class="nav-link alert-danger rounded font-weight-bold" href="{{path('app_logout')}}">
+                    <i class="fas fa-sign-out-alt"></i>
+                    Déconnexion</a>
+            </nav>
+
 
             {% else %}
                 <nav class="navbar navbar-expand-lg sticky-top navbar-light bg-light">
