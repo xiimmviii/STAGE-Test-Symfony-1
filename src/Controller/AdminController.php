@@ -207,8 +207,8 @@ class AdminController extends AbstractController
 
 
     /**
-     * Supprime une photo dans la  via le panneau d'Admin 
-     * @Route("/admin/galeriephotos/delete/{id}", name="delete_photo")
+     * Supprime une photo dans la galerie via le panneau d'Admin 
+     * @Route("/admin/galeriephotos/delete_photo/{id}", name="delete_photo")
      */
     public function deletePhoto($id)
     {
