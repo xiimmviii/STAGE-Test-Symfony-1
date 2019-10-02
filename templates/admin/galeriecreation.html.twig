@@ -50,6 +50,10 @@
                     <div class=" card-block"> #}
                     {{galerie.nom}}
                     {{galerie.description | raw}}
+                    <a class="btn btn-sucess"
+                        href="{{ path('ajoutphoto', {id : galerie.id } ) }}">
+                        <i class="fas fa-trash-alt mx-2"></i> ajouter photo
+                    </a>
                     </div>
                     <a class="card-footer bg-danger text-decoration-none text-light"
                         href="{{ path('delete_galerie', {id : galerie.id } ) }}"
