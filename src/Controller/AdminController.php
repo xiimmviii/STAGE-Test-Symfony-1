@@ -6,6 +6,7 @@ namespace App\Controller;
 use App\Entity\Tarifs;
 use App\Entity\Contenu;
 use App\Entity\Galerie;
+use App\Entity\Couleur;
 use App\Form\TarifsType;
 use App\Form\ContenuType;
 use App\Form\GalerieType;
@@ -43,11 +44,17 @@ class AdminController extends AbstractController
         $specificites = $repository->findOneById(1);
         // Le findOneById permet de trier les données et de ne récupérer que la donnée qui a l'ID #1 
 
+        $repository = $this->getDoctrine()->getRepository(Couleur::class);
+        $couleurs = $repository->findAll(
+            array('dateAffichage' => 'DESC')
+        );
+
          // On retourne ensuite les éléments récupérés dans la vue qu'on injectera entre {{}} dans la vue twig ADMIN -> espaceadmin.html.twig
         return $this->render('admin/espaceadmin.html.twig', [
             'controller_name' => 'AdminController',
             'entreprise' => $entreprise,
             'specificites' => $specificites,
+            'couleurs' => $couleurs
         ]);
     }
 
@@ -72,6 +79,11 @@ class AdminController extends AbstractController
 
         $repository = $this->getDoctrine()->getRepository(Specificites::class);
         $specificites = $repository->findOneById(1);
+
+        $repository = $this->getDoctrine()->getRepository(Couleur::class);
+        $couleurs = $repository->findAll(
+            array('dateAffichage' => 'DESC')
+        );
 
         // On utilise le manager pour pouvoir traiter les informations en BDD >> Entreprise 
         $manager = $this->getDoctrine()->getManager();
@@ -105,7 +117,8 @@ class AdminController extends AbstractController
             'controller_name' => 'AdminController',
             'entreprise' => $entreprise,
             'specificites' => $specificites,
-            'EntrepriseForm' => $form->createView()
+            'EntrepriseForm' => $form->createView(),
+            'couleurs' => $couleurs
         ]);
     }
 
@@ -167,11 +180,17 @@ class AdminController extends AbstractController
         $repository = $this->getDoctrine()->getRepository(Specificites::class);
         $specificites = $repository->findOneById(1);
 
+        $repository = $this->getDoctrine()->getRepository(Couleur::class);
+        $couleurs = $repository->findAll(
+            array('dateAffichage' => 'DESC')
+        );
+
         return $this->render('admin/galeriephotos.html.twig', [
             'galerieForm' => $form->createView(),
             'entreprise' => $entreprise,
             'specificites' => $specificites,
             'photos' => $photos,
+            'couleurs' => $couleurs
         ]);
     }
 
@@ -209,10 +228,16 @@ class AdminController extends AbstractController
         $repository = $this->getDoctrine()->getRepository(Specificites::class);
         $specificites = $repository->findOneById(1);
 
+        $repository = $this->getDoctrine()->getRepository(Couleur::class);
+        $couleurs = $repository->findAll(
+            array('dateAffichage' => 'DESC')
+        );
+
         return $this->render('admin/espaceadmin.html.twig', [
             'controller_name' => 'AdminController',
             'entreprise' => $entreprise,
             'specificites' => $specificites,
+            'couleurs' => $couleurs
         ]);
     }
 
@@ -234,6 +259,11 @@ class AdminController extends AbstractController
 
         $repository = $this->getDoctrine()->getRepository(Specificites::class);
         $specificites = $repository->findOneById(1);
+
+        $repository = $this->getDoctrine()->getRepository(Couleur::class);
+        $couleurs = $repository->findAll(
+            array('dateAffichage' => 'DESC')
+        );
 
         // ----------------------------------------------------------------------
         // ----------------------------------------------------------------------
@@ -290,6 +320,7 @@ class AdminController extends AbstractController
             'ContenuForm' => $form->createView(),
             'date' => $date,
             'boutonenvoi' => $boutonenvoi,
+            'couleurs' => $couleurs
         ]);
     }
 
@@ -320,6 +351,11 @@ class AdminController extends AbstractController
         $repository = $this->getDoctrine()->getRepository(Specificites::class);
         $specificites = $repository->findOneById(1);
 
+        $repository = $this->getDoctrine()->getRepository(Couleur::class);
+        $couleurs = $repository->findAll(
+            array('dateAffichage' => 'DESC')
+        );
+
         // ----------------------------------------------------------------------
         // ----------------------------------------------------------------------
 
@@ -337,6 +373,7 @@ class AdminController extends AbstractController
             'specificites' => $specificites,
             'date' => $date,
             'boutonenvoi' => $boutonenvoi,
+            'couleurs' => $couleurs
         ]);
     }
 
@@ -355,6 +392,11 @@ class AdminController extends AbstractController
 
         $repo = $this->getDoctrine()->getRepository(Contenu::class);
         $presentations = $repo->findBySection('presentation');
+
+        $repository = $this->getDoctrine()->getRepository(Couleur::class);
+        $couleurs = $repository->findAll(
+            array('dateAffichage' => 'DESC')
+        );
 
         // ----------------------------------------------------------------------        
         // ----------------------------------------------------------------------
@@ -403,6 +445,7 @@ class AdminController extends AbstractController
             'presentations' => $presentations,
             'date' => $date,
             'boutonenvoi' => $boutonenvoi,
+            'couleurs' => $couleurs
         ]);
     }
 
@@ -420,6 +463,11 @@ class AdminController extends AbstractController
 
         $repo = $this->getDoctrine()->getRepository(Contenu::class);
         $presentations = $repo->findBySection('presentation');
+
+        $repository = $this->getDoctrine()->getRepository(Couleur::class);
+        $couleurs = $repository->findAll(
+            array('dateAffichage' => 'DESC')
+        );
 
         // ----------------------------------------------------------------------
         // ----------------------------------------------------------------------
@@ -464,6 +512,7 @@ class AdminController extends AbstractController
             'presentations' => $presentations,
             'date' => $date,
             'boutonenvoi' => $boutonenvoi,
+            'couleurs' => $couleurs
         ]);
     }
 
@@ -490,6 +539,10 @@ class AdminController extends AbstractController
         $repository = $this->getDoctrine()->getRepository(Specificites::class);
         $specificites = $repository->findOneById(1);
 
+        $repository = $this->getDoctrine()->getRepository(Couleur::class);
+        $couleurs = $repository->findAll(
+            array('dateAffichage' => 'DESC')
+        );
         // -------------------------------------------------------------------
         // -------------------------------------------------------------------
 
@@ -534,6 +587,7 @@ class AdminController extends AbstractController
             'ContenuForm' => $form->createView(),
             'date' => $date,
             'boutonenvoi' => $boutonenvoi,
+            'couleurs' => $couleurs
         ]);
     }
 
@@ -550,6 +604,10 @@ class AdminController extends AbstractController
         $repository = $this->getDoctrine()->getRepository(Specificites::class);
         $specificites = $repository->findOneById(1);
 
+        $repository = $this->getDoctrine()->getRepository(Couleur::class);
+        $couleurs = $repository->findAll(
+            array('dateAffichage' => 'DESC')
+        );
         // -------------------------------------------------------------------
         // -------------------------------------------------------------------
 
@@ -595,6 +653,7 @@ class AdminController extends AbstractController
             'ContenuForm' => $form->createView(),
             'date' => $date,
             'boutonenvoi' => $boutonenvoi,
+            'couleurs' => $couleurs
         ]);
     }
 
@@ -613,6 +672,11 @@ class AdminController extends AbstractController
 
         $repository = $this->getDoctrine()->getRepository(Contenu::class);
         $historiques = $repository->findBySection('historique');
+
+        $repository = $this->getDoctrine()->getRepository(Couleur::class);
+        $couleurs = $repository->findAll(
+            array('dateAffichage' => 'DESC')
+        );
 
         // -------------------------------------------------------------------
         // -------------------------------------------------------------------
@@ -651,6 +715,7 @@ class AdminController extends AbstractController
             'ContenuForm' => $form->createView(),
             'date' => $date,
             'boutonenvoi' => $boutonenvoi,
+            'couleurs' => $couleurs
         ]);
     }
 
@@ -678,6 +743,11 @@ class AdminController extends AbstractController
         $repository = $this->getDoctrine()->getRepository(Specificites::class);
         $specificites = $repository->findOneById(1);
 
+        $repository = $this->getDoctrine()->getRepository(Couleur::class);
+        $couleurs = $repository->findAll(
+            array('dateAffichage' => 'DESC')
+        );
+
         // -------------------------------------------------------------------
         // -------------------------------------------------------------------
 
@@ -695,6 +765,7 @@ class AdminController extends AbstractController
             'specificites' => $specificites,
             'date' => $date,
             'boutonenvoi' => $boutonenvoi,
+            'couleurs' => $couleurs
         ]);
     }
 
@@ -716,6 +787,11 @@ class AdminController extends AbstractController
 
         $repository = $this->getDoctrine()->getRepository(Specificites::class);
         $specificites = $repository->findOneById(1);
+
+        $repository = $this->getDoctrine()->getRepository(Couleur::class);
+        $couleurs = $repository->findAll(
+            array('dateAffichage' => 'DESC')
+        );
 
         // -------------------------------------------------------------------
 
@@ -744,6 +820,7 @@ class AdminController extends AbstractController
             'entreprise' => $entreprise,
             'specificites' => $specificites,
             'specificitesForm' => $form->createView(),
+            'couleurs' => $couleurs
         ]);
     }
 
@@ -796,6 +873,11 @@ class AdminController extends AbstractController
         $repository = $this->getDoctrine()->getRepository(Specificites::class);
         $specificites = $repository->findOneById(1);
 
+        $repository = $this->getDoctrine()->getRepository(Couleur::class);
+        $couleurs = $repository->findAll(
+            array('dateAffichage' => 'DESC')
+        );
+
         // -------------------------------------------------------------------
         // -------------------------------------------------------------------
 
@@ -805,7 +887,8 @@ class AdminController extends AbstractController
             'controller_name' => 'AdminController',
             'entreprise' => $entreprise,
             'specificites' => $specificites,
-            'logos' => $logos
+            'logos' => $logos,
+            'couleurs' => $couleurs
         ]);
     }
 
@@ -841,6 +924,11 @@ class AdminController extends AbstractController
         $repository = $this->getDoctrine()->getRepository(Specificites::class);
         $specificites = $repository->findOneById(1);
 
+        $repository = $this->getDoctrine()->getRepository(Couleur::class);
+        $couleurs = $repository->findAll(
+            array('dateAffichage' => 'DESC')
+        );
+
         // -------------------------------------------------------------------
         // -------------------------------------------------------------------
 
@@ -849,6 +937,7 @@ class AdminController extends AbstractController
             'controller_name' => 'AdminController',
             'entreprise' => $entreprise,
             'specificites' => $specificites,
+            'couleurs' => $couleurs
         ]);
     }
 
@@ -869,6 +958,11 @@ class AdminController extends AbstractController
 
         $repository = $this->getDoctrine()->getRepository(Specificites::class);
         $specificites = $repository->findOneById(1);
+
+        $repository = $this->getDoctrine()->getRepository(Couleur::class);
+        $couleurs = $repository->findAll(
+            array('dateAffichage' => 'DESC')
+        );
 
         // -------------------------------------------------------------------
         // -------------------------------------------------------------------
@@ -904,7 +998,8 @@ class AdminController extends AbstractController
             'specificites' => $specificites,
             'tarifs' => $tarifs,
             'TarifsForm' => $form->createView(),
-            'boutonenvoi' => $boutonenvoi
+            'boutonenvoi' => $boutonenvoi,
+            'couleurs' => $couleurs
         ]);
     }
 
@@ -923,6 +1018,11 @@ class AdminController extends AbstractController
 
         $repository = $this->getDoctrine()->getRepository(Tarifs::class);
         $tarifs = $repository->findAll();
+
+        $repository = $this->getDoctrine()->getRepository(Couleur::class);
+        $couleurs = $repository->findAll(
+            array('dateAffichage' => 'DESC')
+        );
 
         // -------------------------------------------------------------------
         // -------------------------------------------------------------------
@@ -954,7 +1054,8 @@ class AdminController extends AbstractController
             'specificites' => $specificites,
             'tarifs' => $tarifs,
             'TarifsForm' => $form->createView(),
-            'boutonenvoi' => $boutonenvoi
+            'boutonenvoi' => $boutonenvoi,
+            'couleurs' => $couleurs
 
         ]);
     }
@@ -983,14 +1084,18 @@ class AdminController extends AbstractController
         $repository = $this->getDoctrine()->getRepository(Specificites::class);
         $specificites = $repository->findOneById(1);
 
-        
+        $repository = $this->getDoctrine()->getRepository(Couleur::class);
+        $couleurs = $repository->findAll(
+            array('dateAffichage' => 'DESC')
+        );
 
 
         return $this->render('admin/espaceadmin.html.twig', [
             'controller_name' => 'AdminController',
             'entreprise' => $entreprise,
             'specificites' => $specificites,
-            'boutonenvoi' => $boutonenvoi
+            'boutonenvoi' => $boutonenvoi,
+            'couleurs' => $couleurs
 
 
         ]);
