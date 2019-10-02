@@ -35,7 +35,7 @@ class AdminController extends AbstractController
     {
         // Ici, on récupère les informations en BDD en utilisant le Repository
         // Récupération : des éléments de la table Entreprise puis ceux la table Spécificités 
-       
+
         $repository = $this->getDoctrine()->getRepository(Entreprise::class);
         $entreprise = $repository->findOneById(1);
         // Le findOneById permet de trier les données et de ne récupérer que la donnée qui a l'ID #1 
