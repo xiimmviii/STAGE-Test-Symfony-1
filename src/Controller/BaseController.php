@@ -2,14 +2,15 @@
 
 namespace App\Controller;
 
+use App\Entity\Tarifs;
 use App\Entity\Contact;
 use App\Entity\Contenu;
+use App\Entity\Couleur;
 use App\Entity\Galerie;
 use App\Form\ContactType;
 use App\Entity\Entreprise;
 use App\Entity\Partenaires;
 use App\Entity\Specificites;
-use App\Entity\Tarifs;
 use App\Notification\ContactNotification;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -35,6 +36,11 @@ class BaseController extends AbstractController
 
         $repository = $this->getDoctrine()->getRepository(Specificites::class);
         $specificites = $repository->findOneById(1);
+
+        $repository = $this->getDoctrine()->getRepository(Couleur::class);
+        $couleurs = $repository->findAll(
+            array('dateAffichage' => 'DESC')
+        );
 
         $repository = $this->getDoctrine()->getRepository(Contenu::class);
 
@@ -62,7 +68,8 @@ class BaseController extends AbstractController
             'specificites' => $specificites,
             'presentation' => $presentation,
             'historique' => $historique,
-            'logos' => $logos
+            'logos' => $logos, 
+            'couleurs' => $couleurs
         ]);
     }
 
@@ -80,6 +87,11 @@ class BaseController extends AbstractController
         $repository = $this->getDoctrine()->getRepository(Specificites::class);
         $specificites = $repository->findOneById(1);
 
+        $repository = $this->getDoctrine()->getRepository(Couleur::class);
+        $couleurs = $repository->findAll(
+            array('dateAffichage' => 'DESC')
+        );
+
         // -----------------------------------------------------------------------------------
 
         //on utilise le repository pour accéder à la table Galerie
@@ -93,7 +105,8 @@ class BaseController extends AbstractController
         return $this->render('base/realisations.html.twig', [
             'photos' => $photos,
             'entreprise' => $entreprise,
-            'specificites' => $specificites
+            'specificites' => $specificites,
+            'couleurs' => $couleurs
         ]);
     }
 
@@ -112,6 +125,10 @@ class BaseController extends AbstractController
         $repository = $this->getDoctrine()->getRepository(Specificites::class);
         $specificites = $repository->findOneById(1);
 
+        $repository = $this->getDoctrine()->getRepository(Couleur::class);
+        $couleurs = $repository->findAll(
+            array('dateAffichage' => 'DESC')
+        );
         // -----------------------------------------------------------------------------------
 
         //on utilise le repository pour accéder à la table Tarifs
@@ -127,6 +144,7 @@ class BaseController extends AbstractController
             'specificites' => $specificites,
             'entreprise' => $entreprise,
             'tarifs' => $tarifs,
+            'couleurs' => $couleurs
         ]);
     }
 
@@ -146,6 +164,11 @@ class BaseController extends AbstractController
         $repository = $this->getDoctrine()->getRepository(Specificites::class);
         $specificites = $repository->findOneById(1);
 
+        $repository = $this->getDoctrine()->getRepository(Couleur::class);
+        $couleurs = $repository->findAll(
+            array('dateAffichage' => 'DESC')
+        );
+
         // -----------------------------------------------------------------------------------
 
         //Cette vue ne nous demande pour le moment aucune fonction, c'est une vue statique (à part le footer et la nav)
@@ -156,7 +179,8 @@ class BaseController extends AbstractController
 
         return $this->render('base/mentions.html.twig', [
             'specificites' => $specificites,
-            'entreprise' => $entreprise
+            'entreprise' => $entreprise,
+            'couleurs' => $couleurs
         ]);
     }
 
@@ -174,6 +198,11 @@ class BaseController extends AbstractController
         $repository = $this->getDoctrine()->getRepository(Specificites::class);
         $specificites = $repository->findOneById(1);
 
+        $repository = $this->getDoctrine()->getRepository(Couleur::class);
+        $couleurs = $repository->findAll(
+            array('dateAffichage' => 'DESC')
+        );
+
         // -----------------------------------------------------------------------------------
 
         //Cette vue ne nous demande pour le moment aucune fonction, c'est une vue statique (à part le footer et la nav)
@@ -184,7 +213,8 @@ class BaseController extends AbstractController
 
         return $this->render('base/cgu.html.twig', [
             'specificites' => $specificites,
-            'entreprise' => $entreprise
+            'entreprise' => $entreprise,
+            'couleurs' => $couleurs
         ]);
     }
 
@@ -202,6 +232,11 @@ class BaseController extends AbstractController
 
         $repository = $this->getDoctrine()->getRepository(Specificites::class);
         $specificites = $repository->findOneById(1);
+
+        $repository = $this->getDoctrine()->getRepository(Couleur::class);
+        $couleurs = $repository->findAll(
+            array('dateAffichage' => 'DESC')
+        );
 
         // -----------------------------------------------------------------------------------
 
@@ -235,7 +270,8 @@ class BaseController extends AbstractController
         return $this->render('base/contact.html.twig', [
             'form' => $form->createView(),
             'specificites' => $specificites,
-            'entreprise' => $entreprise
+            'entreprise' => $entreprise,
+            'couleurs' => $couleurs
         ]);
     }
 
@@ -269,4 +305,7 @@ class BaseController extends AbstractController
             return false;
         }
     }
+
+
+
 }
