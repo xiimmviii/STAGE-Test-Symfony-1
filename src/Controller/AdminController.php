@@ -238,7 +238,6 @@ class AdminController extends AbstractController
         // Le findAll permet de récupérer toutes les informations stockées en BDB 
         $galeries = $repository->findAll();
 
-
         // On récupère les informations et on les renvoie dans la VUE 
         $repository = $this->getDoctrine()->getRepository(Entreprise::class);
         $entreprise = $repository->findOneById(1);
@@ -256,7 +255,7 @@ class AdminController extends AbstractController
             'entreprise' => $entreprise,
             'specificites' => $specificites,
             'galeries' => $galeries,
-            'couleurs' => $couleurs
+            'couleurs' => $couleurs,
         ]);
     }
 
@@ -299,7 +298,6 @@ class AdminController extends AbstractController
         );
 
         return $this->render('admin/gestiongalerie.html.twig', [
-            'controller_name' => 'AdminController',
             'entreprise' => $entreprise,
             'specificites' => $specificites,
             'couleurs' => $couleurs
@@ -355,7 +353,7 @@ class AdminController extends AbstractController
 
     /**
      * ajoute une photo dans une galerie précise
-     * @Route("/admin/ajoutphoto/{id}", name="ajoutphoto")
+     * @Route("/admin/modifiergalerie/{id}", name="modifiergalerie")
      */
     public function ajoutPhoto(Request $request, $id)
     {
@@ -398,14 +396,14 @@ class AdminController extends AbstractController
             // On affiche le message si l'action est réussie 
             $this->addFlash('success', 'La photo a bien été enregistrée !');
 
-            // On retourne à la vue >> Admin > GalerieCreate 
+            // On met tout ça dans la  
             return $this->redirectToRoute('gestiongaleries');
         }
 
         // On récupère toutes les photos déjà dans la BDD
         $repository = $this->getDoctrine()->getRepository(Photo::class);
         // Le findAll permet de récupérer toutes les informations stockées en BDB 
-        $photos = $repository->findAll();
+        $photos = $repository->findByGalerie($id);
 
 
         // On récupère les informations et on les renvoie dans la VUE 
@@ -420,7 +418,7 @@ class AdminController extends AbstractController
             array('dateAffichage' => 'DESC')
         );
 
-        return $this->render('admin/gestiongaleries.html.twig', [
+        return $this->render('admin/ajoutphotogalerie.html.twig', [
             'photoForm' => $form->createView(),
             'entreprise' => $entreprise,
             'specificites' => $specificites,

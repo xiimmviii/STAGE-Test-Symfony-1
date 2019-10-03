@@ -36,7 +36,6 @@
 </div>
 
 
-
 <div class="m-4 justify-content-center">
 
     <h1>Gestion des galeries</h1>
@@ -46,13 +45,11 @@
             <div class="row text-center">
                 {% for galerie in galeries %}
                 <div class="card col-md-2 m-3">
-                    {# <img class=" card-img-top" src="{{ asset('/photo/' ~ photo.photo) }}" alt="">
-                    <div class=" card-block"> #}
-                    {{galerie.nom}}
-                    {{galerie.description | raw}}
+                    {{ galerie.nom }}
+                    {{ galerie.description | raw }}
                     <a class="btn btn-sucess"
-                        href="{{ path('ajoutphoto', {id : galerie.id } ) }}">
-                        <i class="fas fa-trash-alt mx-2"></i> ajouter photo
+                        href="{{ path('modifiergalerie', {id : galerie.id } ) }}">
+                        <i class="fas fa-trash-alt mx-2"></i> Modifier la galerie
                     </a>
                     </div>
                     <a class="card-footer bg-danger text-decoration-none text-light"
