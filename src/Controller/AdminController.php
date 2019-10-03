@@ -439,7 +439,7 @@ class AdminController extends AbstractController
             array('dateAffichage' => 'DESC')
         );
 
-        return $this->render('admin/ajoutphotogalerie.html.twig', [
+        return $this->render('admin/modifiergalerie.html.twig', [
             'galerieForm' => $form->createView(),
             'photoForm' => $form2->createView(),
             'entreprise' => $entreprise,
