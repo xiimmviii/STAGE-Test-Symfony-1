@@ -16,12 +16,23 @@ a:hover {
     color: dimgrey;
 }
 
+input {
+    border: 2px solid #ECC94B!important;
+    border-radius: 1rem!important;
+}
+
+.btn {
+    background: #ECC94B!important;
+    color: black;
+}
+
 /* -------------------------------------
 
 -------------------------------------- */
 
 .bg{
     background: #ECC94B!important;
+    position: sticky;
 }
 
 /* -------------------------------------
@@ -32,3 +43,4 @@ a:hover {
     background-color: #ECC94B;
     color: white;
 }
+
