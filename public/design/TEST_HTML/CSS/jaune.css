@@ -44,3 +44,9 @@ input {
     color: white;
 }
 
+#eclair {
+    fill: #ECC94B;
+    width: 200px;
+    margin: 0 auto;
+    opacity: 0.33;
+}

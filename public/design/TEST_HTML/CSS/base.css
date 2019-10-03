@@ -53,6 +53,11 @@ MAIN
     margin-bottom: 8rem;
 }
 
+.section-bg {
+    background-color: #14405a;
+    background: url('../BASE/electricity-energy-low-angle-shot-323133.jpg') fixed no-repeat;
+    background-size: cover;
+}
 
 
 /* -----------------------------------
@@ -118,6 +123,7 @@ ELEMENTS
     -ms-transform: skew(-50deg, 0deg);
     -webkit-transform: skew(-50deg, 0deg);
 }
+
 
 /* -----------------------------------
 GENERAL
