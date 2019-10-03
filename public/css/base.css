@@ -25,6 +25,7 @@ BASE
     right: 0;
     top: 40%;
     position: fixed;
+    z-index: 999;
 }
 
 .link-item {
@@ -36,7 +37,6 @@ BASE
     height: 50px;
     border-radius: 50%;
     font-size: 1.2em;
-    z-index: 999;
     box-shadow: 2px 2px 5px dimgrey;
 }
 
