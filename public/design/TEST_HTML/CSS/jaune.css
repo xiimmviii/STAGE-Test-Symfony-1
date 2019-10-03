@@ -35,6 +35,16 @@ input {
     position: sticky;
 }
 
+
+.bg1{
+    background: #ECC94B!important;
+}
+
+.bg2{
+    background: #FFFFF0!important;
+
+}
+
 /* -------------------------------------
 
 -------------------------------------- */
@@ -49,4 +59,17 @@ input {
     width: 200px;
     margin: 0 auto;
     opacity: 0.33;
+}
+
+#elec {
+    fill: #ECC94B;
+    width: 100px;
+    opacity: 0.9;
+}
+
+#compt {
+    fill: #ECC94B;
+    width: 50px;
+    opacity: 0.9;
+    margin: 0 auto;
 }
