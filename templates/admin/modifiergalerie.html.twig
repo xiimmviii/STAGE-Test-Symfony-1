@@ -33,14 +33,38 @@
 
     <div class="col-lg-6 col-md-8 col-sm-10 rounded border m-3 p-3 order-md-0 order-lg-0 text-center">
 
-        <a href="{{ path('galeriecreate') }}" class="btn btn-success">Créer une nouvelle galerie</a>
-
+    <h1>Modifier la galerie</h1>
+        <hr>
+        {{ form_start(galerieForm) }}
+        {{ form_end(galerieForm) }}
+        <hr>
         <h1>Ajout de photo</h1>
         <hr>
         {{ form_start(photoForm) }}
         {{ form_end(photoForm) }}
     </div>
 
+</div>
+
+<div class="row">
+    <div class="col-md-10 mx-auto text-center">
+        <div class="row text-center">
+            {% for photo in photos %}
+            <div class="card col-md-2 m-3">
+                <img class=" card-img-top" src="{{ asset('/photo/' ~ photo.photo) }}" alt="">
+                <div class=" card-block">
+                </div>
+                <a class="card-footer bg-danger text-decoration-none text-light"
+                    href="{{ path('delete_photo', {id : photo.id } ) }}"
+                    onclick="return confirm('Etes-vous certain(e) de vouloir supprimer la photo ?')">
+                    <i class="fas fa-trash-alt mx-2"></i> Supprimer
+                </a>
+
+            </div>
+            {% endfor %}
+
+        </div>
+    </div>
 </div>
 
 {% endblock %}

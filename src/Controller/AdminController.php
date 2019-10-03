@@ -132,74 +132,6 @@ class AdminController extends AbstractController
     ╚═╝╩ ╩╩═╝╚═╝╩╚═╩╚═╝  ╩  ╩ ╩╚═╝ ╩ ╚═╝╚═╝
     --------------------------------------------------------------------------------------------------- */
 
-    // /**
-    //  * Permet d'ajouter une galerie grâce à un formulaire et affiche les galeries existantes et les boutons permettant de les modifier
-    //  * @Route("/admin/gestiongaleries", name="gestiongaleries")
-    //  */
-    // public function galeriePhoto(Request $request)
-    // {
-    //     // On crée un objet vide qu'on pourra ensuite réutiliser
-    //     $photo = new Photo;
-
-    //     // On créé la vue d'un formulaire qui provient du dossier FORM > GalerieType.php 
-    //     $form = $this->createForm(PhotoType::class, $photo);
-    //     // On récupère les infos saisies dans le formulaire ($_POST)
-    //     $form->handleRequest($request);
-
-    //     // CF TRAITEMENT DU FORMULAIRE >> ligne 81-86 
-    //     if ($form->isSubmitted() && $form->isValid()) {
-
-    //         $manager = $this->getDoctrine()->getManager();
-
-    //         // On enregistre la $photo dans le système 
-    //         $manager->persist($photo);
-
-    //         // On enregistre la photo en BDD et sur le serveur. 
-    //         // On émet une condition >> Si il y a un fichier sélectionné, alors on l'envoie 
-    //         if ($photo->getFile() != NULL) {
-    //             $photo->uploadFile();
-    //         }
-
-
-    //         // On enregistre la photo en BDD 
-    //         $manager->flush();
-
-    //         // On affiche le message si l'action est réussie 
-    //         $this->addFlash('success', 'La photo a bien été enregistrée !');
-
-    //         // On retourne à la vue >> Admin > GaleriePhoto 
-    //         return $this->redirectToRoute('galeriephotos');
-    //     }
-
-    //     // On récupère toutes les photos déjà dans la BDD
-    //     $repository = $this->getDoctrine()->getRepository(Photo::class);
-    //     // Le findAll permet de récupérer toutes les informations stockées en BDB 
-    //     $photos = $repository->findAll();
-
-
-    //     // On récupère les informations et on les renvoie dans la VUE 
-    //     $repository = $this->getDoctrine()->getRepository(Entreprise::class);
-    //     $entreprise = $repository->findOneById(1);
-
-    //     $repository = $this->getDoctrine()->getRepository(Specificites::class);
-    //     $specificites = $repository->findOneById(1);
-
-    //     $repository = $this->getDoctrine()->getRepository(Couleur::class);
-    //     $couleurs = $repository->findAll(
-    //         array('dateAffichage' => 'DESC')
-    //     );
-
-    //     return $this->render('admin/galeriephotos.html.twig', [
-    //         'photoForm' => $form->createView(),
-    //         'entreprise' => $entreprise,
-    //         'specificites' => $specificites,
-    //         'photos' => $photos,
-    //         'couleurs' => $couleurs
-    //     ]);
-    // }
-
-
-
 
     /**
      * Permet d'ajouter une galerie grâce à un formulaire et affiche les galeries existantes et les boutons permettant de les modifier
@@ -238,7 +170,6 @@ class AdminController extends AbstractController
         // Le findAll permet de récupérer toutes les informations stockées en BDB 
         $galeries = $repository->findAll();
 
-
         // On récupère les informations et on les renvoie dans la VUE 
         $repository = $this->getDoctrine()->getRepository(Entreprise::class);
         $entreprise = $repository->findOneById(1);
@@ -256,7 +187,7 @@ class AdminController extends AbstractController
             'entreprise' => $entreprise,
             'specificites' => $specificites,
             'galeries' => $galeries,
-            'couleurs' => $couleurs
+            'couleurs' => $couleurs,
         ]);
     }
 
@@ -283,7 +214,7 @@ class AdminController extends AbstractController
 
         // Message de succès et renvoi à la vue ADMIN >> Galerie Photos 
         $this->addFlash('success', 'La photo a bien été supprimée.');
-        return $this->redirectToRoute('galeriephotos');
+        return $this->redirectToRoute('gestiongaleries');
 
         // ----------------------------------------------------------------------
         // On récupère et on renvoie les informations nécessaires pour l'affichage de la VUE B
@@ -299,7 +230,6 @@ class AdminController extends AbstractController
         );
 
         return $this->render('admin/gestiongalerie.html.twig', [
-            'controller_name' => 'AdminController',
             'entreprise' => $entreprise,
             'specificites' => $specificites,
             'couleurs' => $couleurs
@@ -309,7 +239,8 @@ class AdminController extends AbstractController
 
 
     /**
-     * Supprime une galerie dans la BDD via le panneau administrateur
+     * Supprime une galerie dans la BDD via le panneau administrateur.
+     *  /!\ Pour supprimer une galerie il faut d'abord supprimer toutes les photos qu'elle contient !!!! 
      * @Route("/admin/galeriephotos/delete_galerie/{id}", name="delete_galerie")
      */
     public function deleteGalerie($id)
@@ -320,10 +251,8 @@ class AdminController extends AbstractController
         // On trouve l'élément concerné dans la table Galerie via son $ID et on lui applique une variable
         $galerie = $manager->find(Galerie::class, $id);
 
-        // // On supprime la photo identifée dans la variable 
-        // $galerie->removeGalerie();
 
-        // Le MANAGER enregistre l'info et transmet ensuite à la BDD 
+        // On supprime ensuite la galerie de la BDD 
         $manager->remove($galerie);
         $manager->flush();
 
@@ -354,11 +283,32 @@ class AdminController extends AbstractController
 
 
     /**
-     * ajoute une photo dans une galerie précise
-     * @Route("/admin/ajoutphoto/{id}", name="ajoutphoto")
+     * ajoute/supprime une photo dans une galerie précise et permet de modifier le texte/nom de la galerie
+     * @Route("/admin/modifiergalerie/{id}", name="modifiergalerie")
      */
-    public function ajoutPhoto(Request $request, $id)
+    public function modifierGalerie(Request $request, $id)
     {
+        $manager = $this->getDoctrine()->getManager();
+        $galerie1 = $manager->find(Galerie::class, $id);
+
+        // On créé la vue d'un formulaire qui provient du dossier FORM > ContenuType.php 
+        $form = $this->createForm(GalerieType::class, $galerie1);
+
+        // On gère les informations du formulaire 
+        $form->handleRequest($request);
+
+        // Conditions du formulaire >> CF l.81/85
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $manager->persist($galerie1);
+
+            $manager->flush();
+
+            // Message qui confirme l'action et retour à la route 
+            $this->addFlash('success', 'La galerie a bien été modifiée');
+            return $this->redirectToRoute('gestiongaleries');
+        }
+
 
         // On récupère le MANAGER pour pouvoir gérer les informations en BDD >> Galerie
         $manager = $this->getDoctrine()->getManager();
@@ -370,13 +320,13 @@ class AdminController extends AbstractController
         $photo = new Photo;
 
         // On créé la vue d'un formulaire qui provient du dossier FORM > GalerieType.php 
-        $form = $this->createForm(PhotoType::class, $photo);
+        $form2 = $this->createForm(PhotoType::class, $photo);
 
         // On récupère les infos saisies dans le formulaire ($_POST)
-        $form->handleRequest($request);
+        $form2->handleRequest($request);
 
         // CF TRAITEMENT DU FORMULAIRE >> ligne 81-86 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($form2->isSubmitted() && $form2->isValid()) {
 
             $manager = $this->getDoctrine()->getManager();
 
@@ -398,14 +348,14 @@ class AdminController extends AbstractController
             // On affiche le message si l'action est réussie 
             $this->addFlash('success', 'La photo a bien été enregistrée !');
 
-            // On retourne à la vue >> Admin > GalerieCreate 
+            // On met tout ça dans la  
             return $this->redirectToRoute('gestiongaleries');
         }
 
         // On récupère toutes les photos déjà dans la BDD
         $repository = $this->getDoctrine()->getRepository(Photo::class);
         // Le findAll permet de récupérer toutes les informations stockées en BDB 
-        $photos = $repository->findAll();
+        $photos = $repository->findByGalerie($id);
 
 
         // On récupère les informations et on les renvoie dans la VUE 
@@ -420,8 +370,9 @@ class AdminController extends AbstractController
             array('dateAffichage' => 'DESC')
         );
 
-        return $this->render('admin/gestiongaleries.html.twig', [
-            'photoForm' => $form->createView(),
+        return $this->render('admin/modifiergalerie.html.twig', [
+            'galerieForm' => $form->createView(),
+            'photoForm' => $form2->createView(),
             'entreprise' => $entreprise,
             'specificites' => $specificites,
             'photos' => $photos,
