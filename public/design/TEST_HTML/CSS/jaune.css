@@ -8,9 +8,39 @@
 
 */
 
-
-
-.navbar {
-    background: #F6E05E!important;
-    color: red;
+a {
+    color: black!important;
 }
+
+a:hover {
+    color: dimgrey;
+}
+
+input {
+    border: 2px solid #ECC94B!important;
+    border-radius: 1rem!important;
+}
+
+.btn {
+    background: #ECC94B!important;
+    color: black;
+}
+
+/* -------------------------------------
+
+-------------------------------------- */
+
+.bg{
+    background: #ECC94B!important;
+    position: sticky;
+}
+
+/* -------------------------------------
+
+-------------------------------------- */
+
+.link-item {
+    background-color: #ECC94B;
+    color: white;
+}
+
