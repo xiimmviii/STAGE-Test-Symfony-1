@@ -12,6 +12,9 @@ body {
     padding: 0px !important;
 }
 
+svg {
+    margin: 0 auto;
+}
 
 /* -----------------------------------
 BASE
@@ -53,6 +56,11 @@ MAIN
     margin-bottom: 8rem;
 }
 
+.section-bg {
+    background-color: #14405a;
+    background: url('../BASE/electricity-energy-low-angle-shot-323133.jpg') fixed no-repeat;
+    background-size: cover;
+}
 
 
 /* -----------------------------------
@@ -73,7 +81,8 @@ ELEMENTS
     font-size: 20px;
     position: relative;
     color: #FFF;
-    background: rgb(248, 245, 245);
+    background: rgb(255, 255, 255);
+    margin-top:
 }
 
 .lightning:after {
@@ -100,7 +109,7 @@ ELEMENTS
     font-size: 20px;
     position: relative;
     color: #FFF;
-    background: rgb(248, 245, 245);
+    background: rgb(255, 255, 255);
 }
 
 .lightning2:after {
@@ -119,6 +128,17 @@ ELEMENTS
     -webkit-transform: skew(-50deg, 0deg);
 }
 
+.textbox {
+    border-top-left-radius: 2rem;
+    border-top-right-radius: 2rem;
+    position: relative;
+    bottom: 0;
+}
+
+.competence {
+    font-size: 1.5rem;
+    margin: 0 auto;
+}
 /* -----------------------------------
 GENERAL
 -------------------------------------- */
