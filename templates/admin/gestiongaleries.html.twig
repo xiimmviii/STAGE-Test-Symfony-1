@@ -54,7 +54,7 @@
                     </div>
                     <a class="card-footer bg-danger text-decoration-none text-light"
                         href="{{ path('delete_galerie', {id : galerie.id } ) }}"
-                        onclick="return confirm('Etes-vous certain(e) de vouloir supprimer la galerie ?')">
+                        onclick="return confirm('Etes-vous certain(e) de vouloir supprimer la galerie ? /!\ Toute suppression de galerie supprimera toutes les photos qu'elle contient !')">
                         <i class="fas fa-trash-alt mx-2"></i> Supprimer
                     </a>
 
