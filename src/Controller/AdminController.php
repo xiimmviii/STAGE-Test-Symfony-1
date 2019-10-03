@@ -282,7 +282,7 @@ class AdminController extends AbstractController
 
         // Message de succès et renvoi à la vue ADMIN >> Galerie Photos 
         $this->addFlash('success', 'La photo a bien été supprimée.');
-        return $this->redirectToRoute('galeriephotos');
+        return $this->redirectToRoute('gestiongaleries');
 
         // ----------------------------------------------------------------------
         // On récupère et on renvoie les informations nécessaires pour l'affichage de la VUE B
@@ -352,11 +352,32 @@ class AdminController extends AbstractController
 
 
     /**
-     * ajoute une photo dans une galerie précise
+     * ajoute/supprime une photo dans une galerie précise et permet de modifier le texte/nom de la galerie
      * @Route("/admin/modifiergalerie/{id}", name="modifiergalerie")
      */
-    public function ajoutPhoto(Request $request, $id)
+    public function modifierGalerie(Request $request, $id)
     {
+        $manager = $this->getDoctrine()->getManager();
+        $galerie1 = $manager->find(Galerie::class, $id);
+
+        // On créé la vue d'un formulaire qui provient du dossier FORM > ContenuType.php 
+        $form = $this->createForm(GalerieType::class, $galerie1);
+
+        // On gère les informations du formulaire 
+        $form->handleRequest($request);
+
+        // Conditions du formulaire >> CF l.81/85
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $manager->persist($galerie1);
+
+            $manager->flush();
+
+            // Message qui confirme l'action et retour à la route 
+            $this->addFlash('success', 'La galerie a bien été modifiée');
+            return $this->redirectToRoute('gestiongaleries');
+        }
+
 
         // On récupère le MANAGER pour pouvoir gérer les informations en BDD >> Galerie
         $manager = $this->getDoctrine()->getManager();
@@ -368,13 +389,13 @@ class AdminController extends AbstractController
         $photo = new Photo;
 
         // On créé la vue d'un formulaire qui provient du dossier FORM > GalerieType.php 
-        $form = $this->createForm(PhotoType::class, $photo);
+        $form2 = $this->createForm(PhotoType::class, $photo);
 
         // On récupère les infos saisies dans le formulaire ($_POST)
-        $form->handleRequest($request);
+        $form2->handleRequest($request);
 
         // CF TRAITEMENT DU FORMULAIRE >> ligne 81-86 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($form2->isSubmitted() && $form2->isValid()) {
 
             $manager = $this->getDoctrine()->getManager();
 
@@ -419,7 +440,8 @@ class AdminController extends AbstractController
         );
 
         return $this->render('admin/ajoutphotogalerie.html.twig', [
-            'photoForm' => $form->createView(),
+            'galerieForm' => $form->createView(),
+            'photoForm' => $form2->createView(),
             'entreprise' => $entreprise,
             'specificites' => $specificites,
             'photos' => $photos,
