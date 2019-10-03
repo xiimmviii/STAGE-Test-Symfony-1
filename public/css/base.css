@@ -15,6 +15,7 @@ svg {
     margin: 0 auto;
 }
 
+
 /* -----------------------------------
 BASE
 -------------------------------------- */
@@ -45,7 +46,7 @@ MAIN
 
 .main-bg {
     background-color: #14405a;
-    background: url('../BASE/anton-dmitriev-kBKOaghy8mU-unsplash.jpg') fixed no-repeat;
+    background: url('../design/TEST_HTML/BASE/anton-dmitriev-kBKOaghy8mU-unsplash.jpg') fixed no-repeat;
     background-size: cover;
 }
 
@@ -58,7 +59,7 @@ MAIN
 
 .section-bg {
     background-color: #14405a;
-    background: url('../BASE/electricity-energy-low-angle-shot-323133.jpg') fixed no-repeat;
+    background: url('../design/TEST_HTML/BASE/electricity-energy-low-angle-shot-323133.jpg') fixed no-repeat;
     background-size: cover;
 }
 
