@@ -26,18 +26,22 @@
     </div>
 
     <div class="col-lg-6 col-md-8 col-sm-10 rounded border m-3 p-3 order-md-0 order-lg-0 text-center">
-        {% if galerie | length < 10 %}
         <h1>Créer une galerie</h1>
         <hr>
+        {% for galerie in galeries %}
+        {% if galerie | length < 10 %}
+        
         {{ form_start(galerieForm) }}
         {{ form_end(galerieForm) }}
-    </div>
+    
 
         {% else %}
 
         Vous avez atteint la limite de 10 galeries autorisées, supprimez-en une pour pouvoir en créer une nouvelle.
 
         {% endif %}
+        </div>
+        {% endfor %}
 </div>
 
 
