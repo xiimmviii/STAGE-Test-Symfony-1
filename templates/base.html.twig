@@ -22,23 +22,25 @@
             <link rel="stylesheet" href="{{asset('/css/' ~ couleur ~ '.css')}}" type="text/css">
             <link href="https://fonts.googleapis.com/css?family=Raleway:400,500,600,700&display=swap" rel="stylesheet">
 
-            <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-            <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-            <script>
-                $("document").ready(() => {
-                    $("#jsflash").delay(1500).animate({
-                        opacity: 0
-                    }, 1500, () => {
-                        $("#jsflash").css('display', 'none');
-                    });
-                });
-            </script>
+
             <script src="https://cdn.jsdelivr.net/npm/bs-custom-file-input/dist/bs-custom-file-input.min.js"></script>
             <script>
                 $(document).ready(function () {
                     bsCustomFileInput.init()
                 })
+            </script>
+
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+            <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+            <script>
+                $("document").ready(() => {
+                    $("#jsflash").delay(1500).animate({
+                        opacity: 100
+                    }, 1500, () => {
+                        $("#jsflash").css('display', 'none');
+                    });
+                });
             </script>
             <title>
                 MAQUETTE HTML - Electricien
@@ -47,117 +49,149 @@
     </head>
 
     <body>
+        {% for message in app.flashes('success') %}
+            {# Message de réussite d'une action  #}
+            <div id="jsflash" class="alert alert-success m-0 p-0 text-center">
+                {{ message | raw }}
+            </div>
+        {% endfor %}
+        {% for message in app.flashes('error') %}
+            {# Message d'erreur d'une action #}
+            <div id="jsflash" class="alert alert-danger m-0 p-0 text-center">
+                {{ message | raw }}
+            </div>
+        {% endfor %}
         <div class="container-fluid">
 
-                <nav class="navbar navbar-expand-lg col-12 sticky-top row bg p-3">
-                    <div class="col-12 col-md-4">
-                        <h3 class="pl-5"><img src="{{asset('/images/logo.jpg')}}" alt="logo de l'etp" class="img-fluid"></h3>
+            <nav class="navbar navbar-expand-lg sticky-top row bg p-3">
+                <div class="col-12 col-md-4">
+                    <h3 class="pl-5"><img src="{{asset('/images/logo.jpg')}}" alt="logo de l'etp" class="img-fluid"></h3>
+                </div>
+                <button class="navbar-toggler mx-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <i class="fas fa-angle-double-down"></i>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav mr-auto mx-auto text-center">
+                        <li class="nav-item nav-ind mx-3">
+                            <a class="nav-link font-weight-bold" href="{{path('index')}}">
+                                <i class="fas fa-home"></i>
+                                Accueil
+                            </a>
+                        </li>
+                        <li class="nav-item nav-real mx-3">
+                            <a class="nav-link font-weight-bold" href="{{path('realisations')}}">
+                                <i class="far fa-lightbulb"></i>
+                                Réalisations
+                            </a>
+                        </li>
+                        <li class="nav-item nav-real mx-3">
+                            <a class="nav-link font-weight-bold" href="{{path('tarifs')}}">
+                                <i class="fas fa-tag"></i>
+                                Tarifs
+                            </a>
+                        </li>
+                        <li class="nav-item nav-cont mx-3">
+                            <a class="nav-link font-weight-bold" href="{{path('contact')}}">
+                                <i class="fas fa-phone-alt"></i>
+                                Contact
+                            </a>
+                        </li>
+{% if is_granted('ROLE_ADMIN')%}
+                        <li class="nav-item nav-cont mx-3">
+                            <a class="nav-link font-weight-bold" href="{{path('admin')}}">
+                                <i class="fas fa-user-cog"></i>
+                                ESPACE ADMIN
+                            </a>
+                        </li>
+                        {% endif %}
+                    </ul>
+                </div>
+                <div class="col-1 justify-content-end"> 
+                <a href="{{specificites.instagram}}" alt="Instagram" class="smallicons p-2">
+                                        <i class="fab fa-instagram"></i>
+                                    </a> 
+                                    <a href="{{specificites.facebook}}" alt="Facebook" class="smallicons p-2">
+                                        <i class="fab fa-facebook-square"></i>
+                                    </a>
+                                    </div>
+            </nav>
+
+
+            <div class="link-box  align-items-center">
+                <a href="telto:0123456789" alt="Nous joindre par téléphone">
+                    <div class="link-item">
+                        <i class="fas fa-phone-alt"></i>
                     </div>
-                    <button class="navbar-toggler mx-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                        <i class="fas fa-angle-double-down"></i>
-                    </button>
-
-                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                        <ul class="navbar-nav mr-auto mx-auto">
-                            <li class="nav-item nav-ind mx-3">
-                                <a class="nav-link font-weight-bold" href="{{path('index')}}">
-                                    <i class="fas fa-home"></i>
-                                    Accueil
-                                </a>
-                            </li>
-                            <li class="nav-item nav-real mx-3">
-                                <a class="nav-link font-weight-bold" href="{{path('realisations')}}">
-                                    <i class="far fa-lightbulb"></i>
-                                    Réalisations
-                                </a>
-                            </li>
-                            <li class="nav-item nav-real mx-3">
-                                <a class="nav-link font-weight-bold" href="{{path('tarifs')}}">
-                                    <i class="fas fa-tag"></i>
-                                    Tarifs
-                                </a>
-                            </li>
-                            <li class="nav-item nav-cont mx-3">
-                                <a class="nav-link font-weight-bold" href="{{path('contact')}}">
-                                    <i class="fas fa-phone-alt"></i>
-                                    Contact
-                                </a>
-                            </li>
-                        </ul>
+                </a>
+                <a href="mailto:mail@mail.com" alt="Nous contacter par mail">
+                    <div class="link-item">
+                        <i class="far fa-envelope"></i>
                     </div>
-                </nav>
+                </a>
+                <a href="google.com" alt="Laisser un avis sur Google">
+                    <div class="link-item">
+                        <i class="far fa-thumbs-up"></i>
+                    </div>
+                </a>
+            </div>
 
-        </div>
 
-        <div class="link-box align-items-center">
-            <a href="telto:0123456789" alt="Nous joindre par téléphone">
-                <div class="link-item">
-                    <i class="fas fa-phone-alt"></i>
-                </div>
-            </a>
-            <a href="mailto:mail@mail.com" alt="Nous contacter par mail">
-                <div class="link-item">
-                    <i class="far fa-envelope"></i>
-                </div>
-            </a>
-            <a href="google.com" alt="Laisser un avis sur Google">
-                <div class="link-item">
-                    <i class="far fa-thumbs-up"></i>
-                </div>
-            </a>
-        </div>
-    </body>
-</html></div>{% for message in app.flashes('success') %}
-{# Message de réussite d'une action  #}
-<div id="jsflash" class="alert alert-success mx-auto">
-    {{ message | raw }}
-</div>{% endfor %}{% for message in app.flashes('error') %}
-{# Message d'erreur d'une action #}
-<div id="jsflash" class="alert alert-danger m-0">
-    {{ message | raw }}
-</div>{% endfor %}{# Ici, on ajoute le contenu de façon dynamique  #}{% block content %}{% endblock %}<footer class="bg3">
-<div class="informations p-5">
-    <div class="row justify-content-center">
+            {# Ici, on ajoute le contenu de façon dynamique  #}
+            {% block content %}{% endblock %}
 
-        <div class="col-10 col-md-5">
-            <h3>{{entreprise.nom}}
-            </h3>
-            <br>
-            {{entreprise.adresse}}
-            <br>
-            {{entreprise.cp}}
-            {{entreprise.ville}}
-            <br>Téléphone :
-            <a href="telto:{{entreprise.telephone}}" class="footertel">
-                {{entreprise.telephone}}</a>
-            <br>
-            Mail :
-            <a href="mailto:{{entreprise.mailContact}}" class="footermail">
-                {{entreprise.mailContact}}</a>
-        </div>
 
-        <div class="col-10 col-md-5 justify-content-center">
+            <footer class="bg3">
+                <div class="informations p-5">
+                    <div class="row justify-content-center">
 
-            <div class="row justify-content-center">
-                <div class="col-10 text-center">
-                    <a href="{{specificites.pageGoogle}}" alt="Avis Google">
-                        <div class="btn bg1 h2 p-3">
-                            Laissez votre avis sur Google
+                        <div class="col-10 col-md-5">
+                            <h3>{{entreprise.nom}}
+                            </h3>
+                            <br>
+                            {{entreprise.adresse}}
+                            <br>
+                            {{entreprise.cp}}
+                            {{entreprise.ville}}
+                            <br>Téléphone :
+                            <a href="telto:{{entreprise.telephone}}" class="footertel">
+                                {{entreprise.telephone}}</a>
+                            <br>
+                            Mail :
+                            <a href="mailto:{{entreprise.mailContact}}" class="footermail">
+                                {{entreprise.mailContact}}</a>
                         </div>
-                    </a>
-                </div>
-            </div>
-            <div class="row justify-content-center">
-                <div class="col-10 text-center">
-                    <a href="{{specificites.instagram}}" alt="Instagram" class="icons p-2">
-                        <i class="fab fa-instagram"></i>
-                    </a>
-                    <a href="{{specificites.facebook}}" alt="Facebook" class="icons p-2">
-                        <i class="fab fa-facebook-square"></i>
-                    </a>
-                </div>
-            </div>
-        </div>
 
-    </div>
-</div></div></div><div class="copyright bg1 p-3">Copyright © 2019{{entreprise.nom}}|<a href="{{path('mentions')}}" class="copyright-a">Mentions légales</a>|<a href="{{path('CGU')}}" class="copyright-a">CGU</a></div></body></html></footer></body></html></div>{% block javascript %}{% endblock %}</body> </html>
+                        <div class="col-10 col-md-5 justify-content-center">
+
+                            <div class="row justify-content-center">
+                                <div class="col-10 text-center">
+                                    <a href="{{specificites.pageGoogle}}" alt="Avis Google">
+                                        <div class="btn bg1 h2 p-3">
+                                            Laissez votre avis sur Google
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="row justify-content-center">
+                                <div class="col-10 text-center">
+                                    <a href="{{specificites.instagram}}" alt="Instagram" class="icons p-2">
+                                        <i class="fab fa-instagram"></i>
+                                    </a>
+                                    <a href="{{specificites.facebook}}" alt="Facebook" class="icons p-2">
+                                        <i class="fab fa-facebook-square"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="copyright bg1 p-3">Copyright © 2019{{entreprise.nom}}|<a href="{{path('mentions')}}" class="copyright-a">Mentions légales</a>|<a href="{{path('CGU')}}" class="copyright-a">CGU</a>
+                </div>
+            </footer>
+        </div>
+        {% block javascript %}{% endblock %}
+    </body>
+</html>

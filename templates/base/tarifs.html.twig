@@ -1,29 +1,73 @@
 {% extends 'base.html.twig' %}
 
 {% block content %}
+<section class="container-fluid mainbox bg2">
+    <h1 class="py-5 text-center">
+        Tarifs
+    </h1>
 
-<h1 class="text-center"> Tarifs </h1>
+    <div class="col-11 col-md-6 mx-auto pb-5">
 
-
-<div class="col-md-10 mx-auto">
+<table width="100%" class="mx-auto table-responsive">
+<tr style="display: none;">
+<td>aaa</td>
+<td></td> 
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
 {% for tarif in tarifs %}
+<tr style=" margin: 1vh;">
+<td><div class="text-right h6"><b>{{tarif.prestation}}</b></div></td>
+
+ {% if tarif.tarifNuit == NULL and tarif.tarifWeekend == NULL %}
+
+                    <td class="text-center" colspan="6" >
+                        <div class="tarif bg m-2">Tarif standard :
+                        <br><b> {{tarif.tarifJour}}€ </b>
+                        </div>
+                    </td>
+
+                {% elseif tarif.tarifWeekend == NULL %}
+
+                    <td class="text-center" colspan="3">
+                       <div class="tarif bg m-2"> Tarif standard :
+                       <br><b> {{tarif.tarifJour}}€ </b>
+                        </td>
+                    <td class="text-center" colspan="3">
+                       <div class="tarif bg m-2"> Tarif de nuit :
+                       <br><b> {{tarif.tarifNuit}}€ </b>
+                       </div>
+                        </td>
+
+                {% else %}
+                    <td class="text-center" colspan="2">
+                       <div class="tarif bg m-2"> Tarif standard :
+                       <br><b> {{tarif.tarifJour}}€ </b>
+                       </div>
+                        </td>
+                    <td class=" text-center " colspan="2">
+                       <div class="tarif bg m-2"> Tarif de nuit :
+                       <br><b> {{tarif.tarifNuit}}€ </b>
+                       </div>
+                        </td>
+                    <td class=" text-center " colspan="2">
+                       <div class="tarif bg m-2"> Tarif de week-end :
+                       <br><b> {{tarif.tarifWeekend}}€ </b>
+                       </div>
+                        </td>
+                {% endif %}
 
 
-<div class="row">
-    <div class="col-md-4 offset-2 text-right">{{tarif.prestation}}</div>
-    <div class="col-md-6">Tarif standard : {{tarif.tarifJour}}€ <br>
-        {% if tarif.tarifNuit != NULL%}
-        Tarif de nuit : {{tarif.tarifNuit}}€<br>
-        {% elseif tarif.tarifWeekend !=NULL %}
-        Tarif weekend : {{tarif.tarifWeekend}}€<br>
-        {% endif %}
+ </tr>
+  {% endfor %}
+</table>
+
+
     </div>
-</div>
-<br>
-
-{% endfor %}
-</div>
-
-
-
+</section>
 {% endblock %}
+
+

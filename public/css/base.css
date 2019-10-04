@@ -13,8 +13,12 @@ body {
 
 svg {
     margin: 0 auto;
+    z-index: 1
 }
 
+.mainbox {
+    min-height: 70vh;
+}
 
 /* -----------------------------------
 BASE
@@ -24,6 +28,7 @@ BASE
     right: 0;
     top: 40%;
     position: fixed;
+    z-index: 999;
 }
 
 .link-item {
@@ -35,7 +40,6 @@ BASE
     height: 50px;
     border-radius: 50%;
     font-size: 1.2em;
-    z-index: 999;
     box-shadow: 2px 2px 5px dimgrey;
 }
 
@@ -144,7 +148,7 @@ ELEMENTS
 }
 
 .boutontext {
-    font-size: 1.5rem;
+    font-size: 1.25rem;
     text-transform: lowercase;
     letter-spacing: 2px;
 }

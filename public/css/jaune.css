@@ -19,6 +19,7 @@ a:hover {
 input {
     border: 2px solid #ECC94B!important;
     border-radius: 1rem!important;
+    background: transparent!important;
 }
 
 .btn {
@@ -26,13 +27,15 @@ input {
     color: black;
 }
 
-a.icons {
+a.icons{
     color: #ECC94B!important;
 }
 
-a.icons:hover {
+a.icons:hover, a.smallicons:hover {
     color: rgb(71, 71, 71)!important;
+    text-decoration: none;
 }
+
 
 
 /* -------------------------------------
@@ -49,7 +52,7 @@ a.icons:hover {
 }
 
 .bg2{
-    background: #FFFFF0!important;
+    background: rgba(236, 201, 75, 0.205)!important;
 }
 
 .bg3{
@@ -63,6 +66,19 @@ a.icons:hover {
     background-color: #ECC94B;
     color: white;
 }
+
+.tarif {
+    border: 2px solid #ECC94B!important;
+    border-radius: 1rem!important;
+}
+
+.message {
+    border: 2px solid #ECC94B!important;
+    border-radius: 1rem!important;
+    background: transparent;
+    height: 25vh!important;
+}
+
 
 #eclair {
     fill: #ECC94B;
@@ -88,7 +104,7 @@ a.icons:hover {
     fill: #ECC94B;
     width: 100%;
     transform: rotate(180deg);
-    top: -3vh;
+    top: -4vh;
     position: relative;
 }
 
@@ -96,13 +112,13 @@ a.icons:hover {
     fill: rgb(255, 255, 255);
     width: 100%;
     transform: rotate(180deg);
-    top: -3vh;
+    top: -4vh;
     position: relative;
 }
 
 #bottomlightwhite2 {
     fill: rgb(255, 255, 255);
     width: 100%;
-    top: 3vh;
+    top: 4vh;
     position: relative;
 }
