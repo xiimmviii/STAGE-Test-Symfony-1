@@ -106,6 +106,19 @@
                 Déconnexion</a>
         </nav>
 
+        {% for message in app.flashes('success') %}
+                {# Message de réussite d'une action  #}
+                <div id="jsflash" class="alert alert-success mx-auto">
+                    {{ message | raw }}
+                </div>
+            {% endfor %}
+            {% for message in app.flashes('error') %}
+                {# Message d'erreur d'une action #}
+                <div id="jsflash" class="alert alert-danger m-0">
+                    {{ message | raw }}
+                </div>
+            {% endfor %}
+
 
 
         {# Ici, on ajoute le contenu des vues de façon dynamique  #}

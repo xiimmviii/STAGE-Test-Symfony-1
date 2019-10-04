@@ -28,8 +28,11 @@
     <div class="col-lg-6 col-md-8 col-sm-10 rounded border m-3 p-3 order-md-0 order-lg-0 text-center">
         <h1>Créer une galerie</h1>
         <hr>
-        {% for galerie in galeries %}
-        {% if galerie | length < 10 %}
+
+        {% set totalGaleries2 = totalGaleries.0 %}
+        {# {{dump (totalGaleries2.1)}} #}
+
+        {% if totalGaleries2.1 < 10 %}
         
         {{ form_start(galerieForm) }}
         {{ form_end(galerieForm) }}
@@ -41,7 +44,6 @@
 
         {% endif %}
         </div>
-        {% endfor %}
 </div>
 
 
@@ -63,7 +65,7 @@
                     </div>
                     <a class="card-footer bg-danger text-decoration-none text-light"
                         href="{{ path('delete_galerie', {id : galerie.id } ) }}"
-                        onclick="return confirm('Etes-vous certain(e) de vouloir supprimer la galerie ? /!\ Toute suppression de galerie supprimera toutes les photos qu'elle contient !')">
+                        onclick="return confirm('Etes-vous certain(e) de vouloir supprimer la galerie ?')">
                         <i class="fas fa-trash-alt mx-2"></i> Supprimer
                     </a>
 

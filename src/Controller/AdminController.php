@@ -24,6 +24,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Validator\Constraints\Date;
 use Symfony\Component\Validator\Constraints\DateTime;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Response;
 
 
 
@@ -165,10 +166,36 @@ class AdminController extends AbstractController
             return $this->redirectToRoute('gestiongaleries');
         }
 
+        // ----------------------------------------------------------------------
+
+        //On veut limiter le nombre de galeries possible à 10. 
+
+        // On récupère le manager
+        $em = $this->getDoctrine()->getManager();
+        
+        // On va dans l'entité Galerie
+        $repo = $em->getRepository(Galerie::class);
+        
+        // On fait une requête pour compter combien de galeries il y a dans la table Galerie (galerie = g)
+        $totalGaleries = $repo->createQueryBuilder('g')
+            //on séléctionne comment on compte les lignes (par l'id)
+            ->select('count(g.id)')
+            ->getQuery()
+            ->getResult();
+        
+        // 4. Return a number as response
+        // e.g 972
+        // return new Response($totalGaleries);
+        // $totalGaleries2 =  $totalGaleries;
+
+        // ----------------------------------------------------------------------
+
         // On récupère toutes les galeries déjà dans la BDD
         $repository = $this->getDoctrine()->getRepository(Galerie::class);
         // Le findAll permet de récupérer toutes les informations stockées en BDB 
         $galeries = $repository->findAll();
+
+        // ----------------------------------------------------------------------
 
         // On récupère les informations et on les renvoie dans la VUE 
         $repository = $this->getDoctrine()->getRepository(Entreprise::class);
@@ -188,6 +215,7 @@ class AdminController extends AbstractController
             'specificites' => $specificites,
             'galeries' => $galeries,
             'couleurs' => $couleurs,
+            'totalGaleries' => $totalGaleries,
         ]);
     }
 
