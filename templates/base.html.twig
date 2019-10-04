@@ -22,42 +22,45 @@
             <link rel="stylesheet" href="{{asset('/css/' ~ couleur ~ '.css')}}" type="text/css">
             <link href="https://fonts.googleapis.com/css?family=Raleway:400,500,600,700&display=swap" rel="stylesheet">
 
-          
+
             <script src="https://cdn.jsdelivr.net/npm/bs-custom-file-input/dist/bs-custom-file-input.min.js"></script>
             <script>
                 $(document).ready(function () {
                     bsCustomFileInput.init()
                 })
             </script>
-            
-                <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-    <script>
-        $("document").ready(() => {
-            $("#jsflash").delay(1500).animate({ opacity: 100 }, 1500, () => {
-                $("#jsflash").css('display', 'none');
-            });
-        });
-    </script>
+
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+            <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+            <script>
+                $("document").ready(() => {
+                    $("#jsflash").delay(1500).animate({
+                        opacity: 100
+                    }, 1500, () => {
+                        $("#jsflash").css('display', 'none');
+                    });
+                });
+            </script>
             <title>
                 MAQUETTE HTML - Electricien
             </title>
         {% endfor %}
     </head>
 
-    <body>{% for message in app.flashes('success') %}
-                {# Message de réussite d'une action  #}
-                <div id="jsflash" class="alert alert-success m-0 p-0 text-center">
-                    {{ message | raw }}
-                </div>
-            {% endfor %}
-            {% for message in app.flashes('error') %}
-                {# Message d'erreur d'une action #}
-                <div id="jsflash" class="alert alert-danger m-0 p-0 text-center">
-                    {{ message | raw }}
-                </div>
-            {% endfor %}
+    <body>
+        {% for message in app.flashes('success') %}
+            {# Message de réussite d'une action  #}
+            <div id="jsflash" class="alert alert-success m-0 p-0 text-center">
+                {{ message | raw }}
+            </div>
+        {% endfor %}
+        {% for message in app.flashes('error') %}
+            {# Message d'erreur d'une action #}
+            <div id="jsflash" class="alert alert-danger m-0 p-0 text-center">
+                {{ message | raw }}
+            </div>
+        {% endfor %}
         <div class="container-fluid">
 
             <nav class="navbar navbar-expand-lg sticky-top row bg p-3">
@@ -116,7 +119,12 @@
                     </div>
                 </a>
             </div>
-            {# Ici, on ajoute le contenu de façon dynamique  #}{% block content %}{% endblock %}
+
+
+            {# Ici, on ajoute le contenu de façon dynamique  #}
+            {% block content %}{% endblock %}
+
+
             <footer class="bg3">
                 <div class="informations p-5">
                     <div class="row justify-content-center">
@@ -163,9 +171,11 @@
 
                     </div>
                 </div>
-            </div>
+
+                <div class="copyright bg1 p-3">Copyright © 2019{{entreprise.nom}}|<a href="{{path('mentions')}}" class="copyright-a">Mentions légales</a>|<a href="{{path('CGU')}}" class="copyright-a">CGU</a>
+                </div>
+            </footer>
         </div>
-        <div class="copyright bg1 p-3">Copyright © 2019{{entreprise.nom}}|<a href="{{path('mentions')}}" class="copyright-a">Mentions légales</a>|<a href="{{path('CGU')}}" class="copyright-a">CGU</a></div>
-        </footer>
-   
-   </div>{% block javascript %}{% endblock %}</body></html>
+        {% block javascript %}{% endblock %}
+    </body>
+</html>

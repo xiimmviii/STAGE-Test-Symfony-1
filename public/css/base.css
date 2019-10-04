@@ -16,6 +16,9 @@ svg {
     z-index: 1
 }
 
+.mainbox {
+    min-height: 70vh;
+}
 
 /* -----------------------------------
 BASE
