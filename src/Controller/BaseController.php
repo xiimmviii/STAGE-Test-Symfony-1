@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Photo;
 use App\Entity\Tarifs;
 use App\Entity\Contact;
 use App\Entity\Contenu;
@@ -94,8 +95,8 @@ class BaseController extends AbstractController
 
         // -----------------------------------------------------------------------------------
 
-        //on utilise le repository pour accéder à la table Galerie
-        $repository = $this->getDoctrine()->getRepository(Galerie::class);
+        //on utilise le repository pour accéder à la table Photo
+        $repository = $this->getDoctrine()->getRepository(Photo::class);
         //On récupère toutes les données de la table Galerie et on les injecte dans l'objet $photos
         $photos = $repository->findAll(array('id' => 'DESC'));
 

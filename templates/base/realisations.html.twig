@@ -11,7 +11,7 @@
                 {# La partie modale permet l'affichage en grand sur l'écran de la photo sur laquelle on a cliqué #}
                 <div class="col-md-3">
                     <img
-                    class="img-thumbnail" data-toggle="modal" data-target="#{{ modal ~ photo.id }}" src="{{ asset('/photo/' ~ photo.photo) }}" alt="{{ photo.description }}">
+                    class="img-thumbnail" data-toggle="modal" data-target="#{{ modal ~ photo.id }}" src="{{ asset('/photo/' ~ photo.photo) }}" alt="">
 
                     {# L'appel de la modal est dynamique, ce qui permet que tous les éléments correspondent entre eux : ID, description #}
                     <div class="modal fade" id="{{ modal ~ photo.id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -19,7 +19,7 @@
                             <div class="modal-content">
                                 <img src="{{ asset('/photo/' ~ photo.photo) }}" class="img-fluid"/>
                                 <div class="text-modal">
-                                    {{ photo.description }}</div>
+                                    </div>
                             </div>
                         </div>
                     </div>
