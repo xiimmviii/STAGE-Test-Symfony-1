@@ -161,8 +161,43 @@ ELEMENTS
     font-size: 0.75rem;
 }
 /* -----------------------------------
-GENERAL
+MODAL
 -------------------------------------- */
+
+.img-thumbnail {
+    border: none!important;
+    width: 200px;
+    height: 150px;
+    object-fit: cover;
+    }
+    
+    .modal-dialog {
+        max-width: 70%!important;
+        max-height: 80%;
+        height: auto;
+       text-align: center;
+    }
+    
+    .modal-content {
+        max-width: 70%!important;
+        max-height: 80%;
+        width: auto;
+        background: none; 
+        border: none;
+        margin: 0 auto; 
+    }
+    
+    .text-modal {
+        background-color: rgb(255, 0, 0);
+        color: white!important;
+        font-size: 1.3em;
+        opacity: 1;
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        padding: 2vh;
+    }
+    
 
 /* -----------------------------------
 TEST -- VAGUE

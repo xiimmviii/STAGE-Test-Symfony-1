@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use Serializable;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
@@ -23,6 +24,11 @@ class Photo implements \Serializable
      */
     private $photo = 'default.jpg';
 
+    /**
+     * 
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $description;
 
     private $file;
     // On ne mappe pas cette propriété car elle n'existe pas dans la BDD. Elle va juste servir à récupérer les octets qui constituent l'image. 
@@ -38,7 +44,7 @@ class Photo implements \Serializable
      *                 clé étrangère         clé primaire
      * 
      */
-    private $galerie;
+     private $galerie; 
 
     /**
      * @ORM\Column(type="string", nullable=true)
@@ -62,7 +68,7 @@ class Photo implements \Serializable
         return $this;
     }
 
-    public function getGalerie()
+   public function getGalerie()
     {
         return $this->galerie;
     }
@@ -73,7 +79,7 @@ class Photo implements \Serializable
 
         return $this;
     }
-
+    
 
     public function getDateAffichage(): ?string
     {
@@ -87,6 +93,28 @@ class Photo implements \Serializable
         return $this;
     }
 
+
+    /**
+   * Getter for Description
+   *
+   * @return [type]
+   */
+  public function getDescription()
+  {
+      return $this->description;
+  }
+
+  /**
+   * Setter for Descrption
+   * @var [type] description
+   *
+   * @return self
+   */
+  public function setDescription($description)
+  {
+      $this->message = $description;
+      return $this;
+  }
 
 
     //------------------------------------- FONCTION POUR LA PHOTO -------------------------
@@ -147,4 +175,5 @@ class Photo implements \Serializable
     { }
     public function unserialize($arg)
     { }
+
 }
