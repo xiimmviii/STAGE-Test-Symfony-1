@@ -1,44 +1,104 @@
-{% extends 'base.html.twig' %}
+<!DOCTYPE html>
+<html lang="fr">
 
-{% block content %}
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta
+        http-equiv="X-UA-Compatible" content="ie=edge">
+        <!-- BOOTSTRAP -->
+        <link
+        rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <!-- FONT-AWESOME -->
+        <link
+        rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0-11/css/all.min.css">
+        <!-- CSS -->
+        <link rel="stylesheet" href="{{asset('/css/adminstyle.css')}}" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Raleway:400,500,600,700&display=swap" rel="stylesheet">
 
-<h1 class="text-center">Connexion au panneau administrateur.</h1>
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+        <script>
+            $("document").ready(() => {
+                $("#jsflash").delay(1500).animate({
+                    opacity: 0
+                }, 1500, () => {
+                    $("#jsflash").css('display', 'none');
+                });
+            });
+        </script>
+        <script src="https://cdn.jsdelivr.net/npm/bs-custom-file-input/dist/bs-custom-file-input.min.js"></script>
+        <script>
+            $(document).ready(function () {
+                bsCustomFileInput.init()
+            })
+        </script>
+        <title>
+            LOGIN - Electricien
+        </title>
+    </head>
 
-<form method="post" class="col-md-4 mx-auto">
-    {% if error %}
-    <!-- S'il y a un erreur, elle s'affichera ici. -->
-    <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-    {% endif %}
+    <body class="">
 
-    {% if app.user %}
-    <!-- Si l'utilisateur est connecté, on affiche ce message disant qu'il est déjà connecté et on fait un lien vers la déconnexion (on n'affiche pas le formulaire de connexion) -->
-    <div class="mb-3">
-        Vous êtes connecté(e) sous l'identifiant {{ app.user.username }}, <b><a href="{{ path('app_logout') }}">se
-                déconnecter</a></b>
-    </div>
+        <div class="row justify-content-center align-items-center align-self-center mx-auto text-center" style="margin-top: 20%;">
+
+            {% if error %}
+                <form
+                    method="post" class="col-10 col-md-4 mx-auto p-4 border border-info rounded ">
+                    <!-- S'il y a un erreur, elle s'affichera ici. -->
+                    <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                     </form>
+                {% endif %}
+
+                {% if app.user %}
+                    <!-- Si l'utilisateur est connecté, on affiche ce message disant qu'il est déjà connecté et on fait un lien vers la déconnexion (on n'affiche pas le formulaire de connexion) -->
+                    <div class="text-center">
+                        Vous êtes connecté(e) sous l'identifiant
+                        <br>{{ app.user.username }}
+                        <br><b>
+                            <a href="{{ path('app_logout') }}">se
+                                                déconnecter</a>
+                        </b>
+                    </div>
 
 
-    {% else %}
-    <!-- S'il n'est pas connecté, on affiche le formulaire de connection -->
-    <h1 class="h3 mb-3 font-weight-normal my-3">Merci de vous connecter</h1>
-    <div class="my-3">
-        <!-- On appelle la variable last_username pour que le dernier identifiant utilisé s'affiche automatiquement dans le champ de l'identifiant -->
-        <label for="inputEmail" class="sr-only">Email</label>
-        <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" placeholder="Email" required autofocus>
-    </div>
-    <div class="my-3">
-        <label for="inputPassword" class="sr-only">Mot de passe</label>
-        <input type="password" name="password" id="inputPassword" class="form-control" placeholder="Password" required>
-    </div>
+                {% else %}
+                    <!-- S'il n'est pas connecté, on affiche le formulaire de connection -->
+                    <div class="col-12 col-md-2 justify-content-centertext-center" style="font-size: 5rem;">
+                        <i class="far fa-user-circle"></i>
+                    </div>
+                    <form method="post" class=" col-12 col-md-4 justify-content-center">
+                        <div class="row alert-info p-4 border border-info rounded justify-content-center">
+                            <div
+                                class="col-10 my-2">
+                                <!-- On appelle la variable last_username pour que le dernier identifiant utilisé s'affiche automatiquement dans le champ de l'identifiant -->
+                                <label for="inputEmail">Email</label>
+                                <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" required autofocus>
+                            </div>
+                            <div class="col-10 my-2">
+                                <label for="inputPassword">Mot de passe</label>
+                                <input type="password" name="password" id="inputPassword" class="form-control" placeholder="" required>
+                            </div>
+                        </div>
+                    <!-- Input caché qui permet à la connexion d'être sécurisée (en utilisant la variable authenticate qui est dans le src/security/LoginFormAuthenticate.php) -->
+                    <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+                    <div class="row justify-content-center">
+                     <div class="col-6 p-0 mt-1 text-left">
+                             <a href="{{path('index')}}" alt="Retour sur le site" class="text-dark"> <i class="fas fa-arrow-left"></i> Retourner au site </a>
+                        </div>
+                        <div class="col-6 p-0 mt-1 justify-content-end text-right">
+                            <button class="btn btnconnexion rounded text-info" type="submit">
+                                Se connecter
+                            </button>
+                        </div>
+                    </div> </form>
+                {% endif %}
+   
+        </div>
 
-    <!-- Input caché qui permet à la connexion d'être sécurisée (en utilisant la variable authenticate qui est dans le src/security/LoginFormAuthenticate.php) -->
-    <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
 
-    <div class="my-3">
-        <button class="btn btn-lg btn-outline-primary" type="submit">
-            Se connecter
-        </button>
-    </div>
-    {% endif %}
-</form>
-{% endblock %}
+        {% block javascript %}{% endblock %}
+    </body>
+
+</html>
