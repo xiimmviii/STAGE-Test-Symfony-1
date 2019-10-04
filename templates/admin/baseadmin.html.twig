@@ -107,17 +107,17 @@
         </nav>
 
         {% for message in app.flashes('success') %}
-                {# Message de réussite d'une action  #}
-                <div id="jsflash" class="alert alert-success mx-auto">
-                    {{ message | raw }}
-                </div>
-            {% endfor %}
-            {% for message in app.flashes('error') %}
-                {# Message d'erreur d'une action #}
-                <div id="jsflash" class="alert alert-danger m-0">
-                    {{ message | raw }}
-                </div>
-            {% endfor %}
+        {# Message de réussite d'une action  #}
+        <div id="jsflash" class="alert alert-success mx-auto">
+            {{ message | raw }}
+        </div>
+        {% endfor %}
+        {% for message in app.flashes('error') %}
+        {# Message d'erreur d'une action #}
+        <div id="jsflash" class="alert alert-danger m-0">
+            {{ message | raw }}
+        </div>
+        {% endfor %}
 
 
 
@@ -129,3 +129,8 @@
             <div class="copyright bg1 p-3">Copyright © 2019{{entreprise.nom}}|<a href="{{path('mentions')}}"
                     class="copyright-a">Mentions légales</a>|<a href="{{path('CGU')}}" class="copyright-a">CGU</a></div>
         </footer>
+
+    </div>{% block javascript %}{% endblock %}
+</body>
+
+</html>
