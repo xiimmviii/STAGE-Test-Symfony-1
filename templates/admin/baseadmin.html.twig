@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!-- BOOTSTRAP -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <!-- FONT-AWESOME -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0-11/css/all.min.css">
+    <!-- CSS -->
+    <link rel="stylesheet" href="{{asset('/css/adminstyle.css')}}" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Raleway:400,500,600,700&display=swap" rel="stylesheet">
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+    <script>
+        $("document").ready(() => {
+            $("#jsflash").delay(1500).animate({
+                opacity: 0
+            }, 1500, () => {
+                $("#jsflash").css('display', 'none');
+            });
+        });
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bs-custom-file-input/dist/bs-custom-file-input.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            bsCustomFileInput.init()
+        })
+    </script>
+    <title>
+        Espace Admin - Electricien
+    </title>
+</head>
+
+<body>
+    <div class="container-fluid">
+
+
+        <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top justify-content-around">
+            <a class="nav-link" href="{{path('admin')}}">
+                Gérer les informations
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+                aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse mx-auto" id="navbarNavDropdown">
+                <ul class="navbar-nav justify-content-between">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="{{path('admin')}}" id="navbarDropdownMenuLink"
+                            role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Index
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            <a class="dropdown-item" href="{{path('presentationentreprise')}}">Présentation de
+                                l'entreprise</a>
+                            <a class="dropdown-item" href="{{path('histoireentreprise')}}">Histoire de l'entreprise</a>
+                            <a class="dropdown-item" href="{{path('specificites')}}">Spécificités</a>
+                            <a class="dropdown-item" href="{{path('partenaires')}}">Partenaires</a>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{path('gestiongaleries')}}">
+                            Galeries photos
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{path('tarifs-admin')}}">Tarifs</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{path('entreprise')}}">
+                            Entreprise
+                        </a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="{{path('index')}}" id="navbarDropdownMenuLink"
+                            role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                            target="blank">
+                            Accèder à votre site
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            <a class="dropdown-item" href="{{path('index')}}" target="blank">Index</a>
+                            <a class="dropdown-item" href="{{path('realisations')}}" target="blank">Galerie des
+                                réalisations
+                            </a>
+                            <a class="dropdown-item" href="{{path('tarifs')}}">Tarifs</a>
+                            <a class="dropdown-item" href="{{path('contact')}}" target="blank">Contact
+                            </a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <a class="nav-link alert-danger rounded font-weight-bold" href="{{path('app_logout')}}">
+                <i class="fas fa-sign-out-alt"></i>
+                Déconnexion</a>
+        </nav>
+
+
+
+        {# Ici, on ajoute le contenu des vues de façon dynamique  #}
+        {% block content %}{% endblock %}
+
+
+        <footer>
+            <div class="copyright bg1 p-3">Copyright © 2019{{entreprise.nom}}|<a href="{{path('mentions')}}"
+                    class="copyright-a">Mentions légales</a>|<a href="{{path('CGU')}}" class="copyright-a">CGU</a></div>
+        </footer>
