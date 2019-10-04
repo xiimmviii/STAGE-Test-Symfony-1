@@ -19,6 +19,7 @@ a:hover {
 input {
     border: 2px solid #ECC94B!important;
     border-radius: 1rem!important;
+    background: transparent!important;
 }
 
 .btn {
@@ -49,7 +50,7 @@ a.icons:hover {
 }
 
 .bg2{
-    background: #FFFFF0!important;
+    background: rgba(236, 201, 75, 0.205)!important;
 }
 
 .bg3{
@@ -63,6 +64,19 @@ a.icons:hover {
     background-color: #ECC94B;
     color: white;
 }
+
+.tarif {
+    border: 2px solid #ECC94B!important;
+    border-radius: 1rem!important;
+}
+
+.message {
+    border: 2px solid #ECC94B!important;
+    border-radius: 1rem!important;
+    background: transparent;
+    height: 25vh!important;
+}
+
 
 #eclair {
     fill: #ECC94B;
