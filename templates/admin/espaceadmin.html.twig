@@ -2,30 +2,41 @@
 
 {% block content %}
 
-    {% if is_granted('ROLE_ADMIN') %}
-     <h1 class="text-center m-4">Bienvenue sur l'espace Admin !</h1>
-    {% endif %}
-    {% if is_granted('ROLE_SUPER_ADMIN') %}
-          <h1 class="text-center m-4">Bienvenue sur l'espace Super Admin !</h1>
-      {% endif %}
+{% if is_granted('ROLE_ADMIN') %}
+<h1 class="text-center m-4 text-secondary">Bienvenue sur l'espace Admin !</h1>
+{% endif %}
+{% if is_granted('ROLE_SUPER_ADMIN') %}
+<h1 class="text-center m-4 text-secondary">Bienvenue sur l'espace Super Admin !</h1>
+{% endif %}
 
-    <div class="row mb-3">
-        <div class="col-md-6 col-sm-8 alert-info text-justify mx-auto border border-info rounded p-3 m-3 mb-5">
+<div class="row mb-3">
+    <div class="col-md-6 col-sm-8 alert-info text-justify mx-auto border border-info rounded p-3 m-3 mb-5">
 
-            <center><h3>Bienvenue dans votre espace administrateur.</h3><h4> Ici, vous pourrez modifier les différentes informations de votre site en quelques clics...</center></h4>
-            <hr>
-            • La section <strong> Entreprise </strong> vous permet de mettre à jour les informations relatives à votre entreprise. (Nom, adresse, numéro de téléphone, adresse de contact...
-            <br><br> • La section <strong> Galerie </strong> permet d'ajouter rapidement des photos dans la galerie de vos réalisations.
-            <hr>
-            • Dans l'onglet <strong> Contenu du site </strong>, vous aurez accès aux différentes sections modifiables/personnalisables de votre site : 
-            <ul>
+        <center>
+            <h3>Bienvenue dans votre espace administrateur.</h3>
+            <h4> Ici, vous pourrez modifier les différentes informations de votre site en quelques clics...
+        </center>
+        </h4>
+        <hr>
+        • La section <strong> Entreprise </strong> vous permet de mettre à jour les informations relatives à votre
+        entreprise. (Nom, adresse, numéro de téléphone, adresse de contact...
+        <br><br> • La section <strong> Galerie </strong> permet d'ajouter rapidement des photos dans la galerie de vos
+        réalisations.
+        <hr>
+        • Dans l'onglet <strong> Contenu du site </strong>, vous aurez accès aux différentes sections
+        modifiables/personnalisables de votre site :
+        <ul>
             <li> Présensation de l'entreprise </li>
             <li> Histoire de l'entreprise </li>
             <li> Spécificités </li>
             <li> Partenaires </li>
-            </ul>
-            <strong></strong>
+        </ul>
+        
+        <div class="col-md-4 mx-auto">
+            <a href="{{path('entreprise')}}" class="btn btn-outline-info mx-auto"> Gérer les informations</a>
         </div>
+
     </div>
+</div>
 
 {% endblock %}
