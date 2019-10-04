@@ -47,7 +47,7 @@
     <div class="container-fluid">
 
 
-        <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top justify-content-around">
+        <nav class="navbar navbar-expand-lg navbar-light alert-info sticky-top justify-content-around">
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
                 aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -59,7 +59,7 @@
                             role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Gérer les informations
                         </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <div class="dropdown-menu alert-info" aria-labelledby="navbarDropdownMenuLink">
                             <a class="dropdown-item" href="{{path('presentationentreprise')}}">Présentation de
                                 l'entreprise</a>
                             <a class="dropdown-item" href="{{path('histoireentreprise')}}">Histoire de l'entreprise</a>
@@ -86,7 +86,7 @@
                             target="blank">
                             Accèder à votre site
                         </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <div class="dropdown-menu alert-info" aria-labelledby="navbarDropdownMenuLink">
                             <a class="dropdown-item" href="{{path('index')}}" target="blank">Index</a>
                             <a class="dropdown-item" href="{{path('realisations')}}" target="blank">Galerie des
                                 réalisations
@@ -98,7 +98,7 @@
                     </li>
                 </ul>
             </div>
-            <a class="nav-link text-danger rounded font-weight-bold" href="{{path('app_logout')}}">
+            <a class="nav-link deco text-danger rounded font-weight-bold" href="{{path('app_logout')}}">
                 <i class="fas fa-sign-out-alt"></i>
                 Déconnexion</a>
         </nav>
