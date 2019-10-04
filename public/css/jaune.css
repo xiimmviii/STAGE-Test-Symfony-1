@@ -102,7 +102,7 @@ a.icons:hover {
     fill: #ECC94B;
     width: 100%;
     transform: rotate(180deg);
-    top: -3vh;
+    top: -4vh;
     position: relative;
 }
 
@@ -110,13 +110,13 @@ a.icons:hover {
     fill: rgb(255, 255, 255);
     width: 100%;
     transform: rotate(180deg);
-    top: -3vh;
+    top: -4vh;
     position: relative;
 }
 
 #bottomlightwhite2 {
     fill: rgb(255, 255, 255);
     width: 100%;
-    top: 3vh;
+    top: 4vh;
     position: relative;
 }

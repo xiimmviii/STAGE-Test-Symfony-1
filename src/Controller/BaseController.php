@@ -24,7 +24,7 @@ class BaseController extends AbstractController
      * page d'index, affiche les sections
      * @Route("/", name="index")
      */
-    public function index()
+    public function index(Request $request, \Swift_Mailer $mailer)
     {
 
         //la page d'index affiche pratiquement toutes les infos stockées dans la BDD, on utilise donc le repository et doctrine pour récupérer les données dans chaque table qu'on injecte dans des objets ($logos, $entrepprise, $specificites...)
@@ -60,7 +60,33 @@ class BaseController extends AbstractController
 
         // -----------------------------------------------------------------------------------
 
-        //cette vue ne nous demande rien d'autre pour le moment que ces données pour son affichage dynamique
+ //On crée l'objet $form en allant chercher le formulaire créé dans ContactType
+ $form = $this->createForm(ContactType::class, null);
+ //handlrequest permet de récupérer/traiter les infos envoyée dans un formulaire (comme le $_POST)
+ $form->handleRequest($request);
+
+
+ if ($form->isSubmitted() && $form->isValid()) {
+
+     $data = $form->getData();
+     // permet de récupérer toutes les infos du formulaire (fonction native à Symfony)
+     // prenom = $data['prenom']
+     // objet = $data['objet']
+
+     if ($this->sendEmail($data, $mailer)) {
+         // $mailer : objet swiftmailer que l'on retrouve dans la fonction suivante pour l'envoi du mail
+         $this->addFlash('success', 'Votre email a été envoyé et sera traité dans les meilleurs délais.');
+         //si l'email est bien envoyé on a un message de confirmation et on est redirigé vers l'index
+         return $this->redirectToRoute("index");
+     } else {
+         //s'il y a une erreur, un message d'erreur apparaît et on n'envoie pas l'email tant que ça n'est pas corrigé
+         $this->addFlash('errors', 'Un problème a eu lieu durant l\'envoi, veuillez ré-essayer plus tard');
+     }
+ }
+
+         // -----------------------------------------------------------------------------------
+
+        //Cette vue ne nous demande rien d'autre pour le moment que ces données pour son affichage dynamique
 
         // ----------------------------------------------------------------------------------
         //on injecte les données dans la vue index
@@ -70,7 +96,8 @@ class BaseController extends AbstractController
             'presentation' => $presentation,
             'historique' => $historique,
             'logos' => $logos, 
-            'couleurs' => $couleurs
+            'couleurs' => $couleurs,
+            'form' => $form->createView()
         ]);
     }
 
