@@ -2,17 +2,16 @@
 
 {% block content %}
 
-<div class="row m-4 justify-content-center">
-    <div class="col-md-6 col-sm-8 mx-auto alert-info border border-info rounded m-3 p-3">
-        <h2>
-            Présentation de l'entreprise
-        </h2>
-        <hr>
-        <center><p> Cette section vous permet de présenter votre entreprise. <br> C'est l'introduction du site qui permet d'accrocher le client.  </p></center>
-    </div>
+<div class="row mx-5">
+<div class="col-lg-6 col-md-8 col-sm-10 mx-5 px-3">
+    <h2 class="text-secondary mx-4 mt-5">
+        Présentation de l'entreprise
+    </h2>
+</div>
 </div>
 
-<div class="row m-4 justify-content-center">
+<div class="row mx-4 mb-4 justify-content-center">
+
     <div
         class="col-lg-4 col-md-3 col-sm-10 alert-warning border border-warning rounded m-3 p-3  order-lg-5 text-justify">
         <center>
@@ -20,41 +19,56 @@
                 <i class="fas fa-info-circle"></i>
             </h1>
         </center>
-        <hr> 
-        <center>Cette section permet de présenter rapidement votre entreprise. 
-        <br><b>Il serait mieux que votre texte fasse <u>moins de 200 mots</u></b>.
-        <br><i> Le champ "sous-titre" n'est pas obligatoire </i></center>
-        <hr> 
-        Ces présentations sont gérables en dessous. Vous ne pouvez en afficher <strong> qu'une seule </strong> à la fois. La présentation affichée est celle stipulée en ligne, en fond vert, et toujours en haut de ce tableau.
-        Dans ce tableau, trois colonnes pour gérer votre affichage et vos textes. 
-        <br><br><ul>
-        <li> <strong>PUBLIER :</strong> Vous pouvez modifier votre présentation une dernière fois avant sa publication. </li>
-        <li> <strong>MODIFIER :</strong> Vous pouvez modifier une présentation sans pour autant la publier par la suite. </li>
-        <li> <strong>SUPPRIMER :</strong> <span class="text-danger"><i class="fas fa-exclamation-triangle"></i> Action irréversible <i class="fas fa-exclamation-triangle"></i> </span></li>
+        <hr>
+        <center>Cette section permet de présenter rapidement votre entreprise.
+            <br><b>Il serait mieux que votre texte fasse <u>moins de 200 mots</u></b>.
+            <br><i> Le champ "sous-titre" n'est pas obligatoire </i></center>
+        <hr>
+        Ces présentations sont gérables en dessous. Vous ne pouvez en afficher <strong> qu'une seule </strong> à la
+        fois. La présentation affichée est celle stipulée en ligne, en fond vert, et toujours en haut de ce tableau.
+        Dans ce tableau, trois colonnes pour gérer votre affichage et vos textes.
+        <br><br>
+        <ul>
+            <li> <strong>PUBLIER :</strong> Vous pouvez modifier votre présentation une dernière fois avant sa
+                publication. </li>
+            <li> <strong>MODIFIER :</strong> Vous pouvez modifier une présentation sans pour autant la publier par la
+                suite. </li>
+            <li> <strong>SUPPRIMER :</strong> <span class="text-danger"><i class="fas fa-exclamation-triangle"></i>
+                    Action irréversible <i class="fas fa-exclamation-triangle"></i> </span></li>
         </ul>
+    </div>
+
+    <div class="col-lg-6 col-md-8 col-sm-10">
+        <div class="alert-info border border-info rounded my-3 p-3">
+
+            <p> Cette section vous permet de présenter votre entreprise. <br> C'est l'introduction du site qui
+                permet d'accrocher le client. </p>
         </div>
 
-
-    <div class="col-lg-6 col-md-8 col-sm-10 border rounded m-3 p-3 order-lg-0 ">
-        {{form_start(ContenuForm)}}
-        <div style="display: none">
-            <!-- On met en display none ces champs pour pouvoir y injecter des valeurs sans que l'utilisateur s'en rende compte /sans qu'il puisse y toucher. -->
-            <!-- Comme on veut que ces textes soient pour la section "présentation" on injecte en dur la valeur "présentation" dans le champ "section" -->
-            {{ form_row(ContenuForm.section, {'value' : 'presentation'}) }}
-            <!-- Dans BaseController on crée une variable $date. Dedans on injecte des données selon la route sélectionée (update, delete, afficher...). On met ensuite cette variable en valeur du champ "dateAffichage" afin d'injecter ces données. (c'est ce qui nous permet de gérer le choix de l'affichage. CF. AdminController.-->
-            {{ form_label(ContenuForm.dateAffichage) }}
-            {{ form_widget(ContenuForm.dateAffichage, {'value': date}) }}
+        <div class="border rounded my-3 p-3 order-lg-0 alert-info ">
+            {{form_start(ContenuForm)}}
+            <div style="display: none">
+                <!-- On met en display none ces champs pour pouvoir y injecter des valeurs sans que l'utilisateur s'en rende compte /sans qu'il puisse y toucher. -->
+                <!-- Comme on veut que ces textes soient pour la section "présentation" on injecte en dur la valeur "présentation" dans le champ "section" -->
+                {{ form_row(ContenuForm.section, {'value' : 'presentation'}) }}
+                <!-- Dans BaseController on crée une variable $date. Dedans on injecte des données selon la route sélectionée (update, delete, afficher...). On met ensuite cette variable en valeur du champ "dateAffichage" afin d'injecter ces données. (c'est ce qui nous permet de gérer le choix de l'affichage. CF. AdminController.-->
+                {{ form_label(ContenuForm.dateAffichage) }}
+                {{ form_widget(ContenuForm.dateAffichage, {'value': date}) }}
+            </div>
+            {{ form_row(ContenuForm.titre, {'label' : 'Titre *'}) }}
+            {{ form_row(ContenuForm.sousTitre, {'label' : 'Sous-titre *'}) }}
+            {{ form_row(ContenuForm.texte, {'label' : 'Texte *'}) }}
         </div>
-        {{ form_row(ContenuForm.titre, {'label' : 'Titre *'}) }}
-        {{ form_row(ContenuForm.sousTitre, {'label' : 'Sous-titre *'}) }}
-        {{ form_row(ContenuForm.texte, {'label' : 'Texte *'}) }}
 
-
-            <!-- Même principe que pour la variable $date, pour gérer le changement de label dans le bouton envoi selon la route dans laquelle on est -->
-            {{ form_row(ContenuForm.submit, { 'label' : boutonenvoi, 'attr' : {'class': 'col-12 btn btn-success'} } ) }}
+        <!-- Même principe que pour la variable $date, pour gérer le changement de label dans le bouton envoi selon la route dans laquelle on est -->
+        {{ form_row(ContenuForm.submit, { 'label' : boutonenvoi, 'attr' : {'class': 'col-12 col-lg-3 offset-lg-9 col-md-3 offset-md-9 col-xl-3 offset-xl-9 btn btn-outline-success'} } ) }}
 
         {{form_end(ContenuForm)}}
     </div>
+</div>
+
+<div class="col-10 mx-auto">
+<hr class="bg-info">
 </div>
 
 <div>
@@ -91,13 +105,13 @@
                     </td>
 
                     <td class="col-1 text-center"> <a class="text-warning h3"
-                        href="{{ path('update_presentation', {id : presentation.id } ) }}">
-                        <i class="fas fa-edit"></i> </a> </td>
-                <td class="col-1 text-center"> <a class="text-danger h3"
-                        href="{{ path('delete_presentation', {id : presentation.id } ) }}"
-                        onclick="return confirm('Etes-vous certain(e) de vouloir supprimer le texte de présentation ?')">
-                        <i class="fas fa-trash-alt"></i>
-                    </a> </td>
+                            href="{{ path('update_presentation', {id : presentation.id } ) }}">
+                            <i class="fas fa-edit"></i> </a> </td>
+                    <td class="col-1 text-center"> <a class="text-danger h3"
+                            href="{{ path('delete_presentation', {id : presentation.id } ) }}"
+                            onclick="return confirm('Etes-vous certain(e) de vouloir supprimer le texte de présentation ?')">
+                            <i class="fas fa-trash-alt"></i>
+                        </a> </td>
                 </tr>
                 {% endfor %}
 
@@ -115,16 +129,16 @@
                     </td>
 
                     <td class="col-1 text-center"> <a class="text-success h3"
-                        href="{{ path('affichage_presentation', {id : presentation.id } ) }}">
-                        <i class="fas fa-upload"></i> </a> </td>
-                <td class="col-1 text-center"> <a class="text-warning h3"
-                        href="{{ path('update_presentation', {id : presentation.id } ) }}">
-                        <i class="fas fa-edit"></i> </a> </td>
-                <td class="col-1 text-center"> <a class="text-danger h3"
-                        href="{{ path('delete_presentation', {id : presentation.id } ) }}"
+                            href="{{ path('affichage_presentation', {id : presentation.id } ) }}">
+                            <i class="fas fa-upload"></i> </a> </td>
+                    <td class="col-1 text-center"> <a class="text-warning h3"
+                            href="{{ path('update_presentation', {id : presentation.id } ) }}">
+                            <i class="fas fa-edit"></i> </a> </td>
+                    <td class="col-1 text-center"> <a class="text-danger h3"
+                            href="{{ path('delete_presentation', {id : presentation.id } ) }}"
                             onclick="return confirm('Etes-vous certain(e) de vouloir supprimer le texte de présentation ?')">
-                        <i class="fas fa-trash-alt"></i>
-                    </a> </td>
+                            <i class="fas fa-trash-alt"></i>
+                        </a> </td>
                 </tr>
                 {% endfor %}
 

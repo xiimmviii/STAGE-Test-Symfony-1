@@ -32,3 +32,19 @@ LOGIN
     border: none;
     background: #;
 }
+
+#icon-login
+{
+
+    fill: #1A9BAC;
+}
+
+#icon-login-head
+{
+    fill: white;
+}
+
+#icon-login-body
+{
+    fill: white;
+}
