@@ -72,7 +72,7 @@
                 </button>
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav mr-auto mx-auto">
+                    <ul class="navbar-nav mr-auto mx-auto text-center">
                         <li class="nav-item nav-ind mx-3">
                             <a class="nav-link font-weight-bold" href="{{path('index')}}">
                                 <i class="fas fa-home"></i>
@@ -97,8 +97,24 @@
                                 Contact
                             </a>
                         </li>
+{% if is_granted('ROLE_ADMIN')%}
+                        <li class="nav-item nav-cont mx-3">
+                            <a class="nav-link font-weight-bold" href="{{path('admin')}}">
+                                <i class="fas fa-user-cog"></i>
+                                ESPACE ADMIN
+                            </a>
+                        </li>
+                        {% endif %}
                     </ul>
                 </div>
+                <div class="col-1 justify-content-end"> 
+                <a href="{{specificites.instagram}}" alt="Instagram" class="smallicons p-2">
+                                        <i class="fab fa-instagram"></i>
+                                    </a> 
+                                    <a href="{{specificites.facebook}}" alt="Facebook" class="smallicons p-2">
+                                        <i class="fab fa-facebook-square"></i>
+                                    </a>
+                                    </div>
             </nav>
 
 

@@ -27,14 +27,15 @@ input {
     color: black;
 }
 
-a.icons {
+a.icons{
     color: #ECC94B!important;
 }
 
-a.icons:hover {
+a.icons:hover, a.smallicons:hover {
     color: rgb(71, 71, 71)!important;
     text-decoration: none;
 }
+
 
 
 /* -------------------------------------
