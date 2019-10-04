@@ -5,15 +5,24 @@ body
 }
 
 .container-fluid,
+.container,
+.row {
+    padding: 0px !important;
+}
+
+nav a:hover
 {
-    margin: 0!important;
-    padding : 0!important;
+    font-weight: bold;
 }
 
-.row { 
-    padding: 0!important;
-}
 
+
+
+.deco
+{
+    color: #D95B14!important;
+    font-size: 1.5rem;
+}
 /* ------------------------------------
 
 LOGIN
@@ -47,4 +56,18 @@ LOGIN
 #icon-login-body
 {
     fill: white;
+}
+
+
+
+/* ------------------------------------
+
+présentation
+
+--------------------------------------- */
+
+#icon-info
+{
+    fill:  #A0813B;
+    height: 10vh;
 }
