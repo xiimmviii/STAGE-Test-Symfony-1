@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le :  ven. 04 oct. 2019 à 08:47
+-- Généré le :  sam. 05 oct. 2019 à 16:26
 -- Version du serveur :  5.7.26
 -- Version de PHP :  7.3.5
 
@@ -21,25 +21,6 @@ SET time_zone = "+00:00";
 --
 -- Base de données :  `stage-test-symfony-1`
 --
-
--- --------------------------------------------------------
-
---
--- Structure de la table `contact`
---
-
-DROP TABLE IF EXISTS `contact`;
-CREATE TABLE IF NOT EXISTS `contact` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `nom` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `prenom` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `societe` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `telephone` varchar(17) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `objet` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `message` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -87,7 +68,7 @@ CREATE TABLE IF NOT EXISTS `couleur` (
 --
 
 INSERT INTO `couleur` (`id`, `couleur`, `date_affichage`) VALUES
-(1, 'jaune', '02-10-2019');
+(1, 'jaune', '05/10/2019');
 
 -- --------------------------------------------------------
 
@@ -123,38 +104,6 @@ INSERT INTO `entreprise` (`id`, `nom`, `statut_rcs`, `adresse`, `cp`, `ville`, `
 -- --------------------------------------------------------
 
 --
--- Structure de la table `galerie`
---
-
-DROP TABLE IF EXISTS `galerie`;
-CREATE TABLE IF NOT EXISTS `galerie` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `nom` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `description` longtext COLLATE utf8mb4_unicode_ci,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Déchargement des données de la table `galerie`
---
-
-INSERT INTO `galerie` (`id`, `nom`, `description`) VALUES
-(5, 'GALERIE TEST 1', '<p>pjgvoevjemoihg epb dilb dfk;n doflhb sodfhin glkvn cvk;n ifeuhb efoibh foqsihklgfksdflksdbdf olhdvkbjn lvxc:jnbsdlfbnlkvbndklnbfhneoofgvh jcvo&egrave;bjodfiv nfiskvbskjfnbasfbvb fdbodffosuhUHFVSLVNX.BNKLBN HGDUIHBHOFHB BOHBFDIHBDFIHBDFIBHDFIBHDFIBDIHBS VBBHB UGOVUV? KUF?NXNVXVBVXVBVBVBVBVB ISSIUHCXHVXIKBV</p>'),
-(6, 'GALERIE TEST 2', '<p>DS?NVKD Iob ouibfds obibj vjbib oaqzs ,cn,vn oeihgrug vubjkjbv vfhisdbj jvb khjr bfhb seybyfbhbyh gbg g hfibgibhfg ibhbhu g hihbibi hbihbihb svupsv kclnnwxn vjbvzi uvhd&nbsp;ziufsldkfkdjkghksjfs;nx,xcvb uhizhvskn n vhkjsvb ohvdivd bvjdvbd&nbsp; dvhidvb iduvhiduv&nbsp;</p>'),
-(7, 'Galerie TEST 3', '<p>kjvdj v zkvb ksjbv kjvb svui iquf hfvbb hs&nbsp; vbcjbhv iuhzgh ghg od spcv&nbsp; u ijfhbdkjbdkj ofihb iuhbdfb db fubh ihuhvhv ghb b hbbh</p>'),
-(8, 'iefhzeig', '<p>jhfbhbrhvvvh</p>'),
-(9, 'ahfgzejhfuzef', '<p>jhzbjhbzjhebh</p>'),
-(10, 'jzfhbejfbzjvf', '<p>jhbzfjhfbjzhfbzjhbf</p>'),
-(11, 'zfbzjhfvzjhfzjhvf', '<p>jfbcjhfvjfzjfzfvfzfgv</p>'),
-(12, 'fnbfvzdhfvzhv', '<p>bvbv nbv nbvnbvbv</p>'),
-(13, 'dvsjhvbsjhvb', '<p>sbv snbvsdnbvds,b&nbsp;</p>'),
-(14, 'sjdhvbsjdhfbsjdhv', '<p>sdbvfsdbvfshdv&nbsp;</p>'),
-(15, 'sdnbfsndbfsdfvsnsbf', '<p>jsdhdhdfbsdjhbfjsdhbjsdhfs</p>'),
-(16, 'nfsgbfbgfndgb', '<p>fnbvg fdngbdfbgdfngb&nbsp;</p>');
-
--- --------------------------------------------------------
-
---
 -- Structure de la table `migration_versions`
 --
 
@@ -164,15 +113,6 @@ CREATE TABLE IF NOT EXISTS `migration_versions` (
   `executed_at` datetime NOT NULL COMMENT '(DC2Type:datetime_immutable)',
   PRIMARY KEY (`version`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Déchargement des données de la table `migration_versions`
---
-
-INSERT INTO `migration_versions` (`version`, `executed_at`) VALUES
-('20190923062313', '2019-09-23 06:23:40'),
-('20190923070546', '2019-09-23 07:05:55'),
-('20190923080344', '2019-09-23 08:04:01');
 
 -- --------------------------------------------------------
 
@@ -203,27 +143,17 @@ INSERT INTO `partenaires` (`id`, `nom_partenaire`, `site_partenaire`, `logo`) VA
 -- --------------------------------------------------------
 
 --
--- Structure de la table `photo`
+-- Structure de la table `photos`
 --
 
-DROP TABLE IF EXISTS `photo`;
-CREATE TABLE IF NOT EXISTS `photo` (
+DROP TABLE IF EXISTS `photos`;
+CREATE TABLE IF NOT EXISTS `photos` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `galerie` int(11) DEFAULT NULL,
+  `nom_galerie` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description_galerie` longtext COLLATE utf8mb4_unicode_ci,
   `photo` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `date_affichage` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `IDX_14B784189E7D1590` (`galerie`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Déchargement des données de la table `photo`
---
-
-INSERT INTO `photo` (`id`, `galerie`, `photo`, `date_affichage`) VALUES
-(5, 5, 'photo_1570109780_56352_electrician-2755682_1920.jpg', NULL),
-(6, 5, 'photo_1570109808_80368_electricity-3962788_1920.jpg', NULL),
-(7, 6, 'photo_1570109983_42678_switchgear-2069791_1920.jpg', NULL);
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -317,16 +247,6 @@ CREATE TABLE IF NOT EXISTS `user` (
 INSERT INTO `user` (`id`, `email`, `password`, `role`) VALUES
 (1, 'admin@test.com', '$argon2i$v=19$m=65536,t=4,p=1$ZVp2WElaUTBoOGJIS3pncg$5pB9LwkGh35Zwl1hmXKc9e3fhKHjiZ8xx9xf3oh/WII', 'ROLE_ADMIN'),
 (2, 'superadmin@test.com', '$argon2i$v=19$m=65536,t=4,p=1$SGVYRkljUm94MmhqWnVHeQ$L8I/gwjnoiAQwaQADM3DAPXO6pyTHgIgqFr/bLWqreY', 'ROLE_SUPER_ADMIN');
-
---
--- Contraintes pour les tables déchargées
---
-
---
--- Contraintes pour la table `photo`
---
-ALTER TABLE `photo`
-  ADD CONSTRAINT `FK_14B784189E7D1590` FOREIGN KEY (`galerie`) REFERENCES `galerie` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

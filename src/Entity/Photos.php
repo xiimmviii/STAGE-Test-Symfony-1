@@ -2,14 +2,13 @@
 
 namespace App\Entity;
 
-use Serializable;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\PhotoRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\PhotosRepository")
  */
-class Photo implements \Serializable
+class Photos implements \Serializable
 {
     /**
      * @ORM\Id()
@@ -21,33 +20,49 @@ class Photo implements \Serializable
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $photo = 'default.jpg';
+    private $NomGalerie;
 
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $DescriptionGalerie;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $photo;
 
     private $file;
-    // On ne mappe pas cette propriété car elle n'existe pas dans la BDD. Elle va juste servir à récupérer les octets qui constituent l'image. 
+    // On ne mappe pas cette propriété car elle n'existe pas dans la BDD. Elle va juste servir à récupérer les octets qui constituent l'image.
 
-
-    /**
-     * C'est grâce à ce code que l'on fait le lien entre cette table et la table "galerie"
-     * Chaque photo appartient à une et une seule galerie
-     * 
-     * 
-     * @ORM\ManyToOne(targetEntity="Galerie", inversedBy="photos")
-     * @ORM\JoinColumn(name="galerie", referencedColumnName="id")
-     *                 clé étrangère         clé primaire
-     * 
-     */
-    private $galerie;
-
-    /**
-     * @ORM\Column(type="string", nullable=true)
-     */
-    private $dateAffichage;
 
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function getNomGalerie(): ?string
+    {
+        return $this->NomGalerie;
+    }
+
+    public function setNomGalerie(string $NomGalerie): self
+    {
+        $this->NomGalerie = $NomGalerie;
+
+        return $this;
+    }
+
+    public function getDescriptionGalerie(): ?string
+    {
+        return $this->DescriptionGalerie;
+    }
+
+    public function setDescriptionGalerie(?string $DescriptionGalerie): self
+    {
+        $this->DescriptionGalerie = $DescriptionGalerie;
+
+        return $this;
     }
 
     public function getPhoto(): ?string
@@ -61,32 +76,6 @@ class Photo implements \Serializable
 
         return $this;
     }
-
-    public function getGalerie()
-    {
-        return $this->galerie;
-    }
-
-    public function setGalerie($galerie): self
-    {
-        $this->galerie = $galerie;
-
-        return $this;
-    }
-
-
-    public function getDateAffichage(): ?string
-    {
-        return $this->dateAffichage;
-    }
-
-    public function setDateAffichage(string $dateAffichage): self
-    {
-        $this->dateAffichage = $dateAffichage;
-
-        return $this;
-    }
-
 
 
     //------------------------------------- FONCTION POUR LA PHOTO -------------------------
@@ -140,7 +129,7 @@ class Photo implements \Serializable
             unlink($file);
         }
     }
-    //------------------------------------- /FONCTION POUR LA PHOTO ------------------------------------------------
+    //---------------------------------------------------------------------------------
 
 
     public function serialize()
