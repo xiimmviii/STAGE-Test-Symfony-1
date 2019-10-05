@@ -35,6 +35,12 @@ class Photos implements \Serializable
     private $file;
     // On ne mappe pas cette propriété car elle n'existe pas dans la BDD. Elle va juste servir à récupérer les octets qui constituent l'image.
 
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $dateAffichage;
+
+
 
     public function getId(): ?int
     {
@@ -73,6 +79,18 @@ class Photos implements \Serializable
     public function setPhoto(string $photo): self
     {
         $this->photo = $photo;
+
+        return $this;
+    }
+
+    public function getDateAffichage(): ?string
+    {
+        return $this->dateAffichage;
+    }
+
+    public function setDateAffichage(string $dateAffichage): self
+    {
+        $this->dateAffichage = $dateAffichage;
 
         return $this;
     }

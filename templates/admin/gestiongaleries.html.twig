@@ -30,20 +30,20 @@
         <h1>Créer une galerie</h1>
         <hr>
 
-        {% set totalGaleries2 = totalGaleries.0 %}
-        {# {{dump (totalGaleries2.1)}} #}
+        {# {% set totalGaleries2 = totalGaleries.0 %}
+        {{dump (totalGaleries2.1)}} #}
 
-        {% if totalGaleries2.1 < 10 %}
+        {# {% if totalGaleries2.1 < 10 %} #}
 
-        {{ form_start(galerieForm) }}
-        {{ form_end(galerieForm) }}
+        {{ form_start(photosForm) }}
+        {{ form_end(photosForm) }}
 
 
-        {% else %}
+        {# {% else %} #}
 
-        Vous avez atteint la limite de 10 galeries autorisées, supprimez-en une pour pouvoir en créer une nouvelle.
+        {# Vous avez atteint la limite de 10 galeries autorisées, supprimez-en une pour pouvoir en créer une nouvelle.
 
-        {% endif %}
+        {% endif %} #}
     </div>
 </div>
 
@@ -57,9 +57,10 @@
             <div class="row text-center">
                 {% for galerie in galeries %}
                 <div class="card col-md-2 m-3">
-                    {{ galerie.nom }}
-                    {{ galerie.description | raw }}
-                    <a class="btn btn-sucess" href="{{ path('modifiergalerie', {id : galerie.id } ) }}">
+                    {{ galerie.nomGalerie }}
+                    {{ galerie.descriptionGalerie | raw }}
+                    <img class=" card-img-top" src="{{ asset('/photo/' ~ galerie.photo) }}" alt="">
+                    <a class="card-footer bg-warning text-decoration-none text-light" href="{{ path('modifiergalerie', {id : galerie.id } ) }}">
                         <i class="fas fa-trash-alt mx-2"></i> Modifier la galerie
                     </a>
                     <a class="card-footer bg-danger text-decoration-none text-light"
