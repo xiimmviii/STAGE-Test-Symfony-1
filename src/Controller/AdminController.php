@@ -3,13 +3,15 @@
 namespace App\Controller;
 
 
-use App\Entity\Photos;
+use App\Entity\Photo;
 use App\Entity\Tarifs;
 use App\Entity\Contenu;
 use App\Entity\Couleur;
-use App\Form\PhotosType;
+use App\Entity\Galerie;
+use App\Form\PhotoType;
 use App\Form\TarifsType;
 use App\Form\ContenuType;
+use App\Form\GalerieType;
 use App\Entity\Entreprise;
 use App\Entity\Partenaires;
 use App\Entity\Specificites;
@@ -18,9 +20,11 @@ use App\Form\PartenairesType;
 use App\Form\SpecificitesType;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Validator\Constraints\Date;
+use Symfony\Component\Validator\Constraints\DateTime;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Response;
 
 
 
@@ -137,10 +141,10 @@ class AdminController extends AbstractController
     public function gestionGaleries(Request $request)
     {
         // On crée un objet vide qu'on pourra ensuite réutiliser
-        $galerie = new Photos;
+        $galerie = new Galerie;
 
-        // On créé la vue d'un formulaire qui provient du dossier FORM > PhotoType.php 
-        $form = $this->createForm(PhotosType::class, $galerie);
+        // On créé la vue d'un formulaire qui provient du dossier FORM > GalerieType.php 
+        $form = $this->createForm(GalerieType::class, $galerie);
         // On récupère les infos saisies dans le formulaire ($_POST)
         $form->handleRequest($request);
 
@@ -149,53 +153,47 @@ class AdminController extends AbstractController
 
             $manager = $this->getDoctrine()->getManager();
 
-            // On enregistre la $photo dans le système 
+            // On enregistre la galerie dans le système 
             $manager->persist($galerie);
 
-            // On enregistre la photo en BDD et sur le serveur. 
-            // On émet une condition >> Si il y a un fichier sélectionné, alors on l'envoie 
-            if ($galerie->getFile() != NULL) {
-                $galerie->uploadFile();
-            }
-
-            // On enregistre la photo en BDD 
+            // On enregistre la galerie en BDD 
             $manager->flush();
 
             // On affiche le message si l'action est réussie 
-            $this->addFlash('success', 'La galerie a bien été créée!');
+            $this->addFlash('success', 'La galerie a bien été créée !');
 
-            // On retourne à la vue >> Admin > gestiongaleries 
+            // On retourne à la vue >> Admin > GaleriePhoto 
             return $this->redirectToRoute('gestiongaleries');
         }
 
         // ----------------------------------------------------------------------
 
-        // //On veut limiter le nombre de galeries possible à 10. 
+        //On veut limiter le nombre de galeries possible à 10. 
 
-        // // On récupère le manager
-        // $em = $this->getDoctrine()->getManager();
-
-        // // On va dans l'entité Galerie
-        // $repo = $em->getRepository(Galerie::class);
-
-        // // On fait une requête pour compter combien de galeries il y a dans la table Galerie (galerie = g)
-        // $totalGaleries = $repo->createQueryBuilder('g')
-        //     //on séléctionne comment on compte les lignes (par l'id)
-        //     ->select('count(g.id)')
-        //     ->getQuery()
-        //     ->getResult();
+        // On récupère le manager
+        $em = $this->getDoctrine()->getManager();
+        
+        // On va dans l'entité Galerie
+        $repo = $em->getRepository(Galerie::class);
+        
+        // On fait une requête pour compter combien de galeries il y a dans la table Galerie (galerie = g)
+        $totalGaleries = $repo->createQueryBuilder('g')
+            //on séléctionne comment on compte les lignes (par l'id)
+            ->select('count(g.id)')
+            ->getQuery()
+            ->getResult();
+        
+        // 4. Return a number as response
+        // e.g 972
+        // return new Response($totalGaleries);
+        // $totalGaleries2 =  $totalGaleries;
 
         // ----------------------------------------------------------------------
 
         // On récupère toutes les galeries déjà dans la BDD
-        $repository = $this->getDoctrine()->getRepository(Photos::class);
+        $repository = $this->getDoctrine()->getRepository(Galerie::class);
         // Le findAll permet de récupérer toutes les informations stockées en BDB 
         $galeries = $repository->findAll();
-
-        //CLASSER LES GALERIES PAR NOMGALERIE ????
-        //FAIRE UN SLICE DANS LE FOR : AFFICHER NOMGAERIE, DESCR. ET PHOTO POUR LE 0-1 (AVEC FILTER BY DATEAFFICHAGE POUR PHOTO DE COUVERTURE) + AFFICHER SEULEMENT PHOTO POUR LE 1-4
-
-        
 
         // ----------------------------------------------------------------------
 
@@ -212,12 +210,12 @@ class AdminController extends AbstractController
         );
 
         return $this->render('admin/gestiongaleries.html.twig', [
-            'photosForm' => $form->createView(),
+            'galerieForm' => $form->createView(),
             'entreprise' => $entreprise,
             'specificites' => $specificites,
             'galeries' => $galeries,
             'couleurs' => $couleurs,
-            // 'totalGaleries' => $totalGaleries,
+            'totalGaleries' => $totalGaleries,
         ]);
     }
 
