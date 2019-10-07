@@ -4,13 +4,18 @@ namespace App\Form;
 
 use App\Entity\Galerie;
 
+use App\Form\PhotoType;
 use Symfony\Component\Form\AbstractType;
 use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Validator\Constraints as Assert; 
+use Symfony\Component\Validator\Constraints\Image;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 
 class GalerieType extends AbstractType
 {
@@ -24,6 +29,11 @@ class GalerieType extends AbstractType
             // Required permet de préciser si le contenu est obligatoire (true) ou non (false)
             ->add('description', CKEditorType::class)
 
+            ->add('pictureFiles', FileType::class,[
+                'required' => 'true',
+                // 'multiple' => 'true', 
+            ])
+
             
             ->add('submit', SubmitType::class);
         ;
@@ -32,7 +42,7 @@ class GalerieType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-
+            'data_class' => Galerie::class,
         ]);
     }
 }

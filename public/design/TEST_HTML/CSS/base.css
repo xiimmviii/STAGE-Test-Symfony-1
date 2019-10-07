@@ -1,7 +1,196 @@
 body {
     font-family: 'Raleway', sans-serif;
+    overflow-x: hidden;
+    margin: 0px !important;
+    padding: 0px !important;
 }
 
-.navbar {
-padding: 2rem;
+.container-fluid,
+.container,
+.row {
+    padding: 0px !important;
 }
+
+svg {
+    margin: 0 auto;
+}
+
+/* -----------------------------------
+BASE
+-------------------------------------- */
+
+.link-box {
+    right: 0;
+    top: 40%;
+    position: fixed;
+}
+
+.link-item {
+    text-align: center;
+    padding: 10px;
+    margin-right: 20px;
+    margin-bottom: 10px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    font-size: 1.2em;
+    z-index: 999;
+    box-shadow: 2px 2px 5px dimgrey;
+}
+
+/* -----------------------------------
+MAIN
+-------------------------------------- */
+
+
+.main-bg {
+    background-color: #14405a;
+    background: url('../BASE/anton-dmitriev-kBKOaghy8mU-unsplash.jpg') fixed no-repeat;
+    background-size: cover;
+}
+
+.main-contact {
+    background-color: white;
+    border-radius: 2rem;
+    margin-top: 8rem;
+    margin-bottom: 8rem;
+}
+
+.section-bg {
+    background-color: #14405a;
+    background: url('../BASE/electricity-energy-low-angle-shot-323133.jpg') fixed no-repeat;
+    background-size: cover;
+}
+
+
+/* -----------------------------------
+ELEMENTS
+-------------------------------------- */
+
+.btn {
+    text-transform: uppercase;
+    border-radius: 1rem;
+    font-weight: bold;
+    padding-left: 3vw;
+    padding-right: 3vw;
+}
+
+
+.lightning {
+    width: 50%;
+    height: 5vh;
+    padding: 10px 20px 10px 10px;
+    font-size: 20px;
+    position: relative;
+    color: #FFF;
+    background: rgb(255, 255, 255);
+    margin-top:
+}
+
+.lightning:after {
+    content: " ";
+    position: absolute;
+    display: block;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 2;
+    background: rgb(255, 255, 255);
+    transform-origin: bottom left;
+    transform: skew(-50deg, 0deg);
+    -ms-transform: skew(-50deg, 0deg);
+    -webkit-transform: skew(-50deg, 0deg);
+}
+
+.lightning2 {
+    width: 50%;
+    margin-left: 50%;
+    height: 5vh;
+    padding: 10px 20px 10px 10px;
+    font-size: 20px;
+    position: relative;
+    color: #FFF;
+    background: rgb(255, 255, 255);
+}
+
+.lightning2:after {
+    content: " ";
+    position: absolute;
+    display: block;
+    width: 100%;
+     height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 999;
+    background: rgb(255, 255, 255);
+    transform-origin: top right;
+    transform: skew(-50deg, 0deg);
+    -ms-transform: skew(-50deg, 0deg);
+    -webkit-transform: skew(-50deg, 0deg);
+}
+
+.textbox {
+    border-top-left-radius: 2rem;
+    border-top-right-radius: 2rem;
+    position: relative;
+    bottom: 0;
+}
+
+.competence {
+    font-size: 1rem;
+    margin: 0 auto;
+}
+
+.boutontext {
+    font-size: 1.5rem;
+    text-transform: lowercase;
+    letter-spacing: 2px;
+}
+
+.icons {
+    font-size: 4rem;
+}
+
+.copyright {
+    font-size: 0.75rem;
+}
+/* -----------------------------------
+GENERAL
+-------------------------------------- */
+
+/* -----------------------------------
+TEST -- VAGUE
+-------------------------------------- */
+
+.bgvague {
+    background: blue;
+    width: 100%;
+    height: 50px;
+  }
+  
+  #oval1 {
+     width: 100%; 
+     height: 100px; 
+     background: blue; 
+     -moz-border-radius: 200px / 70px; 
+     -webkit-border-radius: 200px / 70px; 
+     border-radius: 200px / 70px;
+     position: absolute;
+     margin-top: -55px;
+     margin-left: -50%;
+     transform: rotate(1deg);
+  }
+  
+  #oval2 {
+     width: 57%; 
+     height: 90px; 
+     background: white; 
+     -moz-border-radius: 200px / 70px; 
+     -webkit-border-radius: 200px / 70px; 
+     border-radius: 200px / 70px;
+     position: absolute;
+     top: 20px;
+     left: 50%;
+     transform: rotate(5deg);
+  }

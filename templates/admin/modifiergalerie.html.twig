@@ -1,0 +1,67 @@
+{% extends 'admin/baseadmin.html.twig' %}
+
+{% block content %}
+
+<div class="row mt-4 pt-4">
+    <div class="col-md-6 col-sm-8 mx-auto alert-info border border-info rounded m-3 p-3">
+        <h2>
+            Galerie de vos réalisations
+        </h2>
+        <hr>
+        <p>Dans cette section vous pourrez ajouter/supprimer les photos de vos réalisations.</p>
+
+    </div>
+</div>
+
+<div class="row m-4 justify-content-center">
+    <div
+        class="col-lg-4 col-md-3 col-sm-10 alert-warning border border-warning rounded m-3 p-3 order-md-5 order-lg-5 text-justify">
+        <center>
+            <h1>
+                <i class="fas fa-info-circle"></i>
+            </h1>
+        </center>
+        <hr>
+        Cette partie vous sert à ajouter des photos dans la galerie de vos réalisations.
+        <br> Vous ne pouvez ajouter <u>qu'une seule</u> photo à la fois. La description est obligatoire et elle
+        s'affiche lorsque les clients clique sur la photo pour la voir en plus grand.
+        Il vous suffit de choisir votre photo, inscrire la descrption et envoyer le formulaire pour que votre photo
+        apparaisse immédiatement dans la galerie.
+        <hr> Ci-dessous, vous pouvez supprimer les photos individuelles. <strong>Toute suppression est
+            irréversible.</strong>
+    </div>
+
+    <div class="col-lg-6 col-md-8 col-sm-10 rounded border m-3 p-3 order-md-0 order-lg-0 text-center">
+
+        <h1>Modifier la galerie</h1>
+        <hr>
+        {{ form_start(galerieForm) }}
+
+        {{ form_end(galerieForm) }}
+
+    </div>
+
+</div>
+
+<div class="row">
+    <div class="col-md-10 mx-auto text-center">
+        <div class="row text-center">
+            {% for photo in photos %}
+            <div class="card col-md-2 m-3">
+                <img class=" card-img-top" src="{{ asset('/photo/' ~ photo.photo) }}" alt="">
+                <div class=" card-block">
+                </div>
+                <a class="card-footer bg-danger text-decoration-none text-light"
+                    href="{{ path('delete_photo', {id : photo.id } ) }}"
+                    onclick="return confirm('Etes-vous certain(e) de vouloir supprimer la photo ?')">
+                    <i class="fas fa-trash-alt mx-2"></i> Supprimer
+                </a>
+
+            </div>
+            {% endfor %}
+
+        </div>
+    </div>
+</div>
+
+{% endblock %}

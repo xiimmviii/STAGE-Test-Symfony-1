@@ -1,29 +1,28 @@
 {% extends 'base.html.twig' %}
 
 {% block content %}
+<section class="container-fluid mainbox bg2">
+    <h1 class="py-5 text-center">
+        Tarifs
+    </h1>
 
-<h1 class="text-center"> Tarifs </h1>
+    <div class="col-11 col-md-6 mx-auto pb-5">
 
 
-<div class="col-md-10 mx-auto">
 {% for tarif in tarifs %}
 
-
-<div class="row">
-    <div class="col-md-4 offset-2 text-right">{{tarif.prestation}}</div>
-    <div class="col-md-6">Tarif standard : {{tarif.tarifJour}}€ <br>
-        {% if tarif.tarifNuit != NULL%}
-        Tarif de nuit : {{tarif.tarifNuit}}€<br>
-        {% elseif tarif.tarifWeekend !=NULL %}
-        Tarif weekend : {{tarif.tarifWeekend}}€<br>
-        {% endif %}
+<div class="row justify-content-between p-2"> 
+    <div class="col-8 align-items-center"> <h4>{{tarif.prestation}}</h4> 
+    {% if tarif.description is not null %} 
+   <div class="text-justify"> <i> {{tarif.description}} </i></div>
+    {% endif %} </div>
+    <div class="col-3 justify-content-end align-items-center align-self-center h3 text-right"> {{tarif.tarif}} €</div>
     </div>
-</div>
-<br>
+    <hr>        
+  {% endfor %}
 
-{% endfor %}
-</div>
-
-
-
+    </div>
+</section>
 {% endblock %}
+
+

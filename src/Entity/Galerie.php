@@ -2,8 +2,10 @@
 
 namespace App\Entity;
 
+use App\Entity\Photo;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Validator\Constraints\Image;
 
 
 /**
@@ -39,18 +41,24 @@ class Galerie
      * C'est grâce à ce code qu'on fait le lien entre cette table et la table "photo"
      * Une galerie peut avoir en théorie 0 photos min  et N photos max => OnetoMany
      *
-     * @ORM\OneToMany(targetEntity="Photo", mappedBy="galerie")
-     *                                table       Clé étrangère
+     * @ORM\OneToMany(targetEntity="Photo", mappedBy="galerie", cascade="persist", orphanRemoval=true)
+     *                                table       Clé étrangère   permet de supprimer les photos contenues dans une galerie quand on supprime la galerie
      *
      *
      * Contient toutes les photos de la galerie (Array composé d'objets photo)
      */
     private $photos;
 
+    /**
+     * 
+     */
+    private $pictureFiles;
+
     public function getId(): ?int
     {
         return $this->id;
     }
+
 
     public function getNom(): ?string
     {
@@ -77,7 +85,35 @@ class Galerie
     }
 
 
-    //pour joindre les deux tables photo et galerie
+    /**
+     *@return mixed
+     */ 
+    public function getPictureFiles()
+    {
+        return $this->pictureFiles;
+    }
+
+    /**
+     * 
+     * @param mixed $pictureFiles
+     * 
+     */ 
+    public function setPictureFiles($pictureFiles): self
+    {
+
+        foreach ($pictureFiles as $pictureFile){
+            $photos = new Photo;
+            $photos->setFile($pictureFile);
+            $this->addPhotos($photos);
+        }
+        return $this;
+    }
+
+
+
+
+
+    //------------------------------pour joindre les deux tables photo et galerie
     public function addPhotos(Photo $photo): self
     {
         if (!$this->photos->contains($photo)) {
@@ -97,4 +133,6 @@ class Galerie
         $this->photos = $photos;
         return $this;
     }
+
+
 }

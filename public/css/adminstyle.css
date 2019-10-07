@@ -1,0 +1,73 @@
+body
+{
+    overflow-x: hidden;
+    background-color: #F4FAFD;
+}
+
+.container-fluid,
+.container,
+.row {
+    padding: 0px !important;
+}
+
+nav a:hover
+{
+    font-weight: bold;
+}
+
+
+
+
+.deco
+{
+    color: #D95B14!important;
+    font-size: 1.5rem;
+}
+/* ------------------------------------
+
+LOGIN
+
+--------------------------------------- */
+
+.btnconnexion {
+    font-weight: bolder;
+    color: ;
+    border: 1px solid ;
+}
+
+.btnconnexion:hover {
+    font-weight: bolder;
+    color: white;
+    border: none;
+    background: #;
+}
+
+#icon-login
+{
+
+    fill: #1A9BAC;
+}
+
+#icon-login-head
+{
+    fill: white;
+}
+
+#icon-login-body
+{
+    fill: white;
+}
+
+
+
+/* ------------------------------------
+
+présentation
+
+--------------------------------------- */
+
+#icon-info
+{
+    fill:  #A0813B;
+    height: 10vh;
+}
