@@ -24,22 +24,24 @@ class HorairesType extends AbstractType
             // Required permet de préciser si le contenu est obligatoire (true) ou non (false)
             
             ->add('Ouverture', TimeType::class, [
-                'input'  => 'timestamp',
+                'input'  => 'datetime_immutable',
                 'widget' => 'choice',
                 'required' => true
             ])
             ->add('Fermeture', TimeType::class, [
-                'input'  => 'timestamp',
+                'input'  => 'datetime_immutable',
                 'widget' => 'choice',
                 'required' => true
             ])
             ->add('Debut_Pause', TimeType::class, [
-                'input'  => 'timestamp',
+                'input'  => 'datetime',
                 'widget' => 'choice',
+                'required' => false
             ])
             ->add('Fin_Pause', TimeType::class, [
-                'input'  => 'timestamp',
+                'input'  => 'datetime',
                 'widget' => 'choice',
+                'required' => false
             ])
             
             

@@ -161,9 +161,16 @@
                             <a href="mailto:{{entreprise.mailContact}}" class="footermail">
                                 {{entreprise.mailContact}}</a>
                         </div>
-<div class="col-10 col-md-3"> {% for horaire in horaires %}
-    {{horaires.jour}}
-    {% endfor %}
+<div class="col-10 col-md-3"> <table class="p-3">{% for horaire in horaires %}<tr class="p2 align-items-center" style="border-bottom: 1px solid lightgrey;">
+<td class="pr-3"> <b>   {{horaire.jour}} </b></td> 
+<td> 
+    {% if horaire.debutPause is not null %}
+    {{horaire.ouverture |date('H:i')}} - {{horaire.debutPause |date('H:i')}} <br> {{horaire.finPause |date('H:i')}} - {{horaire.fermeture |date('H:i')}}
+    {% else %}
+    {{horaire.ouverture |date('H:i')}} - {{horaire.fermeture |date('H:i')}}
+    {% endif %}</td> 
+</tr>
+    {% endfor %} </table>
     </div>
                         <div class="col-10 col-md-3 justify-content-center">
 

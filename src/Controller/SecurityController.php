@@ -51,6 +51,7 @@ class SecurityController extends AbstractController
         'error' => $error, 
         'entreprise' => $entreprise,
         'specificites' => $specificites,
+        'horaires' => $horaires,
         'couleurs' => $couleurs  
         ]);
 
