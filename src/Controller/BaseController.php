@@ -8,6 +8,7 @@ use App\Entity\Contact;
 use App\Entity\Contenu;
 use App\Entity\Couleur;
 use App\Entity\Galerie;
+use App\Entity\Horaires;
 use App\Form\ContactType;
 use App\Entity\Entreprise;
 use App\Entity\Partenaires;
@@ -32,6 +33,9 @@ class BaseController extends AbstractController
         $repository = $this->getDoctrine()->getRepository(Partenaires::class);
         $logos = $repository->findAll();
 
+        $repository = $this->getDoctrine()->getRepository(Horaires::class);
+        $horaires = $repository->findAll();
+        
         $repository = $this->getDoctrine()->getRepository(Entreprise::class);
         $entreprise = $repository->findOneById(1);
 
@@ -97,6 +101,7 @@ class BaseController extends AbstractController
             'historique' => $historique,
             'logos' => $logos, 
             'couleurs' => $couleurs,
+            'horaires' => $horaires,
             'form' => $form->createView()
         ]);
     }

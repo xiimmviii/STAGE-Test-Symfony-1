@@ -145,7 +145,7 @@
                 <div class="informations p-5">
                     <div class="row justify-content-center">
 
-                        <div class="col-10 col-md-5">
+                        <div class="col-10 col-md-4">
                             <h3>{{entreprise.nom}}
                             </h3>
                             <br>
@@ -161,8 +161,11 @@
                             <a href="mailto:{{entreprise.mailContact}}" class="footermail">
                                 {{entreprise.mailContact}}</a>
                         </div>
-
-                        <div class="col-10 col-md-5 justify-content-center">
+<div class="col-10 col-md-3"> {% for horaire in horaires %}
+    {{horaires.jour}}
+    {% endfor %}
+    </div>
+                        <div class="col-10 col-md-3 justify-content-center">
 
                             <div class="row justify-content-center">
                                 <div class="col-10 text-center">
