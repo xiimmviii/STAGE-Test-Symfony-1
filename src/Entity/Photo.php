@@ -24,11 +24,6 @@ class Photo implements \Serializable
      */
     private $photo = 'default.jpg';
 
-    /**
-     * 
-     * @ORM\Column(type="text", nullable=true)
-     */
-    private $description;
 
     private $file;
     // On ne mappe pas cette propriété car elle n'existe pas dans la BDD. Elle va juste servir à récupérer les octets qui constituent l'image. 
@@ -117,27 +112,6 @@ class Photo implements \Serializable
     }
 
 
-    /**
-     * Getter for Description
-     *
-     * @return [type]
-     */
-    public function getDescription()
-    {
-        return $this->description;
-    }
-
-    /**
-     * Setter for Descrption
-     * @var [type] description
-     *
-     * @return self
-     */
-    public function setDescription($description)
-    {
-        $this->message = $description;
-        return $this;
-    }
 
 
     //------------------------------------- FONCTION POUR LA PHOTO -------------------------
