@@ -56,6 +56,11 @@ class ContactType extends AbstractType
             [
                 'constraints' => new Length(['min' => 25,])
             ])
+            ->add('idMail', TextType::class, [
+                // Constraints permet ici de limiter la longueur minimale et maximale de ce qui peut être envoyé
+                'constraints' => new Length(['min' => 2, 'max' => 35])
+            ]
+            )
 
         ;
     }

@@ -225,5 +225,36 @@ public function setPrenom($prenom)
       return $this;
   }
 
+
+    /**
+     * 
+     * @var string|null
+     * @Assert\NotBlank()
+     * @Assert\Length(min=2, max=35)
+     */
+    private $idMail;
+
+/**
+ * Getter for ID_mail
+ *
+ * @return [type]
+ */
+public function getIdMail()
+{
+    return $this->idMail;
+}
+
+/**
+ * Setter for ID_Mail
+ * @var [type] idMail
+ * exactMessage = "Vous devez renseigner {{ limit }} caractères"
+ * @return self
+ */
+public function setIdMail($idMail)
+{
+    $this->idMail = $idMail;
+    return $this;
+}
+
   
 }
