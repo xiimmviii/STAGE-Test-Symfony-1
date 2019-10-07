@@ -54,10 +54,9 @@
             </h2><hr>
             {{form_start(TarifsForm)}}
             {{ form_row(TarifsForm.prestation, { 'label' : 'Prestation *' } ) }}
-
-            {{ form_row(TarifsForm.tarif_jour, { 'label' : 'Tarif standard * ' } ) }}
-            {{ form_row(TarifsForm.tarif_nuit, { 'label' : 'Tarif de nuit' } ) }}
-            {{ form_row(TarifsForm.tarif_weekend, { 'label' : 'Tarif le week-end'} ) }}
+            {{ form_row(TarifsForm.description, { 'label' : ' Description : (Tarif de nuit, spécificités, etc...)' } ) }}
+            {{ form_row(TarifsForm.tarif, { 'label' : 'Tarif * ' } ) }}
+          
 
             {{ form_row(TarifsForm.submit, { 'label' : boutonenvoi, 'attr' : {'class': 'col-12 btn btn-success'} } ) }}
             {{form_end(TarifsForm)}}
@@ -72,13 +71,11 @@
                     <th class="col-4">
                         PRESTATION
                     </th>
-                    <th class="col-2">
-                        TARIF STANDARD
+                     <th class="col-4">
+                        DESCRIPTION
                     </th>
                     <th class="col-2">
-                        TARIF NUIT</th>
-                    <th class="col-2">
-                        TARIF WEEK-END
+                        TARIF STANDARD
                     </th>
                     <th class="col-1">
                         MODIFIER</th>
@@ -95,26 +92,14 @@
                         <td class="col-4">
                             {{tarif.prestation}}
                         </td>
+                        <td class="col-4">
+                            {{tarif.description}}
+                        </td>
                         <td class="col-2 text-center">
-                            {{tarif.tarifJour}}
+                            {{tarif.tarif}}
                             €
                         </td>
-                        <td class="col-2 text-center">
-                            {% if tarif.tarifNuit is null %} ---
-                                {% else %}
-                                    {{tarif.tarifNuit}}
-                                    €
-                            {% endif %}
-                        </td>
-                        <td class="col-2 text-center">
-                          {% if tarif.tarifWeekend is null %}
----
-                        
-                                {% else %}
-                            {{tarif.tarifWeekend}}
-                            €
-                            {% endif %}
-                        </td>
+                      
                         <td class="col-1 text-center">
                             <a class="text-warning h3" href="{{ path('update_tarifs-admin', {id : tarif.id } ) }}">
                                 <i class="fas fa-edit"></i>
