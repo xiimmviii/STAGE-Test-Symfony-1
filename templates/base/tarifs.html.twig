@@ -8,63 +8,18 @@
 
     <div class="col-11 col-md-6 mx-auto pb-5">
 
-<table width="100%" class="mx-auto table-responsive">
-<tr style="display: none;">
-<td>aaa</td>
-<td></td> 
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
+
 {% for tarif in tarifs %}
-<tr style=" margin: 1vh;">
-<td><div class="text-right h6"><b>{{tarif.prestation}}</b></div></td>
 
- {% if tarif.tarifNuit == NULL and tarif.tarifWeekend == NULL %}
-
-                    <td class="text-center" colspan="6" >
-                        <div class="tarif bg m-2">Tarif standard :
-                        <br><b> {{tarif.tarifJour}}€ </b>
-                        </div>
-                    </td>
-
-                {% elseif tarif.tarifWeekend == NULL %}
-
-                    <td class="text-center" colspan="3">
-                       <div class="tarif bg m-2"> Tarif standard :
-                       <br><b> {{tarif.tarifJour}}€ </b>
-                        </td>
-                    <td class="text-center" colspan="3">
-                       <div class="tarif bg m-2"> Tarif de nuit :
-                       <br><b> {{tarif.tarifNuit}}€ </b>
-                       </div>
-                        </td>
-
-                {% else %}
-                    <td class="text-center" colspan="2">
-                       <div class="tarif bg m-2"> Tarif standard :
-                       <br><b> {{tarif.tarifJour}}€ </b>
-                       </div>
-                        </td>
-                    <td class=" text-center " colspan="2">
-                       <div class="tarif bg m-2"> Tarif de nuit :
-                       <br><b> {{tarif.tarifNuit}}€ </b>
-                       </div>
-                        </td>
-                    <td class=" text-center " colspan="2">
-                       <div class="tarif bg m-2"> Tarif de week-end :
-                       <br><b> {{tarif.tarifWeekend}}€ </b>
-                       </div>
-                        </td>
-                {% endif %}
-
-
- </tr>
+<div class="row justify-content-between p-2"> 
+    <div class="col-8 align-items-center"> <h4>{{tarif.prestation}}</h4> 
+    {% if tarif.description is not null %} 
+   <div class="text-justify"> <i> {{tarif.description}} </i></div>
+    {% endif %} </div>
+    <div class="col-3 justify-content-end align-items-center align-self-center h3 text-right"> {{tarif.tarif}} €</div>
+    </div>
+    <hr>        
   {% endfor %}
-</table>
-
 
     </div>
 </section>

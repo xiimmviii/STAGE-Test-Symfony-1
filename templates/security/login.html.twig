@@ -1,104 +1,133 @@
 <!DOCTYPE html>
 <html lang="fr">
 
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta
-        http-equiv="X-UA-Compatible" content="ie=edge">
-        <!-- BOOTSTRAP -->
-        <link
-        rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-        <!-- FONT-AWESOME -->
-        <link
-        rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0-11/css/all.min.css">
-        <!-- CSS -->
-        <link rel="stylesheet" href="{{asset('/css/adminstyle.css')}}" type="text/css">
-        <link href="https://fonts.googleapis.com/css?family=Raleway:400,500,600,700&display=swap" rel="stylesheet">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!-- BOOTSTRAP -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <!-- FONT-AWESOME -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0-11/css/all.min.css">
+    <!-- CSS -->
+    <link rel="stylesheet" href="{{asset('/css/adminstyle.css')}}" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Raleway:400,500,600,700&display=swap" rel="stylesheet">
 
-        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-        <script>
-            $("document").ready(() => {
-                $("#jsflash").delay(1500).animate({
-                    opacity: 0
-                }, 1500, () => {
-                    $("#jsflash").css('display', 'none');
-                });
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+    <script>
+        $("document").ready(() => {
+            $("#jsflash").delay(1500).animate({
+                opacity: 0
+            }, 1500, () => {
+                $("#jsflash").css('display', 'none');
             });
-        </script>
-        <script src="https://cdn.jsdelivr.net/npm/bs-custom-file-input/dist/bs-custom-file-input.min.js"></script>
-        <script>
-            $(document).ready(function () {
-                bsCustomFileInput.init()
-            })
-        </script>
-        <title>
-            LOGIN - Electricien
-        </title>
-    </head>
+        });
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bs-custom-file-input/dist/bs-custom-file-input.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            bsCustomFileInput.init()
+        })
+    </script>
+    <title>
+        LOGIN - Electricien
+    </title>
+</head>
 
-    <body class="">
+<body class="">
 
-        <div class="row justify-content-center align-items-center align-self-center mx-auto text-center" style="margin-top: 20%;">
+    <div class="row justify-content-center align-items-center align-self-center mx-auto text-center"
+        style="margin-top: 20%;">
 
-            {% if error %}
-                <form
-                    method="post" class="col-10 col-md-4 mx-auto p-4 border border-info rounded ">
-                    <!-- S'il y a un erreur, elle s'affichera ici. -->
-                    <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-                     </form>
-                {% endif %}
+        {% if error %}
+        <form method="post" class="col-10 col-md-4 mx-auto p-4 border border-info rounded ">
+            <!-- S'il y a un erreur, elle s'affichera ici. -->
+            <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+        </form>
+        {% endif %}
 
-                {% if app.user %}
-                    <!-- Si l'utilisateur est connecté, on affiche ce message disant qu'il est déjà connecté et on fait un lien vers la déconnexion (on n'affiche pas le formulaire de connexion) -->
-                    <div class="text-center">
-                        Vous êtes connecté(e) sous l'identifiant
-                        <br>{{ app.user.username }}
-                        <br><b>
-                            <a href="{{ path('app_logout') }}">se
-                                                déconnecter</a>
-                        </b>
-                    </div>
-
-
-                {% else %}
-                    <!-- S'il n'est pas connecté, on affiche le formulaire de connection -->
-                    <div class="col-12 col-md-2 justify-content-centertext-center" style="font-size: 5rem;">
-                        <i class="far fa-user-circle"></i>
-                    </div>
-                    <form method="post" class=" col-12 col-md-4 justify-content-center">
-                        <div class="row alert-info p-4 border border-info rounded justify-content-center">
-                            <div
-                                class="col-10 my-2">
-                                <!-- On appelle la variable last_username pour que le dernier identifiant utilisé s'affiche automatiquement dans le champ de l'identifiant -->
-                                <label for="inputEmail">Email</label>
-                                <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" required autofocus>
-                            </div>
-                            <div class="col-10 my-2">
-                                <label for="inputPassword">Mot de passe</label>
-                                <input type="password" name="password" id="inputPassword" class="form-control" placeholder="" required>
-                            </div>
-                        </div>
-                    <!-- Input caché qui permet à la connexion d'être sécurisée (en utilisant la variable authenticate qui est dans le src/security/LoginFormAuthenticate.php) -->
-                    <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
-                    <div class="row justify-content-center">
-                     <div class="col-6 p-0 mt-1 text-left">
-                             <a href="{{path('index')}}" alt="Retour sur le site" class="text-dark"> <i class="fas fa-arrow-left"></i> Retourner au site </a>
-                        </div>
-                        <div class="col-6 p-0 mt-1 justify-content-end text-right">
-                            <button class="btn btnconnexion rounded text-info" type="submit">
-                                Se connecter
-                            </button>
-                        </div>
-                    </div> </form>
-                {% endif %}
-   
+        {% if app.user %}
+        <!-- Si l'utilisateur est connecté, on affiche ce message disant qu'il est déjà connecté et on fait un lien vers la déconnexion (on n'affiche pas le formulaire de connexion) -->
+        <div class="text-center">
+            Vous êtes connecté(e) sous l'identifiant
+            <br>{{ app.user.username }}
+            <br><b>
+                <a href="{{ path('app_logout') }}">se
+                    déconnecter</a>
+            </b>
         </div>
 
 
-        {% block javascript %}{% endblock %}
-    </body>
+        {% else %}
+        <!-- S'il n'est pas connecté, on affiche le formulaire de connection -->
+        <div class="col-12 col-md-2 justify-content-center text-center" style="font-size: 5rem;">
+            <svg version="1.1" id="icon-login" xmlns="http://www.w3.org/2000/svg"
+                xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 150 150"
+                enable-background="new 0 0 150 150" xml:space="preserve">
+                <g>
+                    <circle cx="75" cy="75" r="63.603" />
+                    <g>
+                        <path id="icon-login-body"
+                            d="M94.267,71.023c-7.078-2.516-7.131-5.044-7.131-5.044c-13.925,27.776-24.499,0.077-24.499,0.077
+			c-0.964,3.748-15.297,8.151-15.297,8.151c-4.181,1.63-5.956,4.069-5.956,4.069c-6.194,9.287-6.917,29.978-6.917,29.978
+			c0.082,4.717,2.091,5.211,2.091,5.211c14.247,6.431,36.583,7.573,36.583,7.573c22.941,0.488,39.638-6.598,39.638-6.598
+			c2.426-1.547,2.494-2.773,2.494-2.773c1.694-14.819-5.552-31.511-5.552-31.511C107.543,75.258,94.267,71.023,94.267,71.023z" />
+                        <path id="icon-login-head" d="M64.545,21.003c-1.384,2.9-5.24,4.719-6.48,8.618c0,0-1.418,3.421,0.463,13.484
+			c-2.672-1.277-0.851,5.34-0.851,5.34c0.271,1.771,1.005,2.542,1.454,2.862c1.064,8.927,8.659,18.188,15.547,18.188
+			c7.917,0,15.445-9.736,16.619-18.188c0.444-0.321,1.175-1.098,1.443-2.862c0,0,1.695-6.123-0.545-5.462
+			c0.783-2.368,3.371-11.565-1.649-17.277c0,0-2.634-2.632-7.254-4.702C73.073,16.425,64.545,21.003,64.545,21.003z" />
+                    </g>
+                    <g>
+                        <path d="M75,149.82c-41.256,0-74.82-33.564-74.82-74.82S33.744,0.18,75,0.18c41.256,0,74.82,33.564,74.82,74.82
+			S116.256,149.82,75,149.82z M75,2.673C35.118,2.673,2.672,35.119,2.672,75S35.118,147.327,75,147.327S147.328,114.881,147.328,75
+			S114.881,2.673,75,2.673z" />
+                    </g>
+                </g>
+            </svg>
+        </div>
+        <form method="post" class=" col-12 col-md-4 justify-content-center">
+            <div class="row alert-info p-4 border border-info rounded justify-content-center">
+                <div class="col-10 my-2">
+                    <!-- On appelle la variable last_username pour que le dernier identifiant utilisé s'affiche automatiquement dans le champ de l'identifiant -->
+                    <label for="inputEmail">Email</label>
+                    <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control"
+                        required autofocus>
+                </div>
+                <div class="col-10 my-2">
+                    <label for="inputPassword">Mot de passe</label>
+                    <input type="password" name="password" id="inputPassword" class="form-control" placeholder=""
+                        required>
+                </div>
+            </div>
+            <!-- Input caché qui permet à la connexion d'être sécurisée (en utilisant la variable authenticate qui est dans le src/security/LoginFormAuthenticate.php) -->
+            <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+            <div class="row justify-content-center">
+                <div class="col-6 p-0 mt-1 text-left">
+                    <a href="{{path('index')}}" alt="Retour sur le site" class="text-dark"> <i
+                            class="fas fa-arrow-left"></i> Retourner au site </a>
+                </div>
+                <div class="col-6 p-0 mt-1 justify-content-end text-right">
+                    <button class="btn btnconnexion rounded text-info" type="submit">
+                        Se connecter
+                    </button>
+                </div>
+            </div>
+        </form>
+        {% endif %}
+
+    </div>
+
+
+    {% block javascript %}{% endblock %}
+</body>
 
 </html>

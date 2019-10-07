@@ -1,16 +1,10 @@
 /*
 
-#FFFFF0     - light
-
-#FEFCBF     - light medium 
-#FAF089     - medium
-#F6E05E     - medium dark
-#ECC94B     - dark
 
 */
-
-
-
+body {
+    background: white;
+}
 a {
     color: black!important;
 }
@@ -20,18 +14,18 @@ a:hover {
 }
 
 input {
-    border: 2px solid #ECC94B!important;
+    border: 2px solid #4299E1!important;
     border-radius: 1rem!important;
     background: transparent!important;
 }
 
 .btn {
-    background: #ECC94B!important;
+    background: #4299E1!important;
     color: black;
 }
 
 a.icons{
-    color: #ECC94B!important;
+    color: #4299E1!important;
 }
 
 a.icons:hover, a.smallicons:hover {
@@ -46,16 +40,17 @@ a.icons:hover, a.smallicons:hover {
 -------------------------------------- */
 
 .bg{
-    background: #ECC94B!important;
+    background: #4299E1!important;
 
 }
 
 .bg1{
-    background: #ECC94B!important;
+    background: #4299E1!important;
 }
 
 .bg2{
-    background: rgba(236, 201, 75, 0.205)!important;
+    background: #4299e133!important;
+    opa
 }
 
 .bg3{
@@ -66,17 +61,17 @@ a.icons:hover, a.smallicons:hover {
 -------------------------------------- */
 
 .link-item {
-    background-color: #ECC94B;
+    background-color: #4299E1;
     color: white;
 }
 
 .tarif {
-    border: 2px solid #ECC94B!important;
+    border: 2px solid #4299E1!important;
     border-radius: 1rem!important;
 }
 
 .message {
-    border: 2px solid #ECC94B!important;
+    border: 2px solid #4299E1!important;
     border-radius: 1rem!important;
     background: transparent;
     height: 25vh!important;
@@ -84,27 +79,27 @@ a.icons:hover, a.smallicons:hover {
 
 
 #eclair {
-    fill: #ECC94B;
+    fill: #4299E1;
     width: 200px;
     margin: 0 auto;
     opacity: 0.33;
 }
 
 #elec {
-    fill: #ECC94B;
+    fill: #4299E1;
     width: 100px;
     opacity: 0.9;
 }
 
 #compt {
-    fill: #ECC94B;
+    fill: #4299E1;
     width: 50px;
     opacity: 0.9;
     margin: 0 auto;
 }
 
 #bottomlight {
-    fill: #ECC94B;
+    fill: #4299E1;
     width: 100%;
     transform: rotate(180deg);
     top: -4vh;

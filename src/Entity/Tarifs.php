@@ -21,20 +21,17 @@ class Tarifs
      */
     private $prestation;
 
-    /**
-     * @ORM\Column(type="decimal", scale=2, nullable=true)
+     /**
+     * @ORM\Column(type="string", length=255)
      */
-    private $tarifJour;
+    private $description;
 
     /**
- * @ORM\Column(type="decimal", scale=2, nullable=true)
+     * @ORM\Column(type="decimal", scale=2, nullable=false)
      */
-    private $tarifNuit;
+    private $tarif;
 
-    /**
-* @ORM\Column(type="decimal", scale=2, nullable=true)
-     */
-    private $tarifWeekend;
+   
 
     public function getId(): ?int
     {
@@ -53,39 +50,29 @@ class Tarifs
         return $this;
     }
 
-    public function getTarifJour(): ?float
+    public function getDescription(): ?string
     {
-        return $this->tarifJour;
+        return $this->description;
     }
 
-    public function setTarifJour(?float $tarifJour): self
+    public function setDescription(string $description): self
     {
-        $this->tarifJour = $tarifJour;
+        $this->description = $description;
 
         return $this;
     }
 
-    public function getTarifNuit(): ?float
+    public function getTarif(): ?float
     {
-        return $this->tarifNuit;
+        return $this->tarif;
     }
 
-    public function setTarifNuit(?float $tarifNuit): self
+    public function setTarif(?float $tarifJour): self
     {
-        $this->tarifNuit = $tarifNuit;
+        $this->tarif = $tarif;
 
         return $this;
     }
 
-    public function getTarifWeekend(): ?float
-    {
-        return $this->tarifWeekend;
-    }
-
-    public function setTarifWeekend(?float $tarifWeekend): self
-    {
-        $this->tarifWeekend = $tarifWeekend;
-
-        return $this;
-    }
+   
 }

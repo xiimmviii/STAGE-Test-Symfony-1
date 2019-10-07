@@ -14,30 +14,26 @@
     <link rel="stylesheet" href="{{asset('/css/adminstyle.css')}}" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Raleway:400,500,600,700&display=swap" rel="stylesheet">
 
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-        crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-        crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-        crossorigin="anonymous"></script>
-    <script>
-        $("document").ready(() => {
-            $("#jsflash").delay(1500).animate({
-                opacity: 0
-            }, 1500, () => {
-                $("#jsflash").css('display', 'none');
-            });
-        });
-    </script>
-    <script src="https://cdn.jsdelivr.net/npm/bs-custom-file-input/dist/bs-custom-file-input.min.js"></script>
-    <script>
-        $(document).ready(function () {
-            bsCustomFileInput.init()
-        })
-    </script>
+ <script src="https://cdn.jsdelivr.net/npm/bs-custom-file-input/dist/bs-custom-file-input.min.js"></script>
+            <script>
+                $(document).ready(function () {
+                    bsCustomFileInput.init()
+                })
+            </script>
+
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+            <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+            <script>
+                $("document").ready(() => {
+                    $("#jsflash").delay(1500).animate({
+                        opacity: 100
+                    }, 1500, () => {
+                        $("#jsflash").css('display', 'none');
+                    });
+                });
+            </script>
+    
     <title>
         Espace Admin - Electricien
     </title>
@@ -47,7 +43,7 @@
     <div class="container-fluid">
 
 
-        <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top justify-content-around">
+        <nav class="navbar navbar-expand-lg navbar-light alert-info sticky-top justify-content-around">
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
                 aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -59,7 +55,7 @@
                             role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Gérer les informations
                         </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <div class="dropdown-menu alert-info" aria-labelledby="navbarDropdownMenuLink">
                             <a class="dropdown-item" href="{{path('presentationentreprise')}}">Présentation de
                                 l'entreprise</a>
                             <a class="dropdown-item" href="{{path('histoireentreprise')}}">Histoire de l'entreprise</a>
@@ -86,7 +82,7 @@
                             target="blank">
                             Accèder à votre site
                         </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <div class="dropdown-menu alert-info" aria-labelledby="navbarDropdownMenuLink">
                             <a class="dropdown-item" href="{{path('index')}}" target="blank">Index</a>
                             <a class="dropdown-item" href="{{path('realisations')}}" target="blank">Galerie des
                                 réalisations
@@ -96,9 +92,20 @@
                             </a>
                         </div>
                     </li>
+                    {% if is_granted ('ROLE_SUPER_ADMIN')%}
+                    <li class="nav-item dropdown bg-warning rounded">
+                        <a class="nav-link dropdown-toggle" href="{{path('super-admin')}}" id="navbarDropdownMenuLink"
+                            role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                            target="blank">
+                            Super Admin
+                        </a>
+                        <div class="dropdown-menu bg-warning" aria-labelledby="navbarDropdownMenuLink">
+                            <a class="dropdown-item" href="{{path('choix-couleur')}}" target="blank">Gestion des couleurs </a>
+                        </div>
+                    </li> {% endif %}
                 </ul>
             </div>
-            <a class="nav-link text-danger rounded font-weight-bold" href="{{path('app_logout')}}">
+            <a class="nav-link deco text-danger rounded font-weight-bold" href="{{path('app_logout')}}">
                 <i class="fas fa-sign-out-alt"></i>
                 Déconnexion</a>
         </nav>

@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use Serializable;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
@@ -23,6 +24,11 @@ class Photo implements \Serializable
      */
     private $photo = 'default.jpg';
 
+    /**
+     * 
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $description;
 
     private $file;
     // On ne mappe pas cette propriété car elle n'existe pas dans la BDD. Elle va juste servir à récupérer les octets qui constituent l'image. 
@@ -34,9 +40,8 @@ class Photo implements \Serializable
      * 
      * 
      * @ORM\ManyToOne(targetEntity="Galerie", inversedBy="photos")
-     * @ORM\JoinColumn(name="galerie", referencedColumnName="id")
+     * @ORM\JoinColumn(name="galerie", referencedColumnName="id", nullable=false)
      *                 clé étrangère         clé primaire
-     * 
      */
     private $galerie;
 
@@ -62,19 +67,6 @@ class Photo implements \Serializable
         return $this;
     }
 
-    public function getGalerie()
-    {
-        return $this->galerie;
-    }
-
-    public function setGalerie($galerie): self
-    {
-        $this->galerie = $galerie;
-
-        return $this;
-    }
-
-
     public function getDateAffichage(): ?string
     {
         return $this->dateAffichage;
@@ -87,6 +79,65 @@ class Photo implements \Serializable
         return $this;
     }
 
+
+
+    //------------------------------------- LIEN AVEC ENTITE GALERIE-------------------------
+
+    /**
+     * Constructor
+     *
+     * @param Galerie $galerie
+     */
+    public function __construct(Galerie $galerie = null)
+    {
+        $this->galerie = $galerie;
+    }
+
+
+    /**
+     * Set galerie
+     *
+     * @param Galerie $galerie
+     *
+     * @return Photo
+     */
+    public function setGalerie(Galerie $galerie)
+    {
+        $this->galerie = $galerie;
+        return $this;
+    }
+    /**
+     * Get galerie
+     *
+     * @return Galerie
+     */
+    public function getGalerie()
+    {
+        return $this->galerie;
+    }
+
+
+    /**
+     * Getter for Description
+     *
+     * @return [type]
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
+
+    /**
+     * Setter for Descrption
+     * @var [type] description
+     *
+     * @return self
+     */
+    public function setDescription($description)
+    {
+        $this->message = $description;
+        return $this;
+    }
 
 
     //------------------------------------- FONCTION POUR LA PHOTO -------------------------

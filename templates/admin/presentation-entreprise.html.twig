@@ -2,63 +2,93 @@
 
 {% block content %}
 
-<div class="row m-4 justify-content-center">
-    <div class="col-md-6 col-sm-8 mx-auto alert-info border border-info rounded m-3 p-3">
-        <h2>
-            Présentation de l'entreprise
+<div class="row mx-5">
+    <div class="col-lg-6 col-md-8 col-sm-10 mx-5 px-3">
+        <h2 class="text-secondary mx-4 mt-5">
+            Histoire de l'entreprise
         </h2>
-        <hr>
-        <center><p> Cette section vous permet de présenter votre entreprise. <br> C'est l'introduction du site qui permet d'accrocher le client.  </p></center>
     </div>
 </div>
 
-<div class="row m-4 justify-content-center">
+<div class="row mx-4 mb-4 justify-content-center">
+
     <div
         class="col-lg-4 col-md-3 col-sm-10 alert-warning border border-warning rounded m-3 p-3  order-lg-5 text-justify">
         <center>
             <h1>
-                <i class="fas fa-info-circle"></i>
+                <svg version="1.1" id="icon-info" xmlns="http://www.w3.org/2000/svg"
+                    xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 150 150"
+                    enable-background="new 0 0 150 150" xml:space="preserve">
+                    <g>
+                        <g>
+                            <path d="M75.01,0.659c-41.067,0-74.349,33.277-74.349,74.348c0,41.055,33.282,74.335,74.349,74.335
+                           c41.043,0,74.329-33.28,74.329-74.335C149.339,33.936,116.052,0.659,75.01,0.659z M75.01,137.224
+                           c-34.385,0-62.234-27.854-62.234-62.218c0-34.375,27.85-62.229,62.234-62.229c34.356,0,62.215,27.854,62.215,62.229
+                           C137.224,109.371,109.366,137.224,75.01,137.224z" />
+                            <polygon points="85.378,56.759 64.49,56.759 64.49,56.79 56.71,56.79 56.71,68.943 64.49,68.943 64.49,112.33 
+                           56.241,112.33 56.241,123.936 64.49,123.936 64.49,124.017 85.378,124.017 85.378,123.936 92.216,123.936 92.216,112.33 
+                           85.378,112.33 		" />
+                            <path d="M74.796,48.506c7.013,0,11.277-4.671,11.277-10.444c-0.147-5.908-4.264-10.437-11.002-10.437
+                           c-6.729,0-11.135,4.529-11.135,10.437C63.936,43.835,68.191,48.506,74.796,48.506z" />
+                        </g>
+                    </g>
+                </svg>
             </h1>
         </center>
-        <hr> 
-        <center>Cette section permet de présenter rapidement votre entreprise. 
-        <br><b>Il serait mieux que votre texte fasse <u>moins de 200 mots</u></b>.
-        <br><i> Le champ "sous-titre" n'est pas obligatoire </i></center>
-        <hr> 
-        Ces présentations sont gérables en dessous. Vous ne pouvez en afficher <strong> qu'une seule </strong> à la fois. La présentation affichée est celle stipulée en ligne, en fond vert, et toujours en haut de ce tableau.
-        Dans ce tableau, trois colonnes pour gérer votre affichage et vos textes. 
-        <br><br><ul>
-        <li> <strong>PUBLIER :</strong> Vous pouvez modifier votre présentation une dernière fois avant sa publication. </li>
-        <li> <strong>MODIFIER :</strong> Vous pouvez modifier une présentation sans pour autant la publier par la suite. </li>
-        <li> <strong>SUPPRIMER :</strong> <span class="text-danger"><i class="fas fa-exclamation-triangle"></i> Action irréversible <i class="fas fa-exclamation-triangle"></i> </span></li>
+        <hr>
+        <center>Cette section permet de poster un texte sur votre entreprise. 
+            <br><b>Ce texte doit faire <u>plus de 300 mots</u> pour favoriser votre référencement.  </b>
+            <br><i> Le champ "sous-titre" n'est pas obligatoire </i></center>
+        <hr>
+        Ces présentations sont gérables en dessous. Vous ne pouvez en afficher <strong> qu'une seule </strong> à la
+        fois. La présentation affichée est celle stipulée en ligne, en fond vert, et toujours en haut de ce tableau.
+        Dans ce tableau, trois colonnes pour gérer votre affichage et vos textes.
+        <br><br>
+        <ul>
+            <li> <strong>PUBLIER :</strong> Vous pouvez modifier votre présentation une dernière fois avant sa
+                publication. </li>
+            <li> <strong>MODIFIER :</strong> Vous pouvez modifier une présentation sans pour autant la publier par la
+                suite. </li>
+            <li> <strong>SUPPRIMER :</strong> <span class="text-danger"><i class="fas fa-exclamation-triangle"></i>
+                    Action irréversible <i class="fas fa-exclamation-triangle"></i> </span></li>
         </ul>
+    </div>
+
+    <div class="col-lg-6 col-md-8 col-sm-10">
+        <div class="alert-info border border-info rounded my-3 p-3">
+
+            <p> Cette section vous permet de présenter votre entreprise. <br> C'est l'introduction du site qui
+                permet d'accrocher le client. </p>
         </div>
 
-
-    <div class="col-lg-6 col-md-8 col-sm-10 border rounded m-3 p-3 order-lg-0 ">
-        {{form_start(ContenuForm)}}
-        <div style="display: none">
-            <!-- On met en display none ces champs pour pouvoir y injecter des valeurs sans que l'utilisateur s'en rende compte /sans qu'il puisse y toucher. -->
-            <!-- Comme on veut que ces textes soient pour la section "présentation" on injecte en dur la valeur "présentation" dans le champ "section" -->
-            {{ form_row(ContenuForm.section, {'value' : 'presentation'}) }}
-            <!-- Dans BaseController on crée une variable $date. Dedans on injecte des données selon la route sélectionée (update, delete, afficher...). On met ensuite cette variable en valeur du champ "dateAffichage" afin d'injecter ces données. (c'est ce qui nous permet de gérer le choix de l'affichage. CF. AdminController.-->
-            {{ form_label(ContenuForm.dateAffichage) }}
-            {{ form_widget(ContenuForm.dateAffichage, {'value': date}) }}
+        <div class="border rounded my-3 p-3 order-lg-0 alert-info ">
+            {{form_start(ContenuForm)}}
+            <div style="display: none">
+                <!-- On met en display none ces champs pour pouvoir y injecter des valeurs sans que l'utilisateur s'en rende compte /sans qu'il puisse y toucher. -->
+                <!-- Comme on veut que ces textes soient pour la section "présentation" on injecte en dur la valeur "présentation" dans le champ "section" -->
+                {{ form_row(ContenuForm.section, {'value' : 'presentation'}) }}
+                <!-- Dans BaseController on crée une variable $date. Dedans on injecte des données selon la route sélectionée (update, delete, afficher...). On met ensuite cette variable en valeur du champ "dateAffichage" afin d'injecter ces données. (c'est ce qui nous permet de gérer le choix de l'affichage. CF. AdminController.-->
+                {{ form_label(ContenuForm.dateAffichage) }}
+                {{ form_widget(ContenuForm.dateAffichage, {'value': date}) }}
+            </div>
+            {{ form_row(ContenuForm.titre, {'label' : 'Titre *'}) }}
+            {{ form_row(ContenuForm.sousTitre, {'label' : 'Sous-titre *'}) }}
+            {{ form_row(ContenuForm.texte, {'label' : 'Texte *'}) }}
         </div>
-        {{ form_row(ContenuForm.titre, {'label' : 'Titre *'}) }}
-        {{ form_row(ContenuForm.sousTitre, {'label' : 'Sous-titre *'}) }}
-        {{ form_row(ContenuForm.texte, {'label' : 'Texte *'}) }}
 
-
-            <!-- Même principe que pour la variable $date, pour gérer le changement de label dans le bouton envoi selon la route dans laquelle on est -->
-            {{ form_row(ContenuForm.submit, { 'label' : boutonenvoi, 'attr' : {'class': 'col-12 btn btn-success'} } ) }}
+        <!-- Même principe que pour la variable $date, pour gérer le changement de label dans le bouton envoi selon la route dans laquelle on est -->
+        {{ form_row(ContenuForm.submit, { 'label' : boutonenvoi, 'attr' : {'class': 'col-12 col-lg-3 offset-lg-9 col-md-3 offset-md-9 col-xl-3 offset-xl-9 btn btn-outline-success'} } ) }}
 
         {{form_end(ContenuForm)}}
     </div>
 </div>
 
+<div class="col-10 mx-auto">
+    <hr class="bg-info">
+</div>
+
 <div>
-    <h1 class="text-center">Tableau de gestion des textes de présentation</h1>
+    <h1 class="text-center text-secondary">Tableau de gestion des textes de présentation</h1>
 
     <div class="row m-4 justify-content-center">
         <table class="col-10 table table-hover">
@@ -66,10 +96,11 @@
                 <tr class="row">
                     <th class="col-2">TITRE </th>
                     <th class="col-2">SOUS TITRE </th>
-                    <th class="col-5"> TEXTE </th>
-                    <th class="col-1"> PUBLIER </th>
-                    <th class="col-1"> MODIFIER</th>
-                    <th class="col-1"> SUPPRIMER</th>
+                    <th class="col-4"> TEXTE </th>
+                    <th class="col-1"> </th>
+                    <th class="col-1"> </th>
+                    <th class="col-1"> </th>
+                    <th class="col-1"> </th>
             </thead>
 
             <tbody>
@@ -83,21 +114,24 @@
                     <td class="col-2">
                         {{ presentation.sousTitre }}
                     </td>
-                    <td class="col-5 overflow-auto" height="100">
+                    <td class="col-4 overflow-auto" height="100">
                         {{ presentation.texte | raw}}
                     </td>
-                    <td class=“col-1 text-center”> EN LIGNE <br>
-                        <h1><i class="fas fa-globe-asia"></i></h1>
+                    <td class="col-1 text-center bg-success">  <br>
+                        <h1><i class="fas fa-globe-asia text-white"></i></h1>
                     </td>
 
-                    <td class="col-1 text-center"> <a class="text-warning h3"
-                        href="{{ path('update_presentation', {id : presentation.id } ) }}">
-                        <i class="fas fa-edit"></i> </a> </td>
-                <td class="col-1 text-center"> <a class="text-danger h3"
-                        href="{{ path('delete_presentation', {id : presentation.id } ) }}"
-                        onclick="return confirm('Etes-vous certain(e) de vouloir supprimer le texte de présentation ?')">
-                        <i class="fas fa-trash-alt"></i>
-                    </a> </td>
+                    <td class="col-1 text-center bg-secondary"> 
+                        <i class="fas fa-upload h3 text-white p-4"></i></td>
+
+                    <td class="col-1 text-center bg-warning"> <a class="text-white h3"
+                            href="{{ path('update_presentation', {id : presentation.id } ) }}">
+                            <i class="fas fa-edit p-4"></i> </a> </td>
+                    <td class="col-1 text-center bg-danger"> <a class="text-white h3"
+                            href="{{ path('delete_presentation', {id : presentation.id } ) }}"
+                            onclick="return confirm('Etes-vous certain(e) de vouloir supprimer le texte de présentation ?')">
+                            <i class="fas fa-trash-alt p-4"></i>
+                        </a> </td>
                 </tr>
                 {% endfor %}
 
@@ -110,21 +144,24 @@
                     <td class="col-2">
                         {{ presentation.sousTitre }}
                     </td>
-                    <td class="col-5 overflow-auto" height="100">
+                    <td class="col-4 overflow-auto" height="100">
                         {{ presentation.texte | raw }}
                     </td>
 
-                    <td class="col-1 text-center"> <a class="text-success h3"
-                        href="{{ path('affichage_presentation', {id : presentation.id } ) }}">
-                        <i class="fas fa-upload"></i> </a> </td>
-                <td class="col-1 text-center"> <a class="text-warning h3"
-                        href="{{ path('update_presentation', {id : presentation.id } ) }}">
-                        <i class="fas fa-edit"></i> </a> </td>
-                <td class="col-1 text-center"> <a class="text-danger h3"
-                        href="{{ path('delete_presentation', {id : presentation.id } ) }}"
+                    <td class="col-1 text-center bg-secondary">  <br>
+                        <h1><i class="fas fa-globe-asia text-white"></i></h1>
+                    </td>
+                    <td class="col-1 text-center bg-success"> <a class="text-success h3"
+                            href="{{ path('affichage_presentation', {id : presentation.id } ) }}">
+                            <i class="fas fa-upload text-white p-4"></i> </a> </td>
+                    <td class="col-1 text-center bg-warning"> <a class="text-white h3"
+                            href="{{ path('update_presentation', {id : presentation.id } ) }}">
+                            <i class="fas fa-edit p-4"></i> </a> </td>
+                    <td class="col-1 text-center bg-danger"> <a class="text-white h3"
+                            href="{{ path('delete_presentation', {id : presentation.id } ) }}"
                             onclick="return confirm('Etes-vous certain(e) de vouloir supprimer le texte de présentation ?')">
-                        <i class="fas fa-trash-alt"></i>
-                    </a> </td>
+                            <i class="fas fa-trash-alt p-4"></i>
+                        </a> </td>
                 </tr>
                 {% endfor %}
 
