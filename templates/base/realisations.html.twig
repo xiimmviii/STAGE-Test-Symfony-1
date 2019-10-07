@@ -17,9 +17,17 @@
                     <div class="modal fade" id="{{ modal ~ photo.id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                         <div class="modal-dialog" role="document">
                             <div class="modal-content">
-                                <img src="{{ asset('/photo/' ~ photo.photo) }}" class="img-fluid"/>
-                                <div class="text-modal">
-                                    </div>
+                               <table>
+                               <tr> 
+                               <img src="{{ asset('/photo/' ~ photo.photo) }}" class="img-fluid" style="object-fit: contain!important;"/>
+                               </tr>
+                               {% if photo.description is not null  %} <tr>
+                                
+                                <div class="bg-dark text-white p-3">{{photo.description}}</div>
+                              
+                                    </tr>
+                                    {% endif %}
+                                    </table>
                             </div>
                         </div>
                     </div>
