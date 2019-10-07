@@ -11,41 +11,80 @@
             .sendby {
                 background-color: #4CBF8E;
                 color: white !important;
-                font-size: 1.5em;
+                text-align: center;
             }
 
             .addInfo {
                 border-top: 3px solid #4CBF8E;
-                 font-size: 1.3em;
+                 border-bottom: 3px solid #4CBF8E;
+                 font-size: 1.5em;
+                 padding: 1rem;
             }
 
-            .lastInfo {
-                border-bottom: 3px solid #4CBF8E;
-                 font-size: 1.3em;
-            }
 
             .borderInfo {
                 border-bottom: 3px solid #4CBF8E;
+                 padding: 1rem;
             }
 
-            a.mail { color: white!important;}
-
-            a {
-                color: white!important;
+             .sendby2 {
+                background-color: orangered;
+                color: white !important;
+                font-size: 1.5em;
             }
+
+            .lastInfo2 {
+                border-bottom: 3px solid orangered;
+                 font-size: 1.3em;
+                 padding: 3rem;
+            }
+
         </style>
 
     </head>
 
     <body>
 
-        <div class="sendby">
+
+{% if data.idMail == 'Prise-de-contact' %}
+
+
+ <div class="sendby2">
+    <center> <h1> Recontacter le client </h1></center>
+    <hr>
+       <center> <h2>    Mme / Mr 
+            {{data.prenom}}
+            {{data.nom}}
+           </h2>
+        </div></center>
+
+
+                <div class="lastInfo2">
+                    N° de téléphone :
+                    {{data.telephone}}
+                <br>
+ Email :
+            <span class='mail'>{{ data.email}}</span> </div>
+
+{% else %}
+
+ <div class="sendby">
+    <center> <h1> Demandes d'informations  </h1></center>
+    <hr><h2>
             Email envoyé par :
             {{data.prenom}}
             {{data.nom}}
             <br>
             Email :
             <span class='mail'>{{ data.email}}</span>
+<br>
+            {% if data.telephone is null %}
+            {% else %}
+
+                    N° de téléphone :
+                    {{data.telephone}}
+
+        {% endif %}</h2>
         </div>
 
         {% if data.societe is null %}
@@ -57,22 +96,18 @@
 
         {% endif %}
 
-        {% if data.telephone is null %}
-            {% else %}
-                <div class="lastInfo">
-                    N° de téléphone :
-                    {{data.telephone}}
-                </div>
+        
 
-        {% endif %}
-
-        <div class="row">Objet :
+        <div class="row"><h3>Objet :
             {{data.objet}}
-        </div>
+        </h3></div>
         <hr>
 
         <div class=" borderInfo">
             {{data.message}}
         </div>
+
+{% endif %}
+       
     </body>
-</html></body></html>
+</html>

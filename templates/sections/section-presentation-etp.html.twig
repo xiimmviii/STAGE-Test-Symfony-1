@@ -1,17 +1,18 @@
 <main class="main-bg row pt-5">
-    <div class="col-10 offset-1 col-md-3 offset-md-7 pt-5 pb-3 main-contact">
+    <div class="col-10 offset-1 col-md-3 offset-md-7 px-0 pt-5 pb-3 main-contact">
         {{form_start(form)}}
 <div class="row"><div class="col-10 h4 mx-auto text-center pb-3"> Vous voulez être recontacté ? </div></div>
         <div class="row">
             {# Ici, on récupère le formulaire de CONTACT -- CONTACTTYPE #}
             <div
-                class="col-10 mx-auto text-center">
+                class="col-11 mx-auto text-center">
                 {# On personnalise les "labels" c'est à dire les indications pour décrire ce qu'on attend dans le champ #}
                 {{ form_row(form.prenom, {'label': 'Prénom'})  }}
                 {{ form_row(form.nom, {'label': 'Nom'}) }}
                 <div style="display: none;">{{ form_row(form.societe) }}</div>
                 {{ form_row(form.telephone, {'label': 'N° de téléphone'}) }}
                 {{ form_row(form.email, {'label': 'Email'}) }}
+                <div style="display: none;">{{ form_row(form.idMail, { 'value' : 'Prise-de-contact'}) }}</div>
                 <div style="display: none;">{{ form_row(form.objet, { 'value' : 'Prise de contact '}) }}</div>
                 <div style="display: none;">{{ form_row(form.message, { 'value' : 'Prise de contact - Recontacter le client rapidement.'}) }}</div>
             </div>
