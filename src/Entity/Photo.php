@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Serializable;
+use Webmozart\Assert\Assert;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
@@ -34,9 +35,8 @@ class Photo implements \Serializable
      * 
      * 
      * @ORM\ManyToOne(targetEntity="Galerie", inversedBy="photos")
-     * @ORM\JoinColumn(name="galerie", referencedColumnName="id")
+     * @ORM\JoinColumn(name="galerie", referencedColumnName="id", nullable=false)
      *                 clé étrangère         clé primaire
-     * 
      */
     private $galerie;
 
@@ -62,19 +62,6 @@ class Photo implements \Serializable
         return $this;
     }
 
-    public function getGalerie()
-    {
-        return $this->galerie;
-    }
-
-    public function setGalerie($galerie): self
-    {
-        $this->galerie = $galerie;
-
-        return $this;
-    }
-
-
     public function getDateAffichage(): ?string
     {
         return $this->dateAffichage;
@@ -85,6 +72,43 @@ class Photo implements \Serializable
         $this->dateAffichage = $dateAffichage;
 
         return $this;
+    }
+
+
+
+    //------------------------------------- LIEN AVEC ENTITE GALERIE-------------------------
+
+        /**
+     * Constructor
+     *
+     * @param Galerie $galerie
+     */
+    public function __construct(Galerie $galerie = null)
+    {
+        $this->galerie = $galerie;
+    }
+
+
+        /**
+     * Set galerie
+     *
+     * @param Galerie $galerie
+     *
+     * @return Photo
+     */
+    public function setGalerie(Galerie $galerie)
+    {
+        $this->galerie = $galerie;
+        return $this;
+    }
+    /**
+     * Get galerie
+     *
+     * @return Galerie
+     */
+    public function getGalerie()
+    {
+        return $this->galerie;
     }
 
 

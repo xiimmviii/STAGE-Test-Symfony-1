@@ -39,7 +39,7 @@ class Galerie
      * C'est grâce à ce code qu'on fait le lien entre cette table et la table "photo"
      * Une galerie peut avoir en théorie 0 photos min  et N photos max => OnetoMany
      *
-     * @ORM\OneToMany(targetEntity="Photo", mappedBy="galerie", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="Photo", mappedBy="galerie", cascade="all", orphanRemoval=true)
      *                                table       Clé étrangère   permet de supprimer les photos contenues dans une galerie quand on supprime la galerie
      *
      *
