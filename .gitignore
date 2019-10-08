@@ -139,3 +139,6 @@ maquettes/plombier/svg_plomb/souligne_plomb.svg
 maquettes/plombier/svg_plomb/tools.svg
 maquettes/plombier/svg_plomb/transition_plomb.svg
 maquettes/plombier/wesley-caribe-TtN_obfWlGw-unsplash.jpg
+src/Migrations/Version20191007151052.php
+src/Migrations/Version20191007174156.php
+config/packages/vich_uploader.yaml
