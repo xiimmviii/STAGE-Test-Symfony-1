@@ -2,10 +2,13 @@
 
 namespace App\Entity;
 
-use App\Entity\Photo;
+use App\Entity\Picture;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
-use Symfony\Component\Validator\Constraints\Image;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Doctrine\Common\Collections\Collection;
+
+// use phpDocumentor\Reflection\Types\Collection;
 
 
 /**
@@ -17,6 +20,7 @@ class Galerie
     //permet de créer un array avec toutes les photos qui seront dans un objet galerie
     public function __construct()
     {
+        $this->updated_at = new \DateTime();
         $this->photos = new ArrayCollection;
     }
 
@@ -41,18 +45,23 @@ class Galerie
      * C'est grâce à ce code qu'on fait le lien entre cette table et la table "photo"
      * Une galerie peut avoir en théorie 0 photos min  et N photos max => OnetoMany
      *
-     * @ORM\OneToMany(targetEntity="Photo", mappedBy="galerie", cascade="persist", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="Picture", mappedBy="galerie", cascade={"persist"}, orphanRemoval=true)
      *                                table       Clé étrangère   permet de supprimer les photos contenues dans une galerie quand on supprime la galerie
      *
      *
      * Contient toutes les photos de la galerie (Array composé d'objets photo)
      */
-    private $photos;
+    private $pictures;
 
     /**
      * 
      */
     private $pictureFiles;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $updated_at;
 
     public function getId(): ?int
     {
@@ -96,43 +105,73 @@ class Galerie
     /**
      * 
      * @param mixed $pictureFiles
+     * @return Galerie
      * 
      */ 
     public function setPictureFiles($pictureFiles): self
     {
 
-        foreach ($pictureFiles as $pictureFile){
-            $photos = new Photo;
-            $photos->setFile($pictureFile);
-            $this->addPhotos($photos);
+        foreach ($pictureFiles as $pictureFile) {
+            $picture = new Picture;
+            $picture->setImageFile($pictureFile);
+            $this->addPicture($picture);
+        }
+
+        $this->pictureFiles = $pictureFiles;
+        return $this;
+    }
+
+
+    public function getUpdatedAt(): ?\DateTimeInterface
+    {
+        return $this->updated_at;
+    }
+
+    public function setUpdatedAt(\DateTimeInterface $updated_at): self
+    {
+        $this->updated_at = $updated_at;
+
+
+        return $this;
+    }
+
+
+
+
+
+       /**
+     * @return Collection|Picture[]
+     */
+    public function getPictures(): Collection
+    {
+        return $this->pictures;
+    }
+
+    public function getPicture(): ?Picture
+    {
+        if ($this->pictures->isEmpty()) {
+            return null;
+        }
+        return $this->pictures->first();
+    }
+
+    public function addPicture(Picture $picture): self
+    {
+        $this->pictures[] = $picture;
+            $picture->setGalerie($this);
+        return $this;
+    }
+
+    public function removePicture(Picture $picture): self
+    {
+        if ($this->pictures->contains($picture)) {
+            $this->picturess->removeElement($picture);
+            // set the owning side to null (unless already changed)
+            if ($picture->getGalerie() === $this) {
+                $picture->setGalerie(null);
+            }
         }
         return $this;
     }
-
-
-
-
-
-    //------------------------------pour joindre les deux tables photo et galerie
-    public function addPhotos(Photo $photo): self
-    {
-        if (!$this->photos->contains($photo)) {
-            $this->photo[] = $photo;
-            $photo->setGalerie($this);
-        }
-        return $this;
-    }
-
-    public function getPhotos()
-    {
-        return $this->photos;
-    }
-
-    public function setPhotos($photos)
-    {
-        $this->photos = $photos;
-        return $this;
-    }
-
-
+    
 }

@@ -3,16 +3,18 @@
 namespace App\Controller;
 
 
+use App\Entity\User;
 use App\Entity\Photo;
 use App\Entity\Tarifs;
 use App\Entity\Contenu;
 use App\Entity\Couleur;
 use App\Entity\Galerie;
-use App\Form\PhotoType;
+use App\Entity\Picture;
 use App\Entity\Horaires;
 use App\Form\TarifsType;
 use App\Form\ContenuType;
 use App\Form\GalerieType;
+use App\Form\PictureType;
 use App\Entity\Entreprise;
 use App\Form\HorairesType;
 use App\Entity\Partenaires;
@@ -22,13 +24,11 @@ use App\Form\PartenairesType;
 use App\Form\SpecificitesType;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Validator\Constraints\Date;
 use Symfony\Component\Validator\Constraints\DateTime;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Response;
-
-
 
 
 class AdminController extends AbstractController
@@ -146,7 +146,7 @@ class AdminController extends AbstractController
         $galerie = new Galerie;
 
         // On crée un objet vide qu'on pourra ensuite réutiliser
-        $photo = new Photo;
+        // $photo = new Photo;
 
         // On créé la vue d'un formulaire qui provient du dossier FORM > GalerieType.php 
         $form = $this->createForm(GalerieType::class, $galerie);
@@ -159,18 +159,18 @@ class AdminController extends AbstractController
 
             $manager = $this->getDoctrine()->getManager();
 
-            $galerie->addPhotos($photo);
+            // $galerie->addPhotos($photo);
             // On enregistre la $photo et l'id de la galerie dans le système 
-            $manager->persist($photo);
+            // $manager->persist($photo);
 
             // On enregistre la galerie dans le système 
             $manager->persist($galerie);
 
             // On enregistre la photo en BDD et sur le serveur. 
             // On émet une condition >> Si il y a un fichier sélectionné, alors on l'envoie 
-            if ($photo->getFile() != NULL) {
-                $photo->uploadFile();
-            }
+            //if ($photo->getFile() != NULL) {
+            //    $photo->uploadFile();
+            
 
             // On enregistre la galerie en BDD 
             $manager->flush();
@@ -187,10 +187,11 @@ class AdminController extends AbstractController
         //On veut limiter le nombre de galeries possible à 10. 
 
         // On récupère le manager
-        $em = $this->getDoctrine()->getManager();
+    
+        $entityManager = $this->getDoctrine()->getManager();
         
         // On va dans l'entité Galerie
-        $repo = $em->getRepository(Galerie::class);
+        $repo = $entityManager->getRepository(Galerie::class);
         
         // On fait une requête pour compter combien de galeries il y a dans la table Galerie (galerie = g)
         $totalGaleries = $repo->createQueryBuilder('g')
@@ -242,7 +243,7 @@ class AdminController extends AbstractController
         $manager = $this->getDoctrine()->getManager();
 
         // On trouve l'élément concerné dans la table Galerie via son $ID et on lui applique une variable
-        $photo = $manager->find(Photo::class, $id);
+        $photo = $manager->find(Picture::class, $id);
 
         // On supprime la photo identifée dans la variable 
         $photo->removePhoto();
@@ -279,7 +280,7 @@ class AdminController extends AbstractController
 
     /**
      * Supprime une galerie dans la BDD via le panneau administrateur.
-     *  /!\ Pour supprimer une galerie il faut d'abord supprimer toutes les photos qu'elle contient !!!! 
+     *  /!\ Pour supprimer une galerie il faut d'abord supprimer toutes les photos qu'elle contient à cause du lien entre les tables. C'est fait automatiquement par l'ajout d'un "orphan removal" dans l'entité.
      * @Route("/admin/galeriephotos/delete_galerie/{id}", name="delete_galerie")
      */
     public function deleteGalerie($id)
@@ -349,30 +350,32 @@ class AdminController extends AbstractController
         }
 
 
-        // // On récupère le MANAGER pour pouvoir gérer les informations en BDD >> Galerie
-        // $manager = $this->getDoctrine()->getManager();
+         // On récupère le MANAGER pour pouvoir gérer les informations en BDD >> Galerie
+         $manager = $this->getDoctrine()->getManager();
 
         // // On trouve l'élément concerné dans la table Galerie via son $ID et on lui applique une variable
         // $galerie = $manager->find(Galerie::class, $id);
 
-        // // On crée un objet vide qu'on pourra ensuite réutiliser
-        // $photo = new Photo;
+        // On crée un objet vide qu'on pourra ensuite réutiliser
+         $picture = new Picture;
 
-        // // On créé la vue d'un formulaire qui provient du dossier FORM > GalerieType.php 
-        // $form2 = $this->createForm(PhotoType::class, $photo);
+         // On créé la vue d'un formulaire qui provient du dossier FORM > GalerieType.php 
+         $form2 = $this->createForm(PictureType::class, $picture);
 
-        // // On récupère les infos saisies dans le formulaire ($_POST)
-        // $form2->handleRequest($request);
+         // On récupère les infos saisies dans le formulaire ($_POST)
+        $form2->handleRequest($request);
 
         // // CF TRAITEMENT DU FORMULAIRE >> ligne 81-86 
         // if ($form2->isSubmitted() && $form2->isValid()) {
 
-        //     $manager = $this->getDoctrine()->getManager();
+             $manager = $this->getDoctrine()->getManager();
 
         //     $galerie->addPhotos($photo);
-        //     // On enregistre la $photo et l'id de la galerie dans le système 
-        //     $manager->persist($photo);
-        //     $manager->persist($galerie);
+
+        // On enregistre la $photo et l'id de la galerie dans le système 
+
+            $manager->persist($picture);
+            $manager->persist($galerie_id);
 
         //     // On enregistre la photo en BDD et sur le serveur. 
         //     // On émet une condition >> Si il y a un fichier sélectionné, alors on l'envoie 
@@ -381,15 +384,15 @@ class AdminController extends AbstractController
         //     }
 
 
-        //     // On enregistre la photo en BDD 
-        //     $manager->flush();
+        // On enregistre la photo en BDD 
+         $manager->flush();
 
         //     // On affiche le message si l'action est réussie 
         //     $this->addFlash('success', 'La photo a bien été enregistrée !');
 
-        //     // On met tout ça dans la  
-        //     return $this->redirectToRoute('gestiongaleries');
-        // }
+        // On met tout ça dans la  
+             return $this->redirectToRoute('gestiongaleries');
+        
 
         // // On récupère toutes les photos déjà dans la BDD
         // $repository = $this->getDoctrine()->getRepository(Galerie::class);
@@ -397,9 +400,9 @@ class AdminController extends AbstractController
         // $galeries = $repository->findOneById($id);
 
         // On récupère toutes les photos déjà dans la BDD
-        $repository = $this->getDoctrine()->getRepository(Photo::class);
+        $repository = $this->getDoctrine()->getRepository(Picture::class);
         // Le findAll permet de récupérer toutes les informations stockées en BDB 
-        $photos = $repository->findByGalerie($id);
+        $pictures = $repository->findByGalerie($id);
 
 
         // On récupère les informations et on les renvoie dans la VUE 
@@ -416,14 +419,15 @@ class AdminController extends AbstractController
 
         return $this->render('admin/modifiergalerie.html.twig', [
             'galerieForm' => $form->createView(),
-            // 'photoForm' => $form2->createView(),
+            'picturesForm' => $form2->createView(),
             'entreprise' => $entreprise,
             'specificites' => $specificites,
-            'photos' => $photos,
+            'pictures' => $pictures,
             'couleurs' => $couleurs,
             // 'galeries' => $galeries,
         ]);
-    }
+        
+        }
 
 
     /* ---------------------------------------------------------------------------------------------------
@@ -1286,7 +1290,7 @@ class AdminController extends AbstractController
     }
 
     /* ---------------------------------------------------------------------------------------------------
-      HORA
+      HORAIRES
     --------------------------------------------------------------------------------------------------- */
 
 
@@ -1440,6 +1444,55 @@ class AdminController extends AbstractController
             'couleurs' => $couleurs
 
 
+        ]);
+    }
+/* ---------------------------------------------------------------------------------------------------
+      AIDE & SUPPORT 
+    --------------------------------------------------------------------------------------------------- */
+
+        /**
+     * @Route("/admin/aide-support", name="aide-support")
+     */
+    public function aideSupport( Request $request,  \Swift_Mailer $mailer): Response
+    {
+
+        $entityManager = $this->getDoctrine()->getManager();
+        $user = $entityManager->getRepository(User::class)->findOneByRole( array('role' => 'ROLE_ADMIN'));
+
+        $mailclient = $user->getEmail();
+        
+        if ($request->isMethod('POST')) {
+
+            $objet = $request->request->get('objet');
+            $probleme = $request->request->get('probleme');
+
+
+            $message = (new \Swift_Message('TICKET INTERVENTION '))
+                ->setFrom($user->getEmail())
+                ->setTo('test.mbmp@gmail.com')
+                ->setBody(
+                    "<h1> Ticket d'intervention pour " . $mailclient . " </h1><hr><hr><b><u> Objet du problème : </u></b>" . $objet . "<hr><b><u>Message : </u></b>" . $probleme ,
+                    'text/html'
+                );
+
+            $mailer->send($message);
+
+            $this->addFlash('notice', 'Mail envoyé');
+
+            return $this->redirectToRoute('aide-support');
+        }
+
+        $repository = $this->getDoctrine()->getRepository(Entreprise::class);
+        $entreprise = $repository->findOneById(1);
+
+        $repository = $this->getDoctrine()->getRepository(Specificites::class);
+        $specificites = $repository->findOneById(1);
+
+        return $this->render('admin/aide-support.html.twig', [
+            'controller_name' => 'AdminController',
+            'entreprise' => $entreprise,
+            'specificites' => $specificites,
+            'user' => $user
         ]);
     }
 }

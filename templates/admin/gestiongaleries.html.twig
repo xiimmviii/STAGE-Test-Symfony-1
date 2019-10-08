@@ -57,6 +57,13 @@
             <div class="row text-center">
                 {% for galerie in galeries %}
                 <div class="card col-md-2 m-3">
+                                {% for picture in galerie.pictures %}
+                    <img class=" card-img-top" src="{{ vich_uploader_asset(picture, 'imageFile') }}" alt="">
+                {% endfor %}
+
+                {# {% for picture in property.pictures %}
+                <img src="{{ vich_uploader_asset(picture, 'imageFile') | imagine_filter('medium') }}" alt="card-img-top" style="width: 100%; height:auto;">
+              {% endfor %} #}
                     {{ galerie.nom }}
                     {{ galerie.description | raw }}
                     <a class="btn btn-sucess" href="{{ path('modifiergalerie', {id : galerie.id } ) }}">

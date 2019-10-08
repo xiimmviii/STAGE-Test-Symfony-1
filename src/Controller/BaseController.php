@@ -8,6 +8,7 @@ use App\Entity\Contact;
 use App\Entity\Contenu;
 use App\Entity\Couleur;
 use App\Entity\Galerie;
+use App\Entity\Picture;
 use App\Entity\Horaires;
 use App\Form\ContactType;
 use App\Entity\Entreprise;
@@ -132,7 +133,7 @@ class BaseController extends AbstractController
         // -----------------------------------------------------------------------------------
 
         //on utilise le repository pour accéder à la table Photo
-        $repository = $this->getDoctrine()->getRepository(Photo::class);
+        $repository = $this->getDoctrine()->getRepository(Picture::class);
         //On récupère toutes les données de la table Galerie et on les injecte dans l'objet $photos
         $photos = $repository->findAll(array('id' => 'DESC'));
 
