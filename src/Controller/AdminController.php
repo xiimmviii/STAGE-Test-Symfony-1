@@ -8,10 +8,11 @@ use App\Entity\Tarifs;
 use App\Entity\Contenu;
 use App\Entity\Couleur;
 use App\Entity\Galerie;
-use App\Form\PhotoType;
+use App\Entity\Picture;
 use App\Form\TarifsType;
 use App\Form\ContenuType;
 use App\Form\GalerieType;
+use App\Form\PictureType;
 use App\Entity\Entreprise;
 use App\Entity\Partenaires;
 use App\Entity\Specificites;
@@ -20,11 +21,11 @@ use App\Form\PartenairesType;
 use App\Form\SpecificitesType;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Validator\Constraints\Date;
 use Symfony\Component\Validator\Constraints\DateTime;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Response;
 
 
 
@@ -143,8 +144,8 @@ class AdminController extends AbstractController
         // On crée un objet vide qu'on pourra ensuite réutiliser
         $galerie = new Galerie;
 
-        // On crée un objet vide qu'on pourra ensuite réutiliser
-        $photo = new Photo;
+        // // On crée un objet vide qu'on pourra ensuite réutiliser
+        // $photo = new Photo;
 
         // On créé la vue d'un formulaire qui provient du dossier FORM > GalerieType.php 
         $form = $this->createForm(GalerieType::class, $galerie);
@@ -157,18 +158,18 @@ class AdminController extends AbstractController
 
             $manager = $this->getDoctrine()->getManager();
 
-            $galerie->addPhotos($photo);
-            // On enregistre la $photo et l'id de la galerie dans le système 
-            $manager->persist($photo);
+            // $galerie->addPhotos($photo);
+            // // On enregistre la $photo et l'id de la galerie dans le système 
+            // $manager->persist($photo);
 
             // On enregistre la galerie dans le système 
             $manager->persist($galerie);
 
-            // On enregistre la photo en BDD et sur le serveur. 
-            // On émet une condition >> Si il y a un fichier sélectionné, alors on l'envoie 
-            if ($photo->getFile() != NULL) {
-                $photo->uploadFile();
-            }
+            // // On enregistre la photo en BDD et sur le serveur. 
+            // // On émet une condition >> Si il y a un fichier sélectionné, alors on l'envoie 
+            // if ($photo->getFile() != NULL) {
+            //     $photo->uploadFile();
+            // }
 
             // On enregistre la galerie en BDD 
             $manager->flush();
@@ -240,7 +241,7 @@ class AdminController extends AbstractController
         $manager = $this->getDoctrine()->getManager();
 
         // On trouve l'élément concerné dans la table Galerie via son $ID et on lui applique une variable
-        $photo = $manager->find(Photo::class, $id);
+        $photo = $manager->find(Picture::class, $id);
 
         // On supprime la photo identifée dans la variable 
         $photo->removePhoto();
@@ -277,7 +278,7 @@ class AdminController extends AbstractController
 
     /**
      * Supprime une galerie dans la BDD via le panneau administrateur.
-     *  /!\ Pour supprimer une galerie il faut d'abord supprimer toutes les photos qu'elle contient !!!! 
+     *  /!\ Pour supprimer une galerie il faut d'abord supprimer toutes les photos qu'elle contient à cause du lien entre les tables. C'est fait automatiquement par l'ajout d'un "orphan removal" dans l'entité. 
      * @Route("/admin/galeriephotos/delete_galerie/{id}", name="delete_galerie")
      */
     public function deleteGalerie($id)
@@ -347,57 +348,58 @@ class AdminController extends AbstractController
         }
 
 
-        // // On récupère le MANAGER pour pouvoir gérer les informations en BDD >> Galerie
-        // $manager = $this->getDoctrine()->getManager();
+
+        
+
+
+        // On récupère le MANAGER pour pouvoir gérer les informations en BDD >> Galerie
+        $manager = $this->getDoctrine()->getManager();
 
         // // On trouve l'élément concerné dans la table Galerie via son $ID et on lui applique une variable
         // $galerie = $manager->find(Galerie::class, $id);
 
-        // // On crée un objet vide qu'on pourra ensuite réutiliser
-        // $photo = new Photo;
+        // On crée un objet vide qu'on pourra ensuite réutiliser
+        $picture = new Picture;
 
-        // // On créé la vue d'un formulaire qui provient du dossier FORM > GalerieType.php 
-        // $form2 = $this->createForm(PhotoType::class, $photo);
+        $galerie_id = $id;
 
-        // // On récupère les infos saisies dans le formulaire ($_POST)
-        // $form2->handleRequest($request);
+        // On créé la vue d'un formulaire qui provient du dossier FORM > GalerieType.php 
+        $form2 = $this->createForm(PictureType::class, $picture);
 
-        // // CF TRAITEMENT DU FORMULAIRE >> ligne 81-86 
-        // if ($form2->isSubmitted() && $form2->isValid()) {
+        // On récupère les infos saisies dans le formulaire ($_POST)
+        $form2->handleRequest($request);
 
-        //     $manager = $this->getDoctrine()->getManager();
+        // CF TRAITEMENT DU FORMULAIRE >> ligne 81-86 
+        if ($form2->isSubmitted() && $form2->isValid()) {
 
-        //     $galerie->addPhotos($photo);
-        //     // On enregistre la $photo et l'id de la galerie dans le système 
-        //     $manager->persist($photo);
-        //     $manager->persist($galerie);
+            $manager = $this->getDoctrine()->getManager();
 
-        //     // On enregistre la photo en BDD et sur le serveur. 
-        //     // On émet une condition >> Si il y a un fichier sélectionné, alors on l'envoie 
-        //     if ($photo->getFile() != NULL) {
-        //         $photo->uploadFile();
-        //     }
+            // On enregistre la $photo et l'id de la galerie dans le système 
+            $manager->persist($picture);
+            $manager->persist($galerie_id);
+
+            // // On enregistre la photo en BDD et sur le serveur. 
+            // // On émet une condition >> Si il y a un fichier sélectionné, alors on l'envoie 
+            // if ($photo->getFile() != NULL) {
+            //     $photo->uploadFile();
+            // }
 
 
-        //     // On enregistre la photo en BDD 
-        //     $manager->flush();
+            // On enregistre la photo en BDD 
+            $manager->flush();
 
-        //     // On affiche le message si l'action est réussie 
-        //     $this->addFlash('success', 'La photo a bien été enregistrée !');
+            // On affiche le message si l'action est réussie 
+            $this->addFlash('success', 'La photo a bien été enregistrée !');
 
-        //     // On met tout ça dans la  
-        //     return $this->redirectToRoute('gestiongaleries');
-        // }
+            // On met tout ça dans la  
+            return $this->redirectToRoute('gestiongaleries');
+        }
 
-        // // On récupère toutes les photos déjà dans la BDD
-        // $repository = $this->getDoctrine()->getRepository(Galerie::class);
-        // // Le findAll permet de récupérer toutes les informations stockées en BDB 
-        // $galeries = $repository->findOneById($id);
 
         // On récupère toutes les photos déjà dans la BDD
-        $repository = $this->getDoctrine()->getRepository(Photo::class);
+        $repository = $this->getDoctrine()->getRepository(Picture::class);
         // Le findAll permet de récupérer toutes les informations stockées en BDB 
-        $photos = $repository->findByGalerie($id);
+        $pictures = $repository->findByGalerie($id);
 
 
         // On récupère les informations et on les renvoie dans la VUE 
@@ -414,10 +416,10 @@ class AdminController extends AbstractController
 
         return $this->render('admin/modifiergalerie.html.twig', [
             'galerieForm' => $form->createView(),
-            // 'photoForm' => $form2->createView(),
+            'pictureForm' => $form2->createView(),
             'entreprise' => $entreprise,
             'specificites' => $specificites,
-            'photos' => $photos,
+            'pictures' => $pictures,
             'couleurs' => $couleurs,
             // 'galeries' => $galeries,
         ]);
