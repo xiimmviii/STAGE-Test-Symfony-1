@@ -3,15 +3,8 @@
 namespace App\Controller;
 
 
-<<<<<<< HEAD
 use App\Entity\User;
-<<<<<<< HEAD
-=======
 use App\Entity\Photo;
->>>>>>> parent of 0104503... SUPPORT
-=======
-use App\Entity\Photo;
->>>>>>> parent of 035bf16... Merge branch 'master' of https://github.com/xiimmviii/STAGE-Test-Symfony-1
 use App\Entity\Tarifs;
 use App\Entity\Contenu;
 use App\Entity\Couleur;
