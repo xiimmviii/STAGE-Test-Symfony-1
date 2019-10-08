@@ -30,8 +30,8 @@ class GalerieType extends AbstractType
             ->add('description', CKEditorType::class)
 
             ->add('pictureFiles', FileType::class,[
-                'required' => 'true',
-                // 'multiple' => 'true', 
+                'required' => 'false',
+                'multiple' => 'true', 
             ])
 
             

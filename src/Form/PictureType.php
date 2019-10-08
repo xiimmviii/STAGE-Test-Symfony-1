@@ -2,11 +2,10 @@
 
 namespace App\Form;
 
-use App\Entity\Photo;
+use App\Entity\Picture;
 use Symfony\Component\Form\AbstractType;
 use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints as Assert; 
 use Symfony\Component\Form\Extension\Core\Type\FileType;
@@ -15,7 +14,7 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 
-class PhotoType extends AbstractType
+class PictureType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -24,17 +23,15 @@ class PhotoType extends AbstractType
         // On déclare le champ, on lui applique une classe qui définit son type
         // On peut ensuite ajouter des spécificités à ces champs 
 
-            ->add('file', FileType::class, array(
+            ->add('imagefile', FileType::class, array(
 				'constraints' => array(
 					// On définit les formats d'image qui peuvent être envoyés 
 					new Assert\Image(array(
 						'mimeTypes' => array(
-							'image/png',
 							'image/jpeg',
 							'image/jpg',
-							'image/gif'
 						),
-						'mimeTypesMessage' => 'Veuillez sélectionner une image PNG, JPG, JPEG ou GIF' ,
+						'mimeTypesMessage' => 'Veuillez sélectionner une image JPG ou JPEG' ,
 					)),
 					new Assert\File(array(
 						// On définit la taille maximale du fichier qui peut être envoyé 
@@ -44,8 +41,6 @@ class PhotoType extends AbstractType
 				), 
 				'label' => 'Photo'
 			))
-			->add('dateAffichage', TextType::class,array('required' => false))
-			->add('description', TextareaType::class)
 
             ->add('submit', SubmitType::class);
         ;
@@ -54,7 +49,7 @@ class PhotoType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => Photo::class,
+            'data_class' => Picture::class,
         ]);
     }
 }
