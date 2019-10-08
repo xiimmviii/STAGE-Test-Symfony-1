@@ -117,6 +117,10 @@ class BaseController extends AbstractController
         $repository = $this->getDoctrine()->getRepository(Entreprise::class);
         $entreprise = $repository->findOneById(1);
 
+
+        $repository = $this->getDoctrine()->getRepository(Horaires::class);
+        $horaires = $repository->findAll();
+
         $repository = $this->getDoctrine()->getRepository(Specificites::class);
         $specificites = $repository->findOneById(1);
 
@@ -139,7 +143,8 @@ class BaseController extends AbstractController
             'photos' => $photos,
             'entreprise' => $entreprise,
             'specificites' => $specificites,
-            'couleurs' => $couleurs
+            'couleurs' => $couleurs,
+            'horaires' => $horaires,
         ]);
     }
 
@@ -154,6 +159,10 @@ class BaseController extends AbstractController
 
         $repository = $this->getDoctrine()->getRepository(Entreprise::class);
         $entreprise = $repository->findOneById(1);
+
+
+        $repository = $this->getDoctrine()->getRepository(Horaires::class);
+        $horaires = $repository->findAll();
 
         $repository = $this->getDoctrine()->getRepository(Specificites::class);
         $specificites = $repository->findOneById(1);
@@ -177,7 +186,8 @@ class BaseController extends AbstractController
             'specificites' => $specificites,
             'entreprise' => $entreprise,
             'tarifs' => $tarifs,
-            'couleurs' => $couleurs
+            'couleurs' => $couleurs,
+            'horaires' => $horaires,
         ]);
     }
 
@@ -197,6 +207,10 @@ class BaseController extends AbstractController
         $repository = $this->getDoctrine()->getRepository(Specificites::class);
         $specificites = $repository->findOneById(1);
 
+
+        $repository = $this->getDoctrine()->getRepository(Horaires::class);
+        $horaires = $repository->findAll();
+
         $repository = $this->getDoctrine()->getRepository(Couleur::class);
         $couleurs = $repository->findAll(
             array('dateAffichage' => 'DESC')
@@ -213,7 +227,8 @@ class BaseController extends AbstractController
         return $this->render('base/mentions.html.twig', [
             'specificites' => $specificites,
             'entreprise' => $entreprise,
-            'couleurs' => $couleurs
+            'couleurs' => $couleurs,
+            'horaires' => $horaires
         ]);
     }
 
@@ -231,6 +246,10 @@ class BaseController extends AbstractController
         $repository = $this->getDoctrine()->getRepository(Specificites::class);
         $specificites = $repository->findOneById(1);
 
+
+        $repository = $this->getDoctrine()->getRepository(Horaires::class);
+        $horaires = $repository->findAll();
+
         $repository = $this->getDoctrine()->getRepository(Couleur::class);
         $couleurs = $repository->findAll(
             array('dateAffichage' => 'DESC')
@@ -247,6 +266,7 @@ class BaseController extends AbstractController
         return $this->render('base/cgu.html.twig', [
             'specificites' => $specificites,
             'entreprise' => $entreprise,
+            'horaires' => $horaires,
             'couleurs' => $couleurs
         ]);
     }
@@ -266,6 +286,10 @@ class BaseController extends AbstractController
         $repository = $this->getDoctrine()->getRepository(Specificites::class);
         $specificites = $repository->findOneById(1);
 
+
+        $repository = $this->getDoctrine()->getRepository(Horaires::class);
+        $horaires = $repository->findAll();
+        
         $repository = $this->getDoctrine()->getRepository(Couleur::class);
         $couleurs = $repository->findAll(
             array('dateAffichage' => 'DESC')
@@ -304,6 +328,7 @@ class BaseController extends AbstractController
             'form' => $form->createView(),
             'specificites' => $specificites,
             'entreprise' => $entreprise,
+            'horaires' => $horaires,
             'couleurs' => $couleurs
         ]);
     }

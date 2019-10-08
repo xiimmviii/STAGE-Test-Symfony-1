@@ -126,4 +126,27 @@ class User implements UserInterface //l'entité USER doit absolument implémente
     {
         //sert à supprimer des données quand on stocke les données des utilisateurs (pas utile ici)
     }
+
+
+     /**
+     * @var string le token qui servira lors de l'oubli de mot de passe
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    protected $resetToken;
+ 
+    /**
+     * @return string
+     */
+    public function getResetToken(): string
+    {
+        return $this->resetToken;
+    }
+ 
+    /**
+     * @param string $resetToken
+     */
+    public function setResetToken(?string $resetToken): void
+    {
+        $this->resetToken = $resetToken;
+    }
 }

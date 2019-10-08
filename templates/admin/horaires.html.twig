@@ -1,0 +1,123 @@
+{% extends 'admin/baseadmin.html.twig' %}
+
+{% block content %}
+
+    <div class="row mt-4 pt-4">
+        <div class="col-md-6 col-sm-8 mx-auto alert-info border border-info rounded m-3 p-3">
+            <h2>
+                Horaires
+            </h2>
+            <hr>
+            <center>
+                <p>
+                    Cette section vous permet faire une liste de vos horaires.
+                    <br>
+                </p>
+            </center>
+        </div>
+    </div>
+
+    <div class="row m-4 justify-content-center">
+        <div class="col-lg-4 col-md-3 col-sm-10 alert-warning border border-warning rounded m-3 p-3  order-lg-5 text-justify">
+            <center>
+                <h1>
+                    <i class="fas fa-info-circle"></i>
+                </h1>
+            </center>
+            <hr>
+            <center>Cette section permet de poster les horaires sur votre entreprise.
+                <br><br>
+                <b>Les champs obligatoires sont : jour, ouverture et fermeture.
+                </b>
+            </center>
+
+            <br><br><ul>
+                <li class="mb-4">
+                    <strong>MODIFIER :</strong>
+                    Vous pouvez modifier des horaires en modifiant le jour, les heures.
+                </li>
+                <li>
+                    <strong>SUPPRIMER :</strong>
+                    <span class="text-danger">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        Action irréversible
+                        <i class="fas fa-exclamation-triangle"></i>
+                    </span>
+                </li>
+            </ul>
+        </div>
+        <div class="col-lg-6 col-md-8 col-sm-10 border rounded m-3 p-3 order-lg-0 ">
+            <h2>
+                Gérer les horaires
+            </h2><hr>
+            {{form_start(HorairesForm)}}
+            {{ form_row(HorairesForm.Jour, { 'label' : 'Jour *' } ) }}
+            <div class="row justify-content-center">
+                <div class="col-6 justify-content-center"> {{ form_row(HorairesForm.Ouverture, { 'label' : ' Heure d\'ouverture *' } ) }}</div>
+                <div class="col-6 justify-content-center"> {{ form_row(HorairesForm.Fermeture, { 'label' : 'Heure de fermeture * ' } ) }} </div>
+                </div>
+
+                        <div class="row justify-content-center">
+                <div class="col-6 justify-content-center"> {{ form_row(HorairesForm.Debut_Pause, { 'label' : ' Début de pause ' } ) }}</div>
+                <div class="col-6 justify-content-center"> {{ form_row(HorairesForm.Fin_Pause, { 'label' : 'Fin de pause ' } ) }} </div>
+                </div>
+            {{form_end(HorairesForm)}}
+
+        </div>
+    </div>
+
+    <div class="row m-4 justify-content-center">
+      <table class="col-10 table table-hover">
+            <thead>
+                <tr class="row">
+                    <th class="col-2"> Jour  </th>
+                    <th class="col-2"> Ouverture </th>
+                    <th class="col-2"> Fermeture  </th>
+                    <th class="col-2"> Début de Pause </th>
+                    <th class="col-2"> Fin de Pause  </th>
+                    <th class="col-1"> </th>
+                    <th class="col-1"> </th>
+            </thead>
+
+            <tbody>
+
+                {% for horaire in horaires %}
+                <!-- On récupère le reste des textes et on les affiche à la suite dans le tableau -->
+                <tr class="row">
+                    <td class="col-2">
+                        <h5>{{ horaire.jour }} </h5>
+                    </td>
+                    <td class="col-2">
+                        {{horaire.ouverture |date('H:i')}}
+                    </td>
+                    <td class="col-2 overflow-auto" height="100">
+                        {{horaire.fermeture |date('H:i')}}
+                    </td>
+                    <td class="col-2">
+                        {% if horaire.debutPause is not null %}
+                        {{horaire.debutPause |date('H:i')}}
+                        {% endif %}
+                    </td>
+                    <td class="col-2 overflow-auto" height="100">
+                       {% if horaire.finPause is not null %}
+                        {{horaire.finPause |date('H:i')}}
+                        {% endif %}
+                    </td>
+
+
+                    <td class="col-1 text-center bg-warning"> <a class="text-white h3"
+                            href="{{ path('update_horaires-admin', {id : horaire.id } ) }}">
+                            <i class="fas fa-edit p-4"></i> </a> </td>
+                    <td class="col-1 text-center bg-danger"> <a class="text-white h3"
+                            href="{{ path('delete_horaires-admin', {id : horaire.id } ) }}"
+                            onclick="return confirm('Etes-vous certain(e) de vouloir supprimer le texte de présentation ?')">
+                            <i class="fas fa-trash-alt p-4"></i>
+                        </a> </td>
+                </tr>
+                {% endfor %}
+
+            </tbody>
+        </table>
+    </div>
+
+{% endblock %}

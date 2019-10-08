@@ -3,17 +3,19 @@
 namespace App\Controller;
 
 
-use App\Entity\Photo;
+use App\Entity\User;
 use App\Entity\Tarifs;
 use App\Entity\Contenu;
 use App\Entity\Couleur;
 use App\Entity\Galerie;
 use App\Entity\Picture;
+use App\Entity\Horaires;
 use App\Form\TarifsType;
 use App\Form\ContenuType;
 use App\Form\GalerieType;
 use App\Form\PictureType;
 use App\Entity\Entreprise;
+use App\Form\HorairesType;
 use App\Entity\Partenaires;
 use App\Entity\Specificites;
 use App\Form\EntrepriseType;
@@ -1282,6 +1284,205 @@ class AdminController extends AbstractController
             'couleurs' => $couleurs
 
 
+        ]);
+    }
+
+    /* ---------------------------------------------------------------------------------------------------
+      HORAIRES
+    --------------------------------------------------------------------------------------------------- */
+
+
+    /**
+     * @Route("/admin/horaires", name="horaires-admin")
+     */
+    public function horairesAdmin(Request $request)
+    {
+        $repository = $this->getDoctrine()->getRepository(Entreprise::class);
+        $entreprise = $repository->findOneById(1);
+
+
+        $repository = $this->getDoctrine()->getRepository(Specificites::class);
+        $specificites = $repository->findOneById(1);
+
+        $repository = $this->getDoctrine()->getRepository(Couleur::class);
+        $couleurs = $repository->findAll(
+            array('dateAffichage' => 'DESC')
+        );
+
+        // -------------------------------------------------------------------
+        // -------------------------------------------------------------------
+
+        $repository = $this->getDoctrine()->getRepository(Horaires::class);
+        $horaires = $repository->findAll();
+        // --------------------------------------------------------------------
+        // -------------------------------------------------------------------
+
+        $boutonenvoi = 'Ajouter';
+
+        $horaire = new Horaires;
+
+        $form = $this->createForm(HorairesType::class, $horaire);
+        $form->handleRequest($request);
+
+        $manager = $this->getDoctrine()->getManager();
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $manager->persist($horaire);
+
+            $manager->flush();
+
+            $this->addFlash('success', 'L\'horaire a été ajoutée ! ');
+            return $this->redirectToRoute('horaires-admin');
+        }
+
+        return $this->render('admin/horaires.html.twig', [
+            'controller_name' => 'AdminController',
+            'entreprise' => $entreprise,
+            'specificites' => $specificites,
+            'horaires' => $horaires,
+            'HorairesForm' => $form->createView(),
+            'boutonenvoi' => $boutonenvoi,
+            'couleurs' => $couleurs
+        ]);
+    }
+
+
+    /**
+     * @Route("/admin/horaires/update/{id}", name="update_horaires-admin")
+     */
+    public function updateHorairesAdmin($id, Request $request)
+    {
+
+        $repository = $this->getDoctrine()->getRepository(Entreprise::class);
+        $entreprise = $repository->findOneById(1);
+
+        $repository = $this->getDoctrine()->getRepository(Specificites::class);
+        $specificites = $repository->findOneById(1);
+
+        $repository = $this->getDoctrine()->getRepository(Horaires::class);
+        $horaires = $repository->findAll();
+
+        $repository = $this->getDoctrine()->getRepository(Couleur::class);
+        $couleurs = $repository->findAll(
+            array('dateAffichage' => 'DESC')
+        );
+
+        // -------------------------------------------------------------------
+        // -------------------------------------------------------------------
+
+        $boutonenvoi = 'Modifier';
+
+        $manager = $this->getDoctrine()->getManager();
+        $horaire = $manager->find(Horaires::class, $id);
+
+
+        $form = $this->createForm(HorairesType::class, $horaire);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $manager->persist($horaire);
+
+            $manager->flush();
+
+            $this->addFlash('success', 'Les modifications de l\'horaire ont été effectuées ! ');
+            return $this->redirectToRoute('horaires-admin');
+        }
+
+
+
+        return $this->render('admin/horaires.html.twig', [
+            'controller_name' => 'AdminController',
+            'entreprise' => $entreprise,
+            'specificites' => $specificites,
+            'horaires' => $horaires,
+            'HorairesForm' => $form->createView(),
+            'boutonenvoi' => $boutonenvoi,
+            'couleurs' => $couleurs
+
+        ]);
+    }
+
+    /**
+     * @Route("/admin/horaires/delete/{id}", name="delete_horaires-admin")
+     */
+    public function deleteHorairesAdmin($id)
+    {
+        $manager = $this->getDoctrine()->getManager();
+        $horaire = $manager->find(Horaires::class, $id);
+
+        $manager->remove($horaire);
+        $manager->flush();
+
+        $this->addFlash('success', 'L\'horaire a bien été supprimée.');
+        return $this->redirectToRoute('horaires-admin');
+
+        // -------------------------------------------------------------------
+        // -------------------------------------------------------------------
+
+
+        $repository = $this->getDoctrine()->getRepository(Entreprise::class);
+        $entreprise = $repository->findOneById(1);
+
+        $repository = $this->getDoctrine()->getRepository(Specificites::class);
+        $specificites = $repository->findOneById(1);
+
+        $repository = $this->getDoctrine()->getRepository(Couleur::class);
+        $couleurs = $repository->findAll(
+            array('dateAffichage' => 'DESC')
+        );
+
+    }
+
+
+     /* ---------------------------------------------------------------------------------------------------
+      AIDE & SUPPORT 
+    --------------------------------------------------------------------------------------------------- */
+
+        /**
+     * @Route("/admin/aide-support", name="aide-support")
+     */
+    public function aideSupport( Request $request,  \Swift_Mailer $mailer): Response
+    {
+
+        $entityManager = $this->getDoctrine()->getManager();
+        $user = $entityManager->getRepository(User::class)->findOneByRole( array('role' => 'ROLE_ADMIN'));
+
+        $mailclient = $user->getEmail();
+        
+        if ($request->isMethod('POST')) {
+
+            $objet = $request->request->get('objet');
+            $probleme = $request->request->get('probleme');
+
+
+            $message = (new \Swift_Message('TICKET INTERVENTION '))
+                ->setFrom($user->getEmail())
+                ->setTo('test.mbmp@gmail.com')
+                ->setBody(
+                    "<h1> Ticket d'intervention pour " . $mailclient . " </h1><hr><hr><b><u> Objet du problème : </u></b>" . $objet . "<hr><b><u>Message : </u></b>" . $probleme ,
+                    'text/html'
+                );
+
+            $mailer->send($message);
+
+            $this->addFlash('notice', 'Mail envoyé');
+
+            return $this->redirectToRoute('aide-support');
+        }
+
+        $repository = $this->getDoctrine()->getRepository(Entreprise::class);
+        $entreprise = $repository->findOneById(1);
+
+        $repository = $this->getDoctrine()->getRepository(Specificites::class);
+        $specificites = $repository->findOneById(1);
+
+        return $this->render('admin/aide-support.html.twig', [
+            'controller_name' => 'AdminController',
+            'entreprise' => $entreprise,
+            'specificites' => $specificites,
+            'user' => $user
         ]);
     }
 }
