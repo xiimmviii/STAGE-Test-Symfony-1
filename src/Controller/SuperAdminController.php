@@ -2,15 +2,16 @@
 
 namespace App\Controller;
 
+use App\Entity\User;
 use App\Entity\Couleur;
 use App\Form\CouleurType;
 use App\Entity\Entreprise;
 use App\Entity\Specificites;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 
 class SuperAdminController extends AbstractController
@@ -213,5 +214,32 @@ class SuperAdminController extends AbstractController
         ]);
     }
 
+/**
+     *  
+     * @Route("/super-admin/switch-user", name="switch-user")
+     */
+    public function switchUser()
+    {
+       
+        $repository = $this->getDoctrine()->getRepository(Entreprise::class);
+        $entreprise = $repository->findOneById(1);
+        // Le findOneById permet de trier les données et de ne récupérer que la donnée qui a l'ID #1 
 
+        $repository = $this->getDoctrine()->getRepository(Specificites::class);
+        $specificites = $repository->findOneById(1);
+        // Le findOneById permet de trier les données et de ne récupérer que la donnée qui a l'ID #1 
+
+        $repository = $this->getDoctrine()->getRepository(User::class);
+        $users = $repository ->findOneByRole( array('role' => 'ROLE_ADMIN'));
+    
+
+
+         // On retourne ensuite les éléments récupérés dans la vue qu'on injectera entre {{}} dans la vue twig ADMIN -> espaceadmin.html.twig
+        return $this->render('admin/switch_user.html.twig', [
+            'controller_name' => 'SuperAdminController',
+            'entreprise' => $entreprise,
+            'specificites' => $specificites,
+            'users' => $users
+        ]);
+    }
 }
