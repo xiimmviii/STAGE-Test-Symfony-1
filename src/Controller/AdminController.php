@@ -3,7 +3,6 @@
 namespace App\Controller;
 
 
-use App\Entity\User;
 use App\Entity\Photo;
 use App\Entity\Tarifs;
 use App\Entity\Contenu;
