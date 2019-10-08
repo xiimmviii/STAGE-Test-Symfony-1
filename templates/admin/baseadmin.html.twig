@@ -95,7 +95,7 @@
                         </div>
                     </li>
                     {% if is_granted ('ROLE_SUPER_ADMIN')%}
-                    <li class="nav-item dropdown bg-warning rounded">
+                    <li class="nav-item dropdown bg-warning rounded ml-5">
                         <a class="nav-link dropdown-toggle" href="{{path('super-admin')}}" id="navbarDropdownMenuLink"
                             role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
                             target="blank">
@@ -107,6 +107,9 @@
                     </li> {% endif %}
                 </ul>
             </div>
+                        <a class="nav-link btn btn-success" href="{{path('aide-support')}}">
+                            Aide & Support 
+                        </a>
             <a class="nav-link deco text-danger rounded font-weight-bold" href="{{path('app_logout')}}">
                 <i class="fas fa-sign-out-alt"></i>
                 Déconnexion</a>
