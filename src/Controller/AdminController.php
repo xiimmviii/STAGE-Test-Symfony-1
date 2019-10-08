@@ -3,7 +3,11 @@
 namespace App\Controller;
 
 
+<<<<<<< HEAD
 use App\Entity\User;
+=======
+use App\Entity\Photo;
+>>>>>>> parent of 0104503... SUPPORT
 use App\Entity\Tarifs;
 use App\Entity\Contenu;
 use App\Entity\Couleur;
@@ -1288,7 +1292,7 @@ class AdminController extends AbstractController
     }
 
     /* ---------------------------------------------------------------------------------------------------
-      HORAIRES
+      HORA
     --------------------------------------------------------------------------------------------------- */
 
 
@@ -1433,56 +1437,15 @@ class AdminController extends AbstractController
             array('dateAffichage' => 'DESC')
         );
 
-    }
 
-
-     /* ---------------------------------------------------------------------------------------------------
-      AIDE & SUPPORT 
-    --------------------------------------------------------------------------------------------------- */
-
-        /**
-     * @Route("/admin/aide-support", name="aide-support")
-     */
-    public function aideSupport( Request $request,  \Swift_Mailer $mailer): Response
-    {
-
-        $entityManager = $this->getDoctrine()->getManager();
-        $user = $entityManager->getRepository(User::class)->findOneByRole( array('role' => 'ROLE_ADMIN'));
-
-        $mailclient = $user->getEmail();
-        
-        if ($request->isMethod('POST')) {
-
-            $objet = $request->request->get('objet');
-            $probleme = $request->request->get('probleme');
-
-
-            $message = (new \Swift_Message('TICKET INTERVENTION '))
-                ->setFrom($user->getEmail())
-                ->setTo('test.mbmp@gmail.com')
-                ->setBody(
-                    "<h1> Ticket d'intervention pour " . $mailclient . " </h1><hr><hr><b><u> Objet du problème : </u></b>" . $objet . "<hr><b><u>Message : </u></b>" . $probleme ,
-                    'text/html'
-                );
-
-            $mailer->send($message);
-
-            $this->addFlash('notice', 'Mail envoyé');
-
-            return $this->redirectToRoute('aide-support');
-        }
-
-        $repository = $this->getDoctrine()->getRepository(Entreprise::class);
-        $entreprise = $repository->findOneById(1);
-
-        $repository = $this->getDoctrine()->getRepository(Specificites::class);
-        $specificites = $repository->findOneById(1);
-
-        return $this->render('admin/aide-support.html.twig', [
+        return $this->render('admin/espaceadmin.html.twig', [
             'controller_name' => 'AdminController',
             'entreprise' => $entreprise,
             'specificites' => $specificites,
-            'user' => $user
+            'boutonenvoi' => $boutonenvoi,
+            'couleurs' => $couleurs
+
+
         ]);
     }
 }
