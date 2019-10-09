@@ -29,10 +29,24 @@ class GalerieType extends AbstractType
             // Required permet de préciser si le contenu est obligatoire (true) ou non (false)
             ->add('description', CKEditorType::class)
 
-            ->add('pictureFiles', FileType::class,[
-                'required' => 'false',
-                'multiple' => 'true',  
-            ])
+            ->add('pictureFiles', FileType::class, array(
+				'constraints' => array(
+					// On définit les formats d'image qui peuvent être envoyés 
+					new Assert\Image(array(
+						'mimeTypes' => array(
+							'image/jpeg',
+							'image/jpg',
+						),
+						'mimeTypesMessage' => 'Veuillez sélectionner une image PNG, JPG, JPEG ou GIF' ,
+					)),
+					new Assert\File(array(
+						// On définit la taille maximale du fichier qui peut être envoyé 
+						'maxSize' => '3M',
+						'maxSizeMessage' => '>Veuillez sélectionner une image de 3Mo maximum'
+					)),
+				), 
+				'label' => 'Photo'
+			))
 
             
             ->add('submit', SubmitType::class);
