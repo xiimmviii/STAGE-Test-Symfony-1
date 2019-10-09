@@ -8,6 +8,7 @@ use App\Entity\Contact;
 use App\Entity\Contenu;
 use App\Entity\Couleur;
 use App\Entity\Galerie;
+use App\Entity\Horaires;
 use App\Form\ContactType;
 use App\Entity\Entreprise;
 use App\Entity\Partenaires;
@@ -32,6 +33,9 @@ class BaseController extends AbstractController
         $repository = $this->getDoctrine()->getRepository(Partenaires::class);
         $logos = $repository->findAll();
 
+        $repository = $this->getDoctrine()->getRepository(Horaires::class);
+        $horaires = $repository->findAll();
+        
         $repository = $this->getDoctrine()->getRepository(Entreprise::class);
         $entreprise = $repository->findOneById(1);
 
@@ -97,6 +101,7 @@ class BaseController extends AbstractController
             'historique' => $historique,
             'logos' => $logos, 
             'couleurs' => $couleurs,
+            'horaires' => $horaires,
             'form' => $form->createView()
         ]);
     }
@@ -112,6 +117,10 @@ class BaseController extends AbstractController
         $repository = $this->getDoctrine()->getRepository(Entreprise::class);
         $entreprise = $repository->findOneById(1);
 
+
+        $repository = $this->getDoctrine()->getRepository(Horaires::class);
+        $horaires = $repository->findAll();
+
         $repository = $this->getDoctrine()->getRepository(Specificites::class);
         $specificites = $repository->findOneById(1);
 
@@ -122,19 +131,22 @@ class BaseController extends AbstractController
 
         // -----------------------------------------------------------------------------------
 
-        //on utilise le repository pour accéder à la table Photo
-        $repository = $this->getDoctrine()->getRepository(Photo::class);
+        //on utilise le repository pour accéder à la table Galerie
+        $repository = $this->getDoctrine()->getRepository(Galerie::class);
         //On récupère toutes les données de la table Galerie et on les injecte dans l'objet $photos
-        $photos = $repository->findAll(array('id' => 'DESC'));
+        $galeries = $repository->findAll();
+
+        // $galeries = $repository->findAll(array('id' => 'DESC'));
 
         // -----------------------------------------------------------------------------------
 
         //on injecte les données dans la vue réalisations (en incluant les données pour le footer)
         return $this->render('base/realisations.html.twig', [
-            'photos' => $photos,
+            'galeries' => $galeries,
             'entreprise' => $entreprise,
             'specificites' => $specificites,
-            'couleurs' => $couleurs
+            'couleurs' => $couleurs,
+            'horaires' => $horaires,
         ]);
     }
 
@@ -149,6 +161,10 @@ class BaseController extends AbstractController
 
         $repository = $this->getDoctrine()->getRepository(Entreprise::class);
         $entreprise = $repository->findOneById(1);
+
+
+        $repository = $this->getDoctrine()->getRepository(Horaires::class);
+        $horaires = $repository->findAll();
 
         $repository = $this->getDoctrine()->getRepository(Specificites::class);
         $specificites = $repository->findOneById(1);
@@ -172,7 +188,8 @@ class BaseController extends AbstractController
             'specificites' => $specificites,
             'entreprise' => $entreprise,
             'tarifs' => $tarifs,
-            'couleurs' => $couleurs
+            'couleurs' => $couleurs,
+            'horaires' => $horaires,
         ]);
     }
 
@@ -192,6 +209,10 @@ class BaseController extends AbstractController
         $repository = $this->getDoctrine()->getRepository(Specificites::class);
         $specificites = $repository->findOneById(1);
 
+
+        $repository = $this->getDoctrine()->getRepository(Horaires::class);
+        $horaires = $repository->findAll();
+
         $repository = $this->getDoctrine()->getRepository(Couleur::class);
         $couleurs = $repository->findAll(
             array('dateAffichage' => 'DESC')
@@ -208,7 +229,8 @@ class BaseController extends AbstractController
         return $this->render('base/mentions.html.twig', [
             'specificites' => $specificites,
             'entreprise' => $entreprise,
-            'couleurs' => $couleurs
+            'couleurs' => $couleurs,
+            'horaires' => $horaires
         ]);
     }
 
@@ -226,6 +248,10 @@ class BaseController extends AbstractController
         $repository = $this->getDoctrine()->getRepository(Specificites::class);
         $specificites = $repository->findOneById(1);
 
+
+        $repository = $this->getDoctrine()->getRepository(Horaires::class);
+        $horaires = $repository->findAll();
+
         $repository = $this->getDoctrine()->getRepository(Couleur::class);
         $couleurs = $repository->findAll(
             array('dateAffichage' => 'DESC')
@@ -242,6 +268,7 @@ class BaseController extends AbstractController
         return $this->render('base/cgu.html.twig', [
             'specificites' => $specificites,
             'entreprise' => $entreprise,
+            'horaires' => $horaires,
             'couleurs' => $couleurs
         ]);
     }
@@ -261,6 +288,10 @@ class BaseController extends AbstractController
         $repository = $this->getDoctrine()->getRepository(Specificites::class);
         $specificites = $repository->findOneById(1);
 
+
+        $repository = $this->getDoctrine()->getRepository(Horaires::class);
+        $horaires = $repository->findAll();
+        
         $repository = $this->getDoctrine()->getRepository(Couleur::class);
         $couleurs = $repository->findAll(
             array('dateAffichage' => 'DESC')
@@ -299,6 +330,7 @@ class BaseController extends AbstractController
             'form' => $form->createView(),
             'specificites' => $specificites,
             'entreprise' => $entreprise,
+            'horaires' => $horaires,
             'couleurs' => $couleurs
         ]);
     }
@@ -337,3 +369,4 @@ class BaseController extends AbstractController
 
 
 }
+
