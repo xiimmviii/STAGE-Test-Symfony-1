@@ -2,58 +2,64 @@
 
 {% block content %}
 
-    <div class="row mt-4 pt-4">
-        <div class="col-md-6 col-sm-8 mx-auto alert-info border border-info rounded m-3 p-3">
-            <h2>
-                Horaires
-            </h2>
-            <hr>
-            <center>
-                <p>
-                    Cette section vous permet faire une liste de vos horaires.
-                    <br>
-                </p>
-            </center>
+<div class="row m-4 justify-content-center">
+    <div class="col-lg-4 col-md-3 col-sm-10 m-3 p-3 order-lg-5 text-justify">
+        <div class="row">
+            <div class="col-12 alert-warning border border-warning rounded">
+                <center>
+                    <h1>
+                        <i class="fas fa-info-circle"></i>
+                    </h1>
+                </center>
+                <hr>
+                <center>Cette section permet de poster les horaires sur votre entreprise.
+                    <br><br>
+                    <b>Les champs obligatoires sont : jour, ouverture et fermeture.
+                    </b>
+                </center>
+
+                <br><br><ul>
+                    <li class="mb-4">
+                        <strong>MODIFIER :</strong>
+                        Vous pouvez modifier des horaires en modifiant le jour, les heures.
+                    </li>
+                    <li>
+                        <strong>SUPPRIMER :</strong>
+                        <span class="text-danger">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            Action irréversible
+                            <i class="fas fa-exclamation-triangle"></i>
+                        </span>
+                    </li>
+                </ul>
+            </div>
         </div>
     </div>
-
-    <div class="row m-4 justify-content-center">
-        <div class="col-lg-4 col-md-3 col-sm-10 alert-warning border border-warning rounded m-3 p-3  order-lg-5 text-justify">
-            <center>
-                <h1>
-                    <i class="fas fa-info-circle"></i>
-                </h1>
-            </center>
-            <hr>
-            <center>Cette section permet de poster les horaires sur votre entreprise.
-                <br><br>
-                <b>Les champs obligatoires sont : jour, ouverture et fermeture.
-                </b>
-            </center>
-
-            <br><br><ul>
-                <li class="mb-4">
-                    <strong>MODIFIER :</strong>
-                    Vous pouvez modifier des horaires en modifiant le jour, les heures.
-                </li>
-                <li>
-                    <strong>SUPPRIMER :</strong>
-                    <span class="text-danger">
-                        <i class="fas fa-exclamation-triangle"></i>
-                        Action irréversible
-                        <i class="fas fa-exclamation-triangle"></i>
-                    </span>
-                </li>
-            </ul>
+    <div class="col-lg-6 col-md-8 col-sm-10 m-3 p-3 order-lg-0 ">
+        <div class="row">
+            <div class="col-12 alert-info border border-info rounded">
+                <h2>
+                    Horaires
+                </h2>
+                <hr>
+                <center>
+                    <p>
+                        Cette section vous permet faire une liste de vos horaires.
+                        <br>
+                    </p>
+                </center>
+            </div>
         </div>
-        <div class="col-lg-6 col-md-8 col-sm-10 border rounded m-3 p-3 order-lg-0 ">
-            <h2>
-                Gérer les horaires
-            </h2><hr>
-            {{form_start(HorairesForm)}}
-            {{ form_row(HorairesForm.Jour, { 'label' : 'Jour *' } ) }}
-            <div class="row justify-content-center">
-                <div class="col-6 justify-content-center"> {{ form_row(HorairesForm.Ouverture, { 'label' : ' Heure d\'ouverture *' } ) }}</div>
+        <div class="row mt-4 pt-4">
+            <div class="col-md-8 col-sm-8 mx-auto alert-info border border-info rounded m-3 p-3">
+                <h2>
+                    Gérer les horaires
+                </h2><hr>
+                {{form_start(HorairesForm)}}
+                {{ form_row(HorairesForm.Jour, { 'label' : 'Jour *' } ) }}
+                <div class="row justify-content-center">
+                    <div class="col-6 justify-content-center">
+                        {{ form_row(HorairesForm.Ouverture, { 'label' : ' Heure d\'ouverture *' } ) }}</div>
                 <div class="col-6 justify-content-center"> {{ form_row(HorairesForm.Fermeture, { 'label' : 'Heure de fermeture * ' } ) }} </div>
                 </div>
 
@@ -61,9 +67,16 @@
                 <div class="col-6 justify-content-center"> {{ form_row(HorairesForm.Debut_Pause, { 'label' : ' Début de pause ' } ) }}</div>
                 <div class="col-6 justify-content-center"> {{ form_row(HorairesForm.Fin_Pause, { 'label' : 'Fin de pause ' } ) }} </div>
                 </div>
+
+                                    {{ form_row(HorairesForm.submit, { 'label' : "Publier", 'attr': {'class': 'col-3 btn btn-outline-success text-sucsess text-center'} } ) }}
+
             {{form_end(HorairesForm)}}
 
         </div>
+    </div>
+     </div>
+    </div>
+     </div>
     </div>
 
     <div class="row m-4 justify-content-center">
