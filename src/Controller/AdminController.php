@@ -23,6 +23,7 @@ use App\Form\PartenairesType;
 use App\Form\SpecificitesType;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
+use Proxies\__CG__\App\Entity\Galerie as ProxiesGalerie;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Validator\Constraints\Date;
@@ -146,9 +147,6 @@ class AdminController extends AbstractController
         // On crée un objet vide qu'on pourra ensuite réutiliser
         $galerie = new Galerie;
 
-        // // On crée un objet vide qu'on pourra ensuite réutiliser
-        // $photo = new Photo;
-
         // On créé la vue d'un formulaire qui provient du dossier FORM > GalerieType.php 
         $form = $this->createForm(GalerieType::class, $galerie);
         // On récupère les infos saisies dans le formulaire ($_POST)
@@ -160,18 +158,8 @@ class AdminController extends AbstractController
 
             $manager = $this->getDoctrine()->getManager();
 
-            // $galerie->addPhotos($photo);
-            // // On enregistre la $photo et l'id de la galerie dans le système 
-            // $manager->persist($photo);
-
-            // On enregistre la galerie dans le système 
+            // On enregistre la galerie  et la photo associée dans le système 
             $manager->persist($galerie);
-
-            // // On enregistre la photo en BDD et sur le serveur. 
-            // // On émet une condition >> Si il y a un fichier sélectionné, alors on l'envoie 
-            // if ($photo->getFile() != NULL) {
-            //     $photo->uploadFile();
-            // }
 
             // On enregistre la galerie en BDD 
             $manager->flush();
@@ -189,10 +177,10 @@ class AdminController extends AbstractController
 
         // On récupère le manager
         $em = $this->getDoctrine()->getManager();
-        
+
         // On va dans l'entité Galerie
         $repo = $em->getRepository(Galerie::class);
-        
+
         // On fait une requête pour compter combien de galeries il y a dans la table Galerie (galerie = g)
         $totalGaleries = $repo->createQueryBuilder('g')
             //on séléctionne comment on compte les lignes (par l'id)
@@ -353,6 +341,36 @@ class AdminController extends AbstractController
         $pictures = $repository->findByGalerie($id);
 
 
+        //-------------------------------------------------------------
+
+        //On veut limiter le nombre de photos dans une galerie à 4. 
+
+        // On récupère le manager
+        $em = $this->getDoctrine()->getManager();
+
+        // On va dans l'entité Picture
+        $repo = $em->getRepository(Picture::class);
+
+        // // On va dans l'entité Galerie
+        // $repo = $em->getRepository(Galerie::class);
+
+        $galerie = $id;
+
+
+        // On fait une requête pour compter combien de galeries il y a dans la table Galerie (galerie = g)
+        // $totalPictures = $repo->createQueryBuilder('p', 'g')
+        $totalPictures = $repo->createQueryBuilder('p')
+            //on séléctionne comment on compte les lignes (par l'id)
+            ->select('count(p.id)')
+            ->where('p.galerie = :nb')
+            ->setParameter('nb', $galerie)
+            ->getQuery()
+            ->getResult();
+
+
+
+        //-------------------------------------------------------------
+
         // On récupère les informations et on les renvoie dans la VUE 
         $repository = $this->getDoctrine()->getRepository(Entreprise::class);
         $entreprise = $repository->findOneById(1);
@@ -371,6 +389,7 @@ class AdminController extends AbstractController
             'specificites' => $specificites,
             'pictures' => $pictures,
             'couleurs' => $couleurs,
+            'totalPictures' => $totalPictures,
         ]);
     }
 
@@ -1379,25 +1398,24 @@ class AdminController extends AbstractController
         $couleurs = $repository->findAll(
             array('dateAffichage' => 'DESC')
         );
-
     }
 
 
-     /* ---------------------------------------------------------------------------------------------------
+    /* ---------------------------------------------------------------------------------------------------
       AIDE & SUPPORT 
     --------------------------------------------------------------------------------------------------- */
 
-        /**
+    /**
      * @Route("/admin/aide-support", name="aide-support")
      */
-    public function aideSupport( Request $request,  \Swift_Mailer $mailer): Response
+    public function aideSupport(Request $request,  \Swift_Mailer $mailer): Response
     {
 
         $entityManager = $this->getDoctrine()->getManager();
-        $user = $entityManager->getRepository(User::class)->findOneByRole( array('role' => 'ROLE_ADMIN'));
+        $user = $entityManager->getRepository(User::class)->findOneByRole(array('role' => 'ROLE_ADMIN'));
 
         $mailclient = $user->getEmail();
-        
+
         if ($request->isMethod('POST')) {
 
             $objet = $request->request->get('objet');
@@ -1408,7 +1426,7 @@ class AdminController extends AbstractController
                 ->setFrom($user->getEmail())
                 ->setTo('test.mbmp@gmail.com')
                 ->setBody(
-                    "<h1> Ticket d'intervention pour " . $mailclient . " </h1><hr><hr><b><u> Objet du problème : </u></b>" . $objet . "<hr><b><u>Message : </u></b>" . $probleme ,
+                    "<h1> Ticket d'intervention pour " . $mailclient . " </h1><hr><hr><b><u> Objet du problème : </u></b>" . $objet . "<hr><b><u>Message : </u></b>" . $probleme,
                     'text/html'
                 );
 
@@ -1433,5 +1451,3 @@ class AdminController extends AbstractController
         ]);
     }
 }
-
-
