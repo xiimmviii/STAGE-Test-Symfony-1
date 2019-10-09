@@ -43,10 +43,10 @@ class BaseController extends AbstractController
         $entreprise = $repository->findOneById(1);
 
         $repository = $this->getDoctrine()->getRepository(Localisation::class);
-        $localisations = $repository->findOneById(1);
+        $localisations = $repository->findAll();
 
         $repository = $this->getDoctrine()->getRepository(Competences::class);
-        $competences = $repository->findOneById(1);
+        $competences = $repository->findAll();
         
         $repository = $this->getDoctrine()->getRepository(Reseaux::class);
         $reseaux = $repository->findOneById(1);
@@ -130,10 +130,10 @@ class BaseController extends AbstractController
         $horaires = $repository->findAll();
 
         $repository = $this->getDoctrine()->getRepository(Localisation::class);
-        $localisations = $repository->findOneById(1);
+        $localisations = $repository->findAll();
 
         $repository = $this->getDoctrine()->getRepository(Competences::class);
-        $competences = $repository->findOneById(1);
+        $competences = $repository->findAll();
         
         $repository = $this->getDoctrine()->getRepository(Reseaux::class);
         $reseaux = $repository->findOneById(1);
@@ -183,10 +183,10 @@ class BaseController extends AbstractController
         $horaires = $repository->findAll();
 
         $repository = $this->getDoctrine()->getRepository(Localisation::class);
-        $localisations = $repository->findOneById(1);
+        $localisations = $repository->findAll();
 
         $repository = $this->getDoctrine()->getRepository(Competences::class);
-        $competences = $repository->findOneById(1);
+        $competences = $repository->findAll();
         
         $repository = $this->getDoctrine()->getRepository(Reseaux::class);
         $reseaux = $repository->findOneById(1);
@@ -231,10 +231,10 @@ class BaseController extends AbstractController
         $entreprise = $repository->findOneById(1);
 
         $repository = $this->getDoctrine()->getRepository(Localisation::class);
-        $localisations = $repository->findOneById(1);
+        $localisations = $repository->findAll();
 
         $repository = $this->getDoctrine()->getRepository(Competences::class);
-        $competences = $repository->findOneById(1);
+        $competences = $repository->findAll();
         
         $repository = $this->getDoctrine()->getRepository(Reseaux::class);
         $reseaux = $repository->findOneById(1);
@@ -278,10 +278,10 @@ class BaseController extends AbstractController
         $entreprise = $repository->findOneById(1);
 
         $repository = $this->getDoctrine()->getRepository(Localisation::class);
-        $localisations = $repository->findOneById(1);
+        $localisations = $repository->findAll();
 
         $repository = $this->getDoctrine()->getRepository(Competences::class);
-        $competences = $repository->findOneById(1);
+        $competences = $repository->findAll();
         
         $repository = $this->getDoctrine()->getRepository(Reseaux::class);
         $reseaux = $repository->findOneById(1);
@@ -326,10 +326,10 @@ class BaseController extends AbstractController
         $entreprise = $repository->findOneById(1);
 
         $repository = $this->getDoctrine()->getRepository(Localisation::class);
-        $localisations = $repository->findOneById(1);
+        $localisations = $repository->findAll();
 
         $repository = $this->getDoctrine()->getRepository(Competences::class);
-        $competences = $repository->findOneById(1);
+        $competences = $repository->findAll();
         
         $repository = $this->getDoctrine()->getRepository(Reseaux::class);
         $reseaux = $repository->findOneById(1);
