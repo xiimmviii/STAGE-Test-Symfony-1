@@ -2,66 +2,91 @@
 
 {% block content %}
 
-<div class="row mt-4 pt-4">
-    <div class="col-md-6 col-sm-8 mx-auto alert-info border border-info rounded m-3 p-3">
-        <h2>
-            Entreprise
-        </h2>
-        <hr>
-        <p>Dans cette section, il est possible de modifier les informations relatives à l'entreprise afin de pouvoir les
-            mettre à jour de façon aisée sur le site web.
-        </p>
-    </div>
-</div>
-<div class="row m-4 justify-content-center">
-    <div
-        class="col-lg-4 col-md-3 col-sm-10 alert-warning border border-warning rounded m-3 p-3 order-md-5 order-lg-5 text-justify">
-        <center>
-            <h1>
-                <i class="fas fa-info-circle"></i>
-            </h1>
-        </center>
-        <hr>
-        Les informations affichées ci-contre sont les informations actuelles qui apparaissent sur votre site.
-        Vous pouvez modifier chacune d'elle de façon individuelle ou non. Dès lors que vous validerez ces modifications
-        en appuyant sur le bouton "modifier" en bas du formulaire, elles apparaitront de façon immédiate sur le site.
+    <div class="row m-4 justify-content-center">
 
-        <hr>
-        <strong><u> Champs obligatoires :</u></strong>
-        <ul>
-            <li> Nom de l'entreprise </li>
-            <li> Adresse, code postal, ville </li>
-            <li> Mail de contact </li>
-            <li> Téléphone </li>
-            <li> Mail pour les devis <br><i>(peut-être similaire au mail de contact)</i></li>
-        </ul>
-        <hr>
-        <center>Les autres champs ne sont pas obligatoires puisqu'ils n'apparaissent pas sur votre site.
-            <br><strong>(Ceci peut être modifié sur demande.)</strong></center>
-    </div>
-    <div class="col-lg-6 col-md-8 col-sm-10 border rounded m-3 p-3 order-md-0 order-lg-0 ">
-        {{ form_start(EntrepriseForm) }}
-        <div class="row">
-            <div class="col-6">
-                {{ form_row(EntrepriseForm.nom, {'label' : 'Nom *'}) }}
-                {{ form_row(EntrepriseForm.adresse, {'label' : 'Adresse *'}) }}
-                {{ form_row(EntrepriseForm.cp, {'label' : 'Code Postal *'}) }}
-                {{ form_row(EntrepriseForm.ville, {'label' : 'Ville *'}) }}
+        <div class="col-lg-4 col-md-3 col-sm-10 order-md-5 order-lg-5">
+            <div class="row">
+                <div class="col-12 alert-warning border border-warning rounded m-3 p-3 text-justify">
+                    <center>
+                        <h1>
+                            <i class="fas fa-info-circle"></i>
+                        </h1>
+                    </center>
+                    <hr>
+                    Les informations affichées ci-contre sont les informations actuelles qui apparaissent sur votre site.
+                                                                                Vous pouvez modifier chacune d'elle de façon individuelle ou non. Dès lors que vous validerez ces modifications
+                                                                                en appuyant sur le bouton "modifier" en bas du formulaire, elles apparaitront de façon immédiate sur le site.
 
-                {{ form_row(EntrepriseForm.mailContact, {'label' : 'Mail de contact *'}) }}
-                {{ form_row(EntrepriseForm.telephone , {'label' : 'Téléphone'}) }}
+                    <hr>
+                    <strong>
+                        <u>
+                            Champs obligatoires :</u>
+                    </strong>
+                    <ul>
+                        <li>
+                            Nom de l'entreprise
+                        </li>
+                        <li>
+                            Adresse, code postal, ville
+                        </li>
+                        <li>
+                            Mail de contact
+                        </li>
+                        <li>
+                            Téléphone
+                        </li>
+                        <li>
+                            Mail pour les devis
+                                    F
+                            <br><i>(peut-être similaire au mail de contact)</i>
+                        </li>
+                    </ul>
+                    <hr>
+                    <center>Les autres champs ne sont pas obligatoires puisqu'ils n'apparaissent pas sur votre site.
+                        <br><strong>(Ceci peut être modifié sur demande.)</strong>
+                    </center>
+                </div>
             </div>
-            <div class="col-6">
-                {{ form_row(EntrepriseForm.nomGerant, {'label' : 'Nom du gérant'}) }}
-                {{ form_row(EntrepriseForm.activite, {'label' : 'Activité *'}) }}
-                {{ form_row(EntrepriseForm.statut_rcs, {'label' : 'Statut RCS'}) }}
-                {{ form_row(EntrepriseForm.siren , {'label' : 'SIREN'}) }}
-                {{ form_row(EntrepriseForm.siret, {'label' : 'SIRET *'}) }}
-                {{ form_row(EntrepriseForm.mailGerant, {'label' : 'Mail de la personne gérant les devis *'}) }}
+            <div class="row"></div>
+        </div>
+        <div class="col-lg-6 col-md-8 col-sm-10 rounded m-3  order-md-0 order-lg-0 ">
+            <div class="row">
+                <div class="col-12 alert-info border border-info rounded mb-5 p-3">
+                    <h2>
+                        Entreprise
+                    </h2>
+                    <hr>
+                    <p>Dans cette section, il est possible de modifier les informations relatives à l'entreprise afin de pouvoir les
+                                                                                                    mettre à jour de façon aisée sur le site web.
+                    </p>
+                </div>
+            </div>
+            <div class="row alert alert-info border border-info rounded ">
+                <div class="col-12 p-3 justify-content-between">
+                    {{ form_start(EntrepriseForm) }}
+                    <div class="row">
+                        <div class="col-6">
+                            {{ form_row(EntrepriseForm.nom, {'label' : 'Nom *'}) }}
+                            {{ form_row(EntrepriseForm.adresse, {'label' : 'Adresse *'}) }}
+                            {{ form_row(EntrepriseForm.cp, {'label' : 'Code Postal *'}) }}
+                            {{ form_row(EntrepriseForm.ville, {'label' : 'Ville *'}) }}
+
+                            {{ form_row(EntrepriseForm.mailContact, {'label' : 'Mail de contact *'}) }}
+                            {{ form_row(EntrepriseForm.telephone , {'label' : 'Téléphone'}) }}
+                        </div>
+                        <div class="col-6">
+                            {{ form_row(EntrepriseForm.nomGerant, {'label' : 'Nom du gérant'}) }}
+                            {{ form_row(EntrepriseForm.activite, {'label' : 'Activité *'}) }}
+                            {{ form_row(EntrepriseForm.statut_rcs, {'label' : 'Statut RCS'}) }}
+                            {{ form_row(EntrepriseForm.siren , {'label' : 'SIREN'}) }}
+                            {{ form_row(EntrepriseForm.siret, {'label' : 'SIRET *'}) }}
+                            {{ form_row(EntrepriseForm.mailGerant, {'label' : 'Mail de la personne gérant les devis *'}) }}
+                        </div>
+                    </div>
+                    {{ form_row(EntrepriseForm.submit, { 'label' : "Publier", 'attr': {'class': 'col-3 offset-9 btn btn-outline-success text-sucsess text-center'} } ) }}
+                    {{ form_end(EntrepriseForm) }}
+                </div>
             </div>
         </div>
-        {{ form_row(EntrepriseForm.submit, { 'label' : "Modifier", 'attr': {'class': 'col-12 btn btn-success'} } ) }}
-        {{ form_end(EntrepriseForm) }} </div>
-</div>
-
+    </div>
 {% endblock %}
