@@ -4,12 +4,15 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Entity\Couleur;
+use App\Entity\Reseaux;
 use App\Form\CouleurType;
 use App\Entity\Entreprise;
+use App\Entity\Competences;
+use App\Entity\Localisation;
+
 use App\Entity\Specificites;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
-
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
@@ -30,8 +33,15 @@ class SuperAdminController extends AbstractController
         $entreprise = $repository->findOneById(1);
         // Le findOneById permet de trier les données et de ne récupérer que la donnée qui a l'ID #1 
 
-        $repository = $this->getDoctrine()->getRepository(Specificites::class);
-        $specificites = $repository->findOneById(1);
+        $repository = $this->getDoctrine()->getRepository(Localisation::class);
+        $localisations = $repository->findOneById(1);
+
+        $repository = $this->getDoctrine()->getRepository(Competences::class);
+        $competences = $repository->findOneById(1);
+        
+        $repository = $this->getDoctrine()->getRepository(Reseaux::class);
+        $reseaux = $repository->findOneById(1);
+
         // Le findOneById permet de trier les données et de ne récupérer que la donnée qui a l'ID #1 
 
         $repository = $this->getDoctrine()->getRepository(Couleur::class);
@@ -43,7 +53,9 @@ class SuperAdminController extends AbstractController
         return $this->render('admin/espaceadmin.html.twig', [
             'controller_name' => 'SuperAdminController',
             'entreprise' => $entreprise,
-            'specificites' => $specificites,
+            'localisations' => $localisations,
+            'competences' => $competences,
+            'reseaux' => $reseaux,
             'couleurs' => $couleurs
         ]);
     }
@@ -70,8 +82,15 @@ class SuperAdminController extends AbstractController
         $repository = $this->getDoctrine()->getRepository(Entreprise::class);
         $entreprise = $repository->findOneById(1);
 
-        $repository = $this->getDoctrine()->getRepository(Specificites::class);
-        $specificites = $repository->findOneById(1);
+        $repository = $this->getDoctrine()->getRepository(Localisation::class);
+        $localisations = $repository->findOneById(1);
+
+        $repository = $this->getDoctrine()->getRepository(Competences::class);
+        $competences = $repository->findOneById(1);
+        
+        $repository = $this->getDoctrine()->getRepository(Reseaux::class);
+        $reseaux = $repository->findOneById(1);
+
 
         $repository = $this->getDoctrine()->getRepository(Couleur::class);
         $couleurs = $repository->findAll(
@@ -128,7 +147,9 @@ class SuperAdminController extends AbstractController
         //on injecte les données dans la vue réalisations (en incluant les données pour le footer)
         return $this->render('admin/couleur.html.twig', [
             'entreprise' => $entreprise,
-            'specificites' => $specificites, 
+            'localisations' => $localisations,
+            'competences' => $competences,
+            'reseaux' => $reseaux, 
             'couleurs' => $couleurs,
             'colors' => $colors,
             'color' => $color,
@@ -149,8 +170,15 @@ class SuperAdminController extends AbstractController
         $repository = $this->getDoctrine()->getRepository(Entreprise::class);
         $entreprise = $repository->findOneById(1);
 
-        $repository = $this->getDoctrine()->getRepository(Specificites::class);
-        $specificites = $repository->findOneById(1);
+        $repository = $this->getDoctrine()->getRepository(Localisation::class);
+        $localisations = $repository->findOneById(1);
+
+        $repository = $this->getDoctrine()->getRepository(Competences::class);
+        $competences = $repository->findOneById(1);
+        
+        $repository = $this->getDoctrine()->getRepository(Reseaux::class);
+        $reseaux = $repository->findOneById(1);
+
 
         $repository = $this->getDoctrine()->getRepository(Couleur::class);
         $couleurs = $repository->findAll(
@@ -204,7 +232,9 @@ class SuperAdminController extends AbstractController
         //on injecte les données dans la vue réalisations (en incluant les données pour le footer)
         return $this->render('admin/couleur.html.twig', [
             'entreprise' => $entreprise,
-            'specificites' => $specificites, 
+            'localisations' => $localisations,
+            'competences' => $competences,
+            'reseaux' => $reseaux, 
             'couleurs' => $couleurs,
             'color' => $color,
             'colors' => $colors,
@@ -225,8 +255,15 @@ class SuperAdminController extends AbstractController
         $entreprise = $repository->findOneById(1);
         // Le findOneById permet de trier les données et de ne récupérer que la donnée qui a l'ID #1 
 
-        $repository = $this->getDoctrine()->getRepository(Specificites::class);
-        $specificites = $repository->findOneById(1);
+        $repository = $this->getDoctrine()->getRepository(Localisation::class);
+        $localisations = $repository->findOneById(1);
+
+        $repository = $this->getDoctrine()->getRepository(Competences::class);
+        $competences = $repository->findOneById(1);
+        
+        $repository = $this->getDoctrine()->getRepository(Reseaux::class);
+        $reseaux = $repository->findOneById(1);
+
         // Le findOneById permet de trier les données et de ne récupérer que la donnée qui a l'ID #1 
 
         $repository = $this->getDoctrine()->getRepository(User::class);
@@ -238,7 +275,9 @@ class SuperAdminController extends AbstractController
         return $this->render('admin/switch_user.html.twig', [
             'controller_name' => 'SuperAdminController',
             'entreprise' => $entreprise,
-            'specificites' => $specificites,
+            'localisations' => $localisations,
+            'competences' => $competences,
+            'reseaux' => $reseaux,
             'users' => $users
         ]);
     }
