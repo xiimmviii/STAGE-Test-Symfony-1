@@ -1,2 +1,16 @@
+{% extends 'admin/baseadmin.html.twig' %}
 
-<a href="{{path('admin') ~ '?_switch_user=' ~ users.email}}"> TEST </a>
+{% block content %}
+
+<div class="row">
+<div class="col-4 my-5 alert alert-info border border-info rounded mx-auto p-3 text-justify">
+<h2 class="text-center"> Changer d'utilisateur </h2><hr>
+
+Lorsque vous cliquerez sur le bouton ci-dessous, vous simulerez une connexion en tant qu'administrateur du site.
+Ainsi, vous pourrez naviguer sur le site pour vérifier les bugs éventuels. 
+Pour quitter cette simulation, il vous suffit de cliquer sur le bouton en bas à droite de l'écran. <hr> 
+<center><a href="{{path('admin') ~ '?_switch_user=' ~ users.email}}" class="btn btn-warning"> Changer d'utilisateur </a></center>
+
+</div>
+</div>
+{% endblock %}
