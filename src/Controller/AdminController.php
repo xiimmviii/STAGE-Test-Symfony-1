@@ -1403,9 +1403,14 @@ class AdminController extends AbstractController
         $repository = $this->getDoctrine()->getRepository(Entreprise::class);
         $entreprise = $repository->findOneById(1);
 
+        $repository = $this->getDoctrine()->getRepository(Localisation::class);
+        $localisations = $repository->findAll();
 
-        $repository = $this->getDoctrine()->getRepository(Specificites::class);
-        $specificites = $repository->findOneById(1);
+        $repository = $this->getDoctrine()->getRepository(Competences::class);
+        $competences = $repository->findAll();
+
+        $repository = $this->getDoctrine()->getRepository(Reseaux::class);
+        $reseaux = $repository->findOneById(1);
 
         $repository = $this->getDoctrine()->getRepository(Couleur::class);
         $couleurs = $repository->findAll(
