@@ -351,9 +351,6 @@ class AdminController extends AbstractController
 
 
 
-        
-
-
         // On récupère le MANAGER pour pouvoir gérer les informations en BDD >> Galerie
         $manager = $this->getDoctrine()->getManager();
 

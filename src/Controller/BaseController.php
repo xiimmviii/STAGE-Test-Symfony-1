@@ -131,16 +131,18 @@ class BaseController extends AbstractController
 
         // -----------------------------------------------------------------------------------
 
-        //on utilise le repository pour accéder à la table Photo
-        $repository = $this->getDoctrine()->getRepository(Photo::class);
+        //on utilise le repository pour accéder à la table Galerie
+        $repository = $this->getDoctrine()->getRepository(Galerie::class);
         //On récupère toutes les données de la table Galerie et on les injecte dans l'objet $photos
-        $photos = $repository->findAll(array('id' => 'DESC'));
+        $galeries = $repository->findAll();
+
+        // $galeries = $repository->findAll(array('id' => 'DESC'));
 
         // -----------------------------------------------------------------------------------
 
         //on injecte les données dans la vue réalisations (en incluant les données pour le footer)
         return $this->render('base/realisations.html.twig', [
-            'photos' => $photos,
+            'galeries' => $galeries,
             'entreprise' => $entreprise,
             'specificites' => $specificites,
             'couleurs' => $couleurs,
