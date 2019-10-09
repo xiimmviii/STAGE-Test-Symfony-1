@@ -8,10 +8,13 @@ use App\Entity\Contact;
 use App\Entity\Contenu;
 use App\Entity\Couleur;
 use App\Entity\Galerie;
+use App\Entity\Reseaux;
 use App\Entity\Horaires;
 use App\Form\ContactType;
 use App\Entity\Entreprise;
+use App\Entity\Competences;
 use App\Entity\Partenaires;
+use App\Entity\Localisation;
 use App\Entity\Specificites;
 use App\Notification\ContactNotification;
 use Symfony\Component\HttpFoundation\Request;
@@ -39,8 +42,14 @@ class BaseController extends AbstractController
         $repository = $this->getDoctrine()->getRepository(Entreprise::class);
         $entreprise = $repository->findOneById(1);
 
-        $repository = $this->getDoctrine()->getRepository(Specificites::class);
-        $specificites = $repository->findOneById(1);
+        $repository = $this->getDoctrine()->getRepository(Localisation::class);
+        $localisations = $repository->findOneById(1);
+
+        $repository = $this->getDoctrine()->getRepository(Competences::class);
+        $competences = $repository->findOneById(1);
+        
+        $repository = $this->getDoctrine()->getRepository(Reseaux::class);
+        $reseaux = $repository->findOneById(1);
 
         $repository = $this->getDoctrine()->getRepository(Couleur::class);
         $couleurs = $repository->findAll(
@@ -93,8 +102,10 @@ class BaseController extends AbstractController
         //on injecte les données dans la vue index
         return $this->render('base/index.html.twig', [
             'entreprise' => $entreprise,
-            'specificites' => $specificites,
-            // 'presentation' => $presentation,
+            'localisations' => $localisations,
+            'competences' => $competences,
+            'reseaux' => $reseaux,
+          //  'presentation' => $presentation,
             'historiques' => $historiques,
             'logos' => $logos, 
             'couleurs' => $couleurs,
@@ -118,8 +129,14 @@ class BaseController extends AbstractController
         $repository = $this->getDoctrine()->getRepository(Horaires::class);
         $horaires = $repository->findAll();
 
-        $repository = $this->getDoctrine()->getRepository(Specificites::class);
-        $specificites = $repository->findOneById(1);
+        $repository = $this->getDoctrine()->getRepository(Localisation::class);
+        $localisations = $repository->findOneById(1);
+
+        $repository = $this->getDoctrine()->getRepository(Competences::class);
+        $competences = $repository->findOneById(1);
+        
+        $repository = $this->getDoctrine()->getRepository(Reseaux::class);
+        $reseaux = $repository->findOneById(1);
 
         $repository = $this->getDoctrine()->getRepository(Couleur::class);
         $couleurs = $repository->findAll(
@@ -141,7 +158,9 @@ class BaseController extends AbstractController
         return $this->render('base/realisations.html.twig', [
             'galeries' => $galeries,
             'entreprise' => $entreprise,
-            'specificites' => $specificites,
+            'localisations' => $localisations,
+            'competences' => $competences,
+            'reseaux' => $reseaux,
             'couleurs' => $couleurs,
             'horaires' => $horaires,
         ]);
@@ -163,8 +182,14 @@ class BaseController extends AbstractController
         $repository = $this->getDoctrine()->getRepository(Horaires::class);
         $horaires = $repository->findAll();
 
-        $repository = $this->getDoctrine()->getRepository(Specificites::class);
-        $specificites = $repository->findOneById(1);
+        $repository = $this->getDoctrine()->getRepository(Localisation::class);
+        $localisations = $repository->findOneById(1);
+
+        $repository = $this->getDoctrine()->getRepository(Competences::class);
+        $competences = $repository->findOneById(1);
+        
+        $repository = $this->getDoctrine()->getRepository(Reseaux::class);
+        $reseaux = $repository->findOneById(1);
 
         $repository = $this->getDoctrine()->getRepository(Couleur::class);
         $couleurs = $repository->findAll(
@@ -182,7 +207,9 @@ class BaseController extends AbstractController
         //on injecte les données dans la vue mentions (en incluant les données pour le footer)
 
         return $this->render('base/tarifs.html.twig', [
-            'specificites' => $specificites,
+            'localisations' => $localisations,
+            'competences' => $competences,
+            'reseaux' => $reseaux,
             'entreprise' => $entreprise,
             'tarifs' => $tarifs,
             'couleurs' => $couleurs,
@@ -203,8 +230,14 @@ class BaseController extends AbstractController
         $repository = $this->getDoctrine()->getRepository(Entreprise::class);
         $entreprise = $repository->findOneById(1);
 
-        $repository = $this->getDoctrine()->getRepository(Specificites::class);
-        $specificites = $repository->findOneById(1);
+        $repository = $this->getDoctrine()->getRepository(Localisation::class);
+        $localisations = $repository->findOneById(1);
+
+        $repository = $this->getDoctrine()->getRepository(Competences::class);
+        $competences = $repository->findOneById(1);
+        
+        $repository = $this->getDoctrine()->getRepository(Reseaux::class);
+        $reseaux = $repository->findOneById(1);
 
 
         $repository = $this->getDoctrine()->getRepository(Horaires::class);
@@ -224,7 +257,9 @@ class BaseController extends AbstractController
         //on injecte les données dans la vue mentions (pour le moment seulement les données pour le footer)
 
         return $this->render('base/mentions.html.twig', [
-            'specificites' => $specificites,
+            'localisations' => $localisations,
+            'competences' => $competences,
+            'reseaux' => $reseaux,
             'entreprise' => $entreprise,
             'couleurs' => $couleurs,
             'horaires' => $horaires
@@ -242,8 +277,14 @@ class BaseController extends AbstractController
         $repository = $this->getDoctrine()->getRepository(Entreprise::class);
         $entreprise = $repository->findOneById(1);
 
-        $repository = $this->getDoctrine()->getRepository(Specificites::class);
-        $specificites = $repository->findOneById(1);
+        $repository = $this->getDoctrine()->getRepository(Localisation::class);
+        $localisations = $repository->findOneById(1);
+
+        $repository = $this->getDoctrine()->getRepository(Competences::class);
+        $competences = $repository->findOneById(1);
+        
+        $repository = $this->getDoctrine()->getRepository(Reseaux::class);
+        $reseaux = $repository->findOneById(1);
 
 
         $repository = $this->getDoctrine()->getRepository(Horaires::class);
@@ -263,7 +304,9 @@ class BaseController extends AbstractController
         //on injecte les données dans la vue cgu (pour le moment seulement les données pour le footer)
 
         return $this->render('base/cgu.html.twig', [
-            'specificites' => $specificites,
+            'localisations' => $localisations,
+            'competences' => $competences,
+            'reseaux' => $reseaux,
             'entreprise' => $entreprise,
             'horaires' => $horaires,
             'couleurs' => $couleurs
@@ -282,8 +325,14 @@ class BaseController extends AbstractController
         $repository = $this->getDoctrine()->getRepository(Entreprise::class);
         $entreprise = $repository->findOneById(1);
 
-        $repository = $this->getDoctrine()->getRepository(Specificites::class);
-        $specificites = $repository->findOneById(1);
+        $repository = $this->getDoctrine()->getRepository(Localisation::class);
+        $localisations = $repository->findOneById(1);
+
+        $repository = $this->getDoctrine()->getRepository(Competences::class);
+        $competences = $repository->findOneById(1);
+        
+        $repository = $this->getDoctrine()->getRepository(Reseaux::class);
+        $reseaux = $repository->findOneById(1);
 
 
         $repository = $this->getDoctrine()->getRepository(Horaires::class);
@@ -325,7 +374,9 @@ class BaseController extends AbstractController
         //Ne pas oublier de créer la vue du formulaire avec la ligne 'form' => $form->createView(),
         return $this->render('base/contact.html.twig', [
             'form' => $form->createView(),
-            'specificites' => $specificites,
+            'localisations' => $localisations,
+            'competences' => $competences,
+            'reseaux' => $reseaux,
             'entreprise' => $entreprise,
             'horaires' => $horaires,
             'couleurs' => $couleurs

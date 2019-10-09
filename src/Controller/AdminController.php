@@ -9,17 +9,23 @@ use App\Entity\Contenu;
 use App\Entity\Couleur;
 use App\Entity\Galerie;
 use App\Entity\Picture;
+use App\Entity\Reseaux;
 use App\Entity\Horaires;
 use App\Form\TarifsType;
 use App\Form\ContenuType;
 use App\Form\GalerieType;
 use App\Form\PictureType;
+use App\Form\ReseauxType;
 use App\Entity\Entreprise;
 use App\Form\HorairesType;
+use App\Entity\Competences;
 use App\Entity\Partenaires;
+use App\Entity\Localisation;
 use App\Entity\Specificites;
 use App\Form\EntrepriseType;
+use App\Form\CompetencesType;
 use App\Form\PartenairesType;
+use App\Form\LocalisationType;
 use App\Form\SpecificitesType;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -28,6 +34,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Validator\Constraints\Date;
 use Symfony\Component\Validator\Constraints\DateTime;
+use Proxies\__CG__\App\Entity\Galerie as ProxiesGalerie;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 
@@ -48,8 +55,14 @@ class AdminController extends AbstractController
         $entreprise = $repository->findOneById(1);
         // Le findOneById permet de trier les données et de ne récupérer que la donnée qui a l'ID #1 
 
-        $repository = $this->getDoctrine()->getRepository(Specificites::class);
-        $specificites = $repository->findOneById(1);
+        $repository = $this->getDoctrine()->getRepository(Localisation::class);
+        $localisations = $repository->findAll();
+
+        $repository = $this->getDoctrine()->getRepository(Competences::class);
+        $competences = $repository->findAll();
+
+        $repository = $this->getDoctrine()->getRepository(Reseaux::class);
+        $reseaux = $repository->findOneById(1);
         // Le findOneById permet de trier les données et de ne récupérer que la donnée qui a l'ID #1 
 
         $repository = $this->getDoctrine()->getRepository(Couleur::class);
@@ -61,7 +74,9 @@ class AdminController extends AbstractController
         return $this->render('admin/espaceadmin.html.twig', [
             'controller_name' => 'AdminController',
             'entreprise' => $entreprise,
-            'specificites' => $specificites,
+            'localisations' => $localisations,
+            'competences' => $competences,
+            'reseaux' => $reseaux,
             'couleurs' => $couleurs
         ]);
     }
@@ -85,8 +100,14 @@ class AdminController extends AbstractController
         $repository = $this->getDoctrine()->getRepository(Entreprise::class);
         $entreprise = $repository->findOneById(1);
 
-        $repository = $this->getDoctrine()->getRepository(Specificites::class);
-        $specificites = $repository->findOneById(1);
+        $repository = $this->getDoctrine()->getRepository(Localisation::class);
+        $localisations = $repository->findAll();
+
+        $repository = $this->getDoctrine()->getRepository(Competences::class);
+        $competences = $repository->findAll();
+
+        $repository = $this->getDoctrine()->getRepository(Reseaux::class);
+        $reseaux = $repository->findOneById(1);
 
         $repository = $this->getDoctrine()->getRepository(Couleur::class);
         $couleurs = $repository->findAll(
@@ -124,7 +145,9 @@ class AdminController extends AbstractController
         return $this->render('admin/entreprise.html.twig', [
             'controller_name' => 'AdminController',
             'entreprise' => $entreprise,
-            'specificites' => $specificites,
+            'localisations' => $localisations,
+            'competences' => $competences,
+            'reseaux' => $reseaux,
             'EntrepriseForm' => $form->createView(),
             'couleurs' => $couleurs
         ]);
@@ -201,8 +224,14 @@ class AdminController extends AbstractController
         $repository = $this->getDoctrine()->getRepository(Entreprise::class);
         $entreprise = $repository->findOneById(1);
 
-        $repository = $this->getDoctrine()->getRepository(Specificites::class);
-        $specificites = $repository->findOneById(1);
+        $repository = $this->getDoctrine()->getRepository(Localisation::class);
+        $localisations = $repository->findAll();
+
+        $repository = $this->getDoctrine()->getRepository(Competences::class);
+        $competences = $repository->findAll();
+
+        $repository = $this->getDoctrine()->getRepository(Reseaux::class);
+        $reseaux = $repository->findOneById(1);
 
         $repository = $this->getDoctrine()->getRepository(Couleur::class);
         $couleurs = $repository->findAll(
@@ -212,7 +241,9 @@ class AdminController extends AbstractController
         return $this->render('admin/gestiongaleries.html.twig', [
             'galerieForm' => $form->createView(),
             'entreprise' => $entreprise,
-            'specificites' => $specificites,
+            'localisations' => $localisations,
+            'competences' => $competences,
+            'reseaux' => $reseaux,
             'galeries' => $galeries,
             'couleurs' => $couleurs,
             'totalGaleries' => $totalGaleries,
@@ -246,8 +277,14 @@ class AdminController extends AbstractController
         $repository = $this->getDoctrine()->getRepository(Entreprise::class);
         $entreprise = $repository->findOneById(1);
 
-        $repository = $this->getDoctrine()->getRepository(Specificites::class);
-        $specificites = $repository->findOneById(1);
+        $repository = $this->getDoctrine()->getRepository(Localisation::class);
+        $localisations = $repository->findAll();
+
+        $repository = $this->getDoctrine()->getRepository(Competences::class);
+        $competences = $repository->findAll();
+
+        $repository = $this->getDoctrine()->getRepository(Reseaux::class);
+        $reseaux = $repository->findOneById(1);
 
         $repository = $this->getDoctrine()->getRepository(Couleur::class);
         $couleurs = $repository->findAll(
@@ -256,7 +293,9 @@ class AdminController extends AbstractController
 
         return $this->render('admin/gestiongalerie.html.twig', [
             'entreprise' => $entreprise,
-            'specificites' => $specificites,
+            'localisations' => $localisations,
+            'competences' => $competences,
+            'reseaux' => $reseaux,
             'couleurs' => $couleurs
         ]);
     }
@@ -291,8 +330,14 @@ class AdminController extends AbstractController
         $repository = $this->getDoctrine()->getRepository(Entreprise::class);
         $entreprise = $repository->findOneById(1);
 
-        $repository = $this->getDoctrine()->getRepository(Specificites::class);
-        $specificites = $repository->findOneById(1);
+        $repository = $this->getDoctrine()->getRepository(Localisation::class);
+        $localisations = $repository->findAll();
+
+        $repository = $this->getDoctrine()->getRepository(Competences::class);
+        $competences = $repository->findAll();
+
+        $repository = $this->getDoctrine()->getRepository(Reseaux::class);
+        $reseaux = $repository->findOneById(1);
 
         $repository = $this->getDoctrine()->getRepository(Couleur::class);
         $couleurs = $repository->findAll(
@@ -301,7 +346,9 @@ class AdminController extends AbstractController
 
         return $this->render('admin/gestiongaleries.html.twig', [
             'entreprise' => $entreprise,
-            'specificites' => $specificites,
+            'localisations' => $localisations,
+            'competences' => $competences,
+            'reseaux' => $reseaux,
             'couleurs' => $couleurs
         ]);
     }
@@ -375,18 +422,24 @@ class AdminController extends AbstractController
         $repository = $this->getDoctrine()->getRepository(Entreprise::class);
         $entreprise = $repository->findOneById(1);
 
-        $repository = $this->getDoctrine()->getRepository(Specificites::class);
-        $specificites = $repository->findOneById(1);
+        $repository = $this->getDoctrine()->getRepository(Localisation::class);
+        $localisations = $repository->findAll();
 
-        $repository = $this->getDoctrine()->getRepository(Couleur::class);
-        $couleurs = $repository->findAll(
-            array('dateAffichage' => 'DESC')
-        );
+        $repository = $this->getDoctrine()->getRepository(Competences::class);
+        $competences = $repository->findAll();
+
+        $repository = $this->getDoctrine()->getRepository(Reseaux::class);
+        $reseaux = $repository->findOneById(1);
+
+    //     $repository = $this->getDoctrine()->getRepository(Specificites::class);
+    //     $specificites = $repository->findOneById(1);
 
         return $this->render('admin/modifiergalerie.html.twig', [
             'galerieForm' => $form->createView(),
             'entreprise' => $entreprise,
-            'specificites' => $specificites,
+            'localisations' => $localisations,
+            'competences' => $competences,
+            'reseaux' => $reseaux,
             'pictures' => $pictures,
             'couleurs' => $couleurs,
             'totalPictures' => $totalPictures,
@@ -467,7 +520,9 @@ class AdminController extends AbstractController
     //     return $this->render('admin/presentation-entreprise.html.twig', [
     //         'controller_name' => 'AdminController',
     //         'entreprise' => $entreprise,
-    //         'specificites' => $specificites,
+    //         'localisations' => $localisations,
+    //        'competences' => $competences,
+    //        'reseaux' => $reseaux,
     //         'presentations' => $presentations,
     //         'ContenuForm' => $form->createView(),
     //         'date' => $date,
@@ -522,7 +577,9 @@ class AdminController extends AbstractController
     //     return $this->render('admin/espaceadmin.html.twig', [
     //         'controller_name' => 'AdminController',
     //         'entreprise' => $entreprise,
-    //         'specificites' => $specificites,
+    //         'localisations' => $localisations,
+    //        'competences' => $competences,
+    //        'reseaux' => $reseaux,
     //         'date' => $date,
     //         'boutonenvoi' => $boutonenvoi,
     //         'couleurs' => $couleurs
@@ -592,7 +649,9 @@ class AdminController extends AbstractController
     //     return $this->render('admin/presentation-entreprise.html.twig', [
     //         'controller_name' => 'AdminController',
     //         'entreprise' => $entreprise,
-    //         'specificites' => $specificites,
+    //         'localisations' => $localisations,
+    //        'competences' => $competences,
+    //        'reseaux' => $reseaux,
     //         'ContenuForm' => $form->createView(),
     //         'presentations' => $presentations,
     //         'date' => $date,
@@ -659,7 +718,9 @@ class AdminController extends AbstractController
     //     return $this->render('admin/presentation-entreprise.html.twig', [
     //         'controller_name' => 'AdminController',
     //         'entreprise' => $entreprise,
-    //         'specificites' => $specificites,
+    //         'localisations' => $localisations,
+    //        'competences' => $competences,
+    //        'reseaux' => $reseaux,
     //         'ContenuForm' => $form->createView(),
     //         'presentations' => $presentations,
     //         'date' => $date,
@@ -688,8 +749,14 @@ class AdminController extends AbstractController
         $repository = $this->getDoctrine()->getRepository(Entreprise::class);
         $entreprise = $repository->findOneById(1);
 
-        $repository = $this->getDoctrine()->getRepository(Specificites::class);
-        $specificites = $repository->findOneById(1);
+        $repository = $this->getDoctrine()->getRepository(Localisation::class);
+        $localisations = $repository->findAll();
+
+        $repository = $this->getDoctrine()->getRepository(Competences::class);
+        $competences = $repository->findAll();
+
+        $repository = $this->getDoctrine()->getRepository(Reseaux::class);
+        $reseaux = $repository->findOneById(1);
 
         $repository = $this->getDoctrine()->getRepository(Couleur::class);
         $couleurs = $repository->findAll(
@@ -733,7 +800,9 @@ class AdminController extends AbstractController
 
         return $this->render('admin/histoire-entreprise.html.twig', [
             'entreprise' => $entreprise,
-            'specificites' => $specificites,
+            'localisations' => $localisations,
+            'competences' => $competences,
+            'reseaux' => $reseaux,
             'historiques' => $historiques,
             'ContenuForm' => $form->createView(),
             'date' => $date,
@@ -752,8 +821,14 @@ class AdminController extends AbstractController
         $repository = $this->getDoctrine()->getRepository(Entreprise::class);
         $entreprise = $repository->findOneById(1);
 
-        $repository = $this->getDoctrine()->getRepository(Specificites::class);
-        $specificites = $repository->findOneById(1);
+        $repository = $this->getDoctrine()->getRepository(Localisation::class);
+        $localisations = $repository->findAll();
+
+        $repository = $this->getDoctrine()->getRepository(Competences::class);
+        $competences = $repository->findAll();
+
+        $repository = $this->getDoctrine()->getRepository(Reseaux::class);
+        $reseaux = $repository->findOneById(1);
 
         $repository = $this->getDoctrine()->getRepository(Couleur::class);
         $couleurs = $repository->findAll(
@@ -799,7 +874,9 @@ class AdminController extends AbstractController
         return $this->render('admin/histoire-entreprise.html.twig', [
             'controller_name' => 'AdminController',
             'entreprise' => $entreprise,
-            'specificites' => $specificites,
+            'localisations' => $localisations,
+            'competences' => $competences,
+            'reseaux' => $reseaux,
             'historiques' => $historiques,
             'ContenuForm' => $form->createView(),
             'date' => $date,
@@ -818,8 +895,14 @@ class AdminController extends AbstractController
         $repository = $this->getDoctrine()->getRepository(Entreprise::class);
         $entreprise = $repository->findOneById(1);
 
-        $repository = $this->getDoctrine()->getRepository(Specificites::class);
-        $specificites = $repository->findOneById(1);
+        $repository = $this->getDoctrine()->getRepository(Localisation::class);
+        $localisations = $repository->findAll();
+
+        $repository = $this->getDoctrine()->getRepository(Competences::class);
+        $competences = $repository->findAll();
+
+        $repository = $this->getDoctrine()->getRepository(Reseaux::class);
+        $reseaux = $repository->findOneById(1);
 
         $repository = $this->getDoctrine()->getRepository(Contenu::class);
         $historiques = $repository->findAll();
@@ -861,7 +944,9 @@ class AdminController extends AbstractController
         return $this->render('admin/histoire-entreprise.html.twig', [
             'controller_name' => 'AdminController',
             'entreprise' => $entreprise,
-            'specificites' => $specificites,
+            'localisations' => $localisations,
+            'competences' => $competences,
+            'reseaux' => $reseaux,
             'historiques' => $historiques,
             'ContenuForm' => $form->createView(),
             'date' => $date,
@@ -891,8 +976,14 @@ class AdminController extends AbstractController
         $repository = $this->getDoctrine()->getRepository(Entreprise::class);
         $entreprise = $repository->findOneById(1);
 
-        $repository = $this->getDoctrine()->getRepository(Specificites::class);
-        $specificites = $repository->findOneById(1);
+        $repository = $this->getDoctrine()->getRepository(Localisation::class);
+        $localisations = $repository->findAll();
+
+        $repository = $this->getDoctrine()->getRepository(Competences::class);
+        $competences = $repository->findAll();
+
+        $repository = $this->getDoctrine()->getRepository(Reseaux::class);
+        $reseaux = $repository->findOneById(1);
 
         $repository = $this->getDoctrine()->getRepository(Couleur::class);
         $couleurs = $repository->findAll(
@@ -913,7 +1004,9 @@ class AdminController extends AbstractController
         return $this->render('admin/espaceadmin.html.twig', [
             'controller_name' => 'AdminController',
             'entreprise' => $entreprise,
-            'specificites' => $specificites,
+            'localisations' => $localisations,
+            'competences' => $competences,
+            'reseaux' => $reseaux,
             'date' => $date,
             'boutonenvoi' => $boutonenvoi,
             'couleurs' => $couleurs
@@ -927,53 +1020,315 @@ class AdminController extends AbstractController
 --------------------------------------------------------------------------------------------------- */
 
 
-    /**
-     * @Route("/admin/specificites", name="specificites")
-     */
-    public function competences(Request $request)
-    {
-        // On récupère les informations nécessaires à la VUE
-        $repository = $this->getDoctrine()->getRepository(Entreprise::class);
-        $entreprise = $repository->findOneById(1);
+/**
+ * @Route("/admin/reseaux", name="reseaux")
+ */
+public function reseaux(Request $request)
+{
+    // On récupère les informations nécessaires à la VUE
+    $repository = $this->getDoctrine()->getRepository(Entreprise::class);
+    $entreprise = $repository->findOneById(1);
 
-        $repository = $this->getDoctrine()->getRepository(Specificites::class);
-        $specificites = $repository->findOneById(1);
+   $repository = $this->getDoctrine()->getRepository(Localisation::class);
+    $localisations = $repository->findOneById(1);
 
-        $repository = $this->getDoctrine()->getRepository(Couleur::class);
-        $couleurs = $repository->findAll(
-            array('dateAffichage' => 'DESC')
-        );
+    $repository = $this->getDoctrine()->getRepository(Competences::class);
+    $competences = $repository->findOneById(1);
+    
+    $repository = $this->getDoctrine()->getRepository(Reseaux::class);
+    $reseaux = $repository->findOneById(1);
 
-        // -------------------------------------------------------------------
+    $repository = $this->getDoctrine()->getRepository(Couleur::class);
+    $couleurs = $repository->findAll(
+        array('dateAffichage' => 'DESC')
+    );
+
+    // -------------------------------------------------------------------
 
 
-        $manager = $this->getDoctrine()->getManager();
+    $manager = $this->getDoctrine()->getManager();
 
-        // On traite les données du formulaire >> CF L.81-85
-        $form = $this->createForm(SpecificitesType::class, $specificites);
-        $form->handleRequest($request);
+    // On traite les données du formulaire >> CF L.81-85
+    $form = $this->createForm(ReseauxType::class, $reseaux);
+    $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+    if ($form->isSubmitted() && $form->isValid()) {
 
-            $manager->persist($specificites);
+        $manager->persist($reseaux);
 
-            $manager->flush();
+        $manager->flush();
 
-            $this->addFlash('success', 'Les modifications ont été effectuées ! ');
-            return $this->redirectToRoute('admin');
-        }
-
-        // -------------------------------------------------------------------
-        // -------------------------------------------------------------------
-
-        // On renvoie les informations dans la VUE
-        return $this->render('admin/specificites.html.twig', [
-            'entreprise' => $entreprise,
-            'specificites' => $specificites,
-            'specificitesForm' => $form->createView(),
-            'couleurs' => $couleurs
-        ]);
+        $this->addFlash('success', 'Les modifications ont été effectuées ! ');
+        return $this->redirectToRoute('admin');
     }
+
+    // -------------------------------------------------------------------
+    // -------------------------------------------------------------------
+
+    // On renvoie les informations dans la VUE
+    return $this->render('admin/reseaux.html.twig', [
+        'entreprise' => $entreprise,
+        'localisations' => $localisations,
+        'competences' => $competences,
+        'reseaux' => $reseaux,
+        'ReseauxForm' => $form->createView(),
+        'couleurs' => $couleurs
+    ]);
+}
+
+
+
+/* ------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------- */ 
+
+
+/**
+ * @Route("/admin/localisation", name="localisation")
+ */
+public function localisation(Request $request)
+{
+    // On récupère les informations nécessaires à la VUE
+    $repository = $this->getDoctrine()->getRepository(Entreprise::class);
+    $entreprise = $repository->findOneById(1);
+
+    $repository = $this->getDoctrine()->getRepository(Localisation::class);
+    $localisations = $repository->findAll();
+
+    $repository = $this->getDoctrine()->getRepository(Competences::class);
+    $competences = $repository->findOneById(1);
+    
+    $repository = $this->getDoctrine()->getRepository(Reseaux::class);
+    $reseaux = $repository->findOneById(1);
+
+    $repository = $this->getDoctrine()->getRepository(Couleur::class);
+    $couleurs = $repository->findAll(
+        array('dateAffichage' => 'DESC')
+    );
+
+    // -------------------------------------------------------------------
+
+    $localisation = new Localisation;
+
+    $manager = $this->getDoctrine()->getManager();
+
+    // On traite les données du formulaire >> CF L.81-85
+    $form = $this->createForm(LocalisationType::class, $localisation);
+    $form->handleRequest($request);
+
+    if ($form->isSubmitted() && $form->isValid()) {
+
+        $manager->persist($localisation);
+
+        $manager->flush();
+
+        $this->addFlash('success', 'Les modifications ont été effectuées ! ');
+        return $this->redirectToRoute('localisation');
+    }
+
+   // ----------------------------------------------------------------------
+
+    //On veut limiter le nombre de localisations possibles à 10. 
+
+    // On récupère le manager
+    $em = $this->getDoctrine()->getManager();
+    
+    // On va dans l'entité Localisation
+    $repo = $em->getRepository(Localisation::class);
+    
+    // On fait une requête pour compter combien de galeries il y a dans la table Galerie (galerie = g)
+    $totalLocalisations = $repo->createQueryBuilder('l')
+        //on séléctionne comment on compte les lignes (par l'id)
+        ->select('count(l.id)')
+        ->getQuery()
+        ->getResult();
+
+    // ----------------------------------------------------------------------
+
+    // -------------------------------------------------------------------
+    // -------------------------------------------------------------------
+
+    // On renvoie les informations dans la VUE
+    return $this->render('admin/localisation.html.twig', [
+        'entreprise' => $entreprise,
+        'localisations' => $localisations,
+        'competences' => $competences,
+        'reseaux' => $reseaux,
+        'LocalisationForm' => $form->createView(),
+        'couleurs' => $couleurs,
+        'totalLocalisations' => $totalLocalisations
+    ]);
+}
+
+/**
+ * @Route("/admin/localisation/delete/{id}", name="localisation-delete")
+ */
+public function localisationDelete($id)
+{ 
+     // On récupère les informations nécessaires à la VUE
+     $repository = $this->getDoctrine()->getRepository(Entreprise::class);
+     $entreprise = $repository->findOneById(1);
+
+     $repository = $this->getDoctrine()->getRepository(Localisation::class);
+     $localisations = $repository->findAll();
+
+     $repository = $this->getDoctrine()->getRepository(Competences::class);
+     $competences = $repository->findOneById(1);
+     
+     $repository = $this->getDoctrine()->getRepository(Reseaux::class);
+     $reseaux = $repository->findOneById(1);
+
+     $repository = $this->getDoctrine()->getRepository(Couleur::class);
+     $couleurs = $repository->findAll(
+         array('dateAffichage' => 'DESC')
+     );
+
+     // -------------------------------------------------------------------
+
+    $manager = $this->getDoctrine()->getManager();
+    $local = $manager->find(Localisation::class, $id);
+
+    $manager->remove($local);
+    $manager->flush();
+
+    $this->addFlash('success', 'Supprimé.');
+    return $this->redirectToRoute('localisation');
+
+     // -------------------------------------------------------------------
+      // On renvoie les informations dans la VUE
+    return $this->render('admin/localisation.html.twig', [
+        'entreprise' => $entreprise,
+        'localisations' => $localisations,
+        'competences' => $competences,
+        'reseaux' => $reseaux,
+        'couleurs' => $couleurs
+    ]);
+}
+
+   /* ------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------- */ 
+/**
+ * @Route("/admin/competences", name="competences")
+ */
+public function competence(Request $request)
+{
+    // On récupère les informations nécessaires à la VUE
+    $repository = $this->getDoctrine()->getRepository(Entreprise::class);
+    $entreprise = $repository->findOneById(1);
+
+    $repository = $this->getDoctrine()->getRepository(Localisation::class);
+    $localisations = $repository->findAll();
+
+    $repository = $this->getDoctrine()->getRepository(Competences::class);
+    $competences = $repository->findAll(1);
+    
+    $repository = $this->getDoctrine()->getRepository(Reseaux::class);
+    $reseaux = $repository->findOneById(1);
+
+    $repository = $this->getDoctrine()->getRepository(Couleur::class);
+    $couleurs = $repository->findAll(
+        array('dateAffichage' => 'DESC')
+    );
+
+    // -------------------------------------------------------------------
+
+    $competence = new Competences;
+
+    $manager = $this->getDoctrine()->getManager();
+
+    // On traite les données du formulaire >> CF L.81-85
+    $form = $this->createForm(CompetencesType::class, $competence);
+    $form->handleRequest($request);
+
+    if ($form->isSubmitted() && $form->isValid()) {
+
+        $manager->persist($competence);
+
+        $manager->flush();
+
+        $this->addFlash('success', 'Les modifications ont été effectuées ! ');
+        return $this->redirectToRoute('competences');
+    }
+
+   // ----------------------------------------------------------------------
+
+    //On veut limiter le nombre de competences possibles à 10. 
+
+    // On récupère le manager
+    $em = $this->getDoctrine()->getManager();
+    
+    // On va dans l'entité Competence
+    $repo = $em->getRepository(Competences::class);
+    
+    // On fait une requête pour compter combien de galeries il y a dans la table Galerie (galerie = g)
+    $totalCompetences = $repo->createQueryBuilder('c')
+        //on séléctionne comment on compte les lignes (par l'id)
+        ->select('count(c.id)')
+        ->getQuery()
+        ->getResult();
+
+    // ----------------------------------------------------------------------
+
+    // -------------------------------------------------------------------
+    // -------------------------------------------------------------------
+
+    // On renvoie les informations dans la VUE
+    return $this->render('admin/competences.html.twig', [
+        'entreprise' => $entreprise,
+        'localisations' => $localisations,
+        'competences' => $competences,
+        'reseaux' => $reseaux,
+        'CompetenceForm' => $form->createView(),
+        'couleurs' => $couleurs,
+        'totalCompetences' => $totalCompetences
+    ]);
+}
+
+/**
+ * @Route("/admin/competences/delete/{id}", name="competences-delete")
+ */
+public function competenceDelete($id)
+{ 
+     // On récupère les informations nécessaires à la VUE
+     $repository = $this->getDoctrine()->getRepository(Entreprise::class);
+     $entreprise = $repository->findOneById(1);
+
+     $repository = $this->getDoctrine()->getRepository(Localisation::class);
+     $localisations = $repository->findAll();
+
+     $repository = $this->getDoctrine()->getRepository(Competences::class);
+     $competences = $repository->findAll();
+     
+     $repository = $this->getDoctrine()->getRepository(Reseaux::class);
+     $reseaux = $repository->findOneById(1);
+
+     $repository = $this->getDoctrine()->getRepository(Couleur::class);
+     $couleurs = $repository->findAll(
+         array('dateAffichage' => 'DESC')
+     );
+
+     // -------------------------------------------------------------------
+
+    $manager = $this->getDoctrine()->getManager();
+    $local = $manager->find(Competences::class, $id);
+
+    $manager->remove($local);
+    $manager->flush();
+
+    $this->addFlash('success', 'Supprimé.');
+    return $this->redirectToRoute('competences');
+
+     // -------------------------------------------------------------------
+      // On renvoie les informations dans la VUE
+    return $this->render('admin/competence.html.twig', [
+        'entreprise' => $entreprise,
+        'localisations' => $localisations,
+        'competences' => $competences,
+        'reseaux' => $reseaux,
+        'couleurs' => $couleurs
+    ]);
+}
 
     /* ---------------------------------------------------------------------------------------------------
    
@@ -1021,8 +1376,14 @@ class AdminController extends AbstractController
         $repository = $this->getDoctrine()->getRepository(Entreprise::class);
         $entreprise = $repository->findOneById(1);
 
-        $repository = $this->getDoctrine()->getRepository(Specificites::class);
-        $specificites = $repository->findOneById(1);
+        $repository = $this->getDoctrine()->getRepository(Localisation::class);
+        $localisations = $repository->findAll();
+
+        $repository = $this->getDoctrine()->getRepository(Competences::class);
+        $competences = $repository->findAll();
+
+        $repository = $this->getDoctrine()->getRepository(Reseaux::class);
+        $reseaux = $repository->findOneById(1);
 
         $repository = $this->getDoctrine()->getRepository(Couleur::class);
         $couleurs = $repository->findAll(
@@ -1037,7 +1398,9 @@ class AdminController extends AbstractController
             'PartenairesForm' => $form->createView(),
             'controller_name' => 'AdminController',
             'entreprise' => $entreprise,
-            'specificites' => $specificites,
+            'localisations' => $localisations,
+            'competences' => $competences,
+            'reseaux' => $reseaux,
             'logos' => $logos,
             'couleurs' => $couleurs
         ]);
@@ -1072,8 +1435,14 @@ class AdminController extends AbstractController
         $repository = $this->getDoctrine()->getRepository(Entreprise::class);
         $entreprise = $repository->findOneById(1);
 
-        $repository = $this->getDoctrine()->getRepository(Specificites::class);
-        $specificites = $repository->findOneById(1);
+        $repository = $this->getDoctrine()->getRepository(Localisation::class);
+        $localisations = $repository->findAll();
+
+        $repository = $this->getDoctrine()->getRepository(Competences::class);
+        $competences = $repository->findAll();
+
+        $repository = $this->getDoctrine()->getRepository(Reseaux::class);
+        $reseaux = $repository->findOneById(1);
 
         $repository = $this->getDoctrine()->getRepository(Couleur::class);
         $couleurs = $repository->findAll(
@@ -1087,7 +1456,9 @@ class AdminController extends AbstractController
         return $this->render('admin/espaceadmin.html.twig', [
             'controller_name' => 'AdminController',
             'entreprise' => $entreprise,
-            'specificites' => $specificites,
+            'localisations' => $localisations,
+            'competences' => $competences,
+            'reseaux' => $reseaux,
             'couleurs' => $couleurs
         ]);
     }
@@ -1107,8 +1478,14 @@ class AdminController extends AbstractController
         $repository = $this->getDoctrine()->getRepository(Entreprise::class);
         $entreprise = $repository->findOneById(1);
 
-        $repository = $this->getDoctrine()->getRepository(Specificites::class);
-        $specificites = $repository->findOneById(1);
+        $repository = $this->getDoctrine()->getRepository(Localisation::class);
+        $localisations = $repository->findAll();
+
+        $repository = $this->getDoctrine()->getRepository(Competences::class);
+        $competences = $repository->findAll();
+
+        $repository = $this->getDoctrine()->getRepository(Reseaux::class);
+        $reseaux = $repository->findOneById(1);
 
         $repository = $this->getDoctrine()->getRepository(Couleur::class);
         $couleurs = $repository->findAll(
@@ -1146,7 +1523,9 @@ class AdminController extends AbstractController
         return $this->render('admin/tarifs.html.twig', [
             'controller_name' => 'AdminController',
             'entreprise' => $entreprise,
-            'specificites' => $specificites,
+            'localisations' => $localisations,
+            'competences' => $competences,
+            'reseaux' => $reseaux,
             'tarifs' => $tarifs,
             'TarifsForm' => $form->createView(),
             'boutonenvoi' => $boutonenvoi,
@@ -1164,8 +1543,14 @@ class AdminController extends AbstractController
         $repository = $this->getDoctrine()->getRepository(Entreprise::class);
         $entreprise = $repository->findOneById(1);
 
-        $repository = $this->getDoctrine()->getRepository(Specificites::class);
-        $specificites = $repository->findOneById(1);
+        $repository = $this->getDoctrine()->getRepository(Localisation::class);
+        $localisations = $repository->findAll();
+
+        $repository = $this->getDoctrine()->getRepository(Competences::class);
+        $competences = $repository->findAll();
+
+        $repository = $this->getDoctrine()->getRepository(Reseaux::class);
+        $reseaux = $repository->findOneById(1);
 
         $repository = $this->getDoctrine()->getRepository(Tarifs::class);
         $tarifs = $repository->findAll();
@@ -1202,7 +1587,9 @@ class AdminController extends AbstractController
         return $this->render('admin/tarifs.html.twig', [
             'controller_name' => 'AdminController',
             'entreprise' => $entreprise,
-            'specificites' => $specificites,
+            'localisations' => $localisations,
+            'competences' => $competences,
+            'reseaux' => $reseaux,
             'tarifs' => $tarifs,
             'TarifsForm' => $form->createView(),
             'boutonenvoi' => $boutonenvoi,
@@ -1232,8 +1619,14 @@ class AdminController extends AbstractController
         $repository = $this->getDoctrine()->getRepository(Entreprise::class);
         $entreprise = $repository->findOneById(1);
 
-        $repository = $this->getDoctrine()->getRepository(Specificites::class);
-        $specificites = $repository->findOneById(1);
+        $repository = $this->getDoctrine()->getRepository(Localisation::class);
+        $localisations = $repository->findAll();
+
+        $repository = $this->getDoctrine()->getRepository(Competences::class);
+        $competences = $repository->findAll();
+
+        $repository = $this->getDoctrine()->getRepository(Reseaux::class);
+        $reseaux = $repository->findOneById(1);
 
         $repository = $this->getDoctrine()->getRepository(Couleur::class);
         $couleurs = $repository->findAll(
@@ -1244,7 +1637,9 @@ class AdminController extends AbstractController
         return $this->render('admin/espaceadmin.html.twig', [
             'controller_name' => 'AdminController',
             'entreprise' => $entreprise,
-            'specificites' => $specificites,
+            'localisations' => $localisations,
+            'competences' => $competences,
+            'reseaux' => $reseaux,
             'boutonenvoi' => $boutonenvoi,
             'couleurs' => $couleurs
 
@@ -1304,7 +1699,9 @@ class AdminController extends AbstractController
         return $this->render('admin/horaires.html.twig', [
             'controller_name' => 'AdminController',
             'entreprise' => $entreprise,
-            'specificites' => $specificites,
+            'localisations' => $localisations,
+            'competences' => $competences,
+            'reseaux' => $reseaux,
             'horaires' => $horaires,
             'HorairesForm' => $form->createView(),
             'boutonenvoi' => $boutonenvoi,
@@ -1322,8 +1719,14 @@ class AdminController extends AbstractController
         $repository = $this->getDoctrine()->getRepository(Entreprise::class);
         $entreprise = $repository->findOneById(1);
 
-        $repository = $this->getDoctrine()->getRepository(Specificites::class);
-        $specificites = $repository->findOneById(1);
+        $repository = $this->getDoctrine()->getRepository(Localisation::class);
+        $localisations = $repository->findAll();
+
+        $repository = $this->getDoctrine()->getRepository(Competences::class);
+        $competences = $repository->findAll();
+
+        $repository = $this->getDoctrine()->getRepository(Reseaux::class);
+        $reseaux = $repository->findOneById(1);
 
         $repository = $this->getDoctrine()->getRepository(Horaires::class);
         $horaires = $repository->findAll();
@@ -1360,7 +1763,9 @@ class AdminController extends AbstractController
         return $this->render('admin/horaires.html.twig', [
             'controller_name' => 'AdminController',
             'entreprise' => $entreprise,
-            'specificites' => $specificites,
+            'localisations' => $localisations,
+            'competences' => $competences,
+            'reseaux' => $reseaux,
             'horaires' => $horaires,
             'HorairesForm' => $form->createView(),
             'boutonenvoi' => $boutonenvoi,
@@ -1390,8 +1795,14 @@ class AdminController extends AbstractController
         $repository = $this->getDoctrine()->getRepository(Entreprise::class);
         $entreprise = $repository->findOneById(1);
 
-        $repository = $this->getDoctrine()->getRepository(Specificites::class);
-        $specificites = $repository->findOneById(1);
+        $repository = $this->getDoctrine()->getRepository(Localisation::class);
+        $localisations = $repository->findAll();
+
+        $repository = $this->getDoctrine()->getRepository(Competences::class);
+        $competences = $repository->findAll();
+
+        $repository = $this->getDoctrine()->getRepository(Reseaux::class);
+        $reseaux = $repository->findOneById(1);
 
         $repository = $this->getDoctrine()->getRepository(Couleur::class);
         $couleurs = $repository->findAll(
@@ -1439,13 +1850,21 @@ class AdminController extends AbstractController
         $repository = $this->getDoctrine()->getRepository(Entreprise::class);
         $entreprise = $repository->findOneById(1);
 
-        $repository = $this->getDoctrine()->getRepository(Specificites::class);
-        $specificites = $repository->findOneById(1);
+        $repository = $this->getDoctrine()->getRepository(Localisation::class);
+        $localisations = $repository->findAll();
+
+        $repository = $this->getDoctrine()->getRepository(Competences::class);
+        $competences = $repository->findAll();
+
+        $repository = $this->getDoctrine()->getRepository(Reseaux::class);
+        $reseaux = $repository->findOneById(1);
 
         return $this->render('admin/aide-support.html.twig', [
             'controller_name' => 'AdminController',
             'entreprise' => $entreprise,
-            'specificites' => $specificites,
+            'localisations' => $localisations,
+            'competences' => $competences,
+            'reseaux' => $reseaux,
             'user' => $user
         ]);
     }

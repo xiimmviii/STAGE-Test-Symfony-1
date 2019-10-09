@@ -1,0 +1,58 @@
+{% extends 'admin/baseadmin.html.twig' %}
+
+{% block content %}
+
+    <div class="row mt-4 pt-4">
+        <div class="col-10col-md-6 col-sm-8 mx-auto alert-info border border-info rounded m-3 p-3">
+            <h2>
+                Localisation
+            </h2>
+            <hr>
+            <p>
+                Ces éléments sont propres à votre entreprise et vous pemrettent de mettre en avant vos compétences, vos savoirs-faires, ainsi que les différentes localisations.
+            </p>
+        </div>
+    </div>
+
+    <div class="row m-4 justify-content-center">
+        <div class="col-lg-4 col-md-3 col-sm-10 alert-warning m-3  order-lg-5 ">
+            BLOC DE DOCUMENTATION
+        </div>
+        <div class="col-lg-6 col-md-8 col-sm-10 border m-3 order-lg-0 ">
+
+            {% for localisation in localisations %}
+
+                <div class="row">
+                    <div class="col-10 ">
+                        {{localisation.secteur}}</div>
+                    <div class="col-2">
+                        <a class="text-danger" href="{{ path('localisation-delete', {id : localisation.id }) }}" onclick="return confirm('Etes-vous certain(e) de vouloir supprimer ?')">
+                            <i class="fas fa-trash-alt"></i>
+                        </a>
+                    </div>
+                </div>
+            {% endfor %}
+
+            {% set totalLocalisations2 = totalLocalisations.0 %}
+
+            {% if totalLocalisations2.1 < 10 %}
+
+                
+                    {{ form_start(LocalisationForm) }}<div class="row justify-content-center">
+                    <div class="col-8">{{form_widget(LocalisationForm.secteur, { 'attr': {'class': 'input'}})}}</div>
+                    <div class="col-2">
+                        {{ form_row(LocalisationForm.submit, { 'label' : 'Envoyer', 'attr': {'class': 'btn btn-success'}}) }}
+                    </div>
+</div>
+                    {{ form_end(LocalisationForm) }}
+
+                {% else %}
+
+                    Vous avez atteint la limite de 10 localisations autorisées, supprimez-en une pour pouvoir en créer une nouvelle.
+
+                {% endif %}
+            
+        </div>
+    </div>
+
+{% endblock %}

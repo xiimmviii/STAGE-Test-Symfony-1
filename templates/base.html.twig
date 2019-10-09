@@ -108,12 +108,14 @@
                     </ul>
                 </div>
                 <div class="col-2 text-right pr-4"> 
-                <a href="{{specificites.instagram}}" alt="Instagram" class="smallicons h2 p-2">
+                 {% if reseaux.instagram is not null %}
+                <a href="{{reseaux.instagram}}" alt="Instagram" class="smallicons h2 p-2">
                                         <i class="fab fa-instagram"></i>
-                                    </a> 
-                                    <a href="{{specificites.facebook}}" alt="Facebook" class="smallicons h2 p-2">
+                                    </a> {% endif %}
+                                     {% if reseaux.facebook is not null %}
+                                    <a href="{{reseaux.facebook}}" alt="Facebook" class="smallicons h2 p-2">
                                         <i class="fab fa-facebook-square"></i>
-                                    </a>
+                                    </a> {% endif %}
                                     </div>
             </nav>
 
@@ -175,30 +177,34 @@
                         <div class="col-10 col-md-3 justify-content-center">
 
                             <div class="row justify-content-center">
-                                <div class="col-10 text-center">
-                                    <a href="{{specificites.pageGoogle}}" alt="Avis Google">
+                                <div class="col-10 text-center"> {% if reseaux.google is not null %}
+                                    <a href="{{reseaux.google}}" alt="Avis Google">
                                         <div class="btn bg1 h2 p-3">
                                             Laissez votre avis sur Google
                                         </div>
                                     </a>
+                                    {% endif %}
                                 </div>
                             </div>
                             <div class="row justify-content-center">
-                                <div class="col-10 text-center">
-                                    <a href="{{specificites.instagram}}" alt="Instagram" class="icons p-2">
+                                <div class="col-10 text-center"> 
+                                {% if reseaux.instagram is not null %}
+                                    <a href="{{reseaux.instagram}}" alt="Instagram" class="icons p-2">
                                         <i class="fab fa-instagram"></i>
-                                    </a>
-                                    <a href="{{specificites.facebook}}" alt="Facebook" class="icons p-2">
+                                    </a> {% endif %}
+                                    {% if reseaux.facebook is not null %}
+                                    <a href="{{reseaux.facebook}}" alt="Facebook" class="icons p-2">
                                         <i class="fab fa-facebook-square"></i>
-                                    </a>
+                                    </a> {% endif %}
                                 </div>
+                               
                             </div>
                         </div>
 
                     </div>
                 </div>
 
-                <div class="copyright bg1 p-3">Copyright © 2019{{entreprise.nom}}|<a href="{{path('mentions')}}" class="copyright-a">Mentions légales</a>|<a href="{{path('CGU')}}" class="copyright-a">CGU</a>
+                <div class="copyright mt-2 bg1 p-3">Copyright © 2019{{entreprise.nom}}|<a href="{{path('mentions')}}" class="copyright-a">Mentions légales</a>|<a href="{{path('CGU')}}" class="copyright-a">CGU</a>
                 </div>
             </footer>
         </div>
