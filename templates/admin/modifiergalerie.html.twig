@@ -37,14 +37,12 @@
         <hr>
         {{ form_start(galerieForm) }}
 
+        {{ form_row(galerieForm.nom, {'label' : 'Nom de la galerie'}) }}
+        {{ form_row(galerieForm.description, {'label' : 'Description'}) }}
+
+        {{ form_row(galerieForm.pictureFiles, {'label' : 'Ajouter une photo'}) }}
         {{ form_end(galerieForm) }}
 
-        <h1>Ajouter une photo</h1>
-        <hr>
-
-        {{ form_start(pictureForm) }}
-
-        {{ form_end(pictureForm) }}
 
     </div>
 
@@ -71,3 +69,6 @@
 </div>
 
 {% endblock %}
+
+
+
