@@ -6,7 +6,6 @@ use App\Entity\Picture;
 use Symfony\Component\Form\AbstractType;
 use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints as Assert; 
 use Symfony\Component\Form\Extension\Core\Type\FileType;
@@ -24,15 +23,13 @@ class PictureType extends AbstractType
         // On déclare le champ, on lui applique une classe qui définit son type
         // On peut ensuite ajouter des spécificités à ces champs 
 
-		->add('imagefile', FileType::class, array(
+            ->add('imagefile', FileType::class, array(
 				'constraints' => array(
 					// On définit les formats d'image qui peuvent être envoyés 
 					new Assert\Image(array(
 						'mimeTypes' => array(
-							'image/png',
 							'image/jpeg',
 							'image/jpg',
-							'image/gif'
 						),
 						'mimeTypesMessage' => 'Veuillez sélectionner une image JPG ou JPEG' ,
 					)),
@@ -44,8 +41,6 @@ class PictureType extends AbstractType
 				), 
 				'label' => 'Photo'
 			))
-			->add('dateAffichage', TextType::class,array('required' => false))
-			->add('description', TextareaType::class)
 
             ->add('submit', SubmitType::class);
         ;
@@ -54,7 +49,8 @@ class PictureType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-			'data_class' => Picture::class,
+            'data_class' => Picture::class,
         ]);
     }
 }
+

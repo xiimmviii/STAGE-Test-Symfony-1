@@ -13,6 +13,7 @@ use Doctrine\Common\Collections\Collection;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\GalerieRepository")
+ * 
  */
 class Galerie
 {
@@ -58,6 +59,7 @@ class Galerie
      */
     private $pictureFiles;
 
+
     /**
      * @ORM\Column(type="datetime", nullable=true)
      */
@@ -96,7 +98,7 @@ class Galerie
 
     /**
      *@return mixed
-     */ 
+     */
     public function getPictureFiles()
     {
         return $this->pictureFiles;
@@ -107,7 +109,7 @@ class Galerie
      * @param mixed $pictureFiles
      * @return Galerie
      * 
-     */ 
+     */
     public function setPictureFiles($pictureFiles): self
     {
 
@@ -116,7 +118,6 @@ class Galerie
             $picture->setImageFile($pictureFile);
             $this->addPicture($picture);
         }
-
         $this->pictureFiles = $pictureFiles;
         return $this;
     }
@@ -131,7 +132,6 @@ class Galerie
     {
         $this->updated_at = $updated_at;
 
-
         return $this;
     }
 
@@ -139,7 +139,9 @@ class Galerie
 
 
 
-       /**
+    //------------------------------pour joindre les deux tables photo et galerie
+
+        /**
      * @return Collection|Picture[]
      */
     public function getPictures(): Collection
@@ -157,7 +159,7 @@ class Galerie
 
     public function addPicture(Picture $picture): self
     {
-        $this->pictures[] = $picture;
+            $this->pictures[] = $picture;
             $picture->setGalerie($this);
         return $this;
     }
@@ -171,7 +173,9 @@ class Galerie
                 $picture->setGalerie(null);
             }
         }
+
         return $this;
     }
-    
+
 }
+

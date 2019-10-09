@@ -4,7 +4,6 @@ namespace App\Controller;
 
 
 use App\Entity\User;
-use App\Entity\Photo;
 use App\Entity\Tarifs;
 use App\Entity\Contenu;
 use App\Entity\Couleur;
@@ -29,6 +28,8 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Validator\Constraints\Date;
 use Symfony\Component\Validator\Constraints\DateTime;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+
+
 
 
 class AdminController extends AbstractController
@@ -145,7 +146,7 @@ class AdminController extends AbstractController
         // On crée un objet vide qu'on pourra ensuite réutiliser
         $galerie = new Galerie;
 
-        // On crée un objet vide qu'on pourra ensuite réutiliser
+        // // On crée un objet vide qu'on pourra ensuite réutiliser
         // $photo = new Photo;
 
         // On créé la vue d'un formulaire qui provient du dossier FORM > GalerieType.php 
@@ -160,17 +161,17 @@ class AdminController extends AbstractController
             $manager = $this->getDoctrine()->getManager();
 
             // $galerie->addPhotos($photo);
-            // On enregistre la $photo et l'id de la galerie dans le système 
+            // // On enregistre la $photo et l'id de la galerie dans le système 
             // $manager->persist($photo);
 
             // On enregistre la galerie dans le système 
             $manager->persist($galerie);
 
-            // On enregistre la photo en BDD et sur le serveur. 
-            // On émet une condition >> Si il y a un fichier sélectionné, alors on l'envoie 
-            //if ($photo->getFile() != NULL) {
-            //    $photo->uploadFile();
-            
+            // // On enregistre la photo en BDD et sur le serveur. 
+            // // On émet une condition >> Si il y a un fichier sélectionné, alors on l'envoie 
+            // if ($photo->getFile() != NULL) {
+            //     $photo->uploadFile();
+            // }
 
             // On enregistre la galerie en BDD 
             $manager->flush();
@@ -187,11 +188,10 @@ class AdminController extends AbstractController
         //On veut limiter le nombre de galeries possible à 10. 
 
         // On récupère le manager
-    
-        $entityManager = $this->getDoctrine()->getManager();
+        $em = $this->getDoctrine()->getManager();
         
         // On va dans l'entité Galerie
-        $repo = $entityManager->getRepository(Galerie::class);
+        $repo = $em->getRepository(Galerie::class);
         
         // On fait une requête pour compter combien de galeries il y a dans la table Galerie (galerie = g)
         $totalGaleries = $repo->createQueryBuilder('g')
@@ -280,7 +280,7 @@ class AdminController extends AbstractController
 
     /**
      * Supprime une galerie dans la BDD via le panneau administrateur.
-     *  /!\ Pour supprimer une galerie il faut d'abord supprimer toutes les photos qu'elle contient à cause du lien entre les tables. C'est fait automatiquement par l'ajout d'un "orphan removal" dans l'entité.
+     *  /!\ Pour supprimer une galerie il faut d'abord supprimer toutes les photos qu'elle contient à cause du lien entre les tables. C'est fait automatiquement par l'ajout d'un "orphan removal" dans l'entité. 
      * @Route("/admin/galeriephotos/delete_galerie/{id}", name="delete_galerie")
      */
     public function deleteGalerie($id)
@@ -350,54 +350,50 @@ class AdminController extends AbstractController
         }
 
 
-         // On récupère le MANAGER pour pouvoir gérer les informations en BDD >> Galerie
-         $manager = $this->getDoctrine()->getManager();
+
+        // On récupère le MANAGER pour pouvoir gérer les informations en BDD >> Galerie
+        $manager = $this->getDoctrine()->getManager();
 
         // // On trouve l'élément concerné dans la table Galerie via son $ID et on lui applique une variable
         // $galerie = $manager->find(Galerie::class, $id);
 
         // On crée un objet vide qu'on pourra ensuite réutiliser
-         $picture = new Picture;
+        $picture = new Picture;
 
-         // On créé la vue d'un formulaire qui provient du dossier FORM > GalerieType.php 
-         $form2 = $this->createForm(PictureType::class, $picture);
+        $galerie_id = $id;
 
-         // On récupère les infos saisies dans le formulaire ($_POST)
+        // On créé la vue d'un formulaire qui provient du dossier FORM > GalerieType.php 
+        $form2 = $this->createForm(PictureType::class, $picture);
+
+        // On récupère les infos saisies dans le formulaire ($_POST)
         $form2->handleRequest($request);
 
-        // // CF TRAITEMENT DU FORMULAIRE >> ligne 81-86 
-        // if ($form2->isSubmitted() && $form2->isValid()) {
+        // CF TRAITEMENT DU FORMULAIRE >> ligne 81-86 
+        if ($form2->isSubmitted() && $form2->isValid()) {
 
-             $manager = $this->getDoctrine()->getManager();
+            $manager = $this->getDoctrine()->getManager();
 
-        //     $galerie->addPhotos($photo);
-
-        // On enregistre la $photo et l'id de la galerie dans le système 
-
+            // On enregistre la $photo et l'id de la galerie dans le système 
             $manager->persist($picture);
             $manager->persist($galerie_id);
 
-        //     // On enregistre la photo en BDD et sur le serveur. 
-        //     // On émet une condition >> Si il y a un fichier sélectionné, alors on l'envoie 
-        //     if ($photo->getFile() != NULL) {
-        //         $photo->uploadFile();
-        //     }
+            // // On enregistre la photo en BDD et sur le serveur. 
+            // // On émet une condition >> Si il y a un fichier sélectionné, alors on l'envoie 
+            // if ($photo->getFile() != NULL) {
+            //     $photo->uploadFile();
+            // }
 
 
-        // On enregistre la photo en BDD 
-         $manager->flush();
+            // On enregistre la photo en BDD 
+            $manager->flush();
 
-        //     // On affiche le message si l'action est réussie 
-        //     $this->addFlash('success', 'La photo a bien été enregistrée !');
+            // On affiche le message si l'action est réussie 
+            $this->addFlash('success', 'La photo a bien été enregistrée !');
 
-        // On met tout ça dans la  
-             return $this->redirectToRoute('gestiongaleries');
-        
+            // On met tout ça dans la  
+            return $this->redirectToRoute('gestiongaleries');
+        }
 
-        // // On récupère toutes les photos déjà dans la BDD
-        // $repository = $this->getDoctrine()->getRepository(Galerie::class);
-        // // Le findAll permet de récupérer toutes les informations stockées en BDB 
-        // $galeries = $repository->findOneById($id);
 
         // On récupère toutes les photos déjà dans la BDD
         $repository = $this->getDoctrine()->getRepository(Picture::class);
@@ -419,15 +415,14 @@ class AdminController extends AbstractController
 
         return $this->render('admin/modifiergalerie.html.twig', [
             'galerieForm' => $form->createView(),
-            'picturesForm' => $form2->createView(),
+            'pictureForm' => $form2->createView(),
             'entreprise' => $entreprise,
             'specificites' => $specificites,
             'pictures' => $pictures,
             'couleurs' => $couleurs,
             // 'galeries' => $galeries,
         ]);
-        
-        }
+    }
 
 
     /* ---------------------------------------------------------------------------------------------------
@@ -1435,18 +1430,10 @@ class AdminController extends AbstractController
             array('dateAffichage' => 'DESC')
         );
 
-
-        return $this->render('admin/espaceadmin.html.twig', [
-            'controller_name' => 'AdminController',
-            'entreprise' => $entreprise,
-            'specificites' => $specificites,
-            'boutonenvoi' => $boutonenvoi,
-            'couleurs' => $couleurs
-
-
-        ]);
     }
-/* ---------------------------------------------------------------------------------------------------
+
+
+     /* ---------------------------------------------------------------------------------------------------
       AIDE & SUPPORT 
     --------------------------------------------------------------------------------------------------- */
 
@@ -1496,3 +1483,5 @@ class AdminController extends AbstractController
         ]);
     }
 }
+
+

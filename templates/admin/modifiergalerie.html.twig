@@ -39,7 +39,7 @@
 
         {{ form_end(galerieForm) }}
 
- <h1>Ajouter une photo</h1>
+        <h1>Ajouter une photo</h1>
         <hr>
 
         {{ form_start(pictureForm) }}
@@ -53,7 +53,7 @@
 <div class="row">
     <div class="col-md-10 mx-auto text-center">
         <div class="row text-center">
-             {% for picture in pictures %}
+            {% for picture in pictures %}
             <div class="card col-md-2 m-3">
                 <img class=" card-img-top" src="{{ asset('/images/galeries/' ~ picture.filename) }}" alt="">
                 <div class=" card-block">
@@ -63,7 +63,6 @@
                     onclick="return confirm('Etes-vous certain(e) de vouloir supprimer la photo ?')">
                     <i class="fas fa-trash-alt mx-2"></i> Supprimer
                 </a>
-
             </div>
             {% endfor %}
 
