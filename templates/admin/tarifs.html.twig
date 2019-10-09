@@ -55,8 +55,8 @@
                 </div>
             </div>
 
-            <div class="row alert alert-info border border-info mt-5 rounded">
-                <div class="col-12">
+            <div class="row alert alert-info border border-info mt-5 p-3 rounded">
+                <div class="col-12 p-3">
                     <h2>
                         Gérer les tarifs
                     </h2><hr>
@@ -98,7 +98,7 @@
                 {% for tarif in tarifs %}
                     <!-- On récupère le reste des textes et on les affiche à la suite dans le tableau -->
                     <tr class="row">
-                        <td class="col-4">
+                        <td class="col-4 h4">
                             {{tarif.prestation}}
                         </td>
                         <td class="col-4">
