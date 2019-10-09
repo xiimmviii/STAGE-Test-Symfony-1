@@ -41,7 +41,8 @@
 
         {% else %}
 
-        <p>Vous avez atteint la limite de 10 galeries autorisées, supprimez-en une pour pouvoir en créer une nouvelle.</p>
+        <p>Vous avez atteint la limite de 10 galeries autorisées, supprimez-en une pour pouvoir en créer une nouvelle.
+        </p>
 
         {% endif %}
     </div>
@@ -52,14 +53,64 @@
 
     <h1>Gestion des galeries</h1>
 
+
+
     <div class="row">
         <div class="col-md-10 mx-auto text-center">
             <div class="row text-center">
                 {% for galerie in galeries %}
-                <div class="card col-md-2 m-3">
-                                {% for picture in galerie.pictures %}
+                <div class="col-2">
+                    {{ galerie.nom }}
+                </div>
+
+                <div class="col-4">
+                    {{ galerie.description | raw }}
+                </div>
+
+                <div class="col-4">
+                    {% for picture in galerie.pictures %}
+                    <img class="img-thumbnail w-25" src="{{ vich_uploader_asset(picture, 'imageFile') }}" alt="">
+                    {% endfor %}
+                </div>
+
+                <div class="col-2">
+                    Boutons
+                </div>
+                {# <!-- <div class="card col-md-2 m-3">
+                    {% for picture in galerie.pictures %}
                     <img class=" card-img-top" src="{{ vich_uploader_asset(picture, 'imageFile') }}" alt="">
+                    {% endfor %}
+
+
+                    
+                    
+                    <a class="btn btn-sucess" href="{{ path('modifiergalerie', {id : galerie.id } ) }}">
+                        <i class="fas fa-trash-alt mx-2"></i> Modifier la galerie
+                    </a>
+                    <a class="card-footer bg-danger text-decoration-none text-light"
+                        href="{{ path('delete_galerie', {id : galerie.id } ) }}"
+                        onclick="return confirm('Etes-vous certain(e) de vouloir supprimer la galerie ?')">
+                        <i class="fas fa-trash-alt mx-2"></i> Supprimer
+                    </a>
+                </div> --> #}
+
                 {% endfor %}
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+    {# <!-- <div class="row">
+        <div class="col-md-10 mx-auto text-center">
+            <div class="row text-center">
+                {% for galerie in galeries %}
+                <div class="card col-md-2 m-3">
+                    {% for picture in galerie.pictures %}
+                    <img class=" card-img-top" src="{{ vich_uploader_asset(picture, 'imageFile') }}" alt="">
+                    {% endfor %}
 
 
                     {{ galerie.nom }}
@@ -76,12 +127,10 @@
 
                 {% endfor %}
             </div>
-
-
         </div>
-    </div>
+    </div> --> #}
 </div>
-</div>
+
 
 
 {% endblock %}
