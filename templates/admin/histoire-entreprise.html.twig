@@ -5,7 +5,7 @@
 <div class="row mx-5">
     <div class="col-lg-6 col-md-8 col-sm-10 mx-5 px-3">
         <h2 class="text-secondary mx-4 mt-5">
-            Présentation de l'entreprise
+            Histoire de l'entreprise
         </h2>
     </div>
 </div>
@@ -36,8 +36,6 @@
         {{form_start(ContenuForm)}}
         <div style="display: none">
             <!-- On met en display none ces champs pour pouvoir y injecter des valeurs sans que l'utilisateur s'en rende compte /sans qu'il puisse y toucher. -->
-            <!-- Comme on veut que ces textes soient pour la section "historique" on injecte en dur la valeur "historique" dans le champ "section" -->
-            {{ form_row(ContenuForm.section, {'value' : 'historique'}) }}
             <!-- Dans BaseController on crée une variable $date. Dedans on injecte des données selon la route sélectionée (update, delete, afficher...). On met ensuite cette variable en valeur du champ "dateAffichage" afin d'injecter ces données. (c'est ce qui nous permet de gérer le choix de l'affichage. CF. AdminController.-->
             {{ form_label(ContenuForm.dateAffichage) }}
             {{ form_widget(ContenuForm.dateAffichage, {'value': date}) }}

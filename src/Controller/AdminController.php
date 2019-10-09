@@ -394,279 +394,279 @@ class AdminController extends AbstractController
     }
 
 
-    /* ---------------------------------------------------------------------------------------------------
-    ╔═╗╦═╗╔═╗╔═╗╔═╗╔╗╔╔╦╗╔═╗╔╦╗╦╔═╗╔╗╔  ╔═╗╔╗╔╔╦╗╦═╗╔═╗╔═╗╦═╗╦╔═╗╔═╗
-    ╠═╝╠╦╝║╣ ╚═╗║╣ ║║║ ║ ╠═╣ ║ ║║ ║║║║  ║╣ ║║║ ║ ╠╦╝║╣ ╠═╝╠╦╝║╚═╗║╣ 
-    ╩  ╩╚═╚═╝╚═╝╚═╝╝╚╝ ╩ ╩ ╩ ╩ ╩╚═╝╝╚╝  ╚═╝╝╚╝ ╩ ╩╚═╚═╝╩  ╩╚═╩╚═╝╚═╝
-    --------------------------------------------------------------------------------------------------- */
-
-
-    /**
-     * @Route("/admin/presensation-entreprise", name="presentationentreprise")
-     */
-    public function presentationEntreprise(Request $request)
-    {
-        $repository = $this->getDoctrine()->getRepository(Entreprise::class);
-        $entreprise = $repository->findOneById(1);
-
-        $repository = $this->getDoctrine()->getRepository(Specificites::class);
-        $specificites = $repository->findOneById(1);
-
-        $repository = $this->getDoctrine()->getRepository(Couleur::class);
-        $couleurs = $repository->findAll(
-            array('dateAffichage' => 'DESC')
-        );
-
-        // ----------------------------------------------------------------------
-        // ----------------------------------------------------------------------
-
-        $repo = $this->getDoctrine()->getRepository(Contenu::class);
-        // On récupère le contenu de la table CONTENU en fonction de la SECTION,
-        // -> On précise que l'on souhaite les éléments ayant "presensation" comme "Section"
-        $presentations = $repo->findBySection('presentation');
-
-        // ----------------------------------------------------------------------
-        // ----------------------------------------------------------------------
-
-        // On crée un objet vide 
-        $presentation = new Contenu;
-
-        // On créé la vue d'un formulaire qui provient du dossier FORM > ContenuType.php 
-        $form = $this->createForm(ContenuType::class, $presentation);
-        $form->handleRequest($request);
-
-        $manager = $this->getDoctrine()->getManager();
-
-        // On traite les données du formulaire >> CF lignes 81/85
-        if ($form->isSubmitted() && $form->isValid()) {
-
-            $manager->persist($presentation);
-
-            $manager->flush();
-
-            $this->addFlash('success', 'Les modifications ont été effectuées ! ');
-            return $this->redirectToRoute('presentationentreprise');
-        }
-
-        // On crée la variable date pour pouvoir ensuite généréer une date dynamique qui sera renvoyée dans le formulaire
-        // Cela permet de générer une date, que l'on traitera ensuite pour classer les éléments 
-        // Dans la VUE ADMIN >> prensatation-entreprise.html.twig ligne-25, on entre la variable dans le formulaire de façon automatique
-        // Ce qui permet d'afficher seulement celle que l'on désire dans la vue SECTIONS >> section-présentation-etp.html.twig
-        // Elle est ici vide, car pour l'affichage, cela n'est pas pertinent 
-        $date = '';
-
-        // Cette variable permet de changer la valeur dans le bouton d'envoi afin de le rendre dynmaqieu dans les différentes vues
-        // Le bouton est adapté à chaque situation 
-        $boutonenvoi = 'Envoyer';
-
-        // ----------------------------------------------------------------------
-        // ----------------------------------------------------------------------
-
-        // On renvoie les informations dans la VUE 
-
-        return $this->render('admin/presentation-entreprise.html.twig', [
-            'controller_name' => 'AdminController',
-            'entreprise' => $entreprise,
-            'specificites' => $specificites,
-            'presentations' => $presentations,
-            'ContenuForm' => $form->createView(),
-            'date' => $date,
-            'boutonenvoi' => $boutonenvoi,
-            'couleurs' => $couleurs
-        ]);
-    }
-
-    /**
-     * @Route("/admin/presentation-entreprise/delete/{id}", name="delete_presentation")
-     */
-    public function deletePresentation($id)
-    {
-        $manager = $this->getDoctrine()->getManager();
-        // On récupère l'objet de la BDD en fonction de son *ID
-        $presentation = $manager->find(Contenu::class, $id);
-
-        // Grâce au MANAGER, on supprime l'élément de la BSS
-        $manager->remove($presentation);
-        $manager->flush();
-
-        // On confirme à l'utilisateur que la suppression a bien été effectuée.
-        $this->addFlash('success', 'Le texte de présentation a bien été supprimé.');
-        return $this->redirectToRoute('presentationentreprise');
-
-        // ----------------------------------------------------------------------
-        // ----------------------------------------------------------------------
-
-        // On récupère les informations de BASE nécessaires 
-        $repository = $this->getDoctrine()->getRepository(Entreprise::class);
-        $entreprise = $repository->findOneById(1);
-
-        $repository = $this->getDoctrine()->getRepository(Specificites::class);
-        $specificites = $repository->findOneById(1);
-
-        $repository = $this->getDoctrine()->getRepository(Couleur::class);
-        $couleurs = $repository->findAll(
-            array('dateAffichage' => 'DESC')
-        );
-
-        // ----------------------------------------------------------------------
-        // ----------------------------------------------------------------------
-
-        // De nouveau, on créé des variables pour le dynamisme de la page 
-        $date = '';
-        $boutonenvoi = 'Envoyer';
-
-        // ----------------------------------------------------------------------
-        // ----------------------------------------------------------------------
-
-        // On renvoie les informations dans la VUE 
-        return $this->render('admin/espaceadmin.html.twig', [
-            'controller_name' => 'AdminController',
-            'entreprise' => $entreprise,
-            'specificites' => $specificites,
-            'date' => $date,
-            'boutonenvoi' => $boutonenvoi,
-            'couleurs' => $couleurs
-        ]);
-    }
-
-
-    /**
-     * @Route("/admin/presentation-entreprise/update/{id}", name="update_presentation")
-     */
-    public function updatePresentation($id, ObjectManager $manager, Request $request)
-    {
-        // On récupère les informations en BDD 
-        $repository = $this->getDoctrine()->getRepository(Entreprise::class);
-        $entreprise = $repository->findOneById(1);
+    // /* ---------------------------------------------------------------------------------------------------
+    // ╔═╗╦═╗╔═╗╔═╗╔═╗╔╗╔╔╦╗╔═╗╔╦╗╦╔═╗╔╗╔  ╔═╗╔╗╔╔╦╗╦═╗╔═╗╔═╗╦═╗╦╔═╗╔═╗
+    // ╠═╝╠╦╝║╣ ╚═╗║╣ ║║║ ║ ╠═╣ ║ ║║ ║║║║  ║╣ ║║║ ║ ╠╦╝║╣ ╠═╝╠╦╝║╚═╗║╣ 
+    // ╩  ╩╚═╚═╝╚═╝╚═╝╝╚╝ ╩ ╩ ╩ ╩ ╩╚═╝╝╚╝  ╚═╝╝╚╝ ╩ ╩╚═╚═╝╩  ╩╚═╩╚═╝╚═╝
+    // --------------------------------------------------------------------------------------------------- */
+
+
+    // /**
+    //  * @Route("/admin/presensation-entreprise", name="presentationentreprise")
+    //  */
+    // public function presentationEntreprise(Request $request)
+    // {
+    //     $repository = $this->getDoctrine()->getRepository(Entreprise::class);
+    //     $entreprise = $repository->findOneById(1);
+
+    //     $repository = $this->getDoctrine()->getRepository(Specificites::class);
+    //     $specificites = $repository->findOneById(1);
+
+    //     $repository = $this->getDoctrine()->getRepository(Couleur::class);
+    //     $couleurs = $repository->findAll(
+    //         array('dateAffichage' => 'DESC')
+    //     );
+
+    //     // ----------------------------------------------------------------------
+    //     // ----------------------------------------------------------------------
+
+    //     $repo = $this->getDoctrine()->getRepository(Contenu::class);
+    //     // On récupère le contenu de la table CONTENU en fonction de la SECTION,
+    //     // -> On précise que l'on souhaite les éléments ayant "presensation" comme "Section"
+    //     $presentations = $repo->findBySection('presentation');
+
+    //     // ----------------------------------------------------------------------
+    //     // ----------------------------------------------------------------------
+
+    //     // On crée un objet vide 
+    //     $presentation = new Contenu;
+
+    //     // On créé la vue d'un formulaire qui provient du dossier FORM > ContenuType.php 
+    //     $form = $this->createForm(ContenuType::class, $presentation);
+    //     $form->handleRequest($request);
+
+    //     $manager = $this->getDoctrine()->getManager();
+
+    //     // On traite les données du formulaire >> CF lignes 81/85
+    //     if ($form->isSubmitted() && $form->isValid()) {
+
+    //         $manager->persist($presentation);
+
+    //         $manager->flush();
+
+    //         $this->addFlash('success', 'Les modifications ont été effectuées ! ');
+    //         return $this->redirectToRoute('presentationentreprise');
+    //     }
+
+    //     // On crée la variable date pour pouvoir ensuite généréer une date dynamique qui sera renvoyée dans le formulaire
+    //     // Cela permet de générer une date, que l'on traitera ensuite pour classer les éléments 
+    //     // Dans la VUE ADMIN >> prensatation-entreprise.html.twig ligne-25, on entre la variable dans le formulaire de façon automatique
+    //     // Ce qui permet d'afficher seulement celle que l'on désire dans la vue SECTIONS >> section-présentation-etp.html.twig
+    //     // Elle est ici vide, car pour l'affichage, cela n'est pas pertinent 
+    //     $date = '';
+
+    //     // Cette variable permet de changer la valeur dans le bouton d'envoi afin de le rendre dynmaqieu dans les différentes vues
+    //     // Le bouton est adapté à chaque situation 
+    //     $boutonenvoi = 'Envoyer';
+
+    //     // ----------------------------------------------------------------------
+    //     // ----------------------------------------------------------------------
+
+    //     // On renvoie les informations dans la VUE 
+
+    //     return $this->render('admin/presentation-entreprise.html.twig', [
+    //         'controller_name' => 'AdminController',
+    //         'entreprise' => $entreprise,
+    //         'specificites' => $specificites,
+    //         'presentations' => $presentations,
+    //         'ContenuForm' => $form->createView(),
+    //         'date' => $date,
+    //         'boutonenvoi' => $boutonenvoi,
+    //         'couleurs' => $couleurs
+    //     ]);
+    // }
+
+    // /**
+    //  * @Route("/admin/presentation-entreprise/delete/{id}", name="delete_presentation")
+    //  */
+    // public function deletePresentation($id)
+    // {
+    //     $manager = $this->getDoctrine()->getManager();
+    //     // On récupère l'objet de la BDD en fonction de son *ID
+    //     $presentation = $manager->find(Contenu::class, $id);
+
+    //     // Grâce au MANAGER, on supprime l'élément de la BSS
+    //     $manager->remove($presentation);
+    //     $manager->flush();
+
+    //     // On confirme à l'utilisateur que la suppression a bien été effectuée.
+    //     $this->addFlash('success', 'Le texte de présentation a bien été supprimé.');
+    //     return $this->redirectToRoute('presentationentreprise');
+
+    //     // ----------------------------------------------------------------------
+    //     // ----------------------------------------------------------------------
+
+    //     // On récupère les informations de BASE nécessaires 
+    //     $repository = $this->getDoctrine()->getRepository(Entreprise::class);
+    //     $entreprise = $repository->findOneById(1);
+
+    //     $repository = $this->getDoctrine()->getRepository(Specificites::class);
+    //     $specificites = $repository->findOneById(1);
+
+    //     $repository = $this->getDoctrine()->getRepository(Couleur::class);
+    //     $couleurs = $repository->findAll(
+    //         array('dateAffichage' => 'DESC')
+    //     );
+
+    //     // ----------------------------------------------------------------------
+    //     // ----------------------------------------------------------------------
+
+    //     // De nouveau, on créé des variables pour le dynamisme de la page 
+    //     $date = '';
+    //     $boutonenvoi = 'Envoyer';
+
+    //     // ----------------------------------------------------------------------
+    //     // ----------------------------------------------------------------------
+
+    //     // On renvoie les informations dans la VUE 
+    //     return $this->render('admin/espaceadmin.html.twig', [
+    //         'controller_name' => 'AdminController',
+    //         'entreprise' => $entreprise,
+    //         'specificites' => $specificites,
+    //         'date' => $date,
+    //         'boutonenvoi' => $boutonenvoi,
+    //         'couleurs' => $couleurs
+    //     ]);
+    // }
+
+
+    // /**
+    //  * @Route("/admin/presentation-entreprise/update/{id}", name="update_presentation")
+    //  */
+    // public function updatePresentation($id, ObjectManager $manager, Request $request)
+    // {
+    //     // On récupère les informations en BDD 
+    //     $repository = $this->getDoctrine()->getRepository(Entreprise::class);
+    //     $entreprise = $repository->findOneById(1);
 
-        $repository = $this->getDoctrine()->getRepository(Specificites::class);
-        $specificites = $repository->findOneById(1);
+    //     $repository = $this->getDoctrine()->getRepository(Specificites::class);
+    //     $specificites = $repository->findOneById(1);
 
-        $repo = $this->getDoctrine()->getRepository(Contenu::class);
-        $presentations = $repo->findBySection('presentation');
+    //     $repo = $this->getDoctrine()->getRepository(Contenu::class);
+    //     $presentations = $repo->findBySection('presentation');
 
-        $repository = $this->getDoctrine()->getRepository(Couleur::class);
-        $couleurs = $repository->findAll(
-            array('dateAffichage' => 'DESC')
-        );
+    //     $repository = $this->getDoctrine()->getRepository(Couleur::class);
+    //     $couleurs = $repository->findAll(
+    //         array('dateAffichage' => 'DESC')
+    //     );
 
-        // ----------------------------------------------------------------------        
-        // ----------------------------------------------------------------------
+    //     // ----------------------------------------------------------------------        
+    //     // ----------------------------------------------------------------------
 
-        $manager = $this->getDoctrine()->getManager();
-        $presentation = $manager->find(Contenu::class, $id);
+    //     $manager = $this->getDoctrine()->getManager();
+    //     $presentation = $manager->find(Contenu::class, $id);
 
-        // On créé la vue d'un formulaire qui provient du dossier FORM > ContenuType.php 
-        $form = $this->createForm(ContenuType::class, $presentation);
+    //     // On créé la vue d'un formulaire qui provient du dossier FORM > ContenuType.php 
+    //     $form = $this->createForm(ContenuType::class, $presentation);
 
-        // On gère les informations du formulaire 
-        $form->handleRequest($request);
+    //     // On gère les informations du formulaire 
+    //     $form->handleRequest($request);
 
-        // Conditions du formulaire >> CF l.81/85
-        if ($form->isSubmitted() && $form->isValid()) {
-
-            $manager->persist($presentation);
-
-            $manager->flush();
-
-            // Message qui confirme l'action et retour à la route 
-            $this->addFlash('success', 'La présentation a bien été modifiée');
-            return $this->redirectToRoute('presentationentreprise');
-        }
-
-        // ----------------------------------------------------------------------
-        // ----------------------------------------------------------------------
-
-        // Ici, on indique que la variable $date passe à 0 pour que la date de l'entrée en BDD ne change pas
-        // Elle passe à 0 ce qui nous permet dans le tri effectué pour l'affichage de la VUE SECTIONS => section-presentation-etp 
-        // De n'afficher qu'une entrée : la plus récente 
-        $date = '0';
-
-        // Le $boutonenvoi devient modofier et non plus envoyer pour indiquer qu'on modifie
-        $boutonenvoi = 'Modifier';
-
-        // ----------------------------------------------------------------------
-        // ----------------------------------------------------------------------
-
-        // On renvoie les informations dans la VUE 
-        return $this->render('admin/presentation-entreprise.html.twig', [
-            'controller_name' => 'AdminController',
-            'entreprise' => $entreprise,
-            'specificites' => $specificites,
-            'ContenuForm' => $form->createView(),
-            'presentations' => $presentations,
-            'date' => $date,
-            'boutonenvoi' => $boutonenvoi,
-            'couleurs' => $couleurs
-        ]);
-    }
-
-    /**
-     * @Route("/admin/presentation-entreprise/affichage/{id}", name="affichage_presentation")
-     */
-    public function affichagePresentation($id, ObjectManager $manager, Request $request)
-    {
-        // On récupère les informations en BDD
-        $repository = $this->getDoctrine()->getRepository(Entreprise::class);
-        $entreprise = $repository->findOneById(1);
-
-        $repository = $this->getDoctrine()->getRepository(Specificites::class);
-        $specificites = $repository->findOneById(1);
-
-        $repo = $this->getDoctrine()->getRepository(Contenu::class);
-        $presentations = $repo->findBySection('presentation');
-
-        $repository = $this->getDoctrine()->getRepository(Couleur::class);
-        $couleurs = $repository->findAll(
-            array('dateAffichage' => 'DESC')
-        );
-
-        // ----------------------------------------------------------------------
-        // ----------------------------------------------------------------------
-
-        $manager = $this->getDoctrine()->getManager();
-        $presentation = $manager->find(Contenu::class, $id);
-
-        // On créé la vue d'un formulaire qui provient du dossier FORM > EntrepriseType.php 
-        $form = $this->createForm(ContenuType::class, $presentation);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-
-            $manager->persist($presentation);
-
-            $manager->flush();
-
-            $this->addFlash('success', 'La présentation a bien été modifiée');
-            return $this->redirectToRoute('presentationentreprise');
-        }
-
-        // ----------------------------------------------------------------------
-        // ----------------------------------------------------------------------
-
-
-        // Dans ce cas-là, on modifie la variable date pour que la date actuelle soit générée
-        // Cela nous permet d'avoir la date la plus recénte qui permet un affichage dans la VUE principale
-        // C-A-D qu'on trie par DATE DESC et qu'on affiche 1 seule valur 
-        $date = date("Y-m-d H-i-s");
-
-        // La variable permet à l'utilsateur de voir "publier" de façon dynamique
-        // Et non pas envoyer ou modifier comme les vues précédentes 
-        $boutonenvoi = 'Publier';
-
-        // -----------------------------------------------------------------------------------
-
-        return $this->render('admin/presentation-entreprise.html.twig', [
-            'controller_name' => 'AdminController',
-            'entreprise' => $entreprise,
-            'specificites' => $specificites,
-            'ContenuForm' => $form->createView(),
-            'presentations' => $presentations,
-            'date' => $date,
-            'boutonenvoi' => $boutonenvoi,
-            'couleurs' => $couleurs
-        ]);
-    }
+    //     // Conditions du formulaire >> CF l.81/85
+    //     if ($form->isSubmitted() && $form->isValid()) {
+
+    //         $manager->persist($presentation);
+
+    //         $manager->flush();
+
+    //         // Message qui confirme l'action et retour à la route 
+    //         $this->addFlash('success', 'La présentation a bien été modifiée');
+    //         return $this->redirectToRoute('presentationentreprise');
+    //     }
+
+    //     // ----------------------------------------------------------------------
+    //     // ----------------------------------------------------------------------
+
+    //     // Ici, on indique que la variable $date passe à 0 pour que la date de l'entrée en BDD ne change pas
+    //     // Elle passe à 0 ce qui nous permet dans le tri effectué pour l'affichage de la VUE SECTIONS => section-presentation-etp 
+    //     // De n'afficher qu'une entrée : la plus récente 
+    //     $date = '0';
+
+    //     // Le $boutonenvoi devient modofier et non plus envoyer pour indiquer qu'on modifie
+    //     $boutonenvoi = 'Modifier';
+
+    //     // ----------------------------------------------------------------------
+    //     // ----------------------------------------------------------------------
+
+    //     // On renvoie les informations dans la VUE 
+    //     return $this->render('admin/presentation-entreprise.html.twig', [
+    //         'controller_name' => 'AdminController',
+    //         'entreprise' => $entreprise,
+    //         'specificites' => $specificites,
+    //         'ContenuForm' => $form->createView(),
+    //         'presentations' => $presentations,
+    //         'date' => $date,
+    //         'boutonenvoi' => $boutonenvoi,
+    //         'couleurs' => $couleurs
+    //     ]);
+    // }
+
+    // /**
+    //  * @Route("/admin/presentation-entreprise/affichage/{id}", name="affichage_presentation")
+    //  */
+    // public function affichagePresentation($id, ObjectManager $manager, Request $request)
+    // {
+    //     // On récupère les informations en BDD
+    //     $repository = $this->getDoctrine()->getRepository(Entreprise::class);
+    //     $entreprise = $repository->findOneById(1);
+
+    //     $repository = $this->getDoctrine()->getRepository(Specificites::class);
+    //     $specificites = $repository->findOneById(1);
+
+    //     $repo = $this->getDoctrine()->getRepository(Contenu::class);
+    //     $presentations = $repo->findBySection('presentation');
+
+    //     $repository = $this->getDoctrine()->getRepository(Couleur::class);
+    //     $couleurs = $repository->findAll(
+    //         array('dateAffichage' => 'DESC')
+    //     );
+
+    //     // ----------------------------------------------------------------------
+    //     // ----------------------------------------------------------------------
+
+    //     $manager = $this->getDoctrine()->getManager();
+    //     $presentation = $manager->find(Contenu::class, $id);
+
+    //     // On créé la vue d'un formulaire qui provient du dossier FORM > EntrepriseType.php 
+    //     $form = $this->createForm(ContenuType::class, $presentation);
+    //     $form->handleRequest($request);
+
+    //     if ($form->isSubmitted() && $form->isValid()) {
+
+    //         $manager->persist($presentation);
+
+    //         $manager->flush();
+
+    //         $this->addFlash('success', 'La présentation a bien été modifiée');
+    //         return $this->redirectToRoute('presentationentreprise');
+    //     }
+
+    //     // ----------------------------------------------------------------------
+    //     // ----------------------------------------------------------------------
+
+
+    //     // Dans ce cas-là, on modifie la variable date pour que la date actuelle soit générée
+    //     // Cela nous permet d'avoir la date la plus recénte qui permet un affichage dans la VUE principale
+    //     // C-A-D qu'on trie par DATE DESC et qu'on affiche 1 seule valur 
+    //     $date = date("Y-m-d H-i-s");
+
+    //     // La variable permet à l'utilsateur de voir "publier" de façon dynamique
+    //     // Et non pas envoyer ou modifier comme les vues précédentes 
+    //     $boutonenvoi = 'Publier';
+
+    //     // -----------------------------------------------------------------------------------
+
+    //     return $this->render('admin/presentation-entreprise.html.twig', [
+    //         'controller_name' => 'AdminController',
+    //         'entreprise' => $entreprise,
+    //         'specificites' => $specificites,
+    //         'ContenuForm' => $form->createView(),
+    //         'presentations' => $presentations,
+    //         'date' => $date,
+    //         'boutonenvoi' => $boutonenvoi,
+    //         'couleurs' => $couleurs
+    //     ]);
+    // }
 
     /* ---------------------------------------------------------------------------------------------------
 
@@ -699,7 +699,7 @@ class AdminController extends AbstractController
         // -------------------------------------------------------------------
 
         $repository = $this->getDoctrine()->getRepository(Contenu::class);
-        $historiques = $repository->findBySection('historique');
+        $historiques = $repository->findAll();
 
         // --------------------------------------------------------------------
         // -------------------------------------------------------------------
@@ -732,7 +732,6 @@ class AdminController extends AbstractController
         // -------------------------------------------------------------------
 
         return $this->render('admin/histoire-entreprise.html.twig', [
-            'controller_name' => 'AdminController',
             'entreprise' => $entreprise,
             'specificites' => $specificites,
             'historiques' => $historiques,
@@ -765,7 +764,7 @@ class AdminController extends AbstractController
 
 
         $repository = $this->getDoctrine()->getRepository(Contenu::class);
-        $historiques = $repository->findBySection('historique');
+        $historiques = $repository->findAll();
 
         // -------------------------------------------------------------------
         // -------------------------------------------------------------------
@@ -823,7 +822,7 @@ class AdminController extends AbstractController
         $specificites = $repository->findOneById(1);
 
         $repository = $this->getDoctrine()->getRepository(Contenu::class);
-        $historiques = $repository->findBySection('historique');
+        $historiques = $repository->findAll();
 
         $repository = $this->getDoctrine()->getRepository(Couleur::class);
         $couleurs = $repository->findAll(
