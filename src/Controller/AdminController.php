@@ -188,7 +188,7 @@ class AdminController extends AbstractController
             // On affiche le message si l'action est réussie 
             $this->addFlash('success', 'La galerie a bien été créée !');
 
-            // On retourne à la vue >> Admin > GaleriePhoto 
+            // On retourne à la vue >> Admin > GestionGaleries 
             return $this->redirectToRoute('gestiongaleries');
         }
 
@@ -236,6 +236,7 @@ class AdminController extends AbstractController
             array('dateAffichage' => 'DESC')
         );
 
+        //on envoie toutes les informations dans la vue GestionGaleries.html.twig
         return $this->render('admin/gestiongaleries.html.twig', [
             'galerieForm' => $form->createView(),
             'entreprise' => $entreprise,
@@ -256,13 +257,14 @@ class AdminController extends AbstractController
      */
     public function deletePhoto($id)
     {
-        // On récupère le MANAGER pour pouvoir gérer les informations en BDD >> Galerie
+        // On récupère le MANAGER pour pouvoir gérer les informations en BDD >> Picture
         $manager = $this->getDoctrine()->getManager();
 
-        // On trouve l'élément concerné dans la table Galerie via son $ID et on lui applique une variable
+        // On trouve l'élément concerné dans la table Picture via son $ID et on lui applique une variable
         $photo = $manager->find(Picture::class, $id);
 
-        // Le MANAGER enregistre l'info et transmet ensuite à la BDD 
+        // Le MANAGER enregistre l'info et transmet ensuite à la BDD la suppression de l'objet
+        //NOTE : Grâce au bundle VICH, le fichier de la photo est lui aussi supprimé en automatique dans le dossier de destination. (Pas besoin de créer le code pour cette suppression)
         $manager->remove($photo);
         $manager->flush();
 
@@ -271,7 +273,7 @@ class AdminController extends AbstractController
         return $this->redirectToRoute('gestiongaleries');
 
         // ----------------------------------------------------------------------
-        // On récupère et on renvoie les informations nécessaires pour l'affichage de la VUE B
+        // On récupère et on renvoie les informations nécessaires pour l'affichage de la VUE
         $repository = $this->getDoctrine()->getRepository(Entreprise::class);
         $entreprise = $repository->findOneById(1);
 
@@ -382,7 +384,9 @@ class AdminController extends AbstractController
 
         // On récupère toutes les photos déjà dans la BDD
         $repository = $this->getDoctrine()->getRepository(Picture::class);
-        // Le findAll permet de récupérer toutes les informations stockées en BDB 
+        // On choisit de n'afficher que les photos qui sont contenues dans la galerie en question grâce au lien entre les deux tables.
+        // Le champ "galerie" de la table PICTURE correspond à l'ID de la galerie qui contient la photo
+        //On cherche donc toutes les photos dans la table PICTURE dont le champ GALERIE correspond à l'ID de la galerie à modifier. 
         $pictures = $repository->findByGalerie($id);
 
 
@@ -396,18 +400,17 @@ class AdminController extends AbstractController
         // On va dans l'entité Picture
         $repo = $em->getRepository(Picture::class);
 
-        // // On va dans l'entité Galerie
-        // $repo = $em->getRepository(Galerie::class);
-
+        //on crée une variable galerie dans laquelle on injecte la valeur de l'ID de la galerie à modifier
         $galerie = $id;
 
 
         // On fait une requête pour compter combien de galeries il y a dans la table Galerie (galerie = g)
-        // $totalPictures = $repo->createQueryBuilder('p', 'g')
         $totalPictures = $repo->createQueryBuilder('p')
             //on séléctionne comment on compte les lignes (par l'id)
             ->select('count(p.id)')
+            //on met une condition : le champ galerie doit correspondre à "nb"
             ->where('p.galerie = :nb')
+            //on crée le paramètre pour ddéfinir "nb" qui vaut la variable $galerie, CAD l'ID de la galerie à modifier
             ->setParameter('nb', $galerie)
             ->getQuery()
             ->getResult();
@@ -472,7 +475,6 @@ class AdminController extends AbstractController
         $couleurs = $repository->findAll(
             array('dateAffichage' => 'DESC')
         );
-        // -------------------------------------------------------------------
         // -------------------------------------------------------------------
 
         $repository = $this->getDoctrine()->getRepository(Contenu::class);
@@ -593,7 +595,6 @@ class AdminController extends AbstractController
         // Et non pas envoyer ou modifier comme les vues précédentes 
         $boutonenvoi = 'Publier';
 
-        // -------------------------------------------------------------------
         // -------------------------------------------------------------------
 
         return $this->render('admin/histoire-entreprise.html.twig', [
@@ -1385,7 +1386,12 @@ class AdminController extends AbstractController
     }
 
     /* ---------------------------------------------------------------------------------------------------
-      HORAIRES
+
+            ╦ ╦╔═╗╦═╗╔═╗╦╦═╗╔═╗╔═╗
+            ╠═╣║ ║╠╦╝╠═╣║╠╦╝║╣ ╚═╗
+            ╩ ╩╚═╝╩╚═╩ ╩╩╩╚═╚═╝╚═╝
+
+
     --------------------------------------------------------------------------------------------------- */
 
 
@@ -1549,7 +1555,13 @@ class AdminController extends AbstractController
 
 
     /* ---------------------------------------------------------------------------------------------------
-      AIDE & SUPPORT 
+
+
+        ╔═╗╦╔╦╗╔═╗  ╔═╗╔╦╗  ╔═╗╦ ╦╔═╗╔═╗╔═╗╦═╗╔╦╗
+        ╠═╣║ ║║║╣   ║╣  ║   ╚═╗║ ║╠═╝╠═╝║ ║╠╦╝ ║ 
+        ╩ ╩╩═╩╝╚═╝  ╚═╝ ╩   ╚═╝╚═╝╩  ╩  ╚═╝╩╚═ ╩ 
+
+
     --------------------------------------------------------------------------------------------------- */
 
     /**
