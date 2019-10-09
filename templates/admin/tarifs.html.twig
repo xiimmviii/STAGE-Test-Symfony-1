@@ -3,71 +3,73 @@
 {% block content %}
 
     <div class="row m-4 justify-content-center">
-        <div class="col-lg-4 col-md-3 col-sm-10 alert-warning border border-warning rounded m-3 p-3  order-lg-5 text-justify">
-           <div class="row">
-           <div class="col">
+        <div class="col-lg-4 col-md-3 col-sm-10 m-3 p-3  order-lg-5 text-justify">
+            <div class="row alert-warning border border-warning rounded">
+                <div class="col-12">
 
-            <center>
-                <h1>
-                    <i class="fas fa-info-circle"></i>
-                </h1>
-            </center>
-            <hr>
-            <center>Cette section permet de poster les prestations et tarifs sur votre entreprise.
-                <br><br>
-                <b>Les champs obligatoires sont : prestation et tarif de jour.
-                </b>
-                <u>Par défaut, le tarif est standard.
-                </u>
-            </center>
+                    <center>
+                        <h1>
+                            <i class="fas fa-info-circle"></i>
+                        </h1>
+                    </center>
+                    <hr>
+                    <center>Cette section permet de poster les prestations et tarifs sur votre entreprise.
+                        <br><br>
+                        <b>Les champs obligatoires sont : prestation et tarif de jour.
+                        </b>
+                        <u>Par défaut, le tarif est standard.
+                        </u>
+                    </center>
 
-            <br><br><ul>
-                <li class="mb-4">
-                    <strong>MODIFIER :</strong>
-                    Vous pouvez modifier une prestation en modifiant seulement l'intitulé, les prix de façon individuelle ou globale.
-                </li>
-                <li>
-                    <strong>SUPPRIMER :</strong>
-                    <span class="text-danger">
-                        <i class="fas fa-exclamation-triangle"></i>
-                        Action irréversible
-                        <i class="fas fa-exclamation-triangle"></i>
-                    </span>
-                </li>
-            </ul>
+                    <br><br><ul>
+                        <li class="mb-4">
+                            <strong>MODIFIER :</strong>
+                            Vous pouvez modifier une prestation en modifiant seulement l'intitulé, les prix de façon individuelle ou globale.
+                        </li>
+                        <li>
+                            <strong>SUPPRIMER :</strong>
+                            <span class="text-danger">
+                                <i class="fas fa-exclamation-triangle"></i>
+                                Action irréversible
+                                <i class="fas fa-exclamation-triangle"></i>
+                            </span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
         </div>
 
         <div class="col-lg-6 col-md-8 col-sm-10 m-3 p-3 order-lg-0 ">
- <div class="row alert-info border border-info rounded p-3">
-        <div class="col-12">
-            <h2>
-                Tarifs
-            </h2>
-            <hr>
-            <center>
-                <p>
-                    Cette section vous permet faire une liste de vos prestations et tarifs.
-                    <br>
-                </p>
-            </center>
-        </div>
-    </div>
+            <div class="row alert-info border border-info rounded p-3">
+                <div class="col-12">
+                    <h2>
+                        Tarifs
+                    </h2>
+                    <hr>
+                    <center>
+                        <p>
+                            Cette section vous permet faire une liste de vos prestations et tarifs.
+                            <br>
+                        </p>
+                    </center>
+                </div>
+            </div>
 
-        <div class="row alert alert-info border border-info mt-5 rounded">
-        <div class="col-12">
-            <h2>
-                Gérer les tarifs
-            </h2><hr>
-            {{form_start(TarifsForm)}}
-            {{ form_row(TarifsForm.prestation, { 'label' : 'Prestation *' } ) }}
-            {{ form_row(TarifsForm.description, { 'label' : ' Description : (Tarif de nuit, spécificités, etc...)' } ) }}
-            {{ form_row(TarifsForm.tarif, { 'label' : 'Tarif * ' } ) }}
-          
+            <div class="row alert alert-info border border-info mt-5 rounded">
+                <div class="col-12">
+                    <h2>
+                        Gérer les tarifs
+                    </h2><hr>
+                    {{form_start(TarifsForm)}}
+                    {{ form_row(TarifsForm.prestation, { 'label' : 'Prestation *' } ) }}
+                    {{ form_row(TarifsForm.description, { 'label' : ' Description : (Tarif de nuit, spécificités, etc...)' } ) }}
+                    {{ form_row(TarifsForm.tarif, { 'label' : 'Tarif * ' } ) }}
 
-            {{ form_row(TarifsForm.submit, { 'label' : boutonenvoi, 'attr' : {'class': 'col-12 btn btn-success'} } ) }}
-            {{form_end(TarifsForm)}}
-</div>
-</div>
+
+                    {{ form_row(TarifsForm.submit, { 'label' : boutonenvoi, 'attr' : {'class': 'col-12 btn btn-success'} } ) }}
+                    {{form_end(TarifsForm)}}
+                </div>
+            </div>
         </div>
     </div>
 
@@ -78,7 +80,7 @@
                     <th class="col-4">
                         PRESTATION
                     </th>
-                     <th class="col-4">
+                    <th class="col-4">
                         DESCRIPTION
                     </th>
                     <th class="col-2">
@@ -92,7 +94,7 @@
             </thead>
             <tbody>
                 <!-- Pour afficher en premier le texte affiché, on ordonne nos résultats de notre boucle for par la date d'affichage en DESC. Pour cela on utilise l'extension twig sortbyfield : https://github.com/victorhaggqvist/Twig-sort-by-field/blob/master/src/SortByFieldExtension.php 
-                                                On break le for et on récupère que le premier de la liste pour mettre un design spécial-->
+                                                                                        On break le for et on récupère que le premier de la liste pour mettre un design spécial-->
                 {% for tarif in tarifs %}
                     <!-- On récupère le reste des textes et on les affiche à la suite dans le tableau -->
                     <tr class="row">
@@ -106,14 +108,14 @@
                             {{tarif.tarif}}
                             €
                         </td>
-                      
-                        <td class="col-1 text-center">
-                            <a class="text-warning h3" href="{{ path('update_tarifs-admin', {id : tarif.id } ) }}">
+
+                        <td class="col-1 text-center bg-warning">
+                            <a class="text-white h3" href="{{ path('update_tarifs-admin', {id : tarif.id } ) }}">
                                 <i class="fas fa-edit"></i>
                             </a>
                         </td>
-                        <td class="col-1 text-center">
-                            <a class="text-danger h3" href="{{ path('delete_tarifs-admin', {id : tarif.id } ) }}" onclick="return confirm('Etes-vous certain(e) de vouloir supprimer le texte de présentation ?')">
+                        <td class="col-1 text-center bg-danger">
+                            <a class="text-white h3" href="{{ path('delete_tarifs-admin', {id : tarif.id } ) }}" onclick="return confirm('Etes-vous certain(e) de vouloir supprimer le texte de présentation ?')">
                                 <i class="fas fa-trash-alt"></i>
                             </a>
                         </td>
