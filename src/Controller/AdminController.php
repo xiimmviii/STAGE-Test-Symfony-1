@@ -34,7 +34,6 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Validator\Constraints\Date;
 use Symfony\Component\Validator\Constraints\DateTime;
-use Proxies\__CG__\App\Entity\Galerie as ProxiesGalerie;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 
