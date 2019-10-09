@@ -20,11 +20,6 @@ class Contenu
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $section;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
     private $titre;
 
     /**
@@ -48,17 +43,6 @@ class Contenu
         return $this->id;
     }
 
-    public function getSection(): ?string
-    {
-        return $this->section;
-    }
-
-    public function setSection(string $section): self
-    {
-        $this->section = $section;
-
-        return $this;
-    }
 
     public function getTitre(): ?string
     {

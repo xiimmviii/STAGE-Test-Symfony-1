@@ -56,20 +56,20 @@ class BaseController extends AbstractController
             array('dateAffichage' => 'DESC')
         );
 
-        $repository = $this->getDoctrine()->getRepository(Contenu::class);
+        // $repository = $this->getDoctrine()->getRepository(Contenu::class);
 
-        //pour la présentation on sélectionne seulement dans la table contenu les lignes qui ont pour section le terme "presentation"
-        $presentation = $repository->findOneBy(
-            array('section' => 'presentation'),
-            array('dateAffichage' => 'DESC') 
-        );
+        // //pour la présentation on sélectionne seulement dans la table contenu les lignes qui ont pour section le terme "presentation"
+        // $presentation = $repository->findOneBy(
+        //     array('section' => 'presentation'),
+        //     array('dateAffichage' => 'DESC') 
+        // );
 
         $repository = $this->getDoctrine()->getRepository(Contenu::class);
         //pour l'historique on sélectionne seulement dans la table contenu les lignes qui ont pour section le terme "historique"
-        $historique = $repository->findOneBy(
-            array('section' => 'historique'),
-            array('dateAffichage' => 'DESC') 
-        );
+        $historiques = $repository->findAll(array('dateAffichage' => 'DESC'));
+            // array('section' => 'historique'),
+            // array('dateAffichage' => 'DESC') 
+        // );
 
         // -----------------------------------------------------------------------------------
 
@@ -97,9 +97,6 @@ class BaseController extends AbstractController
      }
  }
 
-         // -----------------------------------------------------------------------------------
-
-        //Cette vue ne nous demande rien d'autre pour le moment que ces données pour son affichage dynamique
 
         // ----------------------------------------------------------------------------------
         //on injecte les données dans la vue index
@@ -108,8 +105,8 @@ class BaseController extends AbstractController
             'localisations' => $localisations,
             'competences' => $competences,
             'reseaux' => $reseaux,
-            'presentation' => $presentation,
-            'historique' => $historique,
+          //  'presentation' => $presentation,
+            'historiques' => $historiques,
             'logos' => $logos, 
             'couleurs' => $couleurs,
             'horaires' => $horaires,

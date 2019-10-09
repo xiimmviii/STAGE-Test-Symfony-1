@@ -29,6 +29,7 @@ use App\Form\LocalisationType;
 use App\Form\SpecificitesType;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
+use Proxies\__CG__\App\Entity\Galerie as ProxiesGalerie;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Validator\Constraints\Date;
@@ -430,10 +431,8 @@ class AdminController extends AbstractController
         $repository = $this->getDoctrine()->getRepository(Reseaux::class);
         $reseaux = $repository->findOneById(1);
 
-        $repository = $this->getDoctrine()->getRepository(Couleur::class);
-        $couleurs = $repository->findAll(
-            array('dateAffichage' => 'DESC')
-        );
+    //     $repository = $this->getDoctrine()->getRepository(Specificites::class);
+    //     $specificites = $repository->findOneById(1);
 
         return $this->render('admin/modifiergalerie.html.twig', [
             'galerieForm' => $form->createView(),
@@ -1870,4 +1869,3 @@ public function competenceDelete($id)
         ]);
     }
 }
-

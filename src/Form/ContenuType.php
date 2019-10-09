@@ -22,7 +22,6 @@ class ContenuType extends AbstractType
         // On construit le formulaire en déclinant les champs 
         // On déclare le champ, on lui applique une classe qui définit son type
         // On peut ensuite ajouter des spécificités à ces champs 
-            ->add('section', TextType::class)
             ->add('titre', TextType::class)
             ->add('sousTitre', TextType::class,array('required' => false))
             ->add('texte', CKEditorType::class)
