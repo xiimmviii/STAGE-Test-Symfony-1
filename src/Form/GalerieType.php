@@ -31,7 +31,7 @@ class GalerieType extends AbstractType
 
             ->add('pictureFiles', FileType::class,[
                 'required' => 'false',
-                'multiple' => 'true', 
+                'multiple' => 'true',  
             ])
 
             

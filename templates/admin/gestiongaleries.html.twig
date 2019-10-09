@@ -57,7 +57,7 @@
             <div class="row text-center">
                 {% for galerie in galeries %}
                 <div class="card col-md-2 m-3">
-                {% for picture in galerie.pictures %}
+                                {% for picture in galerie.pictures %}
                     <img class=" card-img-top" src="{{ vich_uploader_asset(picture, 'imageFile') }}" alt="">
                 {% endfor %}
 
