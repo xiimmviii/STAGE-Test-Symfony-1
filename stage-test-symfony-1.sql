@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le :  ven. 04 oct. 2019 à 08:47
+-- Généré le :  mer. 09 oct. 2019 à 15:06
 -- Version du serveur :  5.7.26
 -- Version de PHP :  7.3.5
 
@@ -25,19 +25,13 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Structure de la table `contact`
+-- Structure de la table `competences`
 --
 
-DROP TABLE IF EXISTS `contact`;
-CREATE TABLE IF NOT EXISTS `contact` (
+DROP TABLE IF EXISTS `competences`;
+CREATE TABLE IF NOT EXISTS `competences` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `nom` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `prenom` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `societe` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `telephone` varchar(17) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `objet` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `message` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `competence` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -50,23 +44,20 @@ CREATE TABLE IF NOT EXISTS `contact` (
 DROP TABLE IF EXISTS `contenu`;
 CREATE TABLE IF NOT EXISTS `contenu` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `section` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `titre` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `sous_titre` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `texte` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
   `date_affichage` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Déchargement des données de la table `contenu`
 --
 
-INSERT INTO `contenu` (`id`, `section`, `titre`, `sous_titre`, `texte`, `date_affichage`) VALUES
-(1, 'presentation', 'Présentation de l\'entreprise', 'Ceci est le texte de présentation', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin in nulla felis. Suspendisse posuere ipsum magna, nec dignissim dui pulvinar eget. Maecenas sagittis justo vitae tempor laoreet. Sed sit amet egestas erat. Integer blandit nec arcu id sollicitudin. Mauris justo lorem, condimentum a iaculis ut, fermentum id neque. Aenean tellus ex, dictum at elit eget, molestie rutrum dolor. Morbi pharetra lacus ligula, eget gravida diam vulputate non. Nullam semper pretium sollicitudin. Nam enim purus, elementum eget nulla vitae, iaculis commodo ante. Morbi non dolor sodales, dictum est vel, consequat quam. Suspendisse porta, mi ac volutpat finibus, felis odio auctor eros, ut sollicitudin nulla massa at mi.\r\n\r\nPhasellus euismod nec tellus sit amet rutrum. Nullam eu tempor ante, in imperdiet tellus. Vestibulum pulvinar erat lobortis, pretium risus quis, posuere odio. Suspendisse libero dui, semper vitae nibh id, blandit sodales dolor. In at urna ligula. Nunc eget venenatis lectus, in tempus eros. Fusce sed lacinia mauris, facilisis dictum augue. Mauris mi erat, luctus non bibendum ut, varius sed nulla. Donec vitae dignissim turpis. Donec id mattis mauris, eget ornare diam. Morbi cursus nisi ipsum, id eleifend nulla molestie vel. Donec non mauris eget lectus lobortis efficitur id et neque. Nullam gravida quam felis, eget vestibulum nunc porta sit amet. Sed aliquet lacus vitae dui hendrerit, vitae egestas diam aliquet. Cras sed ligula vitae tortor suscipit fringilla ac ac elit.', '2019-09-26 10-19-41'),
-(2, 'historique', 'Histoire de l\'entreprise', 'Voici l\'histoire', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus et ipsum malesuada, dictum nisi sit amet, iaculis erat. Fusce maximus in leo et cursus. Donec at leo efficitur, fringilla lectus ut, tristique urna. Praesent tellus dui, interdum in eros et, dignissim ultricies justo. Etiam in euismod justo. Praesent ut neque pretium odio sollicitudin faucibus sit amet quis ipsum. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Phasellus molestie magna ac tempus suscipit. Nullam sodales justo at dapibus rutrum. Praesent tempor lorem nisl, id volutpat massa gravida ac. Morbi eget suscipit diam, dictum pretium ipsum. Aliquam varius turpis in tempus congue. Praesent sollicitudin tellus et congue congue. Suspendisse ac urna congue turpis ornare egestas.\r\n\r\nAliquam arcu odio, blandit id urna sed, venenatis commodo elit. Suspendisse consequat sit amet lorem eget ullamcorper. Curabitur vel ante at leo pellentesque convallis. Nulla blandit enim eget laoreet scelerisque. Suspendisse at vulputate massa, sit amet vestibulum dui. Suspendisse tempor quam eget pulvinar luctus. Nulla sem nisl, aliquet vel porttitor eget, faucibus ac erat.', '2019-09-27 12-13-31'),
-(3, 'historique', 'Test non-visible', 'Invisible', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. In id tempor dolor. Donec auctor blandit est vel eleifend. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Proin sollicitudin nisl id leo imperdiet malesuada. Fusce quis ipsum eu mauris faucibus varius et sit amet magna. Morbi nulla orci, pretium ut mauris sed, laoreet dignissim erat. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Fusce iaculis scelerisque orci ut accumsan. Fusce metus nulla, congue a egestas vel, consectetur eu arcu. Vivamus eu imperdiet lacus. Sed in diam urna. Fusce ac rhoncus lectus, non faucibus justo. Nunc gravida ultricies porta. Aliquam imperdiet nec sapien non porttitor.', '2019-09-27 12-03-55'),
-(6, 'presentation', 'Un test de présentation', 'Sous-titre du test de présentation', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin in nulla felis. Suspendisse posuere ipsum magna, nec dignissim dui pulvinar eget. Maecenas sagittis justo vitae tempor laoreet. Sed sit amet egestas erat. Integer blandit nec arcu id sollicitudin. Mauris justo lorem, condimentum a iaculis ut, fermentum id neque. Aenean tellus ex, dictum at elit eget, molestie rutrum dolor. Morbi pharetra lacus ligula, eget gravida diam vulputate non. Nullam semper pretium sollicitudin. Nam enim purus, elementum eget nulla vitae, iaculis commodo ante. Morbi non dolor sodales, dictum est vel, consequat quam. Suspendisse porta, mi ac volutpat finibus, felis odio auctor eros, ut sollicitudin nulla massa at mi.\r\n\r\nPhasellus euismod nec tellus sit amet rutrum. Nullam eu tempor ante, in imperdiet tellus. Vestibulum pulvinar erat lobortis, pretium risus quis, posuere odio. Suspendisse libero dui, semper vitae nibh id, blandit sodales dolor. In at urna ligula. Nunc eget venenatis lectus, in tempus eros. Fusce sed lacinia mauris, facilisis dictum augue. Mauris mi erat, luctus non bibendum ut, varius sed nulla. Donec vitae dignissim turpis. Donec id mattis mauris, eget ornare diam. Morbi cursus nisi ipsum, id eleifend nulla molestie vel. Donec non mauris eget lectus lobortis efficitur id et neque. Nullam gravida quam felis, eget vestibulum nunc porta sit amet. Sed aliquet lacus vitae dui hendrerit, vitae egestas diam aliquet. Cras sed ligula vitae tortor suscipit fringilla ac ac elit.', '0');
+INSERT INTO `contenu` (`id`, `titre`, `sous_titre`, `texte`, `date_affichage`) VALUES
+(2, 'Histoire de l\'entreprise', 'Voici l\'histoire', '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus et ipsum malesuada, dictum nisi sit amet, iaculis erat. Fusce maximus in leo et cursus. Donec at leo efficitur, fringilla lectus ut, tristique urna. Praesent tellus dui, interdum in eros et, dignissim ultricies justo. Etiam in euismod justo. Praesent ut neque pretium odio sollicitudin faucibus sit amet quis ipsum. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Phasellus molestie magna ac tempus suscipit. Nullam sodales justo at dapibus rutrum. Praesent tempor lorem nisl, id volutpat massa gravida ac. Morbi eget suscipit diam, dictum pretium ipsum. Aliquam varius turpis in tempus congue. Praesent sollicitudin tellus et congue congue. Suspendisse ac urna congue turpis ornare egestas. Aliquam arcu odio, blandit id urna sed, venenatis commodo elit. Suspendisse consequat sit amet lorem eget ullamcorper. Curabitur vel ante at leo pellentesque convallis. Nulla blandit enim eget laoreet scelerisque. Suspendisse at vulputate massa, sit amet vestibulum dui. Suspendisse tempor quam eget pulvinar luctus. Nulla sem nisl, aliquet vel porttitor eget, faucibus ac erat.</p>', '2019-10-09 12-38-05'),
+(3, 'Test non-visible', 'Invisiblee', '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In id tempor dolor. Donec auctor blandit est vel eleifend. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Proin sollicitudin nisl id leo imperdiet malesuada. Fusce quis ipsum eu mauris faucibus varius et sit amet magna. Morbi nulla orci, pretium ut mauris sed, laoreet dignissim erat. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Fusce iaculis scelerisque orci ut accumsan. Fusce metus nulla, congue a egestas vel, consectetur eu arcu. Vivamus eu imperdiet lacus. Sed in diam urna. Fusce ac rhoncus lectus, non faucibus justo. Nunc gravida ultricies porta. Aliquam imperdiet nec sapien non porttitor.</p>', '2019-10-09 11-57-11');
 
 -- --------------------------------------------------------
 
@@ -131,26 +122,62 @@ CREATE TABLE IF NOT EXISTS `galerie` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `nom` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `description` longtext COLLATE utf8mb4_unicode_ci,
+  `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Déchargement des données de la table `galerie`
 --
 
-INSERT INTO `galerie` (`id`, `nom`, `description`) VALUES
-(5, 'GALERIE TEST 1', '<p>pjgvoevjemoihg epb dilb dfk;n doflhb sodfhin glkvn cvk;n ifeuhb efoibh foqsihklgfksdflksdbdf olhdvkbjn lvxc:jnbsdlfbnlkvbndklnbfhneoofgvh jcvo&egrave;bjodfiv nfiskvbskjfnbasfbvb fdbodffosuhUHFVSLVNX.BNKLBN HGDUIHBHOFHB BOHBFDIHBDFIHBDFIBHDFIBHDFIBDIHBS VBBHB UGOVUV? KUF?NXNVXVBVXVBVBVBVBVB ISSIUHCXHVXIKBV</p>'),
-(6, 'GALERIE TEST 2', '<p>DS?NVKD Iob ouibfds obibj vjbib oaqzs ,cn,vn oeihgrug vubjkjbv vfhisdbj jvb khjr bfhb seybyfbhbyh gbg g hfibgibhfg ibhbhu g hihbibi hbihbihb svupsv kclnnwxn vjbvzi uvhd&nbsp;ziufsldkfkdjkghksjfs;nx,xcvb uhizhvskn n vhkjsvb ohvdivd bvjdvbd&nbsp; dvhidvb iduvhiduv&nbsp;</p>'),
-(7, 'Galerie TEST 3', '<p>kjvdj v zkvb ksjbv kjvb svui iquf hfvbb hs&nbsp; vbcjbhv iuhzgh ghg od spcv&nbsp; u ijfhbdkjbdkj ofihb iuhbdfb db fubh ihuhvhv ghb b hbbh</p>'),
-(8, 'iefhzeig', '<p>jhfbhbrhvvvh</p>'),
-(9, 'ahfgzejhfuzef', '<p>jhzbjhbzjhebh</p>'),
-(10, 'jzfhbejfbzjvf', '<p>jhbzfjhfbjzhfbzjhbf</p>'),
-(11, 'zfbzjhfvzjhfzjhvf', '<p>jfbcjhfvjfzjfzfvfzfgv</p>'),
-(12, 'fnbfvzdhfvzhv', '<p>bvbv nbv nbvnbvbv</p>'),
-(13, 'dvsjhvbsjhvb', '<p>sbv snbvsdnbvds,b&nbsp;</p>'),
-(14, 'sjdhvbsjdhfbsjdhv', '<p>sdbvfsdbvfshdv&nbsp;</p>'),
-(15, 'sdnbfsndbfsdfvsnsbf', '<p>jsdhdhdfbsdjhbfjsdhbjsdhfs</p>'),
-(16, 'nfsgbfbgfndgb', '<p>fnbvg fdngbdfbgdfngb&nbsp;</p>');
+INSERT INTO `galerie` (`id`, `nom`, `description`, `updated_at`) VALUES
+(4, 'TEST 1', '<p>Lorem&nbsp;ipsum&nbsp;dolor&nbsp;sit&nbsp;amet&nbsp;consectetur,&nbsp;adipisicing&nbsp;elit.&nbsp;Cupiditate,&nbsp;nesciunt?&nbsp;Tempora,&nbsp;autem?&nbsp;Necessitatibus&nbsp;totam,&nbsp;quo&nbsp;dicta&nbsp;consectetur&nbsp;repudiandae&nbsp;adipisci&nbsp;maxime?&nbsp;Magni&nbsp;corrupti&nbsp;vero&nbsp;qui&nbsp;perspiciatis,&nbsp;ipsa&nbsp;ad&nbsp;illo&nbsp;ratione&nbsp;quia&nbsp;quaerat&nbsp;debitis&nbsp;a&nbsp;placeat&nbsp;voluptas.&nbsp;Reprehenderit&nbsp;aut&nbsp;ipsam&nbsp;corporis&nbsp;ullam.</p>', '2019-10-09 09:09:34'),
+(5, 'TEST AGAIN', '<p>Lorem&nbsp;ipsum&nbsp;dolor&nbsp;sit&nbsp;amet&nbsp;consectetur,&nbsp;adipisicing&nbsp;elit.&nbsp;Cupiditate,&nbsp;nesciunt?&nbsp;Tempora,&nbsp;autem?&nbsp;Necessitatibus&nbsp;totam,&nbsp;quo&nbsp;dicta&nbsp;consectetur&nbsp;repudiandae&nbsp;adipisci&nbsp;maxime?&nbsp;Magni&nbsp;corrupti&nbsp;vero&nbsp;qui&nbsp;perspiciatis,&nbsp;ipsa&nbsp;ad&nbsp;illo&nbsp;ratione&nbsp;quia&nbsp;quaerat&nbsp;debitis&nbsp;a&nbsp;placeat&nbsp;voluptas.&nbsp;Reprehenderit&nbsp;aut&nbsp;ipsam&nbsp;corporis&nbsp;ullam.</p>', '2019-10-09 09:31:36'),
+(6, 'TEST 309582039U8', '<p>JFBERIGERLZEUIHVGRIVUHGRTIUVORTIUGTROVH RBEUGH EFIGSRLIGHSRLIVHSRB SRIHBSHB&nbsp;</p>', '2019-10-09 09:35:26');
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `horaires`
+--
+
+DROP TABLE IF EXISTS `horaires`;
+CREATE TABLE IF NOT EXISTS `horaires` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `jour` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `ouverture` time NOT NULL,
+  `fermeture` time NOT NULL,
+  `debut_pause` time DEFAULT NULL,
+  `fin_pause` time DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Déchargement des données de la table `horaires`
+--
+
+INSERT INTO `horaires` (`id`, `jour`, `ouverture`, `fermeture`, `debut_pause`, `fin_pause`) VALUES
+(1, 'lundi', '05:00:00', '10:00:00', '17:34:00', '16:16:00');
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `localisation`
+--
+
+DROP TABLE IF EXISTS `localisation`;
+CREATE TABLE IF NOT EXISTS `localisation` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `secteur` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Déchargement des données de la table `localisation`
+--
+
+INSERT INTO `localisation` (`id`, `secteur`) VALUES
+(1, 'paris');
 
 -- --------------------------------------------------------
 
@@ -164,15 +191,6 @@ CREATE TABLE IF NOT EXISTS `migration_versions` (
   `executed_at` datetime NOT NULL COMMENT '(DC2Type:datetime_immutable)',
   PRIMARY KEY (`version`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Déchargement des données de la table `migration_versions`
---
-
-INSERT INTO `migration_versions` (`version`, `executed_at`) VALUES
-('20190923062313', '2019-09-23 06:23:40'),
-('20190923070546', '2019-09-23 07:05:55'),
-('20190923080344', '2019-09-23 08:04:01');
 
 -- --------------------------------------------------------
 
@@ -203,27 +221,50 @@ INSERT INTO `partenaires` (`id`, `nom_partenaire`, `site_partenaire`, `logo`) VA
 -- --------------------------------------------------------
 
 --
--- Structure de la table `photo`
+-- Structure de la table `picture`
 --
 
-DROP TABLE IF EXISTS `photo`;
-CREATE TABLE IF NOT EXISTS `photo` (
+DROP TABLE IF EXISTS `picture`;
+CREATE TABLE IF NOT EXISTS `picture` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `galerie` int(11) DEFAULT NULL,
-  `photo` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `date_affichage` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `galerie_id` int(11) NOT NULL,
+  `filename` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `IDX_14B784189E7D1590` (`galerie`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  KEY `IDX_16DB4F89825396CB` (`galerie_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Déchargement des données de la table `photo`
+-- Déchargement des données de la table `picture`
 --
 
-INSERT INTO `photo` (`id`, `galerie`, `photo`, `date_affichage`) VALUES
-(5, 5, 'photo_1570109780_56352_electrician-2755682_1920.jpg', NULL),
-(6, 5, 'photo_1570109808_80368_electricity-3962788_1920.jpg', NULL),
-(7, 6, 'photo_1570109983_42678_switchgear-2069791_1920.jpg', NULL);
+INSERT INTO `picture` (`id`, `galerie_id`, `filename`) VALUES
+(8, 4, '5d9da3e816c1f354736347.jpg'),
+(9, 4, '5d9da481ddb62145531538.jpg'),
+(10, 5, '5d9da9c60edec942191939.jpg'),
+(11, 6, '5d9da9df09f16835752356.jpg'),
+(12, 4, '5d9db1b442c78156925075.jpg');
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `reseaux`
+--
+
+DROP TABLE IF EXISTS `reseaux`;
+CREATE TABLE IF NOT EXISTS `reseaux` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `instagram` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `facebook` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `google` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Déchargement des données de la table `reseaux`
+--
+
+INSERT INTO `reseaux` (`id`, `instagram`, `facebook`, `google`) VALUES
+(1, 'instagram', 'kzgberibg', 'jrenbgejrgb');
 
 -- --------------------------------------------------------
 
@@ -277,22 +318,20 @@ DROP TABLE IF EXISTS `tarifs`;
 CREATE TABLE IF NOT EXISTS `tarifs` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `prestation` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `tarif_jour` decimal(10,2) DEFAULT NULL,
-  `tarif_nuit` decimal(10,2) DEFAULT NULL,
-  `tarif_weekend` decimal(10,2) DEFAULT NULL,
+  `description` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `tarif` decimal(10,2) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Déchargement des données de la table `tarifs`
 --
 
-INSERT INTO `tarifs` (`id`, `prestation`, `tarif_jour`, `tarif_nuit`, `tarif_weekend`) VALUES
-(1, 'changement d\'ampoule', '10.00', '12.20', '15.90'),
-(2, 'installation lustre', '15.00', '18.90', NULL),
-(3, 'lumières de jardin', '50.00', NULL, NULL),
-(4, 'pose compteur électrique', '250.00', NULL, NULL),
-(5, 'Réparation chauffage électrique', '285.00', '305.50', '400.55');
+INSERT INTO `tarifs` (`id`, `prestation`, `description`, `tarif`) VALUES
+(1, 'changement d\'ampoule', '', '0.00'),
+(2, 'installation lustre', '', '0.00'),
+(3, 'lumières de jardin', '', '0.00'),
+(4, 'pose compteur électrique', '', '0.00');
 
 -- --------------------------------------------------------
 
@@ -306,6 +345,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   `email` varchar(180) COLLATE utf8mb4_unicode_ci NOT NULL,
   `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `role` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `reset_token` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `UNIQ_8D93D649E7927C74` (`email`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -314,19 +354,19 @@ CREATE TABLE IF NOT EXISTS `user` (
 -- Déchargement des données de la table `user`
 --
 
-INSERT INTO `user` (`id`, `email`, `password`, `role`) VALUES
-(1, 'admin@test.com', '$argon2i$v=19$m=65536,t=4,p=1$ZVp2WElaUTBoOGJIS3pncg$5pB9LwkGh35Zwl1hmXKc9e3fhKHjiZ8xx9xf3oh/WII', 'ROLE_ADMIN'),
-(2, 'superadmin@test.com', '$argon2i$v=19$m=65536,t=4,p=1$SGVYRkljUm94MmhqWnVHeQ$L8I/gwjnoiAQwaQADM3DAPXO6pyTHgIgqFr/bLWqreY', 'ROLE_SUPER_ADMIN');
+INSERT INTO `user` (`id`, `email`, `password`, `role`, `reset_token`) VALUES
+(1, 'admin@test.com', '$argon2i$v=19$m=65536,t=4,p=1$ZVp2WElaUTBoOGJIS3pncg$5pB9LwkGh35Zwl1hmXKc9e3fhKHjiZ8xx9xf3oh/WII', 'ROLE_ADMIN', NULL),
+(2, 'superadmin@test.com', '$argon2i$v=19$m=65536,t=4,p=1$SGVYRkljUm94MmhqWnVHeQ$L8I/gwjnoiAQwaQADM3DAPXO6pyTHgIgqFr/bLWqreY', 'ROLE_SUPER_ADMIN', NULL);
 
 --
 -- Contraintes pour les tables déchargées
 --
 
 --
--- Contraintes pour la table `photo`
+-- Contraintes pour la table `picture`
 --
-ALTER TABLE `photo`
-  ADD CONSTRAINT `FK_14B784189E7D1590` FOREIGN KEY (`galerie`) REFERENCES `galerie` (`id`);
+ALTER TABLE `picture`
+  ADD CONSTRAINT `FK_16DB4F89825396CB` FOREIGN KEY (`galerie_id`) REFERENCES `galerie` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
