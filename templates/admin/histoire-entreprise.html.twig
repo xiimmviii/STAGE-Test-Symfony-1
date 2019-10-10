@@ -2,11 +2,14 @@
 
 {% block content %}
 
+<div class="row mt-5 pt-5">
+<div class="col-8 mx-auto"><h1>
+                        Histoire de l'entreprise 
+                    </h1></div></div>
 
-    <div class="row m-3 justify-content-center">
+    <div class="row justify-content-center">
         <div class="col-lg-4 col-md-3 col-sm-10 m-3 p-3  order-lg-5 text-justify">
-
-            <div class="row alert-warning border border-warning rounded m-3 p-3 ">
+            <div class="row alert-warning border border-warning rounded ">
                 <div class="col-12">
                     <center>
                         <h1>
@@ -57,14 +60,14 @@
         <div class="col-lg-6 col-md-8 col-sm-10 m-3 p-3 order-lg-0 ">
 
 
-            <div class="row alert-info border border-info rounded m-3 p-3">
-                <div class="col-12 p-4">
-                    <h2>
-                        Histoire de l'entreprise
-                    </h2>
+            <div class="row alert-info border border-info rounded">
+                <div class="col-12 p-3">
+                    <center><p>
+                    Dans cette section, vous pouvez parler de votre entreprise, son historique.
+                    </p></center>
                 </div>
             </div>
-            <div class="row alert-info border border-info rounded m-3 p-3">
+            <div class="row alert-info border border-info rounded mt-3 ">
                 <div class="col-12 p-4">
                     {{form_start(ContenuForm)}}
                     <div style="display: none">
@@ -79,7 +82,7 @@
                     ) }}
 
                     <!-- Même principe que pour la variable $date, pour gérer le changement de label dans le bouton envoi selon la route dans laquelle on est -->
-                    {{ form_row(ContenuForm.submit, { 'label' : boutonenvoi, 'attr' : {'class': 'col-12 btn btn-success'} } ) }}
+                    {{ form_row(ContenuForm.submit, { 'label' : boutonenvoi, 'attr' : {'class': 'col-12 btn btn-outline-success'} } ) }}
                 {{form_end(ContenuForm)}}
             </div>
         </div>

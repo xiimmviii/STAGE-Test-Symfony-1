@@ -2,75 +2,82 @@
 
 {% block content %}
 
-    <div class="row mt-4 pt-4">
-        <div class="col-md-6 col-sm-8 mx-auto alert-info border border-info rounded m-3 p-3">
-            <h2>
-                Couleur
-            </h2>
-            <hr>
-            <p>
-                Ici, vous pouvez changer la couleur du thème.
-            </p>
-        </div>
-    </div>
-    <div class="row m-4 justify-content-center">
-        <div class="col-lg-4 col-md-3 col-sm-10 alert-secondary border border-secondary rounded m-3 p-3 order-md-5 order-lg-5 text-justify">
-            <table class="table table-bordered">
-            <thead>
-                <tr class="row">
-                    <th class="col-6">
+<div class="row mt-5 pt-5">
+<div class="col-8 mx-auto"><h1>
+                       Couleurs 
+                    </h1></div></div>
+
+    <div class="row p-3 justify-content-center">
+        <div class="col-lg-4 col-md-3 col-sm-10 m-3 p-3 order-md-5 order-lg-5 text-justify">
+            <table class="table">
+                <tr class="row mt-3">
+                    <th class="col-6 text-center">
                         COULEUR
                     </th>
 
-                    <th class="col-6">
+                    <th class="col-6 text-center">
                         PUBLIER</th>
                 </tr>
-            </thead>
-            <tbody>
+
                 <!-- Pour afficher en premier le texte affiché, on ordonne nos résultats de notre boucle for par la date d'affichage en DESC. Pour cela on utilise l'extension twig sortbyfield : https://github.com/victorhaggqvist/Twig-sort-by-field/blob/master/src/SortByFieldExtension.php 
-                                On break le for et on récupère que le premier de la liste pour mettre un design spécial-->
+                                                On break le for et on récupère que le premier de la liste pour mettre un design spécial-->
                 {% for color in colors | sortbyfield('dateAffichage') | slice(0, 1) %}
                     <tr class="row alert-success">
-                        <td class="col-6 ">
-                           {{color.couleur}}
-                        </td> 
-                        <td>  Thème utilisé 
+                        <td class="col-6 text-center">
+                            {{color.couleur}}
+                        </td>
+                        <td class="col-6 text-center">
+                            Thème utilisé
                         </td>
                     </tr>
                 {% endfor %}
                 {% for color in colors| sortbyfield('dateAffichage') |slice(1, 50) %}
                     <!-- On récupère le reste des textes et on les affiche à la suite dans le tableau -->
                     <tr class="row">
-                        <td class="col-6">
+                        <td class="col-6 text-center">
                             {{color.couleur}}
                         </td>
 
 
                         <td class="col-6 text-center">
-                            <a class="text-success h3" href="{{ path('changer-couleur', {id : color.id } ) }}">
+                            <a class="text-success h3" href="{{ path('changer-couleur', {id : color.id} ) }}">
                                 <i class="fas fa-upload"></i>
                             </a>
                         </td>
                     </tr>
                 {% endfor %}
-
-            </tbody>
-        </table>
+            </table>
         </div>
-        <div class="col-lg-6 col-md-8 col-sm-10 border rounded m-3 p-3 order-md-0 order-lg-0 ">
-            {{ form_start(CouleurForm) }}
-
-            <h3 class="text-center m-4">Couleur choisie : <br></h3><h2 class="m-4 text-center"> {{color.couleur}}</h2>
-            <div style="display: none;"> 
-             {{ form_label(CouleurForm.couleur) }}
-            {{ form_widget(CouleurForm.couleur) }} 
-            {{ form_label(CouleurForm.dateAffichage) }}
-            {{ form_widget(CouleurForm.dateAffichage, {'value': date}) }} 
+        <div class="col-lg-6 col-md-8 col-sm-10 rounded m-3 p-3 order-md-0 order-lg-0 ">
+            <div class="row m-3 p-3">
+                <div class="col-12 alert-info border border-info rounded p-3">
+                    <center><p>
+                        Ici, vous pouvez changer la couleur du thème.
+                    </p></center>
+                </div>
             </div>
 
-            {{ form_row(CouleurForm.submit, { 'label' : boutonenvoi, 'attr': {'class': 'col-12 btn btn-success'} } ) }}
+            <div class="row m-3">
+                <div class="col-12 alert-info border border-info rounded">
 
-            {{ form_end(CouleurForm) }}
+                    {{ form_start(CouleurForm) }}
+
+                    <h3 class="text-center m-4">Couleur choisie :
+                        <br></h3>
+                    <h2 class="m-4 text-center">
+                        {{color.couleur}}</h2>
+                    <div style="display: none;">
+                        {{ form_label(CouleurForm.couleur) }}
+                        {{ form_widget(CouleurForm.couleur) }}
+                        {{ form_label(CouleurForm.dateAffichage) }}
+                        {{ form_widget(CouleurForm.dateAffichage, {'value': date}) }}
+                    </div>
+
+                    {{ form_row(CouleurForm.submit, { 'label' : boutonenvoi, 'attr': {'class': 'col-12 btn btn-outline-success'} } ) }}
+
+                    {{ form_end(CouleurForm) }}
+                </div>
+            </div>
         </div>
     </div>
 
