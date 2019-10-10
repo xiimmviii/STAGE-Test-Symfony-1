@@ -2,9 +2,7 @@
 
 namespace App\Controller;
 
-use App\Entity\Photo;
 use App\Entity\Tarifs;
-use App\Entity\Contact;
 use App\Entity\Contenu;
 use App\Entity\Couleur;
 use App\Entity\Galerie;
@@ -15,8 +13,6 @@ use App\Entity\Entreprise;
 use App\Entity\Competences;
 use App\Entity\Partenaires;
 use App\Entity\Localisation;
-use App\Entity\Specificites;
-use App\Notification\ContactNotification;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -38,7 +34,7 @@ class BaseController extends AbstractController
 
         $repository = $this->getDoctrine()->getRepository(Horaires::class);
         $horaires = $repository->findAll();
-        
+
         $repository = $this->getDoctrine()->getRepository(Entreprise::class);
         $entreprise = $repository->findOneById(1);
 
@@ -47,7 +43,7 @@ class BaseController extends AbstractController
 
         $repository = $this->getDoctrine()->getRepository(Competences::class);
         $competences = $repository->findAll();
-        
+
         $repository = $this->getDoctrine()->getRepository(Reseaux::class);
         $reseaux = $repository->findOneById(1);
 
@@ -56,46 +52,35 @@ class BaseController extends AbstractController
             array('dateAffichage' => 'DESC')
         );
 
-        // $repository = $this->getDoctrine()->getRepository(Contenu::class);
-
-        // //pour la présentation on sélectionne seulement dans la table contenu les lignes qui ont pour section le terme "presentation"
-        // $presentation = $repository->findOneBy(
-        //     array('section' => 'presentation'),
-        //     array('dateAffichage' => 'DESC') 
-        // );
-
         $repository = $this->getDoctrine()->getRepository(Contenu::class);
         //pour l'historique on sélectionne seulement dans la table contenu les lignes qui ont pour section le terme "historique"
         $historiques = $repository->findAll(array('dateAffichage' => 'DESC'));
-            // array('section' => 'historique'),
-            // array('dateAffichage' => 'DESC') 
-        // );
 
         // -----------------------------------------------------------------------------------
 
- //On crée l'objet $form en allant chercher le formulaire créé dans ContactType
- $form = $this->createForm(ContactType::class, null);
- //handlrequest permet de récupérer/traiter les infos envoyée dans un formulaire (comme le $_POST)
- $form->handleRequest($request);
+        //On crée l'objet $form en allant chercher le formulaire créé dans ContactType
+        $form = $this->createForm(ContactType::class, null);
+        //handlrequest permet de récupérer/traiter les infos envoyée dans un formulaire (comme le $_POST)
+        $form->handleRequest($request);
 
 
- if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) {
 
-     $data = $form->getData();
-     // permet de récupérer toutes les infos du formulaire (fonction native à Symfony)
-     // prenom = $data['prenom']
-     // objet = $data['objet']
+            $data = $form->getData();
+            // permet de récupérer toutes les infos du formulaire (fonction native à Symfony)
+            // prenom = $data['prenom']
+            // objet = $data['objet']
 
-     if ($this->sendEmail($data, $mailer)) {
-         // $mailer : objet swiftmailer que l'on retrouve dans la fonction suivante pour l'envoi du mail
-         $this->addFlash('success', 'Votre email a été envoyé et sera traité dans les meilleurs délais.');
-         //si l'email est bien envoyé on a un message de confirmation et on est redirigé vers l'index
-         return $this->redirectToRoute("index");
-     } else {
-         //s'il y a une erreur, un message d'erreur apparaît et on n'envoie pas l'email tant que ça n'est pas corrigé
-         $this->addFlash('errors', 'Un problème a eu lieu durant l\'envoi, veuillez ré-essayer plus tard');
-     }
- }
+            if ($this->sendEmail($data, $mailer)) {
+                // $mailer : objet swiftmailer que l'on retrouve dans la fonction suivante pour l'envoi du mail
+                $this->addFlash('success', 'Votre email a été envoyé et sera traité dans les meilleurs délais.');
+                //si l'email est bien envoyé on a un message de confirmation et on est redirigé vers l'index
+                return $this->redirectToRoute("index");
+            } else {
+                //s'il y a une erreur, un message d'erreur apparaît et on n'envoie pas l'email tant que ça n'est pas corrigé
+                $this->addFlash('errors', 'Un problème a eu lieu durant l\'envoi, veuillez ré-essayer plus tard');
+            }
+        }
 
 
         // ----------------------------------------------------------------------------------
@@ -105,9 +90,8 @@ class BaseController extends AbstractController
             'localisations' => $localisations,
             'competences' => $competences,
             'reseaux' => $reseaux,
-          //  'presentation' => $presentation,
             'historiques' => $historiques,
-            'logos' => $logos, 
+            'logos' => $logos,
             'couleurs' => $couleurs,
             'horaires' => $horaires,
             'form' => $form->createView()
@@ -134,7 +118,7 @@ class BaseController extends AbstractController
 
         $repository = $this->getDoctrine()->getRepository(Competences::class);
         $competences = $repository->findAll();
-        
+
         $repository = $this->getDoctrine()->getRepository(Reseaux::class);
         $reseaux = $repository->findOneById(1);
 
@@ -167,7 +151,7 @@ class BaseController extends AbstractController
     }
 
 
-        /**
+    /**
      * affiche les tarifs
      * @Route("/tarifs", name="tarifs")
      */
@@ -187,7 +171,7 @@ class BaseController extends AbstractController
 
         $repository = $this->getDoctrine()->getRepository(Competences::class);
         $competences = $repository->findAll();
-        
+
         $repository = $this->getDoctrine()->getRepository(Reseaux::class);
         $reseaux = $repository->findOneById(1);
 
@@ -235,7 +219,7 @@ class BaseController extends AbstractController
 
         $repository = $this->getDoctrine()->getRepository(Competences::class);
         $competences = $repository->findAll();
-        
+
         $repository = $this->getDoctrine()->getRepository(Reseaux::class);
         $reseaux = $repository->findOneById(1);
 
@@ -282,7 +266,7 @@ class BaseController extends AbstractController
 
         $repository = $this->getDoctrine()->getRepository(Competences::class);
         $competences = $repository->findAll();
-        
+
         $repository = $this->getDoctrine()->getRepository(Reseaux::class);
         $reseaux = $repository->findOneById(1);
 
@@ -330,14 +314,14 @@ class BaseController extends AbstractController
 
         $repository = $this->getDoctrine()->getRepository(Competences::class);
         $competences = $repository->findAll();
-        
+
         $repository = $this->getDoctrine()->getRepository(Reseaux::class);
         $reseaux = $repository->findOneById(1);
 
 
         $repository = $this->getDoctrine()->getRepository(Horaires::class);
         $horaires = $repository->findAll();
-        
+
         $repository = $this->getDoctrine()->getRepository(Couleur::class);
         $couleurs = $repository->findAll(
             array('dateAffichage' => 'DESC')
@@ -394,11 +378,11 @@ class BaseController extends AbstractController
         // On instancie un objet swiftmailer en précisant l'objet (sujet) du mail.
 
         $mail
-        //on envoie toutes les données récupérées dans le formulaire envoyé et on les injecte dans l'objet $mail
+            //on envoie toutes les données récupérées dans le formulaire envoyé et on les injecte dans l'objet $mail
             ->setSubject($data['objet'])
             ->setFrom($data['email'])
             ->setTo('test.mbmp@gmail.com') //mettre l'adresse du destinataire
-            ->setBody( 
+            ->setBody(
                 //on envoie les données dans une vue "emails/contact" créée spécialement pour paramétrer les mails envoyé par le formulaire, c'est une vue qui n'apparaît pas sur le site.
                 $this->renderView('emails/contact.html.twig', [
                     'data' => $data
@@ -413,8 +397,4 @@ class BaseController extends AbstractController
             return false;
         }
     }
-
-
-
 }
-
