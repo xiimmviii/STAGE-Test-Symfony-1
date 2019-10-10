@@ -3,104 +3,134 @@
 {% block content %}
 
 
-<div class="row mt-5 pt-5">
-<div class="col-8 mx-auto"><h1>
-                        Gestion des galeries 
-                    </h1></div></div>
-
-<div class="row justify-content-center">
-    <div class="col-lg-4 col-md-3 col-sm-10 order-md-5 order-lg-5 text-justify m-3 p-3">
-        <div class="row alert-warning border border-warning rounded">
-        <div class="col-12 p-3"
-        <center>
+    <div class="row mt-5 pt-5">
+        <div class="col-8 mx-auto">
             <h1>
-                <i class="fas fa-info-circle"></i>
+                Gestion des galeries
             </h1>
-        </center>
-        <hr>
-        Cette partie vous permet de créer une nouvelle galerie en suivant le formulaire ci-dessous. Elle vous permet
-        aussi de gérer les galeries existantes.
-    </div>
-    </div>
-     <div class="row m-3"><div class="col-12">
-        </div></div>
-    </div>
-
-    <div class="col-lg-6 col-md-8 col-sm-10 order-md-0 order-lg-0 text-center m-3 p-3">
-    <div class="row">
-    <div class="col-12 alert-info border border-info rounded p-3">
- 
-        <p>Dans cette section vous pourrez créer une nouvelle galerie ou modifier une galerie existante.</p>
-
-    </div>
-</div>
-<div class="row mt-3 p-3">
-<div class="col-12 alert-info border border-info rounded p-3">
-        <h1>Créer une galerie</h1>
-        <hr>
-
-        {% set totalGaleries2 = totalGaleries.0 %}
-        {# {{dump (totalGaleries2.1)}} #}
-
-        {% if totalGaleries2.1 < 10 %}
-
-        {{ form_start(galerieForm) }}
-        {{ form_end(galerieForm) }}
-
-
-        {% else %}
-
-        <p>Vous avez atteint la limite de 10 galeries autorisées, supprimez-en une pour pouvoir en créer une nouvelle.
-        </p>
-
-        {% endif %}
-    </div>
-</div>
-    </div>
-</div>
-
-<div class="row mt-5 pt-5">
-<div class="col-8 mx-auto"><h1>
-                        Albums 
-                    </h1></div></div>
-
-
-
-    <div class="row">
-        <div class="col-md-10 mx-auto text-center">
-            <div class="row text-center">
-                {% for galerie in galeries %}
-                <div class="col-2">
-                    {{ galerie.nom }}
-                </div>
-
-                <div class="col-4">
-                    {{ galerie.description | raw }}
-                </div>
-
-                <div class="col-4">
-                    {% for picture in galerie.pictures %}
-                    <img class="img-thumbnail w-25" src="{{ vich_uploader_asset(picture, 'imageFile') }}" alt="">
-                    {% endfor %}
-                </div>
-
-                <div class="col-2">
-                    <a class="btn btn-sucess" href="{{ path('modifiergalerie', {id : galerie.id } ) }}">
-                        <i class="fas fa-trash-alt mx-2"></i> Modifier la galerie
-                    </a>
-                    <a class="card-footer bg-danger text-decoration-none text-light"
-                        href="{{ path('delete_galerie', {id : galerie.id } ) }}"
-                        onclick="return confirm('Etes-vous certain(e) de vouloir supprimer la galerie ?')">
-                        <i class="fas fa-trash-alt mx-2"></i> Supprimer
-                    </a>
-                </div>
-
-                {% endfor %}
-            </div>
         </div>
     </div>
 
+    <div class="row justify-content-center">
+        <div class="col-lg-4 col-md-3 col-sm-10 order-md-5 order-lg-5 text-justify m-3 p-3">
+            <div class="row alert-warning border border-warning rounded">
+                <div class="col-12 p-3">
+                    <center>
+                        <h1>
+                            <i class="fas fa-info-circle"></i>
+                        </h1>
+                    </center>
+                    <hr>
+                    Cette partie vous permet de créer une nouvelle galerie en suivant le formulaire ci-dessous. Elle vous permet
+                                                                                                                                                    aussi de gérer les galeries existantes.
+                </div>
+            </div>
+            <div class="row m-3">
+                <div class="col-12"></div>
+            </div>
+        </div>
+
+        <div class="col-lg-6 col-md-8 col-sm-10 order-md-0 order-lg-0 m-3 p-3">
+            <div class="row">
+                <div class="col-12 alert-info border border-info rounded p-3">
+<center>
+                    <p>Dans cette section vous pourrez créer une nouvelle galerie ou modifier une galerie existante.</p>
+</center>
+                </div>
+            </div>
+            <div class="row mt-3 p-3">
+                <div class="col-12 alert-info border border-info rounded p-3">
+                    <h1>Créer une galerie</h1>
+                    <hr>
+
+                    {% set totalGaleries2 = totalGaleries.0 %}
+                    {# {{dump (totalGaleries2.1)}} #}
+
+                    {% if totalGaleries2.1 < 10 %}
+
+                        {{ form_start(galerieForm) }}
+                         {{ form_row(galerieForm.nom, {'label' : 'Nom de l\'album *'}) }}
+                          {{ form_row(galerieForm.description, {'label' : 'Description *'}) }}
+                           {{ form_row(galerieForm.pictureFiles, {'label' : 'Photo à envoyer *'}) }}
+                    {{ form_row(galerieForm.submit, { 'label' : 'Envoyer', 'attr' : {'class': 'col-12 btn btn-outline-success'} } ) }}
+                        {{ form_end(galerieForm) }}
 
 
+                    {% else %}
+
+                        <p>Vous avez atteint la limite de 10 galeries autorisées, supprimez-en une pour pouvoir en créer une nouvelle.
+                        </p>
+
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row mt-5 pt-5">
+        <div class="col-8 mx-auto">
+            <h1>
+                Albums
+            </h1>
+        </div>
+    </div>
+    <div class="row m-3">
+        <div class="col-md-10 mx-auto alert-info border border-info rounded p-4">
+
+            <div class="row">
+                <div class="col-3">
+                    <h3>
+                        Titre
+                    </h3>
+                </div>
+                <div class="col-3">
+                    <h3>
+                        Description
+                    </h3>
+                </div>
+                <div class="col-4">
+                    <h3>
+                        Photo
+                    </h3>
+                </div>
+                <div class="col-2"></div>
+            </div>
+
+            {% for galerie in galeries %}
+                <div class="row bg-white border border-info rounded text-justify mt-2 p-3" >
+
+                    <div class="col-3 border-right p-3 h3">
+                        {{ galerie.nom }}
+                    </div>
+
+                    <div class="col-3 border-right p-3" style="overflow-y: auto; height: 20vh;">
+                        {{ galerie.description | raw }}
+                    </div>
+
+                    <div class="col-4 border-right p-3">
+                        {% for picture in galerie.pictures %}
+                            <img class="img-thumbnail w-25" src="{{ vich_uploader_asset(picture, 'imageFile') }}" alt="">
+                        {% endfor %}
+                    </div>
+
+                    <div class="col-2">
+                     <div class="row">
+                        <div class="col-10 mt-2 mx-auto btn btn-warning">
+                        <a class="h5 text-white" href="{{ path('modifiergalerie', {id : galerie.id } ) }}" >
+                            <i class="fas fa-edit"></i>
+                            Modifier
+                        </a></div></div>
+                        <div class="row">
+                        <div class="col-10 mt-2 mx-auto btn btn-danger">
+                        <a class="h5 text-white" href="{{ path('delete_galerie', {id : galerie.id } ) }}" onclick="return confirm('Etes-vous certain(e) de vouloir supprimer la galerie ?')">
+                            <i class="fas fa-trash-alt"></i>
+                            Supprimer
+                        </a>
+                        </div></div>
+                    </div>
+                </div>
+            {% endfor %}
+
+        </div>
+    </div>
 
 {% endblock %}
