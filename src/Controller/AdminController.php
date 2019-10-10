@@ -20,19 +20,13 @@ use App\Form\HorairesType;
 use App\Entity\Competences;
 use App\Entity\Partenaires;
 use App\Entity\Localisation;
-use App\Entity\Specificites;
 use App\Form\EntrepriseType;
 use App\Form\CompetencesType;
 use App\Form\PartenairesType;
 use App\Form\LocalisationType;
-use App\Form\SpecificitesType;
 use Symfony\Component\HttpFoundation\Request;
-use Doctrine\Common\Persistence\ObjectManager;
-use Proxies\__CG__\App\Entity\Galerie as ProxiesGalerie;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Validator\Constraints\Date;
-use Symfony\Component\Validator\Constraints\DateTime;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 
@@ -804,7 +798,6 @@ class AdminController extends AbstractController
         }
 
         // -------------------------------------------------------------------
-        // -------------------------------------------------------------------
 
         // On renvoie les informations dans la VUE
         return $this->render('admin/reseaux.html.twig', [
@@ -952,6 +945,10 @@ class AdminController extends AbstractController
 
     /* ------------------------------------------------------------------------------
 
+        ╔═╗╔═╗╔╦╗╔═╗╔═╗╔╦╗╔═╗╔╗╔╔═╗╔═╗╔═╗
+        ║  ║ ║║║║╠═╝║╣  ║ ║╣ ║║║║  ║╣ ╚═╗
+        ╚═╝╚═╝╩ ╩╩  ╚═╝ ╩ ╚═╝╝╚╝╚═╝╚═╝╚═╝
+
 --------------------------------------------------------------------------------- */
     /**
      * @Route("/admin/competences", name="competences")
@@ -1073,10 +1070,10 @@ class AdminController extends AbstractController
     }
 
     /* ---------------------------------------------------------------------------------------------------
-   
-    ╔═╗╔═╗╦═╗╔╦╗╔═╗╔╗╔╔═╗╦╦═╗╔═╗
-    ╠═╝╠═╣╠╦╝ ║ ║╣ ║║║╠═╣║╠╦╝║╣ 
-    ╩  ╩ ╩╩╚═ ╩ ╚═╝╝╚╝╩ ╩╩╩╚═╚═╝
+
+    ╔═╗╔═╗╦═╗╔╦╗╔═╗╔╗╔╔═╗╦╦═╗╔═╗╔═╗
+    ╠═╝╠═╣╠╦╝ ║ ║╣ ║║║╠═╣║╠╦╝║╣ ╚═╗
+    ╩  ╩ ╩╩╚═ ╩ ╚═╝╝╚╝╩ ╩╩╩╚═╚═╝╚═╝
 
     --------------------------------------------------------------------------------------------------- */
 
@@ -1535,7 +1532,6 @@ class AdminController extends AbstractController
         $this->addFlash('success', 'L\'horaire a bien été supprimée.');
         return $this->redirectToRoute('horaires-admin');
 
-        // -------------------------------------------------------------------
         // -------------------------------------------------------------------
 
 
