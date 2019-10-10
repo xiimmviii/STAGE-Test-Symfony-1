@@ -10,7 +10,7 @@ use Symfony\Component\Serializer\Serializer;
 /**
  * @ORM\Entity(repositoryClass="App\Repository\PartenairesRepository")
  */
-class Partenaires
+class Partenaires implements \Serializable
 {
     /**
      * @ORM\Id()
