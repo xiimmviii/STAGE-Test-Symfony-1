@@ -752,9 +752,12 @@ class AdminController extends AbstractController
     }
 
     /* ---------------------------------------------------------------------------------------------------
-    ╔═╗╔═╗╔═╗╔═╗╦╔═╗╦╔═╗╦╔╦╗╔═╗╔═╗
-    ╚═╗╠═╝║╣ ║  ║╠╣ ║║  ║ ║ ║╣ ╚═╗
-    ╚═╝╩  ╚═╝╚═╝╩╚  ╩╚═╝╩ ╩ ╚═╝╚═╝
+
+
+        ╦═╗╔═╗╔═╗╔═╗╔═╗╦ ╦═╗ ╦  ╔═╗╔═╗╔═╗╦╔═╗╦ ╦═╗ ╦
+        ╠╦╝║╣ ╚═╗║╣ ╠═╣║ ║╔╩╦╝  ╚═╗║ ║║  ║╠═╣║ ║╔╩╦╝
+        ╩╚═╚═╝╚═╝╚═╝╩ ╩╚═╝╩ ╚═  ╚═╝╚═╝╚═╝╩╩ ╩╚═╝╩ ╚═
+
 --------------------------------------------------------------------------------------------------- */
 
 
@@ -797,7 +800,7 @@ class AdminController extends AbstractController
             $manager->flush();
 
             $this->addFlash('success', 'Les modifications ont été effectuées ! ');
-            return $this->redirectToRoute('admin');
+            return $this->redirectToRoute('reseaux');
         }
 
         // -------------------------------------------------------------------
@@ -817,6 +820,12 @@ class AdminController extends AbstractController
 
 
     /* ------------------------------------------------------------------------------
+
+
+        ╦  ╔═╗╔═╗╔═╗╦  ╦╔═╗╔═╗╔╦╗╦╔═╗╔╗╔╔═╗
+        ║  ║ ║║  ╠═╣║  ║╚═╗╠═╣ ║ ║║ ║║║║╚═╗
+        ╩═╝╚═╝╚═╝╩ ╩╩═╝╩╚═╝╩ ╩ ╩ ╩╚═╝╝╚╝╚═╝
+
 
 --------------------------------------------------------------------------------- */
 
@@ -883,8 +892,6 @@ class AdminController extends AbstractController
 
         // ----------------------------------------------------------------------
 
-        // -------------------------------------------------------------------
-        // -------------------------------------------------------------------
 
         // On renvoie les informations dans la VUE
         return $this->render('admin/localisation.html.twig', [
@@ -1125,7 +1132,7 @@ class AdminController extends AbstractController
         );
 
         // -------------------------------------------------------------------
-        // -------------------------------------------------------------------
+
 
         // On renvoie les informations à la vue 
         return $this->render('admin/partenaires.html.twig', [
@@ -1224,7 +1231,7 @@ class AdminController extends AbstractController
         );
 
         // -------------------------------------------------------------------
-        // -------------------------------------------------------------------
+
 
         $repository = $this->getDoctrine()->getRepository(Tarifs::class);
         $tarifs = $repository->findAll();
@@ -1291,7 +1298,7 @@ class AdminController extends AbstractController
         );
 
         // -------------------------------------------------------------------
-        // -------------------------------------------------------------------
+
 
         $boutonenvoi = 'Modifier';
 
@@ -1343,7 +1350,7 @@ class AdminController extends AbstractController
         return $this->redirectToRoute('tarifs-admin');
 
         // -------------------------------------------------------------------
-        // -------------------------------------------------------------------
+
 
 
         $repository = $this->getDoctrine()->getRepository(Entreprise::class);
@@ -1410,12 +1417,13 @@ class AdminController extends AbstractController
         );
 
         // -------------------------------------------------------------------
-        // -------------------------------------------------------------------
+
 
         $repository = $this->getDoctrine()->getRepository(Horaires::class);
         $horaires = $repository->findAll();
+
         // --------------------------------------------------------------------
-        // -------------------------------------------------------------------
+
 
         $boutonenvoi = 'Ajouter';
 
@@ -1476,7 +1484,6 @@ class AdminController extends AbstractController
             array('dateAffichage' => 'DESC')
         );
 
-        // -------------------------------------------------------------------
         // -------------------------------------------------------------------
 
         $boutonenvoi = 'Modifier';

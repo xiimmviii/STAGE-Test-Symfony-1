@@ -1,9 +1,12 @@
+<section class="bg1 py-5">
 
-       <section class="bg1 py-5" >
+  <div class="row bg1 py-4 justify-content-around">
+    {% for logo in logos %}
+    <div class="col-5 col-md-2">
+      <a href="{{ logo.sitePartenaire }}"><img src="{{ asset('/photo/logos/' ~ logo.logo) }}" class="img-fluid"
+          alt="logo de {{ logo.nomPartenaire }}, partenaire" /></a>
+    </div>
 
-        <div class="row bg1 py-4 justify-content-around">
-                {% for logo in logos %}
-                <div class="col-5 col-md-2"><a href="{{ logo.sitePartenaire }}"><img src="{{ asset('/photo/logos/' ~ logo.logo) }}" class="img-fluid" alt="logo de {{ logo.nomPartenaire }}, partenaire"/></a></div>
-                  
-                  {% endfor %}</div>
-        </section>
+    {% endfor %}
+  </div>
+</section>
