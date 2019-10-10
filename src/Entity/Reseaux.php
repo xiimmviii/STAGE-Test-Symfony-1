@@ -31,6 +31,11 @@ class Reseaux
      */
     private $Google;
 
+     /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $Twitter;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -68,6 +73,19 @@ class Reseaux
     public function setGoogle(?string $Google): self
     {
         $this->Google = $Google;
+
+        return $this;
+    }
+
+
+    public function getTwitter(): ?string
+    {
+        return $this->Twitter;
+    }
+
+    public function setTwitter(?string $Twitter): self
+    {
+        $this->Twitter = $Twitter;
 
         return $this;
     }

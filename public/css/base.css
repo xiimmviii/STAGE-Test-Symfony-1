@@ -219,23 +219,28 @@ transition-duration: 0.3s;
 
 -------------------------------------- */
 
-.img-thumbnail {
+.image_fakstagram  {
     border: none!important;
-    width: 200px;
-    height: 150px;
+ width: 300px!important;
+ height: 300px;
     object-fit: cover;
+    border: 10px white solid;
+    }
+
+    .cadre_realisation {
+        background: white;
+
     }
     
     .modal-dialog {
-        max-width: 70%!important;
+        max-width: 90%!important;
         max-height: 80%;
         height: auto;
         text-align: center;
     }
     
     .modal-content {
-        max-width: 70%!important;
-        max-height: 80%;
+        max-width: 100%!important;
         width: auto;
         background: none; 
         border: none;
