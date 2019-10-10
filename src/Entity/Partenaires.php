@@ -33,7 +33,7 @@ class Partenaires
      * @var string|null
      * @ORM\Column(name="logo", type="string", length=255)
      */
-    private $logo = 'defaultlogo.jpg';
+    private $logo;
 
     private $file;
     // On ne mappe pas cette propriété car elle n'existe pas dans la BDD. Elle va juste servir à récupérer les octets qui constituent l'image.
@@ -130,6 +130,7 @@ class Partenaires
             unlink($file);
         }
     }
+
     //------------------------------------- /FONCTION POUR LA PHOTO  ------------------------------------------------
 
 

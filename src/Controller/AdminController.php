@@ -1188,8 +1188,7 @@ class AdminController extends AbstractController
         // -------------------------------------------------------------------
 
         // On renvoie les informations nécessaires à la VUE 
-        return $this->render('admin/espaceadmin.html.twig', [
-            'controller_name' => 'AdminController',
+        return $this->render('admin/partenaires.html.twig', [
             'entreprise' => $entreprise,
             'localisations' => $localisations,
             'competences' => $competences,
