@@ -115,6 +115,10 @@
                 <a href="{{reseaux.facebook}}" alt="Facebook" class="smallicons h2 p-2">
                     <i class="fab fa-facebook-square"></i>
                 </a> {% endif %}
+                {% if reseaux.twitter is not null %}
+                <a href="{{reseaux.twitter}}" alt="Twitter" class="smallicons h2 p-2">
+                    <i class="fab fa-twitter-square"></i>
+                </a> {% endif %}
             </div>
         </nav>
 
@@ -202,6 +206,11 @@
                                 {% if reseaux.facebook is not null %}
                                 <a href="{{reseaux.facebook}}" alt="Facebook" class="icons p-2">
                                     <i class="fab fa-facebook-square"></i>
+                                </a> 
+                                {% endif %}
+                                 {% if reseaux.twitter is not null %}
+                                <a href="{{reseaux.twitter}}" alt="twitter" class="icons p-2">
+                                    <i class="fab fa-twitter-square"></i>
                                 </a> 
                                 {% endif %}
                             </div>

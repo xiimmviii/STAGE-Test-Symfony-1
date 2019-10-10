@@ -24,6 +24,7 @@ class ReseauxType extends AbstractType
             ->add('facebook', TextType::class,array('required' => false))
             ->add('instagram', TextType::class,array('required' => false))
             ->add('google', TextType::class,array('required' => false))
+            ->add('twitter', TextType::class,array('required' => false))
 
 
             ->add('submit', SubmitType::class);

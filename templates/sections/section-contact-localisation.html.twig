@@ -20,7 +20,7 @@
         </div>
         <div class="col-10 col-md-3 text-center">
             <h1>
-                <i class="fas fa-phone"></i>
+                <i class="far fa-envelope"></i>
             </h1>
             <a class="h4 btn bg" href="mailto:{{entreprise.mailContact}}" alt="Numéro de téléphone">
                 <div class="boutontext">Envoyer un mail</div>
@@ -28,7 +28,7 @@
         </div>
         <div class="col-10 col-md-3 text-center">
             <h1>
-                <i class="fas fa-phone"></i>
+                <i class="fas fa-euro-sign"></i>
             </h1>
             <a class="h4 btn bg" href="mailto:{{entreprise.mailGerant}}" alt="Numéro de téléphone">
                 <div class="boutontext">
@@ -44,18 +44,18 @@
         </div>
     </div>
 
-    <div class="row justify-content-around mb-4">
+    <div class="row justify-content-center h5 mb-4">
         {% for localisation in localisations | slice(0,5) %}
-        <div class="col-2 text-center">
-            {{localisation.secteur}}
+        <div class="col-6 col-md-2 text-left">
+           <i class="fas fa-map-marker-alt"></i> {{localisation.secteur}}
         </div>
         {% endfor %}
     </div>
 
-    <div class="row justify-content-around mb-4">
+    <div class="row justify-content-center h5 mb-4">
         {% for localisation in localisations | slice(5,10) %}
-        <div class="col-2 text-center">
-            {{localisation.secteur}}
+        <div class="col-6 col-md-2 text-center">
+         <i class="fas fa-map-marker-alt"></i>   {{localisation.secteur}}
         </div>
         {% endfor %}
     </div>
