@@ -3,56 +3,70 @@
 {% block content %}
 
 
-    <div class="row mt-4 pt-4">
-        <div class="col-10col-md-6 col-sm-8 mx-auto alert-info border border-info rounded m-3 p-3">
-            <h2>
-                Competence
-            </h2>
-            <hr>
-            <p>
-                Ces éléments sont propres à votre entreprise et vous pemrettent de mettre en avant vos compétences, vos savoirs-faires, ainsi que les différentes competences.
-            </p>
-        </div>
-    </div>
-
     <div class="row m-4 justify-content-center">
-        <div class="col-lg-4 col-md-3 col-sm-10 alert-warning m-3  order-lg-5 ">
-            BLOC DE DOCUMENTATION
+        <div class="col-lg-4 col-md-3 col-sm-10 m-3  order-lg-5 ">
+            <div class="row alert-warning border border-warning rounded m-3 p-3">
+                <div class="col-12">
+
+                    <center>
+                        <h1>
+                            <i class="fas fa-info-circle"></i>
+                        </h1>
+                    </center>
+                </div>
+            </div>
+             <div class="row m-3"><div class="col-12">
+        </div></div>
         </div>
         <div class="col-lg-6 col-md-8 col-sm-10 m-3 order-lg-0 ">
-
-            {% for competence in competences %}
-
-                <div class="row alert-info border border-info rounded text-info m-3 align-items-center">
-                    <div class="col-10 p-2">
-                        {{competence.competence}}</div>
-                    <div class="col-2 border-left border-info text-center p-2">
-                        <a class="text-danger h4" href="{{ path('competences-delete', {id : competence.id }) }}" onclick="return confirm('Etes-vous certain(e) de vouloir supprimer ?')">
-                            <i class="fas fa-trash-alt"></i>
-                        </a>
-                    </div>
+            <div class="row">
+                <div class="col-12 alert-info border border-info rounded m-3 p-3">
+                    <h2>
+                        Competence
+                    </h2>
+                    <hr>
+                    <p>
+                        Ces éléments sont propres à votre entreprise et vous pemrettent de mettre en avant vos compétences, vos savoirs-faires, ainsi que les différentes competences.
+                    </p>
                 </div>
-            {% endfor %}
+            </div>
 
-            {% set totalCompetences2 = totalCompetences.0 %}
+            <div class="row">
+                <div class="col-12">
+                    {% for competence in competences %}
 
-            {% if totalCompetences2.1 < 10 %}
+                        <div class="row alert-info border border-info rounded text-info m-3 align-items-center">
+                            <div class="col-10 p-2">
+                                {{competence.competence}}</div>
+                            <div class="col-2 border-left border-info text-center p-2">
+                                <a class="text-danger h4" href="{{ path('competences-delete', {id : competence.id }) }}" onclick="return confirm('Etes-vous certain(e) de vouloir supprimer ?')">
+                                    <i class="fas fa-trash-alt"></i>
+                                </a>
+                            </div>
+                        </div>
+                    {% endfor %}
 
-                
-                    {{ form_start(CompetenceForm) }}<div class="row alert-info border border-info rounded text-info m-3 align-items-center">
-                    <div class="col-10">{{form_widget(CompetenceForm.competence, { 'attr': {'class': 'input'}})}}</div>
-                    <div class="col-2">
-                        {{ form_row(CompetenceForm.submit, { 'label' : 'Envoyer' , 'attr': {'class': 'btn btn-success text-white mt-3'}}) }}
-                    </div>
-</div>
-                    {{ form_end(CompetenceForm) }}
+                    {% set totalCompetences2 = totalCompetences.0 %}
 
-                {% else %}
+                    {% if totalCompetences2.1 < 10 %}
 
-                    Vous avez atteint la limite de 10 competences autorisées, supprimez-en une pour pouvoir en créer une nouvelle.
 
-                {% endif %}
-            
+                        {{ form_start(CompetenceForm) }}<div class="row alert-info border border-info rounded text-info m-3 align-items-center">
+                            <div class="col-10">{{form_widget(CompetenceForm.competence, { 'attr': {'class': 'input'}})}}</div>
+                            <div class="col-2">
+                                {{ form_row(CompetenceForm.submit, { 'label' : 'Envoyer' , 'attr': {'class': 'btn btn-success text-white mt-3'}}) }}
+                            </div>
+                        </div>
+                        {{ form_end(CompetenceForm) }}
+
+                    {% else %}
+
+                        Vous avez atteint la limite de 10 competences autorisées, supprimez-en une pour pouvoir en créer une nouvelle.
+
+                    {% endif %}
+
+                </div>
+            </div>
         </div>
     </div>
 

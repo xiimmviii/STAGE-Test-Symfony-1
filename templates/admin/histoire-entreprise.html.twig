@@ -2,110 +2,174 @@
 
 {% block content %}
 
-<div class="row mx-5">
-    <div class="col-lg-6 col-md-8 col-sm-10 mx-5 px-3">
-        <h2 class="text-secondary mx-4 mt-5">
-            Histoire de l'entreprise
-        </h2>
-    </div>
-</div>
 
+    <div class="row m-3 justify-content-center">
+        <div class="col-lg-4 col-md-3 col-sm-10 m-3 p-3  order-lg-5 text-justify">
 
-<div class="row m-4 justify-content-center">
-    <div
-        class="col-lg-4 col-md-3 col-sm-10 alert-warning border border-warning rounded m-3 p-3  order-lg-5 text-justify">
-        <center>
-            <h1>
-                <i class="fas fa-info-circle"></i>
-            </h1>
-        </center>
-        <hr> 
-        <center>Cette section permet de poster un texte sur votre entreprise. 
-        <br><b>Ce texte doit faire <u>plus de 300 mots</u> pour favoriser votre référencement.  </b>
-        <br><i> Le champ "sous-titre" n'est pas obligatoire </i></center>
-        <hr> 
-        Ces articles sont gérables en dessous. Vous ne pouvez en afficher <strong> qu'un seul </strong> à la fois. L'article affiché est celui stipulé en ligne, en fond vert, et toujours en haut de ce tableau.
-        Dans ce tableau, trois colonnes pour gérer votre affichage et vos textes. 
-        <br><br><ul>
-        <li> <strong>PUBLIER :</strong> Vous pouvez modifier votre article une dernière fois avant sa publication. </li>
-        <li> <strong>MODIFIER :</strong> Vous pouvez modifier un article sans pour autant le publier par la suite. </li>
-        <li> <strong>SUPPRIMER :</strong> <span class="text-danger"><i class="fas fa-exclamation-triangle"></i> Action irréversible <i class="fas fa-exclamation-triangle"></i> </span></li>
-        </ul>
+            <div class="row alert-warning border border-warning rounded m-3 p-3 ">
+                <div class="col-12">
+                    <center>
+                        <h1>
+                            <i class="fas fa-info-circle"></i>
+                        </h1>
+                    </center>
+                    <hr>
+                    <center>Cette section permet de poster un texte sur votre entreprise.
+                        <br><b>Ce texte doit faire
+                            <u>plus de 300 mots</u>
+                            pour favoriser votre référencement.
+                        </b>
+                        <br><i>
+                            Le champ "sous-titre" n'est pas obligatoire
+                        </i>
+                    </center>
+                    <hr>
+                    Ces articles sont gérables en dessous. Vous ne pouvez en afficher
+                    <strong>
+                        qu'un seul
+                    </strong>
+                    à la fois. L'article affiché est celui stipulé en ligne, en fond vert, et toujours en haut de ce tableau.
+                            Dans ce tableau, trois colonnes pour gérer votre affichage et vos textes.
+                    <br><br><ul>
+                        <li>
+                            <strong>PUBLIER :</strong>
+                            Vous pouvez modifier votre article une dernière fois avant sa publication.
+                        </li>
+                        <li>
+                            <strong>MODIFIER :</strong>
+                            Vous pouvez modifier un article sans pour autant le publier par la suite.
+                        </li>
+                        <li>
+                            <strong>SUPPRIMER :</strong>
+                            <span class="text-danger">
+                                <i class="fas fa-exclamation-triangle"></i>
+                                Action irréversible
+                                <i class="fas fa-exclamation-triangle"></i>
+                            </span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+              <div class="row m-3"><div class="col-12">
+        </div></div>
         </div>
-    <div class="col-lg-6 col-md-8 col-sm-10 border rounded m-3 p-3 order-lg-0 ">
-        {{form_start(ContenuForm)}}
-        <div style="display: none">
-            <!-- On met en display none ces champs pour pouvoir y injecter des valeurs sans que l'utilisateur s'en rende compte /sans qu'il puisse y toucher. -->
-            <!-- Dans BaseController on crée une variable $date. Dedans on injecte des données selon la route sélectionée (update, delete, afficher...). On met ensuite cette variable en valeur du champ "dateAffichage" afin d'injecter ces données. (c'est ce qui nous permet de gérer le choix de l'affichage. CF. AdminController.-->
-            {{ form_label(ContenuForm.dateAffichage) }}
-            {{ form_widget(ContenuForm.dateAffichage, {'value': date}) }}
+
+        <div class="col-lg-6 col-md-8 col-sm-10 m-3 p-3 order-lg-0 ">
+
+
+            <div class="row alert-info border border-info rounded m-3 p-3">
+                <div class="col-12 p-4">
+                    <h2>
+                        Histoire de l'entreprise
+                    </h2>
+                </div>
+            </div>
+            <div class="row alert-info border border-info rounded m-3 p-3">
+                <div class="col-12 p-4">
+                    {{form_start(ContenuForm)}}
+                    <div style="display: none">
+                        <!-- On met en display none ces champs pour pouvoir y injecter des valeurs sans que l'utilisateur s'en rende compte /sans qu'il puisse y toucher. -->
+                        <!-- Dans BaseController on crée une variable $date. Dedans on injecte des données selon la route sélectionée (update, delete, afficher...). On met ensuite cette variable en valeur du champ "dateAffichage" afin d'injecter ces données. (c'est ce qui nous permet de gérer le choix de l'affichage. CF. AdminController.-->
+                        {{ form_label(ContenuForm.dateAffichage) }}
+                    {{ form_widget(ContenuForm.dateAffichage, {'value': date}) }}
+                    </div>
+
+                    {{ form_row(ContenuForm.titre, {'label' : 'Titre *'}) }}
+                    {{ form_row(ContenuForm.sousTitre, {'label' : 'Sous-titre'}) }}{{ form_row(ContenuForm.texte, {'label' : 'Texte *', 'attr': { 'style' : 'height: 28vh;'}}
+                    ) }}
+
+                    <!-- Même principe que pour la variable $date, pour gérer le changement de label dans le bouton envoi selon la route dans laquelle on est -->
+                    {{ form_row(ContenuForm.submit, { 'label' : boutonenvoi, 'attr' : {'class': 'col-12 btn btn-success'} } ) }}
+                {{form_end(ContenuForm)}}
+            </div>
         </div>
-
-        {{ form_row(ContenuForm.titre, {'label' : 'Titre *'}) }}
-        {{ form_row(ContenuForm.sousTitre, {'label' : 'Sous-titre'}) }}
-        {{ form_row(ContenuForm.texte, {'label' : 'Texte *', 'attr': { 'style' : 'height: 28vh;'}}) }}
-
-            <!-- Même principe que pour la variable $date, pour gérer le changement de label dans le bouton envoi selon la route dans laquelle on est -->
-            {{ form_row(ContenuForm.submit, { 'label' : boutonenvoi, 'attr' : {'class': 'col-12 btn btn-success'} } ) }}
-        {{form_end(ContenuForm)}}
-
     </div>
-</div>
+    </div>
 
-<div class="row m-4 justify-content-center">
-    <table class="col-10 table">
-        <thead>
-            <tr class="row">
-                <th class="col-2">TITRE </th>
-                <th class="col-2">SOUS TITRE </th>
-                <th class="col-5"> TEXTE </th>
-                <th class="col-1"> PUBLIER </th>
-                <th class="col-1"> MODIFIER</th>
-                <th class="col-1"> SUPPRIMER</th>
-        </thead>
-        <tbody>
-            <!-- Pour afficher en premier le texte affiché, on ordonne nos résultats de notre boucle for par la date d'affichage en DESC. Pour cela on utilise l'extension twig sortbyfield : https://github.com/victorhaggqvist/Twig-sort-by-field/blob/master/src/SortByFieldExtension.php 
-                On break le for et on récupère que le premier de la liste pour mettre un design spécial-->
-            {% for historique in historiques | sortbyfield('dateAffichage') | slice(0, 1) %}
-            <tr class="row alert-success">
-                <td class="col-2"> {{historique.titre}} </td>
-                <td class="col-2"> {{historique.sousTitre}} </td>
-                <td class="col-5 overflow-auto" height="100"> {{historique.texte | raw}} </td>
-                <td class="col-1 text-center my-auto"> EN LIGNE <br>
-                    <h1><i class="fas fa-globe-asia"></i></h1>
-                </td>
-                <td class="col-1 text-center"> <a class="text-warning h3"
-                        href="{{ path('update_histoireEntreprise', {id : historique.id } ) }}">
-                        <i class="fas fa-edit"></i> </a> </td>
-                <td class="col-1 text-center"> <a class="text-danger h3"
-                        href="{{ path('delete_historiqueEntreprise', {id : historique.id } ) }}"
-                        onclick="return confirm('Etes-vous certain(e) de vouloir supprimer le texte de présentation ?')">
-                        <i class="fas fa-trash-alt"></i>
-                    </a> </td>
-            </tr>
-            {% endfor %}
-            {% for historique in historiques | sortbyfield('dateAffichage') |slice(1, 50) %}
-            <!-- On récupère le reste des textes et on les affiche à la suite dans le tableau -->
-            <tr class="row">
-                <td class="col-2"> {{historique.titre}} </td>
-                <td class="col-2"> {{historique.sousTitre}} </td>
-                <td class="col-5 overflow-auto" height="100"> {{historique.texte | raw}} </td>
-                <td class="col-1 text-center"> <a class="text-success h3"
-                        href="{{ path('affichage_histoireEntreprise', {id : historique.id } ) }}">
-                        <i class="fas fa-upload"></i> </a> </td>
-                <td class="col-1 text-center"> <a class="text-warning h3"
-                        href="{{ path('update_histoireEntreprise', {id : historique.id } ) }}">
-                        <i class="fas fa-edit"></i> </a> </td>
-                <td class="col-1 text-center"> <a class="text-danger h3"
-                        href="{{ path('delete_historiqueEntreprise', {id : historique.id } ) }}"
-                        onclick="return confirm('Etes-vous certain(e) de vouloir supprimer le texte de présentation ?')">
-                        <i class="fas fa-trash-alt"></i>
-                    </a> </td>
-            </tr>
-            {% endfor %}
+        <div class="row m-4 justify-content-center"> <table class="col-10 table">
+            <thead>
+                <tr class="row">
+                    <th class="col-2">TITRE
+                    </th>
+                    <th class="col-2">SOUS TITRE
+                    </th>
+                    <th class="col-5">
+                        TEXTE
+                    </th>
+                    <th class="col-1">
+                        PUBLIER
+                    </th>
+                    <th class="col-1">
+                        MODIFIER</th>
+                    <th class="col-1">
+                        SUPPRIMER</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Pour afficher en premier le texte affiché, on ordonne nos résultats de notre boucle for par la date d'affichage en DESC. Pour cela on utilise l'extension twig sortbyfield : https://github.com/victorhaggqvist/Twig-sort-by-field/blob/master/src/SortByFieldExtension.php 
+                                On break le for et on récupère que le premier de la liste pour mettre un design spécial-->
+                {% for historique in historiques | sortbyfield('dateAffichage') | slice(0, 1) %}
+                    <tr class="row alert-success">
+                        <td class="col-2">
+                            {{historique.titre}}
+                        </td>
+                        <td class="col-2">
+                            {{historique.sousTitre}}
+                        </td>
+                        <td class="col-5 overflow-auto" height="100">
+                            {{historique.texte | raw}}
+                        </td>
+                        <td class="col-1 text-center my-auto">
+                            EN LIGNE
+                            <br>
+                            <h1>
+                                <i class="fas fa-globe-asia"></i>
+                            </h1>
+                        </td>
+                        <td class="col-1 text-center">
+                            <a class="text-warning h3" href="{{ path('update_histoireEntreprise', {id : historique.id } ) }}">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                        </td>
+                        <td class="col-1 text-center">
+                            <a class="text-danger h3" href="{{ path('delete_historiqueEntreprise', {id : historique.id } ) }}" onclick="return confirm('Etes-vous certain(e) de vouloir supprimer le texte de présentation ?')">
+                                <i class="fas fa-trash-alt"></i>
+                            </a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                {% for historique in historiques | sortbyfield('dateAffichage') |slice(1, 50) %}
+                    <!-- On récupère le reste des textes et on les affiche à la suite dans le tableau -->
+                    <tr class="row">
+                        <td class="col-2">
+                            {{historique.titre}}
+                        </td>
+                        <td class="col-2">
+                            {{historique.sousTitre}}
+                        </td>
+                        <td class="col-5 overflow-auto" height="100">
+                            {{historique.texte | raw}}
+                        </td>
+                        <td class="col-1 text-center bg-success">
+                            <a class="text-white h3" href="{{ path('affichage_histoireEntreprise', {id : historique.id } ) }}">
+                                <i class="fas fa-upload"></i>
+                            </a>
+                        </td>
+                        <td class="col-1 text-center bg-warning">
+                            <a class="text-white h3" href="{{ path('update_histoireEntreprise', {id : historique.id } ) }}">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                        </td>
+                        <td class="col-1 text-center bg-danger">
+                            <a class="text-white h3" href="{{ path('delete_historiqueEntreprise', {id : historique.id } ) }}" onclick="return confirm('Etes-vous certain(e) de vouloir supprimer le texte de présentation ?')">
+                                <i class="fas fa-trash-alt"></i>
+                            </a>
+                        </td>
+                    </tr>
+                {% endfor %}
 
-        </tbody>
-    </table>
-</div>
+            </tbody>
+        </table>
+    </div>
 
 {% endblock %}
