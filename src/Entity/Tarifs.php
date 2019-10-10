@@ -67,12 +67,11 @@ class Tarifs
         return $this->tarif;
     }
 
-    public function setTarif(?float $tarifJour): self
+    public function setTarif(?float $tarif): self
     {
         $this->tarif = $tarif;
 
         return $this;
     }
 
-   
 }

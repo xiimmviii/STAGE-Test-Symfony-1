@@ -1005,10 +1005,7 @@ class AdminController extends AbstractController
             ->select('count(c.id)')
             ->getQuery()
             ->getResult();
-
-        // ----------------------------------------------------------------------
-
-        // -------------------------------------------------------------------
+        
         // -------------------------------------------------------------------
 
         // On renvoie les informations dans la VUE
@@ -1105,7 +1102,6 @@ class AdminController extends AbstractController
         }
 
         // -------------------------------------------------------------------
-        // -------------------------------------------------------------------
 
         // On récupère les informations nécessaires en BDD 
         $repository = $this->getDoctrine()->getRepository(Partenaires::class);
@@ -1155,7 +1151,6 @@ class AdminController extends AbstractController
         $partenaire = $manager->find(Partenaires::class, $id);
 
         // -------------------------------------------------------------------
-        // -------------------------------------------------------------------
 
         // On supprime le logo puis le partenaire et on enregistre/envoie l'information en BDD 
         $partenaire->removeLogo();
@@ -1166,7 +1161,6 @@ class AdminController extends AbstractController
         $this->addFlash('success', 'Le partenaire a bien été supprimé');
         return $this->redirectToRoute('partenaires');
 
-        // -------------------------------------------------------------------
         // -------------------------------------------------------------------
 
         // On récupère les informations nécessaires à l'affichage de la vue 
@@ -1187,7 +1181,6 @@ class AdminController extends AbstractController
             array('dateAffichage' => 'DESC')
         );
 
-        // -------------------------------------------------------------------
         // -------------------------------------------------------------------
 
         // On renvoie les informations nécessaires à la VUE 
@@ -1237,7 +1230,6 @@ class AdminController extends AbstractController
         $tarifs = $repository->findAll();
 
         // --------------------------------------------------------------------
-        // -------------------------------------------------------------------
 
         $boutonenvoi = 'Ajouter';
 
