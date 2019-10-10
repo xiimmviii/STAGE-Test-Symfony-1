@@ -2,10 +2,11 @@
 
 namespace App\Entity;
 
+use Serializable;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Serializer;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\HttpFoundation\File\UploadedFile; 
-use Symfony\Component\Serializer\Serializer;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\PartenairesRepository")
