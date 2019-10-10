@@ -372,7 +372,7 @@ class AdminController extends AbstractController
 
             // Message qui confirme l'action et retour à la route 
             $this->addFlash('success', 'La galerie a bien été modifiée');
-            return $this->redirectToRoute('modifiergalerie');
+            return $this->redirectToRoute('gestiongaleries');
         }
 
 
