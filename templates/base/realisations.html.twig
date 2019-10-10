@@ -1,52 +1,58 @@
 {% extends 'base.html.twig' %}
 
 {% block content %}
-<section class="mt-5 mb-5 mainbox text-center">
+    <section class="mt-5 mb-5 mainbox text-center">
+
+        <div
+            class="row justify-content-center">
+
+            {# On génère ici une boucle pour afficher les photos des réalisations présentes dans la BDD#}
+            {% for galerie in galeries %}
+                {% set modal = 'modal' %}
+                {# La partie modale permet l'affichage en grand sur l'écran de la photo sur laquelle on a cliqué #}
+                <div class="col-md-3">
+                    {% for picture in galerie.pictures | slice (0,1) %}
+                        <img class="img-thumbnail" data-toggle="modal" data-target="#{{ modal ~ galerie.id }}" src="{{ vich_uploader_asset(picture, 'imageFile') }}" alt="">
+                    {% endfor %}
 
 
+                    {# L'appel de la modal est dynamique, ce qui permet que tous les éléments correspondent entre eux : ID, description #}
+                    <div class="modal fade" id="{{ modal ~ galerie.id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
 
+                                <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+                                    <div class="carousel-inner">
+                                        {% for picture in galerie.pictures %}
+                                            <div class="carousel-item active">
+                                                <img class="d-block w-100" data-toggle="modal" data-target="#{{ modal ~ galerie.id }}" src="{{ vich_uploader_asset(picture, 'imageFile')}}" alt="">
+                                                {% if galerie.description is not null  %}
+                                                    <div class="carousel-caption d-none d-md-block">
+                                                        {{galerie.description | raw}}
+                                                    </div>
+                                                {% endif %}
+                                            </div>
+                                        {% endfor %}
+                                    </div>
+                                    <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+                                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                        <span class="sr-only">Previous</span>
+                                    </a>
+                                    <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+                                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                        <span class="sr-only">Next</span>
+                                    </a>
+                                </div>
 
-    <div class="row justify-content-center">
-
-        {# On génère ici une boucle pour afficher les photos des réalisations présentes dans la BDD#}
-        {% for galerie in galeries %}
-        {% set modal = 'modal' %}
-        {# La partie modale permet l'affichage en grand sur l'écran de la photo sur laquelle on a cliqué #}
-        <div class="col-md-3">
-        {% for picture in galerie.pictures | slice (0,1) %}
-            <img class="img-thumbnail" data-toggle="modal" data-target="#{{ modal ~ galerie.id }}"
-                src="{{ vich_uploader_asset(picture, 'imageFile') }}" alt="">
-        {% endfor %}
-
-
-            {# L'appel de la modal est dynamique, ce qui permet que tous les éléments correspondent entre eux : ID, description #}
-            <div class="modal fade" id="{{ modal ~ galerie.id }}" tabindex="-1" role="dialog"
-                aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <table>
-                            <tr>
-                                {% for picture in galerie.pictures %}
-            <img class="img-thumbnail" data-toggle="modal" data-target="#{{ modal ~ galerie.id }}"
-                src="{{ vich_uploader_asset(picture, 'imageFile')}}" alt="">
-        {% endfor %}
-                            </tr>
-                            
-                            {% if galerie.description is not null  %} <tr>
-
-                                <div class="bg-dark text-white p-3">{{galerie.description}}</div>
-
-                            </tr>
-                            {% endif %}
-                        </table>
+                            </div>
+                        </div>
                     </div>
+
                 </div>
-            </div>
+            {% endfor %}
+
+
         </div>
-        {% endfor %}
 
-
-    </div>
-
-</section>
+    </section>
 {% endblock %}
