@@ -23,11 +23,10 @@
                 </h1>
             </center>
             <hr>
-            <p>Vous pouvez ajouter un nouveau partenaire grâce au formulaire sur la gauche. Tous les champs sont
-                obligatoires. </p>
+            <p>Vous pouvez ajouter un nouveau partenaire grâce au formulaire sur la gauche. Tous les champs sont obligatoires. </p>
             <hr>
-            Ces partenaires sont visibles et gérables ci-dessous. <br>
-            Attention ! La suppression d'un partenaire est une <span class="text-danger font-weight-bold"><i class="fas fa-exclamation-triangle"></i> action irréversible <i class="fas fa-exclamation-triangle"></i> </span> !
+            <p>Ces partenaires sont visibles et gérables ci-dessous.</p> <br>
+            <p>Attention ! La suppression d'un partenaire est une <span class="text-danger font-weight-bold"><i class="fas fa-exclamation-triangle"></i> action irréversible <i class="fas fa-exclamation-triangle"></i> </span> !</p>
         </div>
 
 
@@ -37,10 +36,10 @@
             {{ form_start(PartenairesForm) }}
             <div class="row">
                 <div class="col-6">
-                    {{ form_row(PartenairesForm.nomPartenaire, {'label' : 'Adresse url du site du partenaire *'}) }}
+                    {{ form_row(PartenairesForm.nomPartenaire, {'label' : 'Nom du partenaire *'}) }}
                 </div>
                 <div class="col-6">
-                    {{ form_row(PartenairesForm.sitePartenaire, {'label' : 'Nom du partenaire *'}) }}
+                    {{ form_row(PartenairesForm.sitePartenaire, {'label' : 'Adresse url du site du partenaire *'}) }}
                 </div>
             </div>
             <div class="row">
