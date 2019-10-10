@@ -2,85 +2,103 @@
 
 {% block content %}
 
-<div class="row mt-4 pt-4">
-    <div class="col-md-6 col-sm-8 mx-auto alert-info border border-info rounded m-3 p-3">
-        <h2>
-            Galerie de vos réalisations
-        </h2>
-        <hr>
-        <p>Dans cette section vous pourrez ajouter/supprimer les photos de vos réalisations.</p>
-
-    </div>
-</div>
-
-<div class="row m-4 justify-content-center">
-    <div
-        class="col-lg-4 col-md-3 col-sm-10 alert-warning border border-warning rounded m-3 p-3 order-md-5 order-lg-5 text-justify">
-        <center>
+    <div class="row mt-5 pt-5">
+        <div class="col-8 mx-auto">
             <h1>
-                <i class="fas fa-info-circle"></i>
+                Gestion des albums
             </h1>
-        </center>
-        <hr>
-        Cette partie vous sert à ajouter des photos dans la galerie de vos réalisations.
-        <br> Vous ne pouvez ajouter <u>qu'une seule</u> photo à la fois. La description est obligatoire et elle
-        s'affiche lorsque les clients clique sur la photo pour la voir en plus grand.
-        Il vous suffit de choisir votre photo, inscrire la descrption et envoyer le formulaire pour que votre photo
-        apparaisse immédiatement dans la galerie.
-        <hr> Ci-dessous, vous pouvez supprimer les photos individuelles. <strong>Toute suppression est
-            irréversible.</strong>
-    </div>
-
-    <div class="col-lg-6 col-md-8 col-sm-10 rounded border m-3 p-3 order-md-0 order-lg-0 text-center">
-
-        <h1>Modifier la galerie</h1>
-        <hr>
-        {{ form_start(galerieForm) }}
-
-        {{ form_row(galerieForm.nom, {'label' : 'Nom de la galerie'}) }}
-        {{ form_row(galerieForm.description, {'label' : 'Description'}) }}
-
-
-        {% set totalPictures2 = totalPictures.0 %}
-        {# {{ dump(totalPictures2) }} #}
-
-        {% if totalPictures2.1 < 4 %}
-        {{ form_widget(galerieForm.pictureFiles, {'label' : 'Ajouter une photo'}) }}
-
-        {% else %}
-
-        <p>Vous avez atteint la limite de 4 photos autorisées, supprimez-en une pour pouvoir en créer une nouvelle.</p>
-        
-        <div style="display: none">
-        {{ form_widget(galerieForm.pictureFiles, {'label' : 'Ajouter une photo'}) }}
-    </div>
-        {% endif %}
-
-        {{ form_end(galerieForm) }}
-
-
-    </div>
-
-</div>
-
-<div class="row">
-    <div class="col-md-10 mx-auto text-center">
-        <div class="row text-center">
-            {% for picture in pictures %}
-            <div class="card col-md-2 m-3">
-                <img class=" card-img-top" src="{{ asset('/images/galeries/' ~ picture.filename) }}" alt="">
-                <div class=" card-block">
-                </div>
-                <a class="card-footer bg-danger text-decoration-none text-light"
-                    href="{{ path('delete_photo', {id : picture.id } ) }}"
-                    onclick="return confirm('Etes-vous certain(e) de vouloir supprimer la photo ?')">
-                    <i class="fas fa-trash-alt mx-2"></i> Supprimer
-                </a>
-            </div>
-            {% endfor %}
-
         </div>
     </div>
-</div>
+
+
+    <div class="row justify-content-center">
+        <div class="col-lg-4 col-md-3 col-sm-10 order-md-5 order-lg-5 text-justify m-3 p-3">
+            <div class="row alert-warning border border-warning rounded">
+                <div class="col-12 p-3">
+                    <center>
+                        <h1>
+                            <i class="fas fa-info-circle"></i>
+                        </h1>
+                    </center>
+                    <hr>
+                    Cette partie vous sert à ajouter des photos dans la galerie de vos réalisations.
+                    <br>
+                    Vous ne pouvez ajouter
+                    <u>qu'une seule</u>
+                    photo à la fois. La description est obligatoire et elle
+                                                                                                            s'affiche lorsque les clients clique sur la photo pour la voir en plus grand.
+                                                                                                            Il vous suffit de choisir votre photo, inscrire la descrption et envoyer le formulaire pour que votre photo
+                                                                                                            apparaisse immédiatement dans la galerie.
+                    <hr>
+                    Ci-dessous, vous pouvez supprimer les photos individuelles.
+                    <strong>Toute suppression est
+                                                                                                                                    irréversible.</strong>
+                </div>
+            </div>
+            <div class="row m-3">
+                <div class="col-12"></div>
+            </div>
+        </div>
+
+        <div class="col-lg-6 col-md-8 col-sm-10 order-md-0 order-lg-0 m-3 p-3">
+            <div class="row">
+                <div class="col-12 alert-info border border-info rounded p-3">
+                    <center>
+                        <p>Dans cette section vous pourrez modifier un album existant.</p>
+                    </center>
+                </div>
+            </div>
+            <div class="row mt-3 p-3">
+                <div class="col-12 alert-info border border-info rounded p-3">
+
+                    <h1>Modifier la galerie</h1>
+                    <hr>
+                    {{ form_start(galerieForm) }}
+
+                    {{ form_row(galerieForm.nom, {'label' : 'Nom de la galerie'}) }}
+                    {{ form_row(galerieForm.description, {'label' : 'Description'}) }}
+
+
+                    {% set totalPictures2 = totalPictures.0 %}
+                    {# {{ dump(totalPictures2) }} #}
+
+                    {% if totalPictures2.1 < 4 %}
+                    
+                        {{ form_widget(galerieForm.pictureFiles, {'label' : 'Ajouter une photo'}) }}
+
+                    {% else %}
+
+                        <p>Vous avez atteint la limite de 4 photos autorisées, supprimez-en une pour pouvoir en créer une nouvelle.</p>
+
+                        <div style="display: none">
+                            {{ form_widget(galerieForm.pictureFiles, {'label' : 'Ajouter une photo'}) }}
+                        </div>
+                    {% endif %}
+
+                    {{ form_row(galerieForm.submit, { 'label' : 'Envoyer', 'attr' : {'class': 'col-12 btn btn-outline-success mt-3'} } ) }}
+
+                    {{ form_end(galerieForm) }}
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col-md-10 mx-auto text-center">
+            <div class="row text-center">
+                {% for picture in pictures %}
+                    <div class="card alert alert-info border border-info rounded col-md-2 m-3">
+                        <img class=" card-img-top" src="{{ asset('/images/galeries/' ~ picture.filename) }}" alt="">
+                        <hr>
+                        <a class="btn btn-outline-danger" href="{{ path('delete_photo', {id : picture.id } ) }}" onclick="return confirm('Etes-vous certain(e) de vouloir supprimer la photo ?')">
+                           <h3> <i class="fas fa-trash-alt"></i></h3>
+                        </a>
+                    </div>
+                {% endfor %}
+
+            </div>
+        </div>
+    </div>
 
 {% endblock %}
