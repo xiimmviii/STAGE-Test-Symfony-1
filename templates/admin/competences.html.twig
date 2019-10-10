@@ -2,10 +2,14 @@
 
 {% block content %}
 
+<div class="row mt-5 pt-5">
+<div class="col-8 mx-auto"><h1>
+                        Compétences
+                    </h1></div></div>
 
-    <div class="row m-4 justify-content-center">
+    <div class="row justify-content-center">
         <div class="col-lg-4 col-md-3 col-sm-10 m-3  order-lg-5 ">
-            <div class="row alert-warning border border-warning rounded m-3 p-3">
+            <div class="row alert-warning border border-warning rounded ">
                 <div class="col-12">
 
                     <center>
@@ -20,14 +24,10 @@
         </div>
         <div class="col-lg-6 col-md-8 col-sm-10 m-3 order-lg-0 ">
             <div class="row">
-                <div class="col-12 alert-info border border-info rounded m-3 p-3">
-                    <h2>
-                        Competence
-                    </h2>
-                    <hr>
-                    <p>
-                        Ces éléments sont propres à votre entreprise et vous pemrettent de mettre en avant vos compétences, vos savoirs-faires, ainsi que les différentes competences.
-                    </p>
+                <div class="col-12 alert-info border border-info rounded p-3">
+                   <center> <p>
+                        Ces éléments sont propres à votre entreprise et vous permettent de mettre en avant vos compétences, vos savoirs-faires, ainsi que les différentes competences.
+                    </p></center>
                 </div>
             </div>
 
@@ -35,7 +35,7 @@
                 <div class="col-12">
                     {% for competence in competences %}
 
-                        <div class="row alert-info border border-info rounded text-info m-3 align-items-center">
+                        <div class="row alert-info border border-info rounded text-info mt-3 align-items-center">
                             <div class="col-10 p-2">
                                 {{competence.competence}}</div>
                             <div class="col-2 border-left border-info text-center p-2">
@@ -51,10 +51,10 @@
                     {% if totalCompetences2.1 < 10 %}
 
 
-                        {{ form_start(CompetenceForm) }}<div class="row alert-info border border-info rounded text-info m-3 align-items-center">
+                        {{ form_start(CompetenceForm) }}<div class="row alert-info border border-info rounded text-info mt-3 align-items-center">
                             <div class="col-10">{{form_widget(CompetenceForm.competence, { 'attr': {'class': 'input'}})}}</div>
                             <div class="col-2">
-                                {{ form_row(CompetenceForm.submit, { 'label' : 'Envoyer' , 'attr': {'class': 'btn btn-success text-white mt-3'}}) }}
+                                {{ form_row(CompetenceForm.submit, { 'label' : 'Envoyer' , 'attr': {'class': 'btn btn-outline-success mt-3'}}) }}
                             </div>
                         </div>
                         {{ form_end(CompetenceForm) }}

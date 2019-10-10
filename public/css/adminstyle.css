@@ -16,7 +16,10 @@ nav a:hover
 }
 
 
-
+a, a:hover {
+    color: dimgrey;
+    text-decoration: none;
+}
 
 .deco
 {
