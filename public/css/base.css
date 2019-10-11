@@ -220,18 +220,22 @@ transition-duration: 0.3s;
 -------------------------------------- */
 
 .image_fakstagram  {
-    border: none!important;
- width: 300px!important;
- height: 300px;
+ width: 25vw!important;
+ height: 25vw;
     object-fit: cover;
-    border: 10px white solid;
+    border: 3vh white solid; 
     }
 
-    .cadre_realisation {
+    .text-cadre {
         background: white;
-
+        width: 25vw;
+        margin: 0 auto;
+        position: relative;
+        top: -5vh;
+        padding: 2vh;
     }
     
+
     .modal-dialog {
         max-height: 90%;
         max-width: 70%;
@@ -253,6 +257,7 @@ transition-duration: 0.3s;
         height: 90vh;
         width: auto;
         margin: 0 auto;
+        object-fit: contain;
     }
     
 
