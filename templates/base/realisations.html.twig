@@ -29,46 +29,51 @@
                     {# L'appel de la modal est dynamique, ce qui permet que tous les éléments correspondent entre eux : ID, description #}
                     <div class="modal fade" id="{{ modal ~ galerie.id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                         <div class="modal-dialog" role="document">
-                            <div class="modal-content">
+                            <div
+                                class="modal-content">
                                 {# <div class="row">
-                                                                    <div class="col-10 mx-auto text-dark alert-secondary rounded p-3">
-                                                                        {% if galerie.description is not null  %}
-                                                                            {{galerie.description | raw}}
-                                                                        {% endif %}
-                                                                    </div>
-                                                                </div>
-                                
-                                
-                                                                <div class="row justify-content-around align-items-center align-self-center">
-                                                                    {% for picture in galerie.pictures %}
-                                                                        <div class="col-10 col-md-5 m-3 ">
-                                                                            <img class="img-fluid" data-toggle="modal" data-target="#{{ modal ~ galerie.id }}" src="{{ vich_uploader_asset(picture, 'imageFile')}}" alt="">
-                                
-                                                                        </div>
-                                                                    {% endfor %}
-                                
-                                                                </div> #}
+                                                                                                    <div class="col-10 mx-auto text-dark alert-secondary rounded p-3">
+                                                                                                        {% if galerie.description is not null  %}
+                                                                                                            {{galerie.description | raw}}
+                                                                                                        {% endif %}
+                                                                                                    </div>
+                                                                                                </div>
+                                                                
+                                                                
+                                                                                                <div class="row justify-content-around align-items-center align-self-center">
+                                                                                                    {% for picture in galerie.pictures %}
+                                                                                                        <div class="col-10 col-md-5 m-3 ">
+                                                                                                            <img class="img-fluid" data-toggle="modal" data-target="#{{ modal ~ galerie.id }}" src="{{ vich_uploader_asset(picture, 'imageFile')}}" alt="">
+                                                                
+                                                                                                        </div>
+                                                                                                    {% endfor %}
+                                                                
+                                                                                                </div> #}
 
 
-                                <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+                                <div id="carousel{{galerie.id}}" class="carousel slide" data-ride="carousel">
                                     <div class="carousel-inner">
                                         {% for key, picture in galerie.pictures %}
                                             {% if key == 0 %}
-                                                <div class="carousel-item active">
+                                                <div class="carousel-item active" data-key="{{ key }}">
                                                     <img class="d-block w-100" data-toggle="modal" data-target="#{{ modal ~ galerie.id }}" src="{{ vich_uploader_asset(picture, 'imageFile')}}" alt="">
+                                                    <div class="carousel-caption d-none d-md-block">
+                                                        <h5>First slide label</h5>
+                                                        <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+                                                    </div>
                                                 </div>
                                             {% else %}
-                                                <div class="carousel-item">
+                                                <div class="carousel-item" data-key="{{ key }}">
                                                     <img class="d-block w-100" data-toggle="modal" data-target="#{{ modal ~ galerie.id }}" src="{{ vich_uploader_asset(picture, 'imageFile')}}" alt="">
                                                 </div>
                                             {% endif %}
                                         {% endfor %}
                                     </div>
-                                    <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+                                    <a class="carousel-control-prev" href="#carousel{{galerie.id}}" role="button" data-slide="prev" onclick="$('#carousel{{galerie.id}}').carousel('prev')">
                                         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                                         <span class="sr-only">Previous</span>
                                     </a>
-                                    <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+                                    <a class="carousel-control-next" href="#carousel{{galerie.id}}" role="button" data-slide="next" onclick="$('#carousel{{galerie.id}}').carousel('next')">
                                         <span class="carousel-control-next-icon" aria-hidden="true"></span>
                                         <span class="sr-only">Next</span>
                                     </a>

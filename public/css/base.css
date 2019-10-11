@@ -233,10 +233,10 @@ transition-duration: 0.3s;
     }
     
     .modal-dialog {
-        max-width: 90%!important;
-        max-height: 80%;
-        height: auto;
+        max-height: 90%;
+        max-width: 70%;
         text-align: center;
+        overflow: hidden;
     }
     
     .modal-content {
@@ -247,15 +247,18 @@ transition-duration: 0.3s;
         margin: 0 auto; 
     }
     
-    .text-modal {
-        background-color: rgb(255, 0, 0);
+
+    .carousel-caption {
+        background-color: rgba(14, 14, 14, 0.685)!important;
         color: white!important;
         font-size: 1.3em;
         opacity: 1;
         position: absolute;
         bottom: 0;
+        left: 0;
         width: 100%;
         padding: 2vh;
+        height: auto;
     }
     
 
