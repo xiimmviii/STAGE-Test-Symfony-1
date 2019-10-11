@@ -32,9 +32,26 @@ LOGIN
 
 --------------------------------------- */
 
+.message-erreur-login {
+    background: rgb(255, 31, 31);
+    color: white;
+    font-weight: bolder;
+    border-radius: 1vh;
+    padding: 3vh!important;
+    text-align: center!important;
+    font-size: 0.75rem;
+}
+
+.message-login {
+    font-weight: bolder;
+    border-radius: 1vh;
+    padding: 3vh!important;
+    text-align: center!important;
+    font-size: 0.75rem;
+}
+
 .btnconnexion {
     font-weight: bolder;
-    color: ;
     border: 1px solid ;
 }
 
@@ -42,7 +59,6 @@ LOGIN
     font-weight: bolder;
     color: white;
     border: none;
-    background: #;
 }
 
 #icon-login

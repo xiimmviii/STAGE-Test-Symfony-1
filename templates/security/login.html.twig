@@ -48,22 +48,18 @@
     <div class="row justify-content-center align-items-center align-self-center mx-auto text-center"
         style="margin-top: 20%;">
 
-        {% if error %}
-        <form method="post" class="col-10 col-md-4 mx-auto p-4 border border-info rounded ">
-            <!-- S'il y a un erreur, elle s'affichera ici. -->
-            <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-        </form>
-        {% endif %}
 
         {% if app.user %}
         <!-- Si l'utilisateur est connecté, on affiche ce message disant qu'il est déjà connecté et on fait un lien vers la déconnexion (on n'affiche pas le formulaire de connexion) -->
-        <div class="text-center">
+        <div class="col-10 col-md-4 alert-info message-login">
             Vous êtes connecté(e) sous l'identifiant
-            <br>{{ app.user.username }}
-            <br><b>
-                <a href="{{ path('app_logout') }}">se
+            <br><h4>{{ app.user.username }}</h4><br>
+            <div class="row mt-3"> <div class="col-6">  <a href="{{ path('admin') }}" class="btn btn-success">panneau admin</a>
+            </div>
+            <div class="col-6">
+                <a href="{{ path('app_logout') }}" class="btn btn-danger">se
                     déconnecter</a>
-            </b>
+            </div></div>
         </div>
 
 
@@ -94,7 +90,12 @@
                 </g>
             </svg>
         </div>
-        <form method="post" class=" col-12 col-md-4 justify-content-center">
+        <div class="col-12 col-md-4 justify-content-center">
+                {% if error %}
+            <!-- S'il y a un erreur, elle s'affichera ici. -->
+            <div class="row message-erreur-login mb-3">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+        {% endif %}
+        <form method="post">
             <div class="row alert-info p-4 border border-info rounded justify-content-center">
                 <div class="col-10 my-2">
                     <!-- On appelle la variable last_username pour que le dernier identifiant utilisé s'affiche automatiquement dans le champ de l'identifiant -->
@@ -125,6 +126,7 @@
                 </div>
             </div>
         </form>
+        </div>
         {% endif %}
 
     </div>
