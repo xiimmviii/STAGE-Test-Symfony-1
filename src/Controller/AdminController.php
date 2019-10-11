@@ -1134,7 +1134,6 @@ class AdminController extends AbstractController
         // On renvoie les informations à la vue 
         return $this->render('admin/partenaires.html.twig', [
             'PartenairesForm' => $form->createView(),
-            'controller_name' => 'AdminController',
             'entreprise' => $entreprise,
             'localisations' => $localisations,
             'competences' => $competences,
