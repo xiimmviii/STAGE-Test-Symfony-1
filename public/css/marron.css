@@ -1,0 +1,120 @@
+/*
+
+
+*/
+body {
+    background: white;
+}
+a {
+    color: black!important;
+}
+
+a:hover {
+    color: dimgrey;
+}
+
+input {
+    border: 2px solid #DEB887!important;
+    border-radius: 1rem!important;
+    background: transparent!important;
+}
+
+.btn {
+    background: #DEB887!important;
+    color: black;
+}
+
+a.icons{
+    color: #DEB887!important;
+}
+
+a.icons:hover, a.smallicons:hover {
+    color: rgb(71, 71, 71)!important;
+    text-decoration: none;
+}
+
+
+
+/* -------------------------------------
+
+-------------------------------------- */
+
+.bg{
+    background: #DEB887!important;
+}
+
+.bg1{
+    background: #DEB887!important;
+}
+
+.bg2{
+    background: #deb88733!important;
+}
+
+.bg3{
+    background: rgb(255, 255, 255)!important;
+}
+/* -------------------------------------
+
+-------------------------------------- */
+
+.link-item {
+    background-color: #DEB887;
+    color: white;
+}
+
+.tarif {
+    border: 2px solid #DEB887!important;
+    border-radius: 1rem!important;
+}
+
+.message {
+    border: 2px solid #DEB887!important;
+    border-radius: 1rem!important;
+    background: transparent;
+    height: 25vh!important;
+}
+
+
+#eclair {
+    fill: #DEB887;
+    width: 200px;
+    margin: 0 auto;
+    opacity: 0.33;
+}
+
+#elec {
+    fill: #DEB887;
+    width: 100px;
+    opacity: 0.9;
+}
+
+#compt {
+    fill: #DEB887;
+    width: 50px;
+    opacity: 0.9;
+    margin: 0 auto;
+}
+
+#bottomlight {
+    fill: #DEB887;
+    width: 100%;
+    transform: rotate(180deg);
+    top: -4vh;
+    position: relative;
+}
+
+#bottomlightwhite {
+    fill: rgb(255, 255, 255);
+    width: 100%;
+    transform: rotate(180deg);
+    top: -4vh;
+    position: relative;
+}
+
+#bottomlightwhite2 {
+    fill: rgb(255, 255, 255);
+    width: 100%;
+    top: 4vh;
+    position: relative;
+}
