@@ -52,11 +52,11 @@
 
 
                                 <div id="carousel{{galerie.id}}" class="carousel slide" data-ride="carousel">
-                                    <div class="carousel-inner">
+                                    <div class="carousel-inner justify-content-center">
                                         {% for key, picture in galerie.pictures %}
                                             {% if key == 0 %}
                                                 <div class="carousel-item active" data-key="{{ key }}">
-                                                    <img class="d-block w-100" data-toggle="modal" data-target="#{{ modal ~ galerie.id }}" src="{{ vich_uploader_asset(picture, 'imageFile')}}" alt="">
+                                                    <img class="d-block" data-toggle="modal" data-target="#{{ modal ~ galerie.id }}" src="{{ vich_uploader_asset(picture, 'imageFile')}}" alt="">
                                                     <div class="carousel-caption d-none d-md-block">
                                                         <h5>First slide label</h5>
                                                         <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
@@ -64,7 +64,7 @@
                                                 </div>
                                             {% else %}
                                                 <div class="carousel-item" data-key="{{ key }}">
-                                                    <img class="d-block w-100" data-toggle="modal" data-target="#{{ modal ~ galerie.id }}" src="{{ vich_uploader_asset(picture, 'imageFile')}}" alt="">
+                                                    <img class="d-block " data-toggle="modal" data-target="#{{ modal ~ galerie.id }}" src="{{ vich_uploader_asset(picture, 'imageFile')}}" alt="">
                                                 </div>
                                             {% endif %}
                                         {% endfor %}
