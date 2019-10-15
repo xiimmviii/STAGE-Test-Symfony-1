@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Design;
 use App\Entity\Tarifs;
 use App\Entity\Contenu;
 use App\Entity\Couleur;
@@ -28,6 +29,15 @@ class BaseController extends AbstractController
     {
 
         //la page d'index affiche pratiquement toutes les infos stockées dans la BDD, on utilise donc le repository et doctrine pour récupérer les données dans chaque table qu'on injecte dans des objets ($logos, $entrepprise, $specificites...)
+
+        //TEST POUR SVG -------------------
+
+        $repository = $this->getDoctrine()->getRepository(Design::class);
+        $svg = $repository->findAll();
+
+
+        //---------------------
+
 
         $repository = $this->getDoctrine()->getRepository(Partenaires::class);
         $logos = $repository->findAll();
@@ -94,7 +104,8 @@ class BaseController extends AbstractController
             'logos' => $logos,
             'couleurs' => $couleurs,
             'horaires' => $horaires,
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'svg' => $svg
         ]);
     }
 
