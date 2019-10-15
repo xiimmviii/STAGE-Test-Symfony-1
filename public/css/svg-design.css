@@ -3,3 +3,28 @@
 Cette feuille de CSS sert pour le placement des SVG dans les différentes sections 
 
 ----------------------------------------------------------- */ 
+
+/* ---------------------------------------------------------
+            ECLAIR 
+---------------------------------------------------------- */
+
+#top-trs {
+    width: 100%;
+    top: 4vh;
+    position: relative;
+}
+
+#bottom-trs {
+    width: 100%;
+    transform: rotate(180deg);
+    top: -4vh;
+    position: relative;
+}
+
+#soustitre-icon {
+    width: 200px;
+    margin: 0 auto;
+    opacity: 0.33;
+}
+
+

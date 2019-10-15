@@ -76,13 +76,6 @@ a.icons:hover, a.smallicons:hover {
 }
 
 
-#eclair {
-    fill: #F687B3;
-    width: 200px;
-    margin: 0 auto;
-    opacity: 0.33;
-}
-
 #elec {
     fill: #F687B3;
     width: 100px;
@@ -113,8 +106,16 @@ a.icons:hover, a.smallicons:hover {
 }
 
 #bottomlightwhite2 {
-    fill: rgb(255, 255, 255);
+   /* fill: rgb(255, 255, 255); */
     width: 100%;
     top: 4vh;
     position: relative;
+}
+
+
+.svg-color-w {
+    fill: white;
+}
+.svg-color-c {
+  fill: #F687B3;
 }
