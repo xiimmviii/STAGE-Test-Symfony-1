@@ -32,8 +32,37 @@ class BaseController extends AbstractController
 
         //TEST POUR SVG -------------------
 
+
         $repository = $this->getDoctrine()->getRepository(Design::class);
-        $svg = $repository->findAll();
+        $svgTopW = $repository->findOneBy(
+            array('nom'=>'top-trs-w', 'categorie' => 'eclair')
+        );
+
+        $repository = $this->getDoctrine()->getRepository(Design::class);
+        $svgTopC = $repository->findOneBy(
+            array('nom'=>'top-trs-c', 'categorie' => 'eclair')
+        );
+
+        $repository = $this->getDoctrine()->getRepository(Design::class);
+        $svgBottomW = $repository->findOneBy(
+            array('nom'=>'bottom-trs-w', 'categorie' => 'eclair')
+        );
+
+        $repository = $this->getDoctrine()->getRepository(Design::class);
+        $svgBottomC = $repository->findOneBy(
+            array('nom'=>'bottom-trs-c', 'categorie' => 'eclair')
+        );
+
+        $repository = $this->getDoctrine()->getRepository(Design::class);
+        $svgStiW = $repository->findOneBy(
+            array('nom'=>'soustitre-icon-w', 'categorie' => 'eclair')
+        );
+
+        $repository = $this->getDoctrine()->getRepository(Design::class);
+        $svgStiC = $repository->findOneBy(
+            array('nom'=>'soustitre-icon-c', 'categorie' => 'eclair')
+        );
+
 
 
         //---------------------
@@ -105,7 +134,12 @@ class BaseController extends AbstractController
             'couleurs' => $couleurs,
             'horaires' => $horaires,
             'form' => $form->createView(),
-            'svg' => $svg
+            'svgTopW' => $svgTopW,
+            'svgTopC' => $svgTopC,
+            'svgBottomW' => $svgBottomW,
+            'svgBottomC' => $svgBottomC,
+            'svgStiW' => $svgStiW,
+            'svgStiC' => $svgStiC,
         ]);
     }
 

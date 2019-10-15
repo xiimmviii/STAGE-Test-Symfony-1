@@ -24,10 +24,7 @@
         {{form_end(form)}}
     </div>
 
-    {% for svg1 in svg %}
-    {{ svg1.code | raw }}
-    {% endfor %}
-    {# <svg version="1.1" id="bottomlightwhite2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewbox="0 0 1920 132.013" enable-background="new 0 0 1920 132.013" xml:space="preserve">
-        <polygon id="XMLID_250_" points="1920,82.188 951,82.188 988.341,40.188 0,40.188 0,104.188 1920,104.188 "/>
-    </svg> #}
+
+    {{ svgTopW.code | raw }}
+
 </section>
