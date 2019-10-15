@@ -14,7 +14,10 @@
                    C78.835,28.288,78.785,28.291,78.736,28.291z" />
                 </g>
             </svg> #}
-            {{ svgStiC.code | raw}}
+            {# {{ svgStiC.code | raw}} #}
+            {% for svgTransi in svgTransis | sortbyfield('dateAffichage') | slice(0, 1) %}
+            {{ svgTransi.soustitreIconW | raw}}
+            {% endfor %}
         </div>
     </div>
 
