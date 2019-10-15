@@ -10,7 +10,6 @@ use App\Entity\Entreprise;
 use App\Entity\Competences;
 use App\Entity\Localisation;
 
-use App\Entity\Specificites;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
@@ -20,7 +19,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class SuperAdminController extends AbstractController
 {
 
- /**
+    /**
      * Récupérer les informations (en BDD) qui apparaissent sur la vue de base (header+footer) >> BASE.html.twig 
      * @Route("/super-admin", name="super-admin")
      */
@@ -28,7 +27,7 @@ class SuperAdminController extends AbstractController
     {
         // Ici, on récupère les informations en BDD en utilisant le Repository
         // Récupération : des éléments de la table Entreprise puis ceux la table Spécificités 
-       
+
         $repository = $this->getDoctrine()->getRepository(Entreprise::class);
         $entreprise = $repository->findOneById(1);
         // Le findOneById permet de trier les données et de ne récupérer que la donnée qui a l'ID #1 
@@ -38,7 +37,7 @@ class SuperAdminController extends AbstractController
 
         $repository = $this->getDoctrine()->getRepository(Competences::class);
         $competences = $repository->findOneById(1);
-        
+
         $repository = $this->getDoctrine()->getRepository(Reseaux::class);
         $reseaux = $repository->findOneById(1);
 
@@ -49,9 +48,8 @@ class SuperAdminController extends AbstractController
             array('dateAffichage' => 'DESC')
         );
 
-         // On retourne ensuite les éléments récupérés dans la vue qu'on injectera entre {{}} dans la vue twig ADMIN -> espaceadmin.html.twig
+        // On retourne ensuite les éléments récupérés dans la vue qu'on injectera entre {{}} dans la vue twig ADMIN -> espaceadmin.html.twig
         return $this->render('admin/espaceadmin.html.twig', [
-            'controller_name' => 'SuperAdminController',
             'entreprise' => $entreprise,
             'localisations' => $localisations,
             'competences' => $competences,
@@ -60,7 +58,7 @@ class SuperAdminController extends AbstractController
         ]);
     }
 
-        /* ---------------------------------------------------------------------------------------------------
+    /* ---------------------------------------------------------------------------------------------------
 
         ╔═╗╔═╗╔═╗╔╦╗╦╔═╗╔╗╔  ╔═╗╔═╗╦ ╦╦  ╔═╗╦ ╦╦═╗
         ║ ╦║╣ ╚═╗ ║ ║║ ║║║║  ║  ║ ║║ ║║  ║╣ ║ ║╠╦╝
@@ -70,7 +68,7 @@ class SuperAdminController extends AbstractController
 
 
 
- /**
+    /**
      * Permet de gérer la couleur choisie pour le thème 
      *
      * @Route("/super-admin/couleur", name="choix-couleur")
@@ -87,7 +85,7 @@ class SuperAdminController extends AbstractController
 
         $repository = $this->getDoctrine()->getRepository(Competences::class);
         $competences = $repository->findOneById(1);
-        
+
         $repository = $this->getDoctrine()->getRepository(Reseaux::class);
         $reseaux = $repository->findOneById(1);
 
@@ -125,7 +123,7 @@ class SuperAdminController extends AbstractController
             $this->addFlash('success', 'Les modifications ont été effectuées ! ');
             return $this->redirectToRoute('presentationentreprise');
         }
-       
+
         // ----------------------------------------------------------------------
         // ----------------------------------------------------------------------
 
@@ -145,11 +143,11 @@ class SuperAdminController extends AbstractController
         // -----------------------------------------------------------------------------------
 
         //on injecte les données dans la vue réalisations (en incluant les données pour le footer)
-        return $this->render('admin/couleur.html.twig', [
+        return $this->render('super-admin/couleur.html.twig', [
             'entreprise' => $entreprise,
             'localisations' => $localisations,
             'competences' => $competences,
-            'reseaux' => $reseaux, 
+            'reseaux' => $reseaux,
             'couleurs' => $couleurs,
             'colors' => $colors,
             'color' => $color,
@@ -161,7 +159,7 @@ class SuperAdminController extends AbstractController
 
     /**
      * Permet de gérer la couleur choisie pour le thème 
-     * @Route("/admin/couleur-affichage/{id}", name="changer-couleur")
+     * @Route("/super-admin/couleur-affichage/{id}", name="changer-couleur")
      */
     public function affichageCouleurTheme(Request $request, $id)
     {
@@ -175,7 +173,7 @@ class SuperAdminController extends AbstractController
 
         $repository = $this->getDoctrine()->getRepository(Competences::class);
         $competences = $repository->findOneById(1);
-        
+
         $repository = $this->getDoctrine()->getRepository(Reseaux::class);
         $reseaux = $repository->findOneById(1);
 
@@ -230,11 +228,11 @@ class SuperAdminController extends AbstractController
         // -----------------------------------------------------------------------------------
 
         //on injecte les données dans la vue réalisations (en incluant les données pour le footer)
-        return $this->render('admin/couleur.html.twig', [
+        return $this->render('super-admin/couleur.html.twig', [
             'entreprise' => $entreprise,
             'localisations' => $localisations,
             'competences' => $competences,
-            'reseaux' => $reseaux, 
+            'reseaux' => $reseaux,
             'couleurs' => $couleurs,
             'color' => $color,
             'colors' => $colors,
@@ -244,13 +242,13 @@ class SuperAdminController extends AbstractController
         ]);
     }
 
-/**
+    /**
      *  
      * @Route("/super-admin/switch-user", name="switch-user")
      */
     public function switchUser()
     {
-       
+
         $repository = $this->getDoctrine()->getRepository(Entreprise::class);
         $entreprise = $repository->findOneById(1);
         // Le findOneById permet de trier les données et de ne récupérer que la donnée qui a l'ID #1 
@@ -260,19 +258,19 @@ class SuperAdminController extends AbstractController
 
         $repository = $this->getDoctrine()->getRepository(Competences::class);
         $competences = $repository->findOneById(1);
-        
+
         $repository = $this->getDoctrine()->getRepository(Reseaux::class);
         $reseaux = $repository->findOneById(1);
 
         // Le findOneById permet de trier les données et de ne récupérer que la donnée qui a l'ID #1 
 
         $repository = $this->getDoctrine()->getRepository(User::class);
-        $users = $repository ->findOneByRole( array('role' => 'ROLE_ADMIN'));
-    
+        $users = $repository->findOneByRole(array('role' => 'ROLE_ADMIN'));
 
 
-         // On retourne ensuite les éléments récupérés dans la vue qu'on injectera entre {{}} dans la vue twig ADMIN -> espaceadmin.html.twig
-        return $this->render('admin/switch_user.html.twig', [
+
+        // On retourne ensuite les éléments récupérés dans la vue qu'on injectera entre {{}} dans la vue twig ADMIN -> espaceadmin.html.twig
+        return $this->render('super-admin/switch_user.html.twig', [
             'controller_name' => 'SuperAdminController',
             'entreprise' => $entreprise,
             'localisations' => $localisations,
