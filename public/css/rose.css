@@ -89,42 +89,32 @@ a.icons:hover, a.smallicons:hover {
     margin: 0 auto;
 }
 
-#bottomlight {
-    fill: #F687B3;
-    width: 100%;
-    transform: rotate(180deg);
-    top: -4vh;
-    position: relative;
-}
 
-#bottomlightwhite {
-    fill: rgb(255, 255, 255);
-    width: 100%;
-    transform: rotate(180deg);
-    top: -4vh;
-    position: relative;
-}
+/* --------------------------------------------------------------
 
-#bottomlightwhite2 {
-   /* fill: rgb(255, 255, 255); */
-    width: 100%;
-    top: 4vh;
-    position: relative;
-}
+Gestion des couleurs pour les SVG de transition 
 
+---------------------------------------------------------------- */ 
 
 .svg-color-w {
     fill: white;
 }
+
+.svg-color-c {
+    fill: #F687B3;
+  }
+
+  /* --------------------- */ 
+ /* Spécifique a "avocat" */ 
+/* --------------------- */ 
+
 .svg-color-w1 {
     fill: white;
 }
 .svg-color-w2 {
     fill: white;
 }
-.svg-color-c {
-  fill: #F687B3;
-}
+
 .svg-color-c1 {
     fill: #F687B3;
   }
