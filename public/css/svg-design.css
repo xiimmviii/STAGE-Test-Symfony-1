@@ -8,23 +8,144 @@ Cette feuille de CSS sert pour le placement des SVG dans les différentes sectio
             ECLAIR 
 ---------------------------------------------------------- */
 
-#top-trs {
+#top-trs-eclair {
     width: 100%;
     top: 4vh;
     position: relative;
 }
 
-#bottom-trs {
+#bottom-trs-eclair {
     width: 100%;
     transform: rotate(180deg);
     top: -4vh;
     position: relative;
 }
 
-#soustitre-icon {
+#soustitre-icon-eclair {
     width: 200px;
     margin: 0 auto;
     opacity: 0.33;
 }
 
 
+/* ---------------------------------------------------------
+           Fleur
+---------------------------------------------------------- */
+
+#top-trs-fleur {
+    width: 100%;
+    top: 4vh;
+    position: relative;
+}
+
+#bottom-trs-fleur {
+    width: 100%;
+    transform: rotate(180deg);
+    top: -4vh;
+    position: relative;
+}
+
+#soustitre-icon-fleur {
+    width: 200px;
+    margin: 0 auto;
+    opacity: 0.33;
+}
+
+/* ---------------------------------------------------------
+          Artisan
+---------------------------------------------------------- */
+
+#top-trs-artisan {
+    width: 100%;
+    top: 4vh;
+    position: relative;
+}
+
+#bottom-trs-artisan {
+    width: 100%;
+    transform: rotate(180deg);
+    top: -4vh;
+    position: relative;
+}
+
+
+/* ---------------------------------------------------------
+            Coiffeur
+---------------------------------------------------------- */
+
+#top-trs-coiffeur {
+    width: 100%;
+    top: 4vh;
+    position: relative;
+}
+
+#bottom-trs-coiffeur {
+    width: 100%;
+    transform: rotate(180deg);
+    top: -4vh;
+    position: relative;
+}
+
+#soustitre-icon-coiffeur {
+    width: 200px;
+    margin: 0 auto;
+    opacity: 0.33;
+}
+
+/* ---------------------------------------------------------
+        Avocat
+---------------------------------------------------------- */
+
+#top-trs-avocat {
+    width: 100%;
+    top: 4vh;
+    position: relative;
+}
+
+#bottom-trs-avocat {
+    width: 100%;
+    transform: rotate(180deg);
+    top: -4vh;
+    position: relative;
+}
+
+/* ---------------------------------------------------------
+        Boulanger
+---------------------------------------------------------- */
+
+#top-trs-boulanger {
+    width: 100%;
+    top: 4vh;
+    position: relative;
+}
+
+#bottom-trs-boulanger {
+    width: 100%;
+    transform: rotate(180deg);
+    top: -4vh;
+    position: relative;
+}
+
+
+/* ---------------------------------------------------------
+            Peintre
+---------------------------------------------------------- */
+
+#top-trs-peintre {
+    width: 100%;
+    top: 4vh;
+    position: relative;
+}
+
+#bottom-trs-peintre {
+    width: 100%;
+    transform: rotate(180deg);
+    top: -4vh;
+    position: relative;
+}
+
+#soustitre-icon-peintre {
+    width: 200px;
+    margin: 0 auto;
+    opacity: 0.33;
+}

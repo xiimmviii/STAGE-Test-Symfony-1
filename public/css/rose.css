@@ -116,6 +116,18 @@ a.icons:hover, a.smallicons:hover {
 .svg-color-w {
     fill: white;
 }
+.svg-color-w1 {
+    fill: white;
+}
+.svg-color-w2 {
+    fill: white;
+}
 .svg-color-c {
   fill: #F687B3;
 }
+.svg-color-c1 {
+    fill: #F687B3;
+  }
+  .svg-color-c2 {
+    fill: #F687B3;
+  }
