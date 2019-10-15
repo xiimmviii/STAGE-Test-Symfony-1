@@ -4,7 +4,9 @@
            <polygon id="XMLID_250_" points="1920,82.188 951,82.188 988.341,40.188 0,40.188 0,104.188 1920,104.188 "/>
            </svg> #}
 
-           {{ svgBottomW.code | raw }}
+               {% for svgTransi in svgTransis | sortbyfield('dateAffichage') | slice(0, 1) %}
+    {{ svgTransi.bottomTrsW | raw}}
+    {% endfor %}
            
             <div class="row mt-5 justify-content-center text-center">
                 <div class="col-10 col-md-4 mt-5 bg-white text-justify p-5 textbox">

@@ -25,6 +25,10 @@
     </div>
 
 
-    {{ svgTopW.code | raw }}
+    {% for svgTransi in svgTransis | sortbyfield('dateAffichage') | slice(0, 1) %}
+    {{ svgTransi.topTrsW | raw}}
+    {% endfor %}
+
+    {# {{ svgTopW.code | raw }} #}
 
 </section>
