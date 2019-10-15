@@ -35,32 +35,32 @@ class BaseController extends AbstractController
 
         $repository = $this->getDoctrine()->getRepository(Design::class);
         $svgTopW = $repository->findOneBy(
-            array('nom'=>'top-trs-w', 'categorie' => 'eclair')
+            array('nom'=>'top-trs-w', 'categorie' => 'test')
         );
 
         $repository = $this->getDoctrine()->getRepository(Design::class);
         $svgTopC = $repository->findOneBy(
-            array('nom'=>'top-trs-c', 'categorie' => 'eclair')
+            array('nom'=>'top-trs-c', 'categorie' => 'fleur')
         );
 
         $repository = $this->getDoctrine()->getRepository(Design::class);
         $svgBottomW = $repository->findOneBy(
-            array('nom'=>'bottom-trs-w', 'categorie' => 'eclair')
+            array('nom'=>'bottom-trs-w', 'categorie' => 'fleur')
         );
 
         $repository = $this->getDoctrine()->getRepository(Design::class);
         $svgBottomC = $repository->findOneBy(
-            array('nom'=>'bottom-trs-c', 'categorie' => 'eclair')
+            array('nom'=>'bottom-trs-c', 'categorie' => 'fleur')
         );
 
         $repository = $this->getDoctrine()->getRepository(Design::class);
         $svgStiW = $repository->findOneBy(
-            array('nom'=>'soustitre-icon-w', 'categorie' => 'eclair')
+            array('nom'=>'soustitre-icon-w', 'categorie' => 'fleur')
         );
 
         $repository = $this->getDoctrine()->getRepository(Design::class);
         $svgStiC = $repository->findOneBy(
-            array('nom'=>'soustitre-icon-c', 'categorie' => 'eclair')
+            array('nom'=>'soustitre-icon-c', 'categorie' => 'fleur')
         );
 
 
