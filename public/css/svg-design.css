@@ -20,21 +20,21 @@ Cette feuille de CSS sert pour le placement des SVG dans les différentes sectio
     top: -4vh;
     position: relative;
 }
-``
+
 /* ---------------------------------------------------------
         Avocat
 ---------------------------------------------------------- */
 
 #top-trs-avocat {
     width: 100%;
-    top: 4vh;
+    bottom: 12vh;
     position: relative;
 }
 
 #bottom-trs-avocat {
     width: 100%;
     transform: rotate(180deg);
-    top: -4vh;
+    top: 12vh;
     position: relative;
 }
 
@@ -46,6 +46,7 @@ Cette feuille de CSS sert pour le placement des SVG dans les différentes sectio
     width: 100%;
     top: 4vh;
     position: relative;
+
 }
 
 #bottom-trs-boulanger {
@@ -60,15 +61,16 @@ Cette feuille de CSS sert pour le placement des SVG dans les différentes sectio
 ---------------------------------------------------------- */
 
 #top-trs-coiffeur {
-    width: 100%;
-    top: 4vh;
+    width: 150%;
+    top: -5vh;
     position: relative;
+    transform: rotate(180deg);
+
 }
 
 #bottom-trs-coiffeur {
     width: 100%;
-    transform: rotate(180deg);
-    top: -4vh;
+    top: 4vh;
     position: relative;
 }
 
@@ -155,15 +157,15 @@ Cette feuille de CSS sert pour le placement des SVG dans les différentes sectio
 ---------------------------------------------------------- */
 
 #top-trs-plombier {
-    width: 100%;
-    top: 4vh;
+    width: 100% !important;
+    top: 10vh;
     position: relative;
+    transform: rotate(180deg);
 }
 
 #bottom-trs-plombier {
-    width: 100%;
-    transform: rotate(180deg);
-    top: -4vh;
+    width: 100% !important;
+    top: -10vh;
     position: relative;
 }
 

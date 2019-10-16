@@ -108,16 +108,18 @@ Gestion des couleurs pour les SVG de transition
  /* Spécifique a "avocat" */ 
 /* --------------------- */ 
 
+/*  Ligne triangle */
 .svg-color-w1 {
-    fill: white;
+    fill:rgb(255, 255, 255);
 }
+/* Petit triangle */
 .svg-color-w2 {
-    fill: white;
+    fill: rgba(246, 135, 179, 0.479);
 }
 
 .svg-color-c1 {
     fill: #F687B3;
   }
   .svg-color-c2 {
-    fill: #F687B3;
+    fill: rgba(246, 135, 179, 0.479);
   }
