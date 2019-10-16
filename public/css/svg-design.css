@@ -10,14 +10,14 @@ Cette feuille de CSS sert pour le placement des SVG dans les différentes sectio
 
 #top-trs-artisan {
     width: 100%;
-    top: 4vh;
+    top: -1vh;
     position: relative;
+    transform: rotate(180deg);
 }
 
 #bottom-trs-artisan {
     width: 100%;
-    transform: rotate(180deg);
-    top: -4vh;
+    top: 1vh;
     position: relative;
 }
 
@@ -44,15 +44,14 @@ Cette feuille de CSS sert pour le placement des SVG dans les différentes sectio
 
 #top-trs-boulanger {
     width: 100%;
-    top: 4vh;
+    top: -7vh;
     position: relative;
-
+    transform: rotate(180deg);
 }
 
 #bottom-trs-boulanger {
     width: 100%;
-    transform: rotate(180deg);
-    top: -4vh;
+    top: 7vh;
     position: relative;
 }
 
@@ -61,17 +60,19 @@ Cette feuille de CSS sert pour le placement des SVG dans les différentes sectio
 ---------------------------------------------------------- */
 
 #top-trs-coiffeur {
-    width: 150%;
-    top: -5vh;
+    width: 105%;
+    top: -1vh;
     position: relative;
     transform: rotate(180deg);
+    left: -2px;
 
 }
 
 #bottom-trs-coiffeur {
     width: 100%;
-    top: 4vh;
+    top: 1vh;
     position: relative;
+    left: -2px;
 }
 
 #soustitre-icon-coiffeur {
@@ -88,14 +89,14 @@ Cette feuille de CSS sert pour le placement des SVG dans les différentes sectio
 
 #top-trs-eclair {
     width: 100%;
-    top: 4vh;
+    top: -1vh;
     position: relative;
 }
 
 #bottom-trs-eclair {
     width: 100%;
     transform: rotate(180deg);
-    top: -4vh;
+    top: 1vh;
     position: relative;
 }
 
@@ -111,15 +112,16 @@ Cette feuille de CSS sert pour le placement des SVG dans les différentes sectio
 ---------------------------------------------------------- */
 
 #top-trs-fleur {
-    width: 100%;
-    top: 4vh;
+    width: 105%;
+    top: -1vh;
     position: relative;
+    transform: rotate(180deg);
+    left: -5px;
 }
 
 #bottom-trs-fleur {
-    width: 100%;
-    transform: rotate(180deg);
-    top: -4vh;
+    width: 105%;
+    top: 1vh;
     position: relative;
 }
 
@@ -135,14 +137,15 @@ Cette feuille de CSS sert pour le placement des SVG dans les différentes sectio
 
 #top-trs-peinture {
     width: 100%;
-    top: 4vh;
+    top: -1vh;
     position: relative;
+    transform: rotate(180deg);
+    left: -2px;
 }
 
 #bottom-trs-peinture {
     width: 100%;
-    transform: rotate(180deg);
-    top: -4vh;
+    top: 1vh;
     position: relative;
 }
 
@@ -158,15 +161,15 @@ Cette feuille de CSS sert pour le placement des SVG dans les différentes sectio
 
 #top-trs-plombier {
     width: 100% !important;
-    top: 10vh;
+    top: -1vh;
     position: relative;
-    transform: rotate(180deg);
 }
 
 #bottom-trs-plombier {
     width: 100% !important;
-    top: -10vh;
+    top: 1vh;
     position: relative;
+    transform: rotate(180deg);
 }
 
 #soustitre-icon-plombier {

@@ -17,4 +17,4 @@ https://github.com/dustin10/VichUploaderBundle
 >> Tuto SNILIUS - Sort by field - Package 
 
 https://packagist.org/packages/snilius/twig-sort-by-field
-
+https://github.com/victorhaggqvist/Twig-sort-by-field

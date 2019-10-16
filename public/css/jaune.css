@@ -81,46 +81,36 @@ a.icons:hover, a.smallicons:hover {
     height: 25vh!important;
 }
 
+/* --------------------------------------------------------------
 
-#eclair {
+Gestion des couleurs pour les SVG de transition 
+
+---------------------------------------------------------------- */ 
+
+.svg-color-w {
+    fill: white;
+}
+
+.svg-color-c {
     fill: #ECC94B;
-    width: 200px;
-    margin: 0 auto;
-    opacity: 0.33;
+  }
+
+  /* --------------------- */ 
+ /* Spécifique a "avocat" */ 
+/* --------------------- */ 
+
+/*  Ligne triangle */
+.svg-color-w1 {
+    fill:rgb(255, 255, 255);
+}
+/* Petit triangle */
+.svg-color-w2 {
+    fill: rgba(236, 201, 75, 0.5);
 }
 
-#elec {
+.svg-color-c1 {
     fill: #ECC94B;
-    width: 100px;
-    opacity: 0.9;
-}
-
-#compt {
-    fill: #ECC94B;
-    width: 50px;
-    opacity: 0.9;
-    margin: 0 auto;
-}
-
-#bottomlight {
-    fill: #ECC94B;
-    width: 100%;
-    transform: rotate(180deg);
-    top: -4vh;
-    position: relative;
-}
-
-#bottomlightwhite {
-    fill: rgb(255, 255, 255);
-    width: 100%;
-    transform: rotate(180deg);
-    top: -4vh;
-    position: relative;
-}
-
-#bottomlightwhite2 {
-    fill: rgb(255, 255, 255);
-    width: 100%;
-    top: 4vh;
-    position: relative;
-}
+  }
+  .svg-color-c2 {
+    fill: rgba(236, 201, 75, 0.5);
+  }
