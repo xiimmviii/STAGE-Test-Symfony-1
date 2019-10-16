@@ -3,37 +3,48 @@
 {% block content %}
 
 <div class="row mt-5 pt-5">
-<div class="col-8 mx-auto"><h1>
-                       Couleurs 
-                    </h1></div></div>
+    <div class="col-8 mx-auto">
+        <h1>
+            Couleurs
+        </h1>
+    </div>
+</div>
 
-    <div class="row p-3 justify-content-center">
-        <div class="col-lg-4 col-md-3 col-sm-10 m-3 p-3 order-md-5 order-lg-5 text-justify">
+<div class="row p-3 justify-content-center">
+    <div class="col-lg-4 col-md-3 col-sm-10 m-3 p-3 order-md-5 order-lg-5 text-justify">
         <h2>Bibliothèque d'icones</h2>
         <em>Choisissez ici l'icone que vous voulez associer au label que vous créez.</em>
 
-        {% for icon in icons %}
-        {{ icon.nom }}
-        {{icon.code | raw }}
-        {% endfor %}
+        <div class="row">
+
+            {% for icon in icons %}
+            <div class="col-md-3">
+                {{ icon.nom }}
+                {{icon.code | raw }}
+            </div>
+            {% endfor %}
+
+        </div>
+    </div>
+
+
+
+
+    <div class="col-lg-6 col-md-8 col-sm-10 rounded m-3 p-3 order-md-0 order-lg-0 ">
+        <div class="row m-3 p-3">
+            <div class="col-12 alert-info border border-info rounded p-3">
+                <center>
+                    <p>
+                        Ici, vous pouvez ajouter des labels et leurs icones. (5 maximum)
+                    </p>
+                </center>
+            </div>
         </div>
 
+        <div class="row m-3">
+            <div class="col-12 alert-info border border-info rounded">
 
-
-
-        <div class="col-lg-6 col-md-8 col-sm-10 rounded m-3 p-3 order-md-0 order-lg-0 ">
-            <div class="row m-3 p-3">
-                <div class="col-12 alert-info border border-info rounded p-3">
-                    <center><p>
-                        Ici, vous pouvez changer la couleur du thème.
-                    </p></center>
-                </div>
-            </div>
-
-            <div class="row m-3">
-                <div class="col-12 alert-info border border-info rounded">
-
-                    {# {{ form_start(CouleurForm) }}
+                {# {{ form_start(CouleurForm) }}
 
                     <h3 class="text-center m-4">Couleur choisie :
                         <br></h3>
@@ -49,10 +60,10 @@
                     {{ form_row(CouleurForm.submit, { 'label' : boutonenvoi, 'attr': {'class': 'col-12 btn btn-outline-success'} } ) }}
 
                     {{ form_end(CouleurForm) }} #}
-                </div>
             </div>
         </div>
     </div>
+</div>
 
 
 {% endblock %}
