@@ -8,8 +8,6 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Doctrine\Common\Collections\Collection;
 
-// use phpDocumentor\Reflection\Types\Collection;
-
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\GalerieRepository")
