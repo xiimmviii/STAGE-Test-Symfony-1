@@ -46,17 +46,51 @@
 
                 {{ form_start(LabelsForm) }}
 
+                {{ form_label(LabelsForm.nom) }}
+                {{ form_widget(LabelsForm.nom) }}
+                {{ form_label(LabelsForm.svg_nom) }}
+                {{ form_widget(LabelsForm.svg_nom) }}
 
-                    {# <div style="display: none;"> #}
-                        {# {{ form_label(LabelsForm.nom) }}
-                        {{ form_widget(LabelsForm.nom) }}
-                        {{ form_label(LabelsForm.nom) }}
-                        {{ form_widget(LabelsForm.nom) }} #}
-                    {# </div> #}
+                {{ form_row(LabelsForm.submit, {'attr': {'class': 'col-12 btn btn-outline-success mt-3'} } ) }}
 
-                    {{ form_row(LabelsForm.submit, {'attr': {'class': 'col-12 btn btn-outline-success'} } ) }}
+                {{ form_end(LabelsForm) }}
+            </div>
+        </div>
 
-                    {{ form_end(LabelsForm) }}
+
+        <div class="row m-3">
+            <div class="col-12 alert-info border border-info rounded">
+
+                <h1>Labels créés</h1>
+
+                <div class="row">
+
+                    {% for iconsaffiche in iconsaffiches %}
+
+                    {% for label in iconsaffiche.labels2 %}
+
+                    <div class="col-4 offset-2">
+                        {{label.nom}}
+                    </div>
+                    <div class="col-3">
+                        <div class="w-50">
+                            {{ iconsaffiche.code | raw }}</div>
+                    </div>
+
+                    <div class="col-3">
+                            <div class="w-50">
+                                {{ iconsaffiche.code | raw }}</div>
+                        </div>
+                    {% endfor %}
+
+
+                    {# {% for picture in galerie.pictures %}
+                            <img class="img-thumbnail w-25" src="{{ vich_uploader_asset(picture, 'imageFile') }}" alt="">
+                        {% endfor %} #}
+
+                    {% endfor %}
+                </div>
+
             </div>
         </div>
     </div>

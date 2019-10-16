@@ -567,6 +567,20 @@ class SuperAdminController extends AbstractController
         }
 
         // ----------------------------------------------------------------------
+
+        // //On utilise le repository pour accéder à la table Couleur
+        // $repository = $this->getDoctrine()->getRepository(Labels::class);
+        // //On récupère toutes les données de la table Galerie et on les injecte dans l'objet $photos
+        // $labelsaffiches = $repository->findAll();
+
+
+        //On utilise le repository pour accéder à la table Couleur
+        $repository = $this->getDoctrine()->getRepository(Icons::class);
+        //On récupère toutes les données de la table Galerie et on les injecte dans l'objet $photos
+        $iconsaffiches = $repository->findAll();
+
+
+
         // ----------------------------------------------------------------------
 
 
@@ -594,10 +608,8 @@ class SuperAdminController extends AbstractController
             'icons' => $icons,
             'labels' => $labels,
             'LabelsForm' => $form->createView(),
-            // 'date' => $date,
-            // 'boutonenvoi' => $boutonenvoi
+            // 'labelsaffiches' => $labelsaffiches,
+            'iconsaffiches' => $iconsaffiches,
         ]);
     }
-
-
 }

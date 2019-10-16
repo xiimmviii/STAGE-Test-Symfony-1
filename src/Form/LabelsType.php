@@ -31,27 +31,12 @@ class LabelsType extends AbstractType
             ->add('nom', TextType::class,array('required' => true))
             // Required permet de préciser si le contenu est obligatoire (true) ou non (false)
 
-
-
-        //     ->add('nom', EntityType::class, array(
-        //         "class" => "App\Entity\Icons"
-        // ))
-            // ->add('svg_nom', IconsType::class, array()
-            //  [
-            //     'choices'  => [
-            //         'Test 1' => 'Test 1',
-            //         'Test 2' => 'test 2',
-            //     ],
-            //     ])
-
-
-
             ->add('svg_nom', EntityType::class, [
                 'class' => Icons::class,
-                // 'choices' => svg_nom,
                 'choice_label' => function ($icons) {
                     return $icons->getNom();
-                }
+                },
+                'label' => 'Icone choisie'
             ])
             
             ->add('submit', SubmitType::class);
