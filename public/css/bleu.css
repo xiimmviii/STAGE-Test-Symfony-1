@@ -118,3 +118,38 @@ a.icons:hover, a.smallicons:hover {
     top: 4vh;
     position: relative;
 }
+
+
+/* --------------------------------------------------------------
+
+Gestion des couleurs pour les SVG de transition 
+
+---------------------------------------------------------------- */ 
+
+.svg-color-w {
+    fill: white;
+}
+
+.svg-color-c {
+    fill: #4299E1;
+  }
+
+  /* --------------------- */ 
+ /* Spécifique a "avocat" */ 
+/* --------------------- */ 
+
+/*  Ligne triangle */
+.svg-color-w1 {
+    fill:rgb(255, 255, 255);
+}
+/* Petit triangle */
+.svg-color-w2 {
+    fill: rgba(66, 153, 225, 0.274);
+}
+
+.svg-color-c1 {
+    fill: #4299E1;
+  }
+  .svg-color-c2 {
+    fill: rgba(66, 153, 225, 0.281);
+  }

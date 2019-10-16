@@ -8,8 +8,8 @@
     {{ svgTransi.topTrsW | raw}}
     {% endfor %}
            
-            <div class="row mt-0 justify-content-center text-center">
-                <div class="col-10 col-md-4 mt-0 bg-white text-justify p-5 textbox">
+            <div class="row mt-5 justify-content-center text-center">
+                <div class="col-10 col-md-4 mt-5 bg-white text-justify p-5 textbox">
                     {% for historique in historiques | sortbyfield('dateAffichage') | slice(0, 1) %}
                         <h2>  {{historique.titre}} </h2> 
                         <br> 
