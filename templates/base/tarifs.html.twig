@@ -16,7 +16,7 @@
     {% if tarif.description is not null %} 
    <div class="text-justify"> <i> {{tarif.description}} </i></div>
     {% endif %} </div>
-    <div class="col-4 justify-content-end align-items-center align-self-center h3 text-right"> {{tarif.tarif}} €</div>
+    <div class="col-4 justify-content-end align-items-center align-self-center h4 text-right"> {{tarif.tarif |number_format(2, ',', ' ')}} €</div>
     </div>
     <hr>        
   {% endfor %}

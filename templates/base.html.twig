@@ -76,7 +76,7 @@
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav mr-auto mx-auto text-center">
-                        <li class="nav-item nav-ind mx-3">
+                        <li class="nav-item nav-ind mx-3" >
                             <a class="nav-link font-weight-bold" href="{{path('index')}}">
                                 <i class="fas fa-home"></i>
                                 Accueil
@@ -216,11 +216,10 @@
                             <br>
                             {{entreprise.cp}}
                             {{entreprise.ville}}
-                            <br>Téléphone :
+                            <br>
                             <a href="telto:{{entreprise.telephone}}" class="footertel">
                                 {{entreprise.telephone}}</a>
                             <br>
-                            Mail :
                             <a href="mailto:{{entreprise.mailContact}}" class="footermail">
                                 {{entreprise.mailContact}}</a>
                         </div>
@@ -300,7 +299,7 @@
                         <h2>
                             Horaires
                         </h2>
-                        <table class="p-3">
+                        <table class="p-3 pt-5 mx-auto">
                             {% for horaire in horaires %}
                                 <tr class="p2 align-items-center" style="border-bottom: 1px solid lightgrey;">
                                     <td class="pr-3">
@@ -333,18 +332,17 @@
                     <div class="row justify-content-center">
 
                         <div class="col-11 mx-auto">
-                            <h3>{{entreprise.nom}}
-                            </h3>
+                            <h4>{{entreprise.nom}}
+                            </h4>
                             <br>
                             {{entreprise.adresse}}
                             <br>
                             {{entreprise.cp}}
                             {{entreprise.ville}}
-                            <br>Téléphone :
+                            <br>
                             <a href="telto:{{entreprise.telephone}}" class="footertel">
                                 {{entreprise.telephone}}</a>
                             <br>
-                            Mail :
                             <a href="mailto:{{entreprise.mailContact}}" class="footermail">
                                 {{entreprise.mailContact}}</a>
                         </div>

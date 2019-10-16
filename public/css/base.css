@@ -71,6 +71,7 @@ svg {
     transition-duration: 0.3s;
 }
 
+
 /* -----------------------------------
 
 
@@ -316,6 +317,16 @@ transition-duration: 0.3s;
         opacity: 0.7;
         transition-duration: 0.3s;
     }
+
+    #elec {
+        width: 66%;
+        }
+
+    li.active {
+            font-weight: bolder;
+            text-transform: uppercase;
+            color: white!important;
+        }
  
     /* -----------------------------------
     
