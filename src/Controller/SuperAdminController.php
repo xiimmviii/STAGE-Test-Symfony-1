@@ -9,8 +9,8 @@ use App\Entity\Reseaux;
 use App\Form\DesignType;
 use App\Form\CouleurType;
 use App\Entity\Entreprise;
-
 use App\Entity\Competences;
+use App\Entity\Icons;
 use App\Entity\Localisation;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -247,8 +247,8 @@ class SuperAdminController extends AbstractController
 
 
 
-    
-/*--------------------------------------------
+
+    /*--------------------------------------------
 
 
 
@@ -304,7 +304,7 @@ class SuperAdminController extends AbstractController
 
 
 
-/*--------------------------------------------
+    /*--------------------------------------------
 
 ╔═╗╦ ╦╔═╗╔╗╔╔═╗╔═╗╔╦╗╔═╗╔╗╔╔╦╗  ╔═╗╦  ╦╔═╗  ╔╦╗╦═╗╔═╗╔╗╔╔═╗╦╔╦╗╦╔═╗╔╗╔╔═╗
 ║  ╠═╣╠═╣║║║║ ╦║╣ ║║║║╣ ║║║ ║   ╚═╗╚╗╔╝║ ╦   ║ ╠╦╝╠═╣║║║╚═╗║ ║ ║║ ║║║║╚═╗
@@ -317,7 +317,7 @@ class SuperAdminController extends AbstractController
 
 
 
-        /**
+    /**
      * Permet de gérer les svg de transition  
      *
      * @Route("/super-admin/svg-transi", name="svg-transi")
@@ -408,7 +408,7 @@ class SuperAdminController extends AbstractController
 
 
 
-        /**
+    /**
      * Permet de gérer le pack de svg de transition choisi pour le thème 
      * @Route("/super-admin/svg-transi-affichage/{id}", name="changer-svg-transi")
      */
@@ -492,4 +492,110 @@ class SuperAdminController extends AbstractController
             'boutonenvoi' => $boutonenvoi
         ]);
     }
+
+
+
+
+
+    /*--------------------------------------------
+
+
+╦  ╔═╗╔╗ ╔═╗╦  ╔═╗  
+║  ╠═╣╠╩╗║╣ ║  ╚═╗  
+╩═╝╩ ╩╚═╝╚═╝╩═╝╚═╝  
+
+
+-------------------------------------*/
+
+
+
+    /**
+     * Permet de gérer les labels et icones associées
+     *
+     * @Route("/super-admin/labels", name="superadmin-labels")
+     */
+    public function labels(Request $request)
+    {
+        // Pour que le footer reçoive bien les données dont il a besoin, il faut aller chercher les données dans les tables concernées
+
+        $repository = $this->getDoctrine()->getRepository(Entreprise::class);
+        $entreprise = $repository->findOneById(1);
+
+        $repository = $this->getDoctrine()->getRepository(Localisation::class);
+        $localisations = $repository->findOneById(1);
+
+        $repository = $this->getDoctrine()->getRepository(Competences::class);
+        $competences = $repository->findOneById(1);
+
+        $repository = $this->getDoctrine()->getRepository(Reseaux::class);
+        $reseaux = $repository->findOneById(1);
+
+        $repository = $this->getDoctrine()->getRepository(Couleur::class);
+        $couleurs = $repository->findAll(
+            array('dateAffichage' => 'DESC')
+        );
+
+        // -----------------------------------------------------------------------------------
+
+        //On utilise le repository pour accéder à la table Couleur
+        $repository = $this->getDoctrine()->getRepository(Icons::class);
+        //On récupère toutes les données de la table Galerie et on les injecte dans l'objet $photos
+        $icons = $repository->findAll();
+
+        // -----------------------------------------------------------------------------------
+
+        // // On crée un objet vide 
+        // $design = new Design;
+
+        // // On créé la vue d'un formulaire qui provient du dossier FORM > DesignType.php 
+        // $form = $this->createForm(DesignType::class, $design);
+        // $form->handleRequest($request);
+
+        // $manager = $this->getDoctrine()->getManager();
+
+        // // On traite les donénes du formulaire >> CF lignes 81/85
+        // if ($form->isSubmitted() && $form->isValid()) {
+
+        //     $manager->persist($design);
+
+        //     $manager->flush();
+
+        //     $this->addFlash('success', 'Les modifications ont été effectuées ! ');
+        //     return $this->redirectToRoute('svg-transi');
+        // }
+
+        // // ----------------------------------------------------------------------
+        // // ----------------------------------------------------------------------
+
+
+        // // Dans ce cas-là, on modifie la variable date pour que la date actuelle soit générée
+        // // Cela nous permet d'avoir la date la plus recénte qui permet un affichage dans la VUE principale
+        // // C-A-D qu'on trie par DATE DESC et qu'on affiche 1 seule valur 
+        // $date = date("Y-m-d H-i-s");
+
+        // // La variable permet à l'utilsateur de voir "publier" de façon dynamique
+        // // Et non pas envoyer ou modifier comme les vues précédentes 
+        // $boutonenvoi = 'Publier';
+
+
+
+
+        // -----------------------------------------------------------------------------------
+
+        //on injecte les données dans la vue réalisations (en incluant les données pour le footer)
+        return $this->render('super-admin/labels.html.twig', [
+            'entreprise' => $entreprise,
+            'localisations' => $localisations,
+            'competences' => $competences,
+            'reseaux' => $reseaux,
+            'couleurs' => $couleurs,
+            'icons' => $icons,
+            // 'design' => $design,
+            // 'DesignForm' => $form->createView(),
+            // 'date' => $date,
+            // 'boutonenvoi' => $boutonenvoi
+        ]);
+    }
+
+
 }
