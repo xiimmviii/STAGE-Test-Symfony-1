@@ -3,20 +3,20 @@
 {% block content %}
 <div class=" bg2">
 
-<div class="row pt-5"> <div class="col-10 mx-auto text-center h1 pt-5">  Prenons contact ! </div></div>
+<div class="row pt-5"> <div class="col-11 mx-auto text-center h1 pt-5">  Prenons contact ! </div></div>
 <div class="row">
     <div class="col-md-6 col-sm-10 col-xs-10 mx-auto py-5 p-3" id="">
         {{form_start(form)}}
 
         <div class="row"> {# Ici, on récupère le formulaire de CONTACT -- CONTACTTYPE #}
-            <div class="col-6">
+            <div class="col-10 col-md-6 mx-auto">
             {# On personnalise les "labels" c'est à dire les indications pour décrire ce qu'on attend dans le champ #}
                 {{ form_row(form.prenom, {'label': 'Prénom'})  }}
                 {{ form_row(form.nom, {'label': 'Nom'}) }}
                 {{ form_row(form.societe, {'label': 'Société'}) }}
             </div>
 
-            <div class="col-6">
+            <div class="col-10 col-md-6 mx-auto">
                 {{ form_row(form.telephone, {'label': 'N° de téléphone'}) }}
                 {{ form_row(form.email, {'label': 'Email'}) }}
                 {{ form_row(form.objet, {'label': 'Objet'}) }}
@@ -25,10 +25,10 @@
         </div>
 
         <div class="row">
-           <div class="col-12"> {{ form_row(form.message, {'label': 'Message', 'attr' : { 'class' : 'message' }}) }} </div>
+           <div class="col-10 col-md-12 mx-auto"> {{ form_row(form.message, {'label': 'Message', 'attr' : { 'class' : 'message' }}) }} </div>
         </div>
 <div class="form-group ">
-                    <button class="btn bg col-3" type="submit" action="">Envoyer</button>
+                    <button class="btn bg col-4 mx-auto" type="submit" action="">Envoyer</button>
                 </div>
         {{form_end(form)}}
     </div>
