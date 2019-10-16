@@ -3,14 +3,16 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Entity\Icons;
 use App\Entity\Design;
+use App\Entity\Labels;
 use App\Entity\Couleur;
 use App\Entity\Reseaux;
 use App\Form\DesignType;
+use App\Form\LabelsType;
 use App\Form\CouleurType;
 use App\Entity\Entreprise;
 use App\Entity\Competences;
-use App\Entity\Icons;
 use App\Entity\Localisation;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -544,28 +546,28 @@ class SuperAdminController extends AbstractController
 
         // -----------------------------------------------------------------------------------
 
-        // // On crée un objet vide 
-        // $design = new Design;
+        // On crée un objet vide 
+        $labels = new Labels;
 
-        // // On créé la vue d'un formulaire qui provient du dossier FORM > DesignType.php 
-        // $form = $this->createForm(DesignType::class, $design);
-        // $form->handleRequest($request);
+        // On créé la vue d'un formulaire qui provient du dossier FORM > DesignType.php 
+        $form = $this->createForm(LabelsType::class, $labels);
+        $form->handleRequest($request);
 
-        // $manager = $this->getDoctrine()->getManager();
+        $manager = $this->getDoctrine()->getManager();
 
-        // // On traite les donénes du formulaire >> CF lignes 81/85
-        // if ($form->isSubmitted() && $form->isValid()) {
+        // On traite les donénes du formulaire >> CF lignes 81/85
+        if ($form->isSubmitted() && $form->isValid()) {
 
-        //     $manager->persist($design);
+            $manager->persist($labels);
 
-        //     $manager->flush();
+            $manager->flush();
 
-        //     $this->addFlash('success', 'Les modifications ont été effectuées ! ');
-        //     return $this->redirectToRoute('svg-transi');
-        // }
+            $this->addFlash('success', 'Les modifications ont été effectuées ! ');
+            return $this->redirectToRoute('superadmin-labels');
+        }
 
-        // // ----------------------------------------------------------------------
-        // // ----------------------------------------------------------------------
+        // ----------------------------------------------------------------------
+        // ----------------------------------------------------------------------
 
 
         // // Dans ce cas-là, on modifie la variable date pour que la date actuelle soit générée
@@ -590,8 +592,8 @@ class SuperAdminController extends AbstractController
             'reseaux' => $reseaux,
             'couleurs' => $couleurs,
             'icons' => $icons,
-            // 'design' => $design,
-            // 'DesignForm' => $form->createView(),
+            'labels' => $labels,
+            'LabelsForm' => $form->createView(),
             // 'date' => $date,
             // 'boutonenvoi' => $boutonenvoi
         ]);

@@ -44,22 +44,19 @@
         <div class="row m-3">
             <div class="col-12 alert-info border border-info rounded">
 
-                {# {{ form_start(CouleurForm) }}
+                {{ form_start(LabelsForm) }}
 
-                    <h3 class="text-center m-4">Couleur choisie :
-                        <br></h3>
-                    <h2 class="m-4 text-center">
-                        {{color.couleur}}</h2>
-                    <div style="display: none;">
-                        {{ form_label(CouleurForm.couleur) }}
-                        {{ form_widget(CouleurForm.couleur) }}
-                        {{ form_label(CouleurForm.dateAffichage) }}
-                        {{ form_widget(CouleurForm.dateAffichage, {'value': date}) }}
-                    </div>
 
-                    {{ form_row(CouleurForm.submit, { 'label' : boutonenvoi, 'attr': {'class': 'col-12 btn btn-outline-success'} } ) }}
+                    {# <div style="display: none;"> #}
+                        {# {{ form_label(LabelsForm.nom) }}
+                        {{ form_widget(LabelsForm.nom) }}
+                        {{ form_label(LabelsForm.nom) }}
+                        {{ form_widget(LabelsForm.nom) }} #}
+                    {# </div> #}
 
-                    {{ form_end(CouleurForm) }} #}
+                    {{ form_row(LabelsForm.submit, {'attr': {'class': 'col-12 btn btn-outline-success'} } ) }}
+
+                    {{ form_end(LabelsForm) }}
             </div>
         </div>
     </div>
