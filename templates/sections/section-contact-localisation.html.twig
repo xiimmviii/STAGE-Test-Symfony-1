@@ -8,12 +8,12 @@
     {{ svgTransi.topTrsC | raw}}
     {% endfor %}
 
-    <div class="row mt-4">
+    <div class="row mt-4 display-none-small">
         <div class="col-10 mt-4 mx-auto text-center h1">
             Prenons Contact
         </div>
     </div>
-    <div class="row my-5 py-5 justify-content-around">
+    <div class="row my-5 py-5 justify-content-around display-none-small">
         <div class="col-10 col-md-3 text-center">
             <h1>
                 <i class="fas fa-phone"></i>
@@ -42,26 +42,38 @@
         </div>
     </div>
 
-    <div class="row p-3 pb-5 mb-2">
+    <div class="row p-3 pb-5 mb-2 display-none-small">
         <div class="col-10 mx-auto text-center h3">
             Votre artisan se déplace dans les secteurs suivants :
         </div>
     </div>
+        <div class="row p-3 pt-5 pb-5 mt-5 mb-2 display-none-large">
+        <div class="col-10 mx-auto text-center h4">
+            Votre artisan se déplace dans les secteurs suivants :
+        </div>
+    </div>
 
-    <div class="row justify-content-center h5 mb-4">
+    <div class="row justify-content-center h5 mb-4 display-none-small">
         {% for localisation in localisations | slice(0,5) %}
-        <div class="col-6 col-md-2 text-left">
+        <div class="col-10 col-md-2 text-left">
            <i class="fas fa-map-marker-alt"></i> {{localisation.secteur}}
         </div>
         {% endfor %}
     </div>
 
-    <div class="row justify-content-center h5 mb-4">
+    <div class="row justify-content-center h5 mb-4 display-none-small">
         {% for localisation in localisations | slice(5,10) %}
-        <div class="col-6 col-md-2 text-center">
+        <div class="col-10 col-md-2 text-left">
          <i class="fas fa-map-marker-alt"></i>   {{localisation.secteur}}
         </div>
         {% endfor %}
     </div>
 
+    <div class="row justify-content-center h5 mb-4 display-none-large">
+        {% for localisation in localisations %}
+        <div class="col-10 col-md-2 text-left m-2">
+         <i class="fas fa-map-marker-alt"></i>   {{localisation.secteur}}
+        </div>
+        {% endfor %}
+    </div>
 </section>

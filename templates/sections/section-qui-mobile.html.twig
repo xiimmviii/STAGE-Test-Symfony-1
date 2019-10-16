@@ -1,0 +1,15 @@
+
+<section class="form-cont-bg row pt-5 mb-n1 pt-n1 display-none-large">
+
+
+ <div class="row mt-5 justify-content-center text-center">
+                <div class="col-10 col-md-4 mt-5 bg-white text-justify p-5 textbox">
+                    {% for historique in historiques | sortbyfield('dateAffichage') | slice(0, 1) %}
+                        <h2>  {{historique.titre}} </h2> 
+                        <br> 
+                        <h3> {{historique.sousTitre}}</h3>
+                        <p class="mt-5">{{historique.texte | raw}}</p>
+                    {% endfor %}
+                </div>
+
+</section>

@@ -9,7 +9,7 @@
   <div class="row bg1 py-4 justify-content-around">
 
     {% for logo in logos %}
-    <div class="col-5 col-md-2">
+    <div class="col-5 col-md-2 mx-auto text-center">
       <a href="{{ logo.sitePartenaire }}"><img src="{{ asset('/photo/logos/' ~ logo.logo) }}" class="img-fluid"
           alt="logo de {{ logo.nomPartenaire }}, partenaire" /></a>
     </div>
