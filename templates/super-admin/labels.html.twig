@@ -66,28 +66,24 @@
                 <div class="row">
 
                     {% for iconsaffiche in iconsaffiches %}
+                        {% for label in iconsaffiche.labels2 %}
 
-                    {% for label in iconsaffiche.labels2 %}
+                            <div class="col-4 offset-2">
+                                {{label.nom}}
+                            </div>
+                            <div class="col-3">
+                                <div class="w-50">
+                                    {{ iconsaffiche.code | raw }}</div>
+                            </div>
 
-                    <div class="col-4 offset-2">
-                        {{label.nom}}
-                    </div>
-                    <div class="col-3">
-                        <div class="w-50">
-                            {{ iconsaffiche.code | raw }}</div>
-                    </div>
-
-                    <div class="col-3">
-                            <div class="w-50">
-                                {{ iconsaffiche.code | raw }}</div>
-                        </div>
-                    {% endfor %}
-
-
-                    {# {% for picture in galerie.pictures %}
-                            <img class="img-thumbnail w-25" src="{{ vich_uploader_asset(picture, 'imageFile') }}" alt="">
-                        {% endfor %} #}
-
+                            <div class="col-3">
+                                <a class="text-danger h4" href="{{ path('superadmin-label-delete', {id : label.id }) }}"
+                                    onclick="return confirm('Etes-vous certain(e) de vouloir supprimer ?')">
+                                    <i class="fas fa-trash-alt"></i>
+                                </a>
+                            </div>
+                            
+                        {% endfor %}
                     {% endfor %}
                 </div>
 
