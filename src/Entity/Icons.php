@@ -5,7 +5,7 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
-use App\Entity\labels;
+use App\Entity\Labels;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\IconsRepository")
@@ -35,11 +35,6 @@ class Icons
      * @ORM\Column(type="string", length=255)
      */
     private $nom;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $dateAffichage;
 
         /**
      * C'est grâce à ce code qu'on fait le lien entre cette table et la table "labels"
@@ -78,18 +73,6 @@ class Icons
     public function setNom(string $nom): self
     {
         $this->nom = $nom;
-
-        return $this;
-    }
-
-    public function getDateAffichage(): ?string
-    {
-        return $this->dateAffichage;
-    }
-
-    public function setDateAffichage(string $dateAffichage): self
-    {
-        $this->dateAffichage = $dateAffichage;
 
         return $this;
     }
