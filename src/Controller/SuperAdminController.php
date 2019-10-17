@@ -74,7 +74,7 @@ class SuperAdminController extends AbstractController
 
             $manager->flush();
 
-            $this->addFlash('success', 'Les modifications ont été effectuées ! ');
+            $this->addFlash('success', 'La couleur a bien été modifiée ! ');
             return $this->redirectToRoute('presentationentreprise');
         }
 
@@ -226,7 +226,7 @@ class SuperAdminController extends AbstractController
 
             $manager->flush();
 
-            $this->addFlash('success', 'Les modifications ont été effectuées ! ');
+            $this->addFlash('success', 'Le pack de SVG a bien été modifié');
             return $this->redirectToRoute('svg-transi');
         }
 
@@ -282,7 +282,7 @@ class SuperAdminController extends AbstractController
 
             $manager->flush();
 
-            $this->addFlash('success', 'Le pack de svg a bien été modifié');
+            $this->addFlash('success', 'Le pack de SVG a bien été modifié');
             return $this->redirectToRoute('svg-transi');
         }
 
@@ -353,7 +353,7 @@ class SuperAdminController extends AbstractController
 
             $manager->flush();
 
-            $this->addFlash('success', 'Les modifications ont été effectuées ! ');
+            $this->addFlash('success', ' Le label a bien été ajouté ! ');
             return $this->redirectToRoute('superadmin-labels');
         }
 

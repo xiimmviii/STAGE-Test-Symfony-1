@@ -356,7 +356,7 @@ class AdminController extends AbstractController
 
             $manager->flush();
 
-            $this->addFlash('success', 'Les modifications ont été effectuées ! ');
+            $this->addFlash('success', 'Le texte de présentation de l\'histoire a été ajouté ! ');
             return $this->redirectToRoute('histoireentreprise');
         }
 
@@ -415,7 +415,7 @@ class AdminController extends AbstractController
 
             $manager->flush();
 
-            $this->addFlash('success', 'Les modifications ont été effectuées ! ');
+            $this->addFlash('success', ' Le texte de présentation de l\'histoire a été publié ! ');
             return $this->redirectToRoute('histoireentreprise');
         }
 
@@ -610,7 +610,7 @@ class AdminController extends AbstractController
 
             $manager->flush();
 
-            $this->addFlash('success', 'Les modifications ont été effectuées ! ');
+            $this->addFlash('success', 'La localisation a été ajoutée ! ');
             return $this->redirectToRoute('localisation');
         }
 
@@ -660,7 +660,7 @@ class AdminController extends AbstractController
         $manager->remove($local);
         $manager->flush();
 
-        $this->addFlash('success', 'Supprimé.');
+        $this->addFlash('success', 'Localisation supprimée.');
         return $this->redirectToRoute('localisation');
 
 // -------------------------------------------------------------------
@@ -705,7 +705,7 @@ class AdminController extends AbstractController
 
             $manager->flush();
 
-            $this->addFlash('success', 'Les modifications ont été effectuées ! ');
+            $this->addFlash('success', 'La compétence a été ajoutée ! ');
             return $this->redirectToRoute('competences');
         }
 
@@ -753,14 +753,14 @@ class AdminController extends AbstractController
         $manager->remove($local);
         $manager->flush();
 
-        $this->addFlash('success', 'Supprimé.');
+        $this->addFlash('success', 'Compétence supprimée.');
         return $this->redirectToRoute('competences');
 
 // -------------------------------------------------------------------
 
         // On renvoie les informations dans la VUE
         return $this->render('admin/competence.html.twig', [
-            'competences' => $competences,
+            'competences' => $competences
         ]);
     }
 
@@ -917,7 +917,7 @@ class AdminController extends AbstractController
 
             $manager->flush();
 
-            $this->addFlash('success', 'Les modifications ont été effectuées ! ');
+            $this->addFlash('success', 'Les modifications sur la prestation ont été effectuées ! ');
             return $this->redirectToRoute('tarifs-admin');
         }
 
@@ -941,7 +941,7 @@ class AdminController extends AbstractController
         $manager->remove($tarif);
         $manager->flush();
 
-        $this->addFlash('success', 'La presation a bien été supprimée.');
+        $this->addFlash('success', 'La prestation a bien été supprimée.');
         return $this->redirectToRoute('tarifs-admin');
 
 // -------------------------------------------------------------------
@@ -1055,7 +1055,7 @@ class AdminController extends AbstractController
         $manager->remove($horaire);
         $manager->flush();
 
-        $this->addFlash('success', 'L\'horaire a bien été supprimée.');
+        $this->addFlash('success', 'L\'horaire a bien été supprimé.');
         return $this->redirectToRoute('horaires-admin');
 
     }
@@ -1098,7 +1098,7 @@ class AdminController extends AbstractController
 
             $mailer->send($message);
 
-            $this->addFlash('notice', 'Mail envoyé');
+            $this->addFlash('notice', 'Mail envoyé !');
 
             return $this->redirectToRoute('aide-support');
         }
@@ -1151,7 +1151,7 @@ class AdminController extends AbstractController
 
             $manager->flush();
 
-            $this->addFlash('success', 'Les modifications ont été effectuées ! ');
+            $this->addFlash('success', ' Vous avez créé un nouveau texte pour la version mobile ! ');
             return $this->redirectToRoute('contenumobile');
         }
 
@@ -1208,7 +1208,7 @@ class AdminController extends AbstractController
 
             $manager->flush();
 
-            $this->addFlash('success', 'Les modifications ont été effectuées ! ');
+            $this->addFlash('success', 'Le nouveau texte a été publié ! ');
             return $this->redirectToRoute('contenumobile');
         }
 
