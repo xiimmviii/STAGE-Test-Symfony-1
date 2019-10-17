@@ -579,16 +579,16 @@ class SuperAdminController extends AbstractController
 
 
 
-        //On veut limiter le nombre de localisations possibles à 10. 
+        //On veut limiter le nombre de labels possibles à 5. 
 
         // On récupère le manager
         $em = $this->getDoctrine()->getManager();
 
         // On va dans l'entité Localisation
-        $repo = $em->getRepository(Localisation::class);
+        $repo = $em->getRepository(Labels::class);
 
-        // On fait une requête pour compter combien de galeries il y a dans la table Galerie (galerie = g)
-        $totalLocalisations = $repo->createQueryBuilder('l')
+        // On fait une requête pour compter combien de labels il y a dans la table labels (labels = l)
+        $totalLabels = $repo->createQueryBuilder('l')
             //on séléctionne comment on compte les lignes (par l'id)
             ->select('count(l.id)')
             ->getQuery()
@@ -607,6 +607,7 @@ class SuperAdminController extends AbstractController
             'labels' => $labels,
             'LabelsForm' => $form->createView(),
             'iconsaffiches' => $iconsaffiches,
+            'totalLabels' => $totalLabels,
         ]);
     }
 

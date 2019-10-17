@@ -44,6 +44,9 @@
         <div class="row m-3">
             <div class="col-12 alert-info border border-info rounded">
 
+                {% set totalLabels2 = totalLabels.0 %}
+
+                {% if totalLabels2.1 < 5 %}
                 {{ form_start(LabelsForm) }}
 
                 {{ form_label(LabelsForm.nom) }}
@@ -54,6 +57,12 @@
                 {{ form_row(LabelsForm.submit, {'attr': {'class': 'col-12 btn btn-outline-success mt-3'} } ) }}
 
                 {{ form_end(LabelsForm) }}
+
+                {% else %}
+
+                <p>Vous avez atteint la limite de 5 labels maximum. Pour en créer un nouveau, veuillez en supprimer un existant.</p>
+
+                {% endif %}
             </div>
         </div>
 
@@ -82,7 +91,7 @@
                                     <i class="fas fa-trash-alt"></i>
                                 </a>
                             </div>
-                            
+
                         {% endfor %}
                     {% endfor %}
                 </div>
