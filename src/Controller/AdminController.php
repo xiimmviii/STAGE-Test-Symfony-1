@@ -42,36 +42,15 @@ class AdminController extends AbstractController
      */
     public function admin()
     {
-        // Ici, on récupère les informations en BDD en utilisant le Repository
-        // Récupération : des éléments de la table Entreprise puis ceux la table Spécificités 
 
-        $repository = $this->getDoctrine()->getRepository(Entreprise::class);
-        $entreprise = $repository->findOneById(1);
-        // Le findOneById permet de trier les données et de ne récupérer que la donnée qui a l'ID #1 
+        // Cette fonction est vide car elle n'a besoin d'aucune information pour fonctionner/s'afficher 
 
-        $repository = $this->getDoctrine()->getRepository(Localisation::class);
-        $localisations = $repository->findAll();
+// -------------------------------------------------------------------------
 
-        $repository = $this->getDoctrine()->getRepository(Competences::class);
-        $competences = $repository->findAll();
-
-        $repository = $this->getDoctrine()->getRepository(Reseaux::class);
-        $reseaux = $repository->findOneById(1);
-        // Le findOneById permet de trier les données et de ne récupérer que la donnée qui a l'ID #1 
-
-        $repository = $this->getDoctrine()->getRepository(Couleur::class);
-        $couleurs = $repository->findAll(
-            array('dateAffichage' => 'DESC')
-        );
-
-        // On retourne ensuite les éléments récupérés dans la vue qu'on injectera entre {{}} dans la vue twig ADMIN -> espaceadmin.html.twig
+        // On retourne ensuite les éléments récupérés dans la vue 
+        // Qu'on injectera entre {{}} dans la vue twig ADMIN -> espaceadmin.html.twig
         return $this->render('admin/espaceadmin.html.twig', [
             'controller_name' => 'AdminController',
-            'entreprise' => $entreprise,
-            'localisations' => $localisations,
-            'competences' => $competences,
-            'reseaux' => $reseaux,
-            'couleurs' => $couleurs
         ]);
     }
 
@@ -94,19 +73,6 @@ class AdminController extends AbstractController
         $repository = $this->getDoctrine()->getRepository(Entreprise::class);
         $entreprise = $repository->findOneById(1);
 
-        $repository = $this->getDoctrine()->getRepository(Localisation::class);
-        $localisations = $repository->findAll();
-
-        $repository = $this->getDoctrine()->getRepository(Competences::class);
-        $competences = $repository->findAll();
-
-        $repository = $this->getDoctrine()->getRepository(Reseaux::class);
-        $reseaux = $repository->findOneById(1);
-
-        $repository = $this->getDoctrine()->getRepository(Couleur::class);
-        $couleurs = $repository->findAll(
-            array('dateAffichage' => 'DESC')
-        );
 
         // On utilise le manager pour pouvoir traiter les informations en BDD >> Entreprise 
         $manager = $this->getDoctrine()->getManager();
@@ -137,13 +103,8 @@ class AdminController extends AbstractController
         // On renvoie aussi la vue du formulaire EntrepriseType.php
 
         return $this->render('admin/entreprise.html.twig', [
-            'controller_name' => 'AdminController',
             'entreprise' => $entreprise,
-            'localisations' => $localisations,
-            'competences' => $competences,
-            'reseaux' => $reseaux,
             'EntrepriseForm' => $form->createView(),
-            'couleurs' => $couleurs
         ]);
     }
 
@@ -188,7 +149,7 @@ class AdminController extends AbstractController
             return $this->redirectToRoute('gestiongaleries');
         }
 
-        // ----------------------------------------------------------------------
+// ----------------------------------------------------------------------
 
         //On veut limiter le nombre de galeries possible à 10. 
 
@@ -205,42 +166,21 @@ class AdminController extends AbstractController
             ->getQuery()
             ->getResult();
 
-        // ----------------------------------------------------------------------
+// ----------------------------------------------------------------------
 
         // On récupère toutes les galeries déjà dans la BDD
         $repository = $this->getDoctrine()->getRepository(Galerie::class);
         // Le findAll permet de récupérer toutes les informations stockées en BDB 
         $galeries = $repository->findAll();
 
-        // ----------------------------------------------------------------------
+// ----------------------------------------------------------------------
 
-        // On récupère les informations et on les renvoie dans la VUE 
-        $repository = $this->getDoctrine()->getRepository(Entreprise::class);
-        $entreprise = $repository->findOneById(1);
+     
 
-        $repository = $this->getDoctrine()->getRepository(Localisation::class);
-        $localisations = $repository->findAll();
-
-        $repository = $this->getDoctrine()->getRepository(Competences::class);
-        $competences = $repository->findAll();
-
-        $repository = $this->getDoctrine()->getRepository(Reseaux::class);
-        $reseaux = $repository->findOneById(1);
-
-        $repository = $this->getDoctrine()->getRepository(Couleur::class);
-        $couleurs = $repository->findAll(
-            array('dateAffichage' => 'DESC')
-        );
-
-        //on envoie toutes les informations dans la vue GestionGaleries.html.twig
+        // On envoie toutes les informations dans la vue GestionGaleries.html.twig
         return $this->render('admin/gestiongaleries.html.twig', [
             'galerieForm' => $form->createView(),
-            'entreprise' => $entreprise,
-            'localisations' => $localisations,
-            'competences' => $competences,
-            'reseaux' => $reseaux,
             'galeries' => $galeries,
-            'couleurs' => $couleurs,
             'totalGaleries' => $totalGaleries,
         ]);
     }
@@ -260,7 +200,7 @@ class AdminController extends AbstractController
         $photo = $manager->find(Picture::class, $id);
 
         // Le MANAGER enregistre l'info et transmet ensuite à la BDD la suppression de l'objet
-        //NOTE : Grâce au bundle VICH, le fichier de la photo est lui aussi supprimé en automatique dans le dossier de destination. (Pas besoin de créer le code pour cette suppression)
+        // NOTE : Grâce au bundle VICH, le fichier de la photo est lui aussi supprimé en automatique dans le dossier de destination. (Pas besoin de créer le code pour cette suppression)
         $manager->remove($photo);
         $manager->flush();
 
@@ -268,31 +208,10 @@ class AdminController extends AbstractController
         $this->addFlash('success', 'La photo a bien été supprimée.');
         return $this->redirectToRoute('gestiongaleries');
 
-        // ----------------------------------------------------------------------
-        // On récupère et on renvoie les informations nécessaires pour l'affichage de la VUE
-        $repository = $this->getDoctrine()->getRepository(Entreprise::class);
-        $entreprise = $repository->findOneById(1);
-
-        $repository = $this->getDoctrine()->getRepository(Localisation::class);
-        $localisations = $repository->findAll();
-
-        $repository = $this->getDoctrine()->getRepository(Competences::class);
-        $competences = $repository->findAll();
-
-        $repository = $this->getDoctrine()->getRepository(Reseaux::class);
-        $reseaux = $repository->findOneById(1);
-
-        $repository = $this->getDoctrine()->getRepository(Couleur::class);
-        $couleurs = $repository->findAll(
-            array('dateAffichage' => 'DESC')
-        );
+// ----------------------------------------------------------------------
 
         return $this->render('admin/gestiongalerie.html.twig', [
-            'entreprise' => $entreprise,
-            'localisations' => $localisations,
-            'competences' => $competences,
-            'reseaux' => $reseaux,
-            'couleurs' => $couleurs
+           
         ]);
     }
 
@@ -320,38 +239,16 @@ class AdminController extends AbstractController
         $this->addFlash('success', 'La galerie a bien été supprimée.');
         return $this->redirectToRoute('gestiongaleries');
 
-        // ----------------------------------------------------------------------
-
-        // On récupère et on renvoie les informations nécessaires pour l'affichage de la VUE
-        $repository = $this->getDoctrine()->getRepository(Entreprise::class);
-        $entreprise = $repository->findOneById(1);
-
-        $repository = $this->getDoctrine()->getRepository(Localisation::class);
-        $localisations = $repository->findAll();
-
-        $repository = $this->getDoctrine()->getRepository(Competences::class);
-        $competences = $repository->findAll();
-
-        $repository = $this->getDoctrine()->getRepository(Reseaux::class);
-        $reseaux = $repository->findOneById(1);
-
-        $repository = $this->getDoctrine()->getRepository(Couleur::class);
-        $couleurs = $repository->findAll(
-            array('dateAffichage' => 'DESC')
-        );
+// ----------------------------------------------------------------------
 
         return $this->render('admin/gestiongaleries.html.twig', [
-            'entreprise' => $entreprise,
-            'localisations' => $localisations,
-            'competences' => $competences,
-            'reseaux' => $reseaux,
-            'couleurs' => $couleurs
+  
         ]);
     }
 
 
     /**
-     * ajoute/supprime une photo dans une galerie précise et permet de modifier le texte/nom de la galerie
+     * Ajoute/supprime une photo dans une galerie précise et permet de modifier le texte/nom de la galerie
      * @Route("/admin/modifiergalerie/{id}", name="modifiergalerie")
      */
     public function modifierGalerie(Request $request, $id)
@@ -386,9 +283,9 @@ class AdminController extends AbstractController
         $pictures = $repository->findByGalerie($id);
 
 
-        //-------------------------------------------------------------
+//-------------------------------------------------------------
 
-        //On veut limiter le nombre de photos dans une galerie à 4. 
+        // On veut limiter le nombre de photos dans une galerie à 4. 
 
         // On récupère le manager
         $em = $this->getDoctrine()->getManager();
@@ -396,44 +293,25 @@ class AdminController extends AbstractController
         // On va dans l'entité Picture
         $repo = $em->getRepository(Picture::class);
 
-        //on crée une variable galerie dans laquelle on injecte la valeur de l'ID de la galerie à modifier
+        // On crée une variable galerie dans laquelle on injecte la valeur de l'ID de la galerie à modifier
         $galerie = $id;
 
 
         // On fait une requête pour compter combien de galeries il y a dans la table Galerie (galerie = g)
         $totalPictures = $repo->createQueryBuilder('p')
-            //on séléctionne comment on compte les lignes (par l'id)
+            // On séléctionne comment on compte les lignes (par l'id)
             ->select('count(p.id)')
-            //on met une condition : le champ galerie doit correspondre à "nb"
+            // On met une condition : le champ galerie doit correspondre à "nb"
             ->where('p.galerie = :nb')
-            //on crée le paramètre pour ddéfinir "nb" qui vaut la variable $galerie, CAD l'ID de la galerie à modifier
+            // On crée le paramètre pour définir "nb" qui vaut la variable $galerie, CAD l'ID de la galerie à modifier
             ->setParameter('nb', $galerie)
             ->getQuery()
             ->getResult();
 
-
-
-        //-------------------------------------------------------------
-
-        // On récupère les informations et on les renvoie dans la VUE 
-        $repository = $this->getDoctrine()->getRepository(Entreprise::class);
-        $entreprise = $repository->findOneById(1);
-
-        $repository = $this->getDoctrine()->getRepository(Localisation::class);
-        $localisations = $repository->findAll();
-
-        $repository = $this->getDoctrine()->getRepository(Competences::class);
-        $competences = $repository->findAll();
-
-        $repository = $this->getDoctrine()->getRepository(Reseaux::class);
-        $reseaux = $repository->findOneById(1);
+//-------------------------------------------------------------
 
         return $this->render('admin/modifiergalerie.html.twig', [
             'galerieForm' => $form->createView(),
-            'entreprise' => $entreprise,
-            'localisations' => $localisations,
-            'competences' => $competences,
-            'reseaux' => $reseaux,
             'pictures' => $pictures,
             'totalPictures' => $totalPictures,
         ]);
@@ -455,28 +333,13 @@ class AdminController extends AbstractController
      */
     public function histoireEntreprise(Request $request)
     {
-        $repository = $this->getDoctrine()->getRepository(Entreprise::class);
-        $entreprise = $repository->findOneById(1);
-
-        $repository = $this->getDoctrine()->getRepository(Localisation::class);
-        $localisations = $repository->findAll();
-
-        $repository = $this->getDoctrine()->getRepository(Competences::class);
-        $competences = $repository->findAll();
-
-        $repository = $this->getDoctrine()->getRepository(Reseaux::class);
-        $reseaux = $repository->findOneById(1);
-
-        $repository = $this->getDoctrine()->getRepository(Couleur::class);
-        $couleurs = $repository->findAll(
-            array('dateAffichage' => 'DESC')
-        );
-        // -------------------------------------------------------------------
+        
+// -------------------------------------------------------------------
 
         $repository = $this->getDoctrine()->getRepository(Contenu::class);
         $historiques = $repository->findAll();
 
-        // --------------------------------------------------------------------
+// --------------------------------------------------------------------
 
         // On crée un objet vide 
         $historique = new Contenu;
@@ -498,7 +361,7 @@ class AdminController extends AbstractController
             return $this->redirectToRoute('histoireentreprise');
         }
 
-        // -------------------------------------------------------------------
+// -------------------------------------------------------------------
 
         // On crée la variable date pour pouvoir ensuite générer une date dynamique qui sera renvoyée dans le formulaire
         // Cela permet de générer une date, que l'on traitera ensuite pour classer les éléments 
@@ -513,48 +376,25 @@ class AdminController extends AbstractController
         // Le bouton est adapté à chaque situation 
         $boutonenvoi = 'Envoyer';
 
-        // -------------------------------------------------------------------
+// -------------------------------------------------------------------
 
         // On renvoie les informations dans la VUE 
 
         return $this->render('admin/histoire-entreprise.html.twig', [
-            'entreprise' => $entreprise,
-            'localisations' => $localisations,
-            'competences' => $competences,
-            'reseaux' => $reseaux,
             'historiques' => $historiques,
             'ContenuForm' => $form->createView(),
             'date' => $date,
             'boutonenvoi' => $boutonenvoi,
-            'couleurs' => $couleurs
         ]);
     }
 
     /**
      * @Route("/admin/histoire-entreprise/affichage/{id}", name="affichage_histoireEntreprise")
      */
-    public function setStatutHistorique(Request $request, $id)
+    public function setHistorique(Request $request, $id)
     {
 
-        // On récupère les informations en BDD
-        $repository = $this->getDoctrine()->getRepository(Entreprise::class);
-        $entreprise = $repository->findOneById(1);
-
-        $repository = $this->getDoctrine()->getRepository(Localisation::class);
-        $localisations = $repository->findAll();
-
-        $repository = $this->getDoctrine()->getRepository(Competences::class);
-        $competences = $repository->findAll();
-
-        $repository = $this->getDoctrine()->getRepository(Reseaux::class);
-        $reseaux = $repository->findOneById(1);
-
-        $repository = $this->getDoctrine()->getRepository(Couleur::class);
-        $couleurs = $repository->findAll(
-            array('dateAffichage' => 'DESC')
-        );
-        // -------------------------------------------------------------------
-
+        
 
         $repository = $this->getDoctrine()->getRepository(Contenu::class);
         $historiques = $repository->findAll();
@@ -580,7 +420,7 @@ class AdminController extends AbstractController
             return $this->redirectToRoute('histoireentreprise');
         }
 
-        // -------------------------------------------------------------------
+// -------------------------------------------------------------------
 
         // Dans ce cas-là, on modifie la variable date pour que la date actuelle soit générée
         // Cela nous permet d'avoir la date la plus recénte qui permet un affichage dans la VUE principale
@@ -591,19 +431,13 @@ class AdminController extends AbstractController
         // Et non pas envoyer ou modifier comme les vues précédentes 
         $boutonenvoi = 'Publier';
 
-        // -------------------------------------------------------------------
+// -------------------------------------------------------------------
 
         return $this->render('admin/histoire-entreprise.html.twig', [
-            'controller_name' => 'AdminController',
-            'entreprise' => $entreprise,
-            'localisations' => $localisations,
-            'competences' => $competences,
-            'reseaux' => $reseaux,
             'historiques' => $historiques,
             'ContenuForm' => $form->createView(),
             'date' => $date,
             'boutonenvoi' => $boutonenvoi,
-            'couleurs' => $couleurs
         ]);
     }
 
@@ -613,26 +447,10 @@ class AdminController extends AbstractController
      */
     public function updateHistoireEntreprise($id, Request $request)
     {
-        // On récupère les informations en BDD 
-        $repository = $this->getDoctrine()->getRepository(Entreprise::class);
-        $entreprise = $repository->findOneById(1);
 
-        $repository = $this->getDoctrine()->getRepository(Localisation::class);
-        $localisations = $repository->findAll();
-
-        $repository = $this->getDoctrine()->getRepository(Competences::class);
-        $competences = $repository->findAll();
-
-        $repository = $this->getDoctrine()->getRepository(Reseaux::class);
-        $reseaux = $repository->findOneById(1);
 
         $repository = $this->getDoctrine()->getRepository(Contenu::class);
         $historiques = $repository->findAll();
-
-        $repository = $this->getDoctrine()->getRepository(Couleur::class);
-        $couleurs = $repository->findAll(
-            array('dateAffichage' => 'DESC')
-        );
 
         // -------------------------------------------------------------------
 
@@ -673,16 +491,11 @@ class AdminController extends AbstractController
 
         // On renvoie les informations dans la VUE 
         return $this->render('admin/histoire-entreprise.html.twig', [
-            'controller_name' => 'AdminController',
-            'entreprise' => $entreprise,
-            'localisations' => $localisations,
-            'competences' => $competences,
-            'reseaux' => $reseaux,
+
             'historiques' => $historiques,
             'ContenuForm' => $form->createView(),
             'date' => $date,
             'boutonenvoi' => $boutonenvoi,
-            'couleurs' => $couleurs
         ]);
     }
 
@@ -703,51 +516,15 @@ class AdminController extends AbstractController
         $this->addFlash('success', 'Le texte de présentation a bien été supprimé.');
         return $this->redirectToRoute('histoireentreprise');
 
-        // -------------------------------------------------------------------
-
-        // On récupère les informations de BASE nécessaires 
-        $repository = $this->getDoctrine()->getRepository(Entreprise::class);
-        $entreprise = $repository->findOneById(1);
-
-        $repository = $this->getDoctrine()->getRepository(Localisation::class);
-        $localisations = $repository->findAll();
-
-        $repository = $this->getDoctrine()->getRepository(Competences::class);
-        $competences = $repository->findAll();
-
-        $repository = $this->getDoctrine()->getRepository(Reseaux::class);
-        $reseaux = $repository->findOneById(1);
-
-        $repository = $this->getDoctrine()->getRepository(Couleur::class);
-        $couleurs = $repository->findAll(
-            array('dateAffichage' => 'DESC')
-        );
-
-        // -------------------------------------------------------------------
-
-
-        // De nouveau, on créé des variables pour le dynamisme de la page 
-        $date = '';
-        $boutonenvoi = 'Envoyer';
-
-
-        // -------------------------------------------------------------------
+// -------------------------------------------------------------------
 
 
         // On renvoie les informations dans la VUE
         return $this->render('admin/espaceadmin.html.twig', [
-            'controller_name' => 'AdminController',
-            'entreprise' => $entreprise,
-            'localisations' => $localisations,
-            'competences' => $competences,
-            'reseaux' => $reseaux,
-            'date' => $date,
-            'boutonenvoi' => $boutonenvoi,
-            'couleurs' => $couleurs
         ]);
     }
 
-    /* ---------------------------------------------------------------------------------------------------
+ /* ---------------------------------------------------------------------------------------------------
 
 
         ╦═╗╔═╗╔═╗╔═╗╔═╗╦ ╦═╗ ╦  ╔═╗╔═╗╔═╗╦╔═╗╦ ╦═╗ ╦
@@ -762,23 +539,10 @@ class AdminController extends AbstractController
      */
     public function reseaux(Request $request)
     {
-        // On récupère les informations nécessaires à la VUE
-        $repository = $this->getDoctrine()->getRepository(Entreprise::class);
-        $entreprise = $repository->findOneById(1);
-
-        $repository = $this->getDoctrine()->getRepository(Localisation::class);
-        $localisations = $repository->findOneById(1);
-
-        $repository = $this->getDoctrine()->getRepository(Competences::class);
-        $competences = $repository->findOneById(1);
 
         $repository = $this->getDoctrine()->getRepository(Reseaux::class);
         $reseaux = $repository->findOneById(1);
 
-        $repository = $this->getDoctrine()->getRepository(Couleur::class);
-        $couleurs = $repository->findAll(
-            array('dateAffichage' => 'DESC')
-        );
 
         // -------------------------------------------------------------------
 
@@ -803,12 +567,8 @@ class AdminController extends AbstractController
 
         // On renvoie les informations dans la VUE
         return $this->render('admin/reseaux.html.twig', [
-            'entreprise' => $entreprise,
-            'localisations' => $localisations,
-            'competences' => $competences,
             'reseaux' => $reseaux,
             'ReseauxForm' => $form->createView(),
-            'couleurs' => $couleurs
         ]);
     }
 
@@ -830,25 +590,12 @@ class AdminController extends AbstractController
      */
     public function localisation(Request $request)
     {
-        // On récupère les informations nécessaires à la VUE
-        $repository = $this->getDoctrine()->getRepository(Entreprise::class);
-        $entreprise = $repository->findOneById(1);
+
 
         $repository = $this->getDoctrine()->getRepository(Localisation::class);
         $localisations = $repository->findAll();
 
-        $repository = $this->getDoctrine()->getRepository(Competences::class);
-        $competences = $repository->findOneById(1);
-
-        $repository = $this->getDoctrine()->getRepository(Reseaux::class);
-        $reseaux = $repository->findOneById(1);
-
-        $repository = $this->getDoctrine()->getRepository(Couleur::class);
-        $couleurs = $repository->findAll(
-            array('dateAffichage' => 'DESC')
-        );
-
-        // -------------------------------------------------------------------
+// -------------------------------------------------------------------
 
         $localisation = new Localisation;
 
@@ -868,7 +615,7 @@ class AdminController extends AbstractController
             return $this->redirectToRoute('localisation');
         }
 
-        // ----------------------------------------------------------------------
+// ----------------------------------------------------------------------
 
         //On veut limiter le nombre de localisations possibles à 10. 
 
@@ -885,17 +632,13 @@ class AdminController extends AbstractController
             ->getQuery()
             ->getResult();
 
-        // ----------------------------------------------------------------------
+// ----------------------------------------------------------------------
 
 
         // On renvoie les informations dans la VUE
         return $this->render('admin/localisation.html.twig', [
-            'entreprise' => $entreprise,
             'localisations' => $localisations,
-            'competences' => $competences,
-            'reseaux' => $reseaux,
             'LocalisationForm' => $form->createView(),
-            'couleurs' => $couleurs,
             'totalLocalisations' => $totalLocalisations
         ]);
     }
@@ -905,25 +648,12 @@ class AdminController extends AbstractController
      */
     public function localisationDelete($id)
     {
-        // On récupère les informations nécessaires à la VUE
-        $repository = $this->getDoctrine()->getRepository(Entreprise::class);
-        $entreprise = $repository->findOneById(1);
-
+       
         $repository = $this->getDoctrine()->getRepository(Localisation::class);
         $localisations = $repository->findAll();
 
-        $repository = $this->getDoctrine()->getRepository(Competences::class);
-        $competences = $repository->findOneById(1);
 
-        $repository = $this->getDoctrine()->getRepository(Reseaux::class);
-        $reseaux = $repository->findOneById(1);
-
-        $repository = $this->getDoctrine()->getRepository(Couleur::class);
-        $couleurs = $repository->findAll(
-            array('dateAffichage' => 'DESC')
-        );
-
-        // -------------------------------------------------------------------
+// -------------------------------------------------------------------
 
         $manager = $this->getDoctrine()->getManager();
         $local = $manager->find(Localisation::class, $id);
@@ -934,48 +664,33 @@ class AdminController extends AbstractController
         $this->addFlash('success', 'Supprimé.');
         return $this->redirectToRoute('localisation');
 
-        // -------------------------------------------------------------------
+// -------------------------------------------------------------------
+
         // On renvoie les informations dans la VUE
         return $this->render('admin/localisation.html.twig', [
-            'entreprise' => $entreprise,
             'localisations' => $localisations,
-            'competences' => $competences,
-            'reseaux' => $reseaux,
-            'couleurs' => $couleurs
         ]);
     }
 
-    /* ------------------------------------------------------------------------------
+/* ------------------------------------------------------------------------------
 
         ╔═╗╔═╗╔╦╗╔═╗╔═╗╔╦╗╔═╗╔╗╔╔═╗╔═╗╔═╗
         ║  ║ ║║║║╠═╝║╣  ║ ║╣ ║║║║  ║╣ ╚═╗
         ╚═╝╚═╝╩ ╩╩  ╚═╝ ╩ ╚═╝╝╚╝╚═╝╚═╝╚═╝
 
 --------------------------------------------------------------------------------- */
+   
+
     /**
      * @Route("/admin/competences", name="competences")
      */
     public function competence(Request $request)
     {
-        // On récupère les informations nécessaires à la VUE
-        $repository = $this->getDoctrine()->getRepository(Entreprise::class);
-        $entreprise = $repository->findOneById(1);
-
-        $repository = $this->getDoctrine()->getRepository(Localisation::class);
-        $localisations = $repository->findAll();
-
+       
         $repository = $this->getDoctrine()->getRepository(Competences::class);
         $competences = $repository->findAll(1);
-
-        $repository = $this->getDoctrine()->getRepository(Reseaux::class);
-        $reseaux = $repository->findOneById(1);
-
-        $repository = $this->getDoctrine()->getRepository(Couleur::class);
-        $couleurs = $repository->findAll(
-            array('dateAffichage' => 'DESC')
-        );
-
-        // -------------------------------------------------------------------
+       
+ // -------------------------------------------------------------------
 
         $competence = new Competences;
 
@@ -995,7 +710,7 @@ class AdminController extends AbstractController
             return $this->redirectToRoute('competences');
         }
 
-        // ----------------------------------------------------------------------
+// ----------------------------------------------------------------------
 
         //On veut limiter le nombre de competences possibles à 10. 
 
@@ -1012,16 +727,12 @@ class AdminController extends AbstractController
             ->getQuery()
             ->getResult();
         
-        // -------------------------------------------------------------------
+// -------------------------------------------------------------------
 
         // On renvoie les informations dans la VUE
         return $this->render('admin/competences.html.twig', [
-            'entreprise' => $entreprise,
-            'localisations' => $localisations,
             'competences' => $competences,
-            'reseaux' => $reseaux,
             'CompetenceForm' => $form->createView(),
-            'couleurs' => $couleurs,
             'totalCompetences' => $totalCompetences
         ]);
     }
@@ -1031,25 +742,11 @@ class AdminController extends AbstractController
      */
     public function competenceDelete($id)
     {
-        // On récupère les informations nécessaires à la VUE
-        $repository = $this->getDoctrine()->getRepository(Entreprise::class);
-        $entreprise = $repository->findOneById(1);
-
-        $repository = $this->getDoctrine()->getRepository(Localisation::class);
-        $localisations = $repository->findAll();
-
+       
         $repository = $this->getDoctrine()->getRepository(Competences::class);
         $competences = $repository->findAll();
 
-        $repository = $this->getDoctrine()->getRepository(Reseaux::class);
-        $reseaux = $repository->findOneById(1);
-
-        $repository = $this->getDoctrine()->getRepository(Couleur::class);
-        $couleurs = $repository->findAll(
-            array('dateAffichage' => 'DESC')
-        );
-
-        // -------------------------------------------------------------------
+// -------------------------------------------------------------------
 
         $manager = $this->getDoctrine()->getManager();
         $local = $manager->find(Competences::class, $id);
@@ -1060,24 +757,21 @@ class AdminController extends AbstractController
         $this->addFlash('success', 'Supprimé.');
         return $this->redirectToRoute('competences');
 
-        // -------------------------------------------------------------------
+// -------------------------------------------------------------------
+
         // On renvoie les informations dans la VUE
         return $this->render('admin/competence.html.twig', [
-            'entreprise' => $entreprise,
-            'localisations' => $localisations,
             'competences' => $competences,
-            'reseaux' => $reseaux,
-            'couleurs' => $couleurs
         ]);
     }
 
-    /* ---------------------------------------------------------------------------------------------------
+/* ---------------------------------------------------------------------------------------------------
 
     ╔═╗╔═╗╦═╗╔╦╗╔═╗╔╗╔╔═╗╦╦═╗╔═╗╔═╗
     ╠═╝╠═╣╠╦╝ ║ ║╣ ║║║╠═╣║╠╦╝║╣ ╚═╗
     ╩  ╩ ╩╩╚═ ╩ ╚═╝╝╚╝╩ ╩╩╩╚═╚═╝╚═╝
 
-    --------------------------------------------------------------------------------------------------- */
+ --------------------------------------------------------------------------------------------------- */
 
     /**
      * @Route("/admin/partenaires", name="partenaires")
@@ -1109,26 +803,8 @@ class AdminController extends AbstractController
 
         // -------------------------------------------------------------------
 
-        // On récupère les informations nécessaires en BDD 
         $repository = $this->getDoctrine()->getRepository(Partenaires::class);
         $logos = $repository->findAll();
-
-        $repository = $this->getDoctrine()->getRepository(Entreprise::class);
-        $entreprise = $repository->findOneById(1);
-
-        $repository = $this->getDoctrine()->getRepository(Localisation::class);
-        $localisations = $repository->findAll();
-
-        $repository = $this->getDoctrine()->getRepository(Competences::class);
-        $competences = $repository->findAll();
-
-        $repository = $this->getDoctrine()->getRepository(Reseaux::class);
-        $reseaux = $repository->findOneById(1);
-
-        $repository = $this->getDoctrine()->getRepository(Couleur::class);
-        $couleurs = $repository->findAll(
-            array('dateAffichage' => 'DESC')
-        );
 
         // -------------------------------------------------------------------
 
@@ -1136,12 +812,7 @@ class AdminController extends AbstractController
         // On renvoie les informations à la vue 
         return $this->render('admin/partenaires.html.twig', [
             'PartenairesForm' => $form->createView(),
-            'entreprise' => $entreprise,
-            'localisations' => $localisations,
-            'competences' => $competences,
-            'reseaux' => $reseaux,
             'logos' => $logos,
-            'couleurs' => $couleurs
         ]);
     }
 
@@ -1155,7 +826,7 @@ class AdminController extends AbstractController
         // On récupère les informations d'un partenaire par son $ID
         $partenaire = $manager->find(Partenaires::class, $id);
 
-        // -------------------------------------------------------------------
+// -------------------------------------------------------------------
 
         // On supprime le logo puis le partenaire et on enregistre/envoie l'information en BDD 
         $partenaire->removeLogo();
@@ -1166,43 +837,18 @@ class AdminController extends AbstractController
         $this->addFlash('success', 'Le partenaire a bien été supprimé');
         return $this->redirectToRoute('partenaires');
 
-        // -------------------------------------------------------------------
-
-        // On récupère les informations nécessaires à l'affichage de la vue 
-        $repository = $this->getDoctrine()->getRepository(Entreprise::class);
-        $entreprise = $repository->findOneById(1);
-
-        $repository = $this->getDoctrine()->getRepository(Localisation::class);
-        $localisations = $repository->findAll();
-
-        $repository = $this->getDoctrine()->getRepository(Competences::class);
-        $competences = $repository->findAll();
-
-        $repository = $this->getDoctrine()->getRepository(Reseaux::class);
-        $reseaux = $repository->findOneById(1);
-
-        $repository = $this->getDoctrine()->getRepository(Couleur::class);
-        $couleurs = $repository->findAll(
-            array('dateAffichage' => 'DESC')
-        );
-
-        // -------------------------------------------------------------------
+// -------------------------------------------------------------------
 
         // On renvoie les informations nécessaires à la VUE 
         return $this->render('admin/partenaires.html.twig', [
-            'entreprise' => $entreprise,
-            'localisations' => $localisations,
-            'competences' => $competences,
-            'reseaux' => $reseaux,
-            'couleurs' => $couleurs
         ]);
     }
 
-    /* ---------------------------------------------------------------------------------------------------
+/* ---------------------------------------------------------------------------------------------------
        ╔╦╗╔═╗╦═╗╦╔═╗╔═╗
         ║ ╠═╣╠╦╝║╠╣ ╚═╗
         ╩ ╩ ╩╩╚═╩╚  ╚═╝
-    --------------------------------------------------------------------------------------------------- */
+--------------------------------------------------------------------------------------------------- */
 
 
     /**
@@ -1210,25 +856,6 @@ class AdminController extends AbstractController
      */
     public function tarifsAdmin(Request $request)
     {
-        $repository = $this->getDoctrine()->getRepository(Entreprise::class);
-        $entreprise = $repository->findOneById(1);
-
-        $repository = $this->getDoctrine()->getRepository(Localisation::class);
-        $localisations = $repository->findAll();
-
-        $repository = $this->getDoctrine()->getRepository(Competences::class);
-        $competences = $repository->findAll();
-
-        $repository = $this->getDoctrine()->getRepository(Reseaux::class);
-        $reseaux = $repository->findOneById(1);
-
-        $repository = $this->getDoctrine()->getRepository(Couleur::class);
-        $couleurs = $repository->findAll(
-            array('dateAffichage' => 'DESC')
-        );
-
-        // -------------------------------------------------------------------
-
 
         $repository = $this->getDoctrine()->getRepository(Tarifs::class);
         $tarifs = $repository->findAll();
@@ -1255,15 +882,9 @@ class AdminController extends AbstractController
         }
 
         return $this->render('admin/tarifs.html.twig', [
-            'controller_name' => 'AdminController',
-            'entreprise' => $entreprise,
-            'localisations' => $localisations,
-            'competences' => $competences,
-            'reseaux' => $reseaux,
             'tarifs' => $tarifs,
             'TarifsForm' => $form->createView(),
             'boutonenvoi' => $boutonenvoi,
-            'couleurs' => $couleurs
         ]);
     }
 
@@ -1274,27 +895,12 @@ class AdminController extends AbstractController
     public function updateTarifsAdmin($id, Request $request)
     {
 
-        $repository = $this->getDoctrine()->getRepository(Entreprise::class);
-        $entreprise = $repository->findOneById(1);
-
-        $repository = $this->getDoctrine()->getRepository(Localisation::class);
-        $localisations = $repository->findAll();
-
-        $repository = $this->getDoctrine()->getRepository(Competences::class);
-        $competences = $repository->findAll();
-
-        $repository = $this->getDoctrine()->getRepository(Reseaux::class);
-        $reseaux = $repository->findOneById(1);
 
         $repository = $this->getDoctrine()->getRepository(Tarifs::class);
         $tarifs = $repository->findAll();
 
-        $repository = $this->getDoctrine()->getRepository(Couleur::class);
-        $couleurs = $repository->findAll(
-            array('dateAffichage' => 'DESC')
-        );
 
-        // -------------------------------------------------------------------
+// -------------------------------------------------------------------
 
 
         $boutonenvoi = 'Modifier';
@@ -1316,19 +922,12 @@ class AdminController extends AbstractController
             return $this->redirectToRoute('tarifs-admin');
         }
 
-
+// --------------------------------------------------------------
 
         return $this->render('admin/tarifs.html.twig', [
-            'controller_name' => 'AdminController',
-            'entreprise' => $entreprise,
-            'localisations' => $localisations,
-            'competences' => $competences,
-            'reseaux' => $reseaux,
             'tarifs' => $tarifs,
             'TarifsForm' => $form->createView(),
-            'boutonenvoi' => $boutonenvoi,
-            'couleurs' => $couleurs
-
+            'boutonenvoi' => $boutonenvoi
         ]);
     }
 
@@ -1346,49 +945,21 @@ class AdminController extends AbstractController
         $this->addFlash('success', 'La presation a bien été supprimée.');
         return $this->redirectToRoute('tarifs-admin');
 
-        // -------------------------------------------------------------------
-
-
-
-        $repository = $this->getDoctrine()->getRepository(Entreprise::class);
-        $entreprise = $repository->findOneById(1);
-
-        $repository = $this->getDoctrine()->getRepository(Localisation::class);
-        $localisations = $repository->findAll();
-
-        $repository = $this->getDoctrine()->getRepository(Competences::class);
-        $competences = $repository->findAll();
-
-        $repository = $this->getDoctrine()->getRepository(Reseaux::class);
-        $reseaux = $repository->findOneById(1);
-
-        $repository = $this->getDoctrine()->getRepository(Couleur::class);
-        $couleurs = $repository->findAll(
-            array('dateAffichage' => 'DESC')
-        );
-
+// -------------------------------------------------------------------
 
         return $this->render('admin/espaceadmin.html.twig', [
-            'controller_name' => 'AdminController',
-            'entreprise' => $entreprise,
-            'localisations' => $localisations,
-            'competences' => $competences,
-            'reseaux' => $reseaux,
-            'boutonenvoi' => $boutonenvoi,
-            'couleurs' => $couleurs
-
 
         ]);
     }
 
-    /* ---------------------------------------------------------------------------------------------------
+/* ---------------------------------------------------------------------------------------------------
 
             ╦ ╦╔═╗╦═╗╔═╗╦╦═╗╔═╗╔═╗
             ╠═╣║ ║╠╦╝╠═╣║╠╦╝║╣ ╚═╗
             ╩ ╩╚═╝╩╚═╩ ╩╩╩╚═╚═╝╚═╝
 
 
-    --------------------------------------------------------------------------------------------------- */
+--------------------------------------------------------------------------------------------------- */
 
 
     /**
@@ -1396,30 +967,12 @@ class AdminController extends AbstractController
      */
     public function horairesAdmin(Request $request)
     {
-        $repository = $this->getDoctrine()->getRepository(Entreprise::class);
-        $entreprise = $repository->findOneById(1);
-
-        $repository = $this->getDoctrine()->getRepository(Localisation::class);
-        $localisations = $repository->findAll();
-
-        $repository = $this->getDoctrine()->getRepository(Competences::class);
-        $competences = $repository->findAll();
-
-        $repository = $this->getDoctrine()->getRepository(Reseaux::class);
-        $reseaux = $repository->findOneById(1);
-
-        $repository = $this->getDoctrine()->getRepository(Couleur::class);
-        $couleurs = $repository->findAll(
-            array('dateAffichage' => 'DESC')
-        );
-
-        // -------------------------------------------------------------------
-
+       
 
         $repository = $this->getDoctrine()->getRepository(Horaires::class);
         $horaires = $repository->findAll();
 
-        // --------------------------------------------------------------------
+// --------------------------------------------------------------------
 
 
         $boutonenvoi = 'Ajouter';
@@ -1437,20 +990,16 @@ class AdminController extends AbstractController
 
             $manager->flush();
 
-            $this->addFlash('success', 'L\'horaire a été ajoutée ! ');
+            $this->addFlash('success', 'L\'horaire a été ajouté ! ');
             return $this->redirectToRoute('horaires-admin');
         }
 
+// ----------------------------------------------------------------------
+
         return $this->render('admin/horaires.html.twig', [
-            'controller_name' => 'AdminController',
-            'entreprise' => $entreprise,
-            'localisations' => $localisations,
-            'competences' => $competences,
-            'reseaux' => $reseaux,
             'horaires' => $horaires,
             'HorairesForm' => $form->createView(),
             'boutonenvoi' => $boutonenvoi,
-            'couleurs' => $couleurs
         ]);
     }
 
@@ -1461,27 +1010,11 @@ class AdminController extends AbstractController
     public function updateHorairesAdmin($id, Request $request)
     {
 
-        $repository = $this->getDoctrine()->getRepository(Entreprise::class);
-        $entreprise = $repository->findOneById(1);
-
-        $repository = $this->getDoctrine()->getRepository(Localisation::class);
-        $localisations = $repository->findAll();
-
-        $repository = $this->getDoctrine()->getRepository(Competences::class);
-        $competences = $repository->findAll();
-
-        $repository = $this->getDoctrine()->getRepository(Reseaux::class);
-        $reseaux = $repository->findOneById(1);
-
+      
         $repository = $this->getDoctrine()->getRepository(Horaires::class);
         $horaires = $repository->findAll();
 
-        $repository = $this->getDoctrine()->getRepository(Couleur::class);
-        $couleurs = $repository->findAll(
-            array('dateAffichage' => 'DESC')
-        );
-
-        // -------------------------------------------------------------------
+// -------------------------------------------------------------------
 
         $boutonenvoi = 'Modifier';
 
@@ -1502,18 +1035,12 @@ class AdminController extends AbstractController
             return $this->redirectToRoute('horaires-admin');
         }
 
-
+// -----------------------------------------------------------------
 
         return $this->render('admin/horaires.html.twig', [
-            'controller_name' => 'AdminController',
-            'entreprise' => $entreprise,
-            'localisations' => $localisations,
-            'competences' => $competences,
-            'reseaux' => $reseaux,
             'horaires' => $horaires,
             'HorairesForm' => $form->createView(),
             'boutonenvoi' => $boutonenvoi,
-            'couleurs' => $couleurs
 
         ]);
     }
@@ -1532,25 +1059,6 @@ class AdminController extends AbstractController
         $this->addFlash('success', 'L\'horaire a bien été supprimée.');
         return $this->redirectToRoute('horaires-admin');
 
-        // -------------------------------------------------------------------
-
-
-        $repository = $this->getDoctrine()->getRepository(Entreprise::class);
-        $entreprise = $repository->findOneById(1);
-
-        $repository = $this->getDoctrine()->getRepository(Localisation::class);
-        $localisations = $repository->findAll();
-
-        $repository = $this->getDoctrine()->getRepository(Competences::class);
-        $competences = $repository->findAll();
-
-        $repository = $this->getDoctrine()->getRepository(Reseaux::class);
-        $reseaux = $repository->findOneById(1);
-
-        $repository = $this->getDoctrine()->getRepository(Couleur::class);
-        $couleurs = $repository->findAll(
-            array('dateAffichage' => 'DESC')
-        );
     }
 
 
@@ -1596,24 +1104,8 @@ class AdminController extends AbstractController
             return $this->redirectToRoute('aide-support');
         }
 
-        $repository = $this->getDoctrine()->getRepository(Entreprise::class);
-        $entreprise = $repository->findOneById(1);
-
-        $repository = $this->getDoctrine()->getRepository(Localisation::class);
-        $localisations = $repository->findAll();
-
-        $repository = $this->getDoctrine()->getRepository(Competences::class);
-        $competences = $repository->findAll();
-
-        $repository = $this->getDoctrine()->getRepository(Reseaux::class);
-        $reseaux = $repository->findOneById(1);
 
         return $this->render('admin/aide-support.html.twig', [
-            'controller_name' => 'AdminController',
-            'entreprise' => $entreprise,
-            'localisations' => $localisations,
-            'competences' => $competences,
-            'reseaux' => $reseaux,
             'user' => $user
         ]);
     }
@@ -1636,28 +1128,13 @@ class AdminController extends AbstractController
      */
     public function contenuMobile(Request $request)
     {
-        $repository = $this->getDoctrine()->getRepository(Entreprise::class);
-        $entreprise = $repository->findOneById(1);
+        
 
-        $repository = $this->getDoctrine()->getRepository(Localisation::class);
-        $localisations = $repository->findAll();
-
-        $repository = $this->getDoctrine()->getRepository(Competences::class);
-        $competences = $repository->findAll();
-
-        $repository = $this->getDoctrine()->getRepository(Reseaux::class);
-        $reseaux = $repository->findOneById(1);
-
-        $repository = $this->getDoctrine()->getRepository(Couleur::class);
-        $couleurs = $repository->findAll(
-            array('dateAffichage' => 'DESC')
-        );
-        // -------------------------------------------------------------------
 
         $repository = $this->getDoctrine()->getRepository(Mobile::class);
         $mobiles = $repository->findAll();
 
-        // --------------------------------------------------------------------
+// --------------------------------------------------------------------
 
         // On crée un objet vide 
         $mobile = new Mobile;
@@ -1679,7 +1156,7 @@ class AdminController extends AbstractController
             return $this->redirectToRoute('contenumobile');
         }
 
-        // -------------------------------------------------------------------
+// -------------------------------------------------------------------
 
         // On crée la variable date pour pouvoir ensuite générer une date dynamique qui sera renvoyée dans le formulaire
         // Cela permet de générer une date, que l'on traitera ensuite pour classer les éléments 
@@ -1694,20 +1171,15 @@ class AdminController extends AbstractController
         // Le bouton est adapté à chaque situation 
         $boutonenvoi = 'Envoyer';
 
-        // -------------------------------------------------------------------
+// -------------------------------------------------------------------
 
         // On renvoie les informations dans la VUE 
 
         return $this->render('admin/contenu-mobile.html.twig', [
-            'entreprise' => $entreprise,
-            'localisations' => $localisations,
-            'competences' => $competences,
-            'reseaux' => $reseaux,
             'mobiles' => $mobiles,
             'MobileForm' => $form->createView(),
             'date' => $date,
-            'boutonenvoi' => $boutonenvoi,
-            'couleurs' => $couleurs
+            'boutonenvoi' => $boutonenvoi   
         ]);
     }
 
@@ -1717,30 +1189,10 @@ class AdminController extends AbstractController
     public function setStatutMobile(Request $request, $id)
     {
 
-        // On récupère les informations en BDD
-        $repository = $this->getDoctrine()->getRepository(Entreprise::class);
-        $entreprise = $repository->findOneById(1);
-
-        $repository = $this->getDoctrine()->getRepository(Localisation::class);
-        $localisations = $repository->findAll();
-
-        $repository = $this->getDoctrine()->getRepository(Competences::class);
-        $competences = $repository->findAll();
-
-        $repository = $this->getDoctrine()->getRepository(Reseaux::class);
-        $reseaux = $repository->findOneById(1);
-
-        $repository = $this->getDoctrine()->getRepository(Couleur::class);
-        $couleurs = $repository->findAll(
-            array('dateAffichage' => 'DESC')
-        );
-        // -------------------------------------------------------------------
-
-
         $repository = $this->getDoctrine()->getRepository(Mobile::class);
         $mobiles = $repository->findAll();
 
-        // -------------------------------------------------------------------
+// -------------------------------------------------------------------
 
 
         $manager = $this->getDoctrine()->getManager();
@@ -1761,7 +1213,7 @@ class AdminController extends AbstractController
             return $this->redirectToRoute('contenumobile');
         }
 
-        // -------------------------------------------------------------------
+// -------------------------------------------------------------------
 
         // Dans ce cas-là, on modifie la variable date pour que la date actuelle soit générée
         // Cela nous permet d'avoir la date la plus recénte qui permet un affichage dans la VUE principale
@@ -1772,19 +1224,13 @@ class AdminController extends AbstractController
         // Et non pas envoyer ou modifier comme les vues précédentes 
         $boutonenvoi = 'Publier';
 
-        // -------------------------------------------------------------------
+// -------------------------------------------------------------------
 
         return $this->render('admin/contenu-mobile.html.twig', [
-            'controller_name' => 'AdminController',
-            'entreprise' => $entreprise,
-            'localisations' => $localisations,
-            'competences' => $competences,
-            'reseaux' => $reseaux,
             'mobiles' => $mobiles,
             'MobileForm' => $form->createView(),
             'date' => $date,
-            'boutonenvoi' => $boutonenvoi,
-            'couleurs' => $couleurs
+            'boutonenvoi' => $boutonenvoi
         ]);
     }
 
@@ -1794,28 +1240,12 @@ class AdminController extends AbstractController
      */
     public function updateContenuMobile($id, Request $request)
     {
-        // On récupère les informations en BDD 
-        $repository = $this->getDoctrine()->getRepository(Entreprise::class);
-        $entreprise = $repository->findOneById(1);
-
-        $repository = $this->getDoctrine()->getRepository(Localisation::class);
-        $localisations = $repository->findAll();
-
-        $repository = $this->getDoctrine()->getRepository(Competences::class);
-        $competences = $repository->findAll();
-
-        $repository = $this->getDoctrine()->getRepository(Reseaux::class);
-        $reseaux = $repository->findOneById(1);
 
         $repository = $this->getDoctrine()->getRepository(Mobile::class);
         $mobiles = $repository->findAll();
 
-        $repository = $this->getDoctrine()->getRepository(Couleur::class);
-        $couleurs = $repository->findAll(
-            array('dateAffichage' => 'DESC')
-        );
 
-        // -------------------------------------------------------------------
+// -------------------------------------------------------------------
 
         $manager = $this->getDoctrine()->getManager();
         $mobile = $manager->find(Mobile::class, $id);
@@ -1840,7 +1270,7 @@ class AdminController extends AbstractController
         }
 
 
-        // -------------------------------------------------------------------
+// -------------------------------------------------------------------
 
         // Ici, on indique que la variable $date passe à 0 pour que la date de l'entrée en BDD ne change pas
         // Elle passe à 0 ce qui nous permet dans le tri effectué pour l'affichage de la VUE SECTIONS => section-histoire-etp 
@@ -1850,20 +1280,14 @@ class AdminController extends AbstractController
         // Le $boutonenvoi devient modofier et non plus envoyer pour indiquer qu'on modifie
         $boutonenvoi = 'Modifier';
 
-        // -------------------------------------------------------------------
+// -------------------------------------------------------------------
 
         // On renvoie les informations dans la VUE 
         return $this->render('admin/contenu-mobile.html.twig', [
-            'controller_name' => 'AdminController',
-            'entreprise' => $entreprise,
-            'localisations' => $localisations,
-            'competences' => $competences,
-            'reseaux' => $reseaux,
             'mobiles' => $mobiles,
             'MobileForm' => $form->createView(),
             'date' => $date,
-            'boutonenvoi' => $boutonenvoi,
-            'couleurs' => $couleurs
+            'boutonenvoi' => $boutonenvoi
         ]);
     }
 
@@ -1884,47 +1308,10 @@ class AdminController extends AbstractController
         $this->addFlash('success', 'Le texte pour la version mobile a bien été supprimé.');
         return $this->redirectToRoute('contenumobile');
 
-        // -------------------------------------------------------------------
-
-        // On récupère les informations de BASE nécessaires 
-        $repository = $this->getDoctrine()->getRepository(Entreprise::class);
-        $entreprise = $repository->findOneById(1);
-
-        $repository = $this->getDoctrine()->getRepository(Localisation::class);
-        $localisations = $repository->findAll();
-
-        $repository = $this->getDoctrine()->getRepository(Competences::class);
-        $competences = $repository->findAll();
-
-        $repository = $this->getDoctrine()->getRepository(Reseaux::class);
-        $reseaux = $repository->findOneById(1);
-
-        $repository = $this->getDoctrine()->getRepository(Couleur::class);
-        $couleurs = $repository->findAll(
-            array('dateAffichage' => 'DESC')
-        );
-
-        // -------------------------------------------------------------------
-
-
-        // De nouveau, on créé des variables pour le dynamisme de la page 
-        $date = '';
-        $boutonenvoi = 'Envoyer';
-
-
-        // -------------------------------------------------------------------
-
 
         // On renvoie les informations dans la VUE
         return $this->render('admin/espaceadmin.html.twig', [
-            'controller_name' => 'AdminController',
-            'entreprise' => $entreprise,
-            'localisations' => $localisations,
-            'competences' => $competences,
-            'reseaux' => $reseaux,
-            'date' => $date,
-            'boutonenvoi' => $boutonenvoi,
-            'couleurs' => $couleurs
-        ]);
+
+            ]);
     }
 }
