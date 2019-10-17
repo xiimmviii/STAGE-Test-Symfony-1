@@ -22,7 +22,7 @@ class Labels
     private $nom;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\icons", inversedBy="labels")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Icons", inversedBy="labels")
      * @ORM\JoinColumn(nullable=false)
      */
     private $svg_nom;
