@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Design;
+use App\Entity\Mobile;
 use App\Entity\Tarifs;
 use App\Entity\Contenu;
 use App\Entity\Couleur;
@@ -67,6 +68,11 @@ class BaseController extends AbstractController
             array('dateAffichage' => 'DESC')
         );
 
+        $repository = $this->getDoctrine()->getRepository(Mobile::class);
+        $mobiles = $repository->findAll(
+            array('dateAffichage' => 'DESC')
+        );
+
         $repository = $this->getDoctrine()->getRepository(Contenu::class);
         //pour l'historique on sélectionne seulement dans la table contenu les lignes qui ont pour section le terme "historique"
         $historiques = $repository->findAll(array('dateAffichage' => 'DESC'));
@@ -106,6 +112,7 @@ class BaseController extends AbstractController
             'competences' => $competences,
             'reseaux' => $reseaux,
             'historiques' => $historiques,
+            'mobiles' => $mobiles,
             'logos' => $logos,
             'couleurs' => $couleurs,
             'horaires' => $horaires,

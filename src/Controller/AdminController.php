@@ -4,6 +4,7 @@ namespace App\Controller;
 
 
 use App\Entity\User;
+use App\Entity\Mobile;
 use App\Entity\Tarifs;
 use App\Entity\Contenu;
 use App\Entity\Couleur;
@@ -11,6 +12,7 @@ use App\Entity\Galerie;
 use App\Entity\Picture;
 use App\Entity\Reseaux;
 use App\Entity\Horaires;
+use App\Form\MobileType;
 use App\Form\TarifsType;
 use App\Form\ContenuType;
 use App\Form\GalerieType;
@@ -1613,6 +1615,316 @@ class AdminController extends AbstractController
             'competences' => $competences,
             'reseaux' => $reseaux,
             'user' => $user
+        ]);
+    }
+
+
+
+
+     /* ---------------------------------------------------------------------------------------------------
+
+  
+    ╔═╗╔═╗╔╗╔╔╦╗╔═╗╔╗╔╦ ╦  ╔╦╗╔═╗╔╗ ╦╦  ╔═╗
+    ║  ║ ║║║║ ║ ║╣ ║║║║ ║  ║║║║ ║╠╩╗║║  ║╣ 
+    ╚═╝╚═╝╝╚╝ ╩ ╚═╝╝╚╝╚═╝  ╩ ╩╚═╝╚═╝╩╩═╝╚═╝
+
+
+    --------------------------------------------------------------------------------------------------- */
+
+    /**
+     * @Route("/admin/contenu-mobile", name="contenumobile")
+     */
+    public function contenuMobile(Request $request)
+    {
+        $repository = $this->getDoctrine()->getRepository(Entreprise::class);
+        $entreprise = $repository->findOneById(1);
+
+        $repository = $this->getDoctrine()->getRepository(Localisation::class);
+        $localisations = $repository->findAll();
+
+        $repository = $this->getDoctrine()->getRepository(Competences::class);
+        $competences = $repository->findAll();
+
+        $repository = $this->getDoctrine()->getRepository(Reseaux::class);
+        $reseaux = $repository->findOneById(1);
+
+        $repository = $this->getDoctrine()->getRepository(Couleur::class);
+        $couleurs = $repository->findAll(
+            array('dateAffichage' => 'DESC')
+        );
+        // -------------------------------------------------------------------
+
+        $repository = $this->getDoctrine()->getRepository(Mobile::class);
+        $mobiles = $repository->findAll();
+
+        // --------------------------------------------------------------------
+
+        // On crée un objet vide 
+        $mobile = new Mobile;
+
+        // On créé la vue d'un formulaire qui provient du dossier FORM > MobileType.php 
+        $form = $this->createForm(MobileType::class, $mobile);
+        $form->handleRequest($request);
+
+        $manager = $this->getDoctrine()->getManager();
+
+        // On traite les données du formulaire >> CF lignes 81/85
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $manager->persist($mobile);
+
+            $manager->flush();
+
+            $this->addFlash('success', 'Les modifications ont été effectuées ! ');
+            return $this->redirectToRoute('contenumobile');
+        }
+
+        // -------------------------------------------------------------------
+
+        // On crée la variable date pour pouvoir ensuite générer une date dynamique qui sera renvoyée dans le formulaire
+        // Cela permet de générer une date, que l'on traitera ensuite pour classer les éléments 
+        // Dans la VUE ADMIN >> histoire-entreprise.html.twig ligne-25, on entre la variable dans le formulaire de façon automatique
+        // Ce qui permet d'afficher seulement celle que l'on désire dans la vue SECTIONS >> section-mobile-etp.html.twig
+        // Elle est ici vide, car pour l'affichage, cela n'est pas pertinent 
+
+        $date = '';
+
+
+        // Cette variable permet de changer la valeur dans le bouton d'envoi afin de le rendre dynamique dans les différentes vues
+        // Le bouton est adapté à chaque situation 
+        $boutonenvoi = 'Envoyer';
+
+        // -------------------------------------------------------------------
+
+        // On renvoie les informations dans la VUE 
+
+        return $this->render('admin/contenu-mobile.html.twig', [
+            'entreprise' => $entreprise,
+            'localisations' => $localisations,
+            'competences' => $competences,
+            'reseaux' => $reseaux,
+            'mobiles' => $mobiles,
+            'MobileForm' => $form->createView(),
+            'date' => $date,
+            'boutonenvoi' => $boutonenvoi,
+            'couleurs' => $couleurs
+        ]);
+    }
+
+    /**
+     * @Route("/admin/contenu-mobile/affichage/{id}", name="affichage_contenu-mobile")
+     */
+    public function setStatutMobile(Request $request, $id)
+    {
+
+        // On récupère les informations en BDD
+        $repository = $this->getDoctrine()->getRepository(Entreprise::class);
+        $entreprise = $repository->findOneById(1);
+
+        $repository = $this->getDoctrine()->getRepository(Localisation::class);
+        $localisations = $repository->findAll();
+
+        $repository = $this->getDoctrine()->getRepository(Competences::class);
+        $competences = $repository->findAll();
+
+        $repository = $this->getDoctrine()->getRepository(Reseaux::class);
+        $reseaux = $repository->findOneById(1);
+
+        $repository = $this->getDoctrine()->getRepository(Couleur::class);
+        $couleurs = $repository->findAll(
+            array('dateAffichage' => 'DESC')
+        );
+        // -------------------------------------------------------------------
+
+
+        $repository = $this->getDoctrine()->getRepository(Mobile::class);
+        $mobiles = $repository->findAll();
+
+        // -------------------------------------------------------------------
+
+
+        $manager = $this->getDoctrine()->getManager();
+        $mobile = $manager->find(Mobile::class, $id);
+
+
+        // On créé la vue d'un formulaire qui provient du dossier FORM > MobileType.php 
+        $form = $this->createForm(MobileType::class, $mobile);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $manager->persist($mobile);
+
+            $manager->flush();
+
+            $this->addFlash('success', 'Les modifications ont été effectuées ! ');
+            return $this->redirectToRoute('contenumobile');
+        }
+
+        // -------------------------------------------------------------------
+
+        // Dans ce cas-là, on modifie la variable date pour que la date actuelle soit générée
+        // Cela nous permet d'avoir la date la plus recénte qui permet un affichage dans la VUE principale
+        // C-A-D qu'on trie par DATE DESC et qu'on affiche 1 seule valeur 
+        $date = date("Y-m-d H-i-s");
+
+        // La variable permet à l'utilsateur de voir "publier" de façon dynamique
+        // Et non pas envoyer ou modifier comme les vues précédentes 
+        $boutonenvoi = 'Publier';
+
+        // -------------------------------------------------------------------
+
+        return $this->render('admin/contenu-mobile.html.twig', [
+            'controller_name' => 'AdminController',
+            'entreprise' => $entreprise,
+            'localisations' => $localisations,
+            'competences' => $competences,
+            'reseaux' => $reseaux,
+            'mobiles' => $mobiles,
+            'MobileForm' => $form->createView(),
+            'date' => $date,
+            'boutonenvoi' => $boutonenvoi,
+            'couleurs' => $couleurs
+        ]);
+    }
+
+
+    /**
+     * @Route("/admin/contenu-mobile/update/{id}", name="update_contenu-mobile")
+     */
+    public function updateContenuMobile($id, Request $request)
+    {
+        // On récupère les informations en BDD 
+        $repository = $this->getDoctrine()->getRepository(Entreprise::class);
+        $entreprise = $repository->findOneById(1);
+
+        $repository = $this->getDoctrine()->getRepository(Localisation::class);
+        $localisations = $repository->findAll();
+
+        $repository = $this->getDoctrine()->getRepository(Competences::class);
+        $competences = $repository->findAll();
+
+        $repository = $this->getDoctrine()->getRepository(Reseaux::class);
+        $reseaux = $repository->findOneById(1);
+
+        $repository = $this->getDoctrine()->getRepository(Mobile::class);
+        $mobiles = $repository->findAll();
+
+        $repository = $this->getDoctrine()->getRepository(Couleur::class);
+        $couleurs = $repository->findAll(
+            array('dateAffichage' => 'DESC')
+        );
+
+        // -------------------------------------------------------------------
+
+        $manager = $this->getDoctrine()->getManager();
+        $mobile = $manager->find(Mobile::class, $id);
+
+
+        // On créé la vue d'un formulaire qui provient du dossier FORM > MobileType.php 
+        $form = $this->createForm(MobileType::class, $mobile);
+
+        // On gère les informations du formulaire
+        $form->handleRequest($request);
+
+        // Conditions du formulaire >> CF l.81/85
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $manager->persist($mobile);
+
+            $manager->flush();
+
+            // Message qui confirme l'action et retour à la route 
+            $this->addFlash('success', 'Les modifications ont été effectuées ! ');
+            return $this->redirectToRoute('contenumobile');
+        }
+
+
+        // -------------------------------------------------------------------
+
+        // Ici, on indique que la variable $date passe à 0 pour que la date de l'entrée en BDD ne change pas
+        // Elle passe à 0 ce qui nous permet dans le tri effectué pour l'affichage de la VUE SECTIONS => section-histoire-etp 
+        // De n'afficher qu'une entrée : la plus récente 
+        $date = '0';
+
+        // Le $boutonenvoi devient modofier et non plus envoyer pour indiquer qu'on modifie
+        $boutonenvoi = 'Modifier';
+
+        // -------------------------------------------------------------------
+
+        // On renvoie les informations dans la VUE 
+        return $this->render('admin/contenu-mobile.html.twig', [
+            'controller_name' => 'AdminController',
+            'entreprise' => $entreprise,
+            'localisations' => $localisations,
+            'competences' => $competences,
+            'reseaux' => $reseaux,
+            'mobiles' => $mobiles,
+            'MobileForm' => $form->createView(),
+            'date' => $date,
+            'boutonenvoi' => $boutonenvoi,
+            'couleurs' => $couleurs
+        ]);
+    }
+
+    /**
+     * @Route("/admin/contenu-mobile/delete/{id}", name="delete_contenu-mobile")
+     */
+    public function deleteContenuMobile($id)
+    {
+        $manager = $this->getDoctrine()->getManager();
+        // On récupère l'objet de la BDD en fonction de son *ID
+        $mobile = $manager->find(Mobile::class, $id);
+
+        // Grâce au MANAGER, on supprime l'élément de la BDD
+        $manager->remove($mobile);
+        $manager->flush();
+
+        // On confirme à l'utilisateur que la suppression a bien été effectuée.
+        $this->addFlash('success', 'Le texte pour la version mobile a bien été supprimé.');
+        return $this->redirectToRoute('contenumobile');
+
+        // -------------------------------------------------------------------
+
+        // On récupère les informations de BASE nécessaires 
+        $repository = $this->getDoctrine()->getRepository(Entreprise::class);
+        $entreprise = $repository->findOneById(1);
+
+        $repository = $this->getDoctrine()->getRepository(Localisation::class);
+        $localisations = $repository->findAll();
+
+        $repository = $this->getDoctrine()->getRepository(Competences::class);
+        $competences = $repository->findAll();
+
+        $repository = $this->getDoctrine()->getRepository(Reseaux::class);
+        $reseaux = $repository->findOneById(1);
+
+        $repository = $this->getDoctrine()->getRepository(Couleur::class);
+        $couleurs = $repository->findAll(
+            array('dateAffichage' => 'DESC')
+        );
+
+        // -------------------------------------------------------------------
+
+
+        // De nouveau, on créé des variables pour le dynamisme de la page 
+        $date = '';
+        $boutonenvoi = 'Envoyer';
+
+
+        // -------------------------------------------------------------------
+
+
+        // On renvoie les informations dans la VUE
+        return $this->render('admin/espaceadmin.html.twig', [
+            'controller_name' => 'AdminController',
+            'entreprise' => $entreprise,
+            'localisations' => $localisations,
+            'competences' => $competences,
+            'reseaux' => $reseaux,
+            'date' => $date,
+            'boutonenvoi' => $boutonenvoi,
+            'couleurs' => $couleurs
         ]);
     }
 }

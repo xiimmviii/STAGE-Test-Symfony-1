@@ -270,6 +270,19 @@ transition-duration: 0.3s;
         z-index: 1
     }
 
+    .top-mobile {
+        height: 30vh;
+        background: url('../design/TEST_HTML/BASE/anton-dmitriev-kBKOaghy8mU-unsplash.jpg') fixed no-repeat;
+        background-size: contain;
+        background-position: top;
+    }
+
+    .mobile-text{
+        border-radius: 3vh;
+        top: -80px;
+        text-align: justify!important;
+    }
+
     .link-box1 {
         left: 1%;
         bottom: 3%;

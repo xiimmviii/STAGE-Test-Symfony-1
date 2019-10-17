@@ -28,7 +28,7 @@
                 });
             });
         </script>
-         <script src="https://cdn.jsdelivr.net/npm/bs-custom-file-input/dist/bs-custom-file-input.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bs-custom-file-input/dist/bs-custom-file-input.min.js"></script>
         <script>
             $(document).ready(function () {
                 bsCustomFileInput.init()
@@ -54,14 +54,18 @@
                             <a class="nav-link dropdown-toggle" href="{{path('admin')}}" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 Gérer les informations
                             </a>
-                            <div class="dropdown-menu alert-info" aria-labelledby="navbarDropdownMenuLink">
-                             {#   <a class="dropdown-item" href="{{path('presentationentreprise')}}">Présentation de
-                                                                    l'entreprise</a> #}
+                            <div
+                                class="dropdown-menu alert-info" aria-labelledby="navbarDropdownMenuLink">
+                                {#   <a class="dropdown-item" href="{{path('presentationentreprise')}}">Présentation de
+                                                                                                    l'entreprise</a> #}
                                 <a class="dropdown-item" href="{{path('histoireentreprise')}}">Histoire de l'entreprise</a>
                                 <a class="dropdown-item" href="{{path('partenaires')}}">Partenaires</a>
                                 <a class="dropdown-item" href="{{path('competences')}}">Compétences</a>
                                 <a class="dropdown-item" href="{{path('localisation')}}">Localisation</a>
                                 <a class="dropdown-item" href="{{path('reseaux')}}">Réseaux Sociaux</a>
+                                <a class="dropdown-item" href="{{path('contenumobile')}}">Version Mobile
+                                </a>
+
                             </div>
                         </li>
                         <li class="nav-item">
@@ -87,7 +91,7 @@
                             <div class="dropdown-menu alert-info" aria-labelledby="navbarDropdownMenuLink">
                                 <a class="dropdown-item" href="{{path('index')}}" target="blank">Index</a>
                                 <a class="dropdown-item" href="{{path('realisations')}}" target="blank">Galerie des
-                                                                    réalisations
+                                                                                                        réalisations
                                 </a>
                                 <a class="dropdown-item" href="{{path('tarifs')}}">Tarifs</a>
                                 <a class="dropdown-item" href="{{path('contact')}}" target="blank">Contact
@@ -147,7 +151,11 @@
 
             <footer class="alert-info text-secondary p-3">
                 <div class="row justify-content-between">
-                    <div class="col-8 m-2">Copyright © 2019{{entreprise.nom}}  |  <a href="{{path('mentions')}}" class="text-secondary">Mentions légales</a>  |  <a href="{{path('CGU')}}" class="text-secondary">CGU</a>
+                    <div class="col-8 m-2">Copyright © 2019{{entreprise.nom}}
+                        |
+                        <a href="{{path('mentions')}}" class="text-secondary">Mentions légales</a>
+                        |
+                        <a href="{{path('CGU')}}" class="text-secondary">CGU</a>
                     </div>
 
                     <div class="col-3 text-right m-2">
