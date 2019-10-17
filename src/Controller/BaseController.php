@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Icons;
 use App\Entity\Design;
 use App\Entity\Mobile;
 use App\Entity\Tarifs;
@@ -59,6 +60,9 @@ class BaseController extends AbstractController
 
         $repository = $this->getDoctrine()->getRepository(Competences::class);
         $competences = $repository->findAll();
+
+        $repository = $this->getDoctrine()->getRepository(Icons::class);
+        $icons = $repository->findAll();
 
         $repository = $this->getDoctrine()->getRepository(Reseaux::class);
         $reseaux = $repository->findOneById(1);
@@ -118,6 +122,7 @@ class BaseController extends AbstractController
             'horaires' => $horaires,
             'form' => $form->createView(),
             'svgTransis' => $svgTransis,
+            'icons' => $icons,
 
         ]);
     }

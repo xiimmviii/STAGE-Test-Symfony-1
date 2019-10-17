@@ -44,6 +44,9 @@
         <div class="row m-3">
             <div class="col-12 alert-info border border-info rounded">
 
+                {% set totalLabels2 = totalLabels.0 %}
+
+                {% if totalLabels2.1 < 5 %}
                 {{ form_start(LabelsForm) }}
 
                 {{ form_label(LabelsForm.nom) }}
@@ -54,6 +57,12 @@
                 {{ form_row(LabelsForm.submit, {'attr': {'class': 'col-12 btn btn-outline-success mt-3'} } ) }}
 
                 {{ form_end(LabelsForm) }}
+
+                {% else %}
+
+                <p>Vous avez atteint la limite de 5 labels maximum. Pour en créer un nouveau, veuillez en supprimer un existant.</p>
+
+                {% endif %}
             </div>
         </div>
 
@@ -66,28 +75,24 @@
                 <div class="row">
 
                     {% for iconsaffiche in iconsaffiches %}
+                        {% for label in iconsaffiche.labels2 %}
 
-                    {% for label in iconsaffiche.labels2 %}
+                            <div class="col-4 offset-2">
+                                {{label.nom}}
+                            </div>
+                            <div class="col-3">
+                                <div class="w-50">
+                                    {{ iconsaffiche.code | raw }}</div>
+                            </div>
 
-                    <div class="col-4 offset-2">
-                        {{label.nom}}
-                    </div>
-                    <div class="col-3">
-                        <div class="w-50">
-                            {{ iconsaffiche.code | raw }}</div>
-                    </div>
+                            <div class="col-3">
+                                <a class="text-danger h4" href="{{ path('superadmin-label-delete', {id : label.id }) }}"
+                                    onclick="return confirm('Etes-vous certain(e) de vouloir supprimer ?')">
+                                    <i class="fas fa-trash-alt"></i>
+                                </a>
+                            </div>
 
-                    <div class="col-3">
-                            <div class="w-50">
-                                {{ iconsaffiche.code | raw }}</div>
-                        </div>
-                    {% endfor %}
-
-
-                    {# {% for picture in galerie.pictures %}
-                            <img class="img-thumbnail w-25" src="{{ vich_uploader_asset(picture, 'imageFile') }}" alt="">
-                        {% endfor %} #}
-
+                        {% endfor %}
                     {% endfor %}
                 </div>
 

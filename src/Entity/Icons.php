@@ -36,7 +36,7 @@ class Icons
      */
     private $nom;
 
-        /**
+    /**
      * C'est grâce à ce code qu'on fait le lien entre cette table et la table "labels"
      * Une icon peut avoir en théorie 0 labels associés min  et N labels associés max => OnetoMany
      *
@@ -77,7 +77,7 @@ class Icons
         return $this;
     }
 
-            /**
+    /**
      * @return Collection|Label[]
      */
     public function getLabels2(): Collection
@@ -93,5 +93,4 @@ class Icons
         }
         return $this->labels2->first();
     }
-
 }

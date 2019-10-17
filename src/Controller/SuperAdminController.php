@@ -568,12 +568,6 @@ class SuperAdminController extends AbstractController
 
         // ----------------------------------------------------------------------
 
-        // //On utilise le repository pour accéder à la table Couleur
-        // $repository = $this->getDoctrine()->getRepository(Labels::class);
-        // //On récupère toutes les données de la table Galerie et on les injecte dans l'objet $photos
-        // $labelsaffiches = $repository->findAll();
-
-
         //On utilise le repository pour accéder à la table Couleur
         $repository = $this->getDoctrine()->getRepository(Icons::class);
         //On récupère toutes les données de la table Galerie et on les injecte dans l'objet $photos
@@ -584,19 +578,23 @@ class SuperAdminController extends AbstractController
         // ----------------------------------------------------------------------
 
 
-        // // Dans ce cas-là, on modifie la variable date pour que la date actuelle soit générée
-        // // Cela nous permet d'avoir la date la plus recénte qui permet un affichage dans la VUE principale
-        // // C-A-D qu'on trie par DATE DESC et qu'on affiche 1 seule valur 
-        // $date = date("Y-m-d H-i-s");
 
-        // // La variable permet à l'utilsateur de voir "publier" de façon dynamique
-        // // Et non pas envoyer ou modifier comme les vues précédentes 
-        // $boutonenvoi = 'Publier';
+        //On veut limiter le nombre de labels possibles à 5. 
 
+        // On récupère le manager
+        $em = $this->getDoctrine()->getManager();
 
+        // On va dans l'entité Localisation
+        $repo = $em->getRepository(Labels::class);
 
+        // On fait une requête pour compter combien de labels il y a dans la table labels (labels = l)
+        $totalLabels = $repo->createQueryBuilder('l')
+            //on séléctionne comment on compte les lignes (par l'id)
+            ->select('count(l.id)')
+            ->getQuery()
+            ->getResult();
 
-        // -----------------------------------------------------------------------------------
+        // ----------------------------------------------------------------------
 
         //on injecte les données dans la vue réalisations (en incluant les données pour le footer)
         return $this->render('super-admin/labels.html.twig', [
@@ -608,8 +606,61 @@ class SuperAdminController extends AbstractController
             'icons' => $icons,
             'labels' => $labels,
             'LabelsForm' => $form->createView(),
-            // 'labelsaffiches' => $labelsaffiches,
             'iconsaffiches' => $iconsaffiches,
+            'totalLabels' => $totalLabels,
+        ]);
+    }
+
+
+    /**
+     * Supprime le label dans la BDD via le panneau super-administrateur
+     * 
+     *  @Route("/super-admin/label-delete/{id}", name="superadmin-label-delete")
+     */
+    public function deleteLabel($id)
+    {
+        // On récupère le MANAGER pour pouvoir gérer les informations en BDD >> Galerie
+        $manager = $this->getDoctrine()->getManager();
+
+        // On trouve l'élément concerné dans la table Galerie via son $ID et on lui applique une variable
+        $label = $manager->find(Labels::class, $id);
+
+
+        // On supprime ensuite la galerie de la BDD 
+        $manager->remove($label);
+        $manager->flush();
+
+        // Message de succès et renvoi à la vue ADMIN >> Galerie Photos 
+        $this->addFlash('success', 'Le label a bien été supprimé.');
+        return $this->redirectToRoute('superadmin-labels');
+
+        // ----------------------------------------------------------------------
+
+        // On récupère et on renvoie les informations nécessaires pour l'affichage de la VUE
+        $repository = $this->getDoctrine()->getRepository(Entreprise::class);
+        $entreprise = $repository->findOneById(1);
+
+        $repository = $this->getDoctrine()->getRepository(Localisation::class);
+        $localisations = $repository->findAll();
+
+        $repository = $this->getDoctrine()->getRepository(Competences::class);
+        $competences = $repository->findAll();
+
+        $repository = $this->getDoctrine()->getRepository(Reseaux::class);
+        $reseaux = $repository->findOneById(1);
+
+        $repository = $this->getDoctrine()->getRepository(Couleur::class);
+        $couleurs = $repository->findAll(
+            array('dateAffichage' => 'DESC')
+        );
+
+        return $this->render('super-admin/labels.html.twig', [
+            'entreprise' => $entreprise,
+            'localisations' => $localisations,
+            'competences' => $competences,
+            'reseaux' => $reseaux,
+            'couleurs' => $couleurs,
+            'label' => $label,
         ]);
     }
 }
