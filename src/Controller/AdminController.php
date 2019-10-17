@@ -50,7 +50,6 @@ class AdminController extends AbstractController
         // On retourne ensuite les éléments récupérés dans la vue 
         // Qu'on injectera entre {{}} dans la vue twig ADMIN -> espaceadmin.html.twig
         return $this->render('admin/espaceadmin.html.twig', [
-            'controller_name' => 'AdminController',
         ]);
     }
 

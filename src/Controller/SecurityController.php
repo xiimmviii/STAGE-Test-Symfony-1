@@ -3,12 +3,6 @@
 namespace App\Controller;
 
 use App\Entity\User;
-use App\Entity\Couleur;
-use App\Entity\Reseaux;
-use App\Entity\Entreprise;
-use App\Entity\Competences;
-use App\Entity\Localisation;
-use App\Entity\Specificites;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -28,26 +22,8 @@ class SecurityController extends AbstractController
      */
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
-        // Pour que le footer reçoive bien les données dont il a besoin, il faut aller chercher les données dans les tables Specificites et Entreprise
 
-        $repository = $this->getDoctrine()->getRepository(Entreprise::class);
-        $entreprise = $repository->findOneById(1);
-
-        $repository = $this->getDoctrine()->getRepository(Localisation::class);
-        $localisations = $repository->findAll();
-
-        $repository = $this->getDoctrine()->getRepository(Competences::class);
-        $competences = $repository->findAll();
-
-        $repository = $this->getDoctrine()->getRepository(Reseaux::class);
-        $reseaux = $repository->findOneById(1);
-
-        $repository = $this->getDoctrine()->getRepository(Couleur::class);
-        $couleurs = $repository->findAll(
-            array('dateAffichage' => 'DESC')
-        );
-
-        // -----------------------------------------------------------------------------------
+// -----------------------------------------------------------------------------------
 
         //on a au préalable créé une table USER (cf src/entity/user.php)
 
@@ -62,12 +38,6 @@ class SecurityController extends AbstractController
         return $this->render('security/login.html.twig', 
         ['last_username' => $lastUsername, 
         'error' => $error, 
-        'entreprise' => $entreprise,
-        'couleurs' => $couleurs, 
-        'localisations' => $localisations,
-        'competences' => $competences,
-        'reseaux' => $reseaux,
-
         ]);
 
         //le reste du login est configuré dans config/packages/security.yaml et dans src/Security/LoginFormAuthenticator.php
@@ -137,7 +107,7 @@ class SecurityController extends AbstractController
         return $this->render('security/forgotten_password.html.twig');
     }
 
-        /**
+    /**
      * @Route("/reset_password/{token}", name="app_reset_password")
      */
     public function resetPassword(Request $request, string $token, UserPasswordEncoderInterface $passwordEncoder)

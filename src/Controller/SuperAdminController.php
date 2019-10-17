@@ -29,84 +29,34 @@ class SuperAdminController extends AbstractController
      */
     public function superAdmin()
     {
-        // Ici, on récupère les informations en BDD en utilisant le Repository
-        // Récupération : des éléments de la table Entreprise puis ceux la table Spécificités 
-
-        $repository = $this->getDoctrine()->getRepository(Entreprise::class);
-        $entreprise = $repository->findOneById(1);
-        // Le findOneById permet de trier les données et de ne récupérer que la donnée qui a l'ID #1 
-
-        $repository = $this->getDoctrine()->getRepository(Localisation::class);
-        $localisations = $repository->findOneById(1);
-
-        $repository = $this->getDoctrine()->getRepository(Competences::class);
-        $competences = $repository->findOneById(1);
-
-        $repository = $this->getDoctrine()->getRepository(Reseaux::class);
-        $reseaux = $repository->findOneById(1);
-
-        // Le findOneById permet de trier les données et de ne récupérer que la donnée qui a l'ID #1 
-
-        $repository = $this->getDoctrine()->getRepository(Couleur::class);
-        $couleurs = $repository->findAll(
-            array('dateAffichage' => 'DESC')
-        );
 
         // On retourne ensuite les éléments récupérés dans la vue qu'on injectera entre {{}} dans la vue twig ADMIN -> espaceadmin.html.twig
         return $this->render('admin/espaceadmin.html.twig', [
-            'entreprise' => $entreprise,
-            'localisations' => $localisations,
-            'competences' => $competences,
-            'reseaux' => $reseaux,
-            'couleurs' => $couleurs
         ]);
     }
 
-    /* ---------------------------------------------------------------------------------------------------
+/* ---------------------------------------------------------------------------------------------------
 
         ╔═╗╔═╗╔═╗╔╦╗╦╔═╗╔╗╔  ╔═╗╔═╗╦ ╦╦  ╔═╗╦ ╦╦═╗
         ║ ╦║╣ ╚═╗ ║ ║║ ║║║║  ║  ║ ║║ ║║  ║╣ ║ ║╠╦╝
         ╚═╝╚═╝╚═╝ ╩ ╩╚═╝╝╚╝  ╚═╝╚═╝╚═╝╩═╝╚═╝╚═╝╩╚═
-
-    --------------------------------------------------------------------------------------------------- */
-
+           
+--------------------------------------------------------------------------------------------------- */
 
 
     /**
      * Permet de gérer la couleur choisie pour le thème 
-     *
      * @Route("/super-admin/couleur", name="choix-couleur")
      */
     public function couleurTheme(Request $request)
     {
-        // Pour que le footer reçoive bien les données dont il a besoin, il faut aller chercher les données dans les tables Specificites et Entreprise
 
-        $repository = $this->getDoctrine()->getRepository(Entreprise::class);
-        $entreprise = $repository->findOneById(1);
-
-        $repository = $this->getDoctrine()->getRepository(Localisation::class);
-        $localisations = $repository->findOneById(1);
-
-        $repository = $this->getDoctrine()->getRepository(Competences::class);
-        $competences = $repository->findOneById(1);
-
-        $repository = $this->getDoctrine()->getRepository(Reseaux::class);
-        $reseaux = $repository->findOneById(1);
-
-
-        $repository = $this->getDoctrine()->getRepository(Couleur::class);
-        $couleurs = $repository->findAll(
-            array('dateAffichage' => 'DESC')
-        );
-
-        // -----------------------------------------------------------------------------------
-
-        //On utilise le repository pour accéder à la table Couleur
+        // On utilise le repository pour accéder à la table Couleur
         $repository = $this->getDoctrine()->getRepository(Couleur::class);
         //On récupère toutes les données de la table Galerie et on les injecte dans l'objet $photos
         $colors = $repository->findAll();
 
-        // -----------------------------------------------------------------------------------
+ // -----------------------------------------------------------------------------------
 
         // On crée un objet vide 
         $color = new Couleur;
@@ -128,8 +78,7 @@ class SuperAdminController extends AbstractController
             return $this->redirectToRoute('presentationentreprise');
         }
 
-        // ----------------------------------------------------------------------
-        // ----------------------------------------------------------------------
+// ----------------------------------------------------------------------
 
 
         // Dans ce cas-là, on modifie la variable date pour que la date actuelle soit générée
@@ -141,18 +90,10 @@ class SuperAdminController extends AbstractController
         // Et non pas envoyer ou modifier comme les vues précédentes 
         $boutonenvoi = 'Publier';
 
-
-
-
-        // -----------------------------------------------------------------------------------
+// -----------------------------------------------------------------------------------
 
         //on injecte les données dans la vue réalisations (en incluant les données pour le footer)
         return $this->render('super-admin/couleur.html.twig', [
-            'entreprise' => $entreprise,
-            'localisations' => $localisations,
-            'competences' => $competences,
-            'reseaux' => $reseaux,
-            'couleurs' => $couleurs,
             'colors' => $colors,
             'color' => $color,
             'CouleurForm' => $form->createView(),
@@ -167,34 +108,13 @@ class SuperAdminController extends AbstractController
      */
     public function affichageCouleurTheme(Request $request, $id)
     {
-        // Pour que le footer reçoive bien les données dont il a besoin, il faut aller chercher les données dans les tables Specificites et Entreprise
-
-        $repository = $this->getDoctrine()->getRepository(Entreprise::class);
-        $entreprise = $repository->findOneById(1);
-
-        $repository = $this->getDoctrine()->getRepository(Localisation::class);
-        $localisations = $repository->findOneById(1);
-
-        $repository = $this->getDoctrine()->getRepository(Competences::class);
-        $competences = $repository->findOneById(1);
-
-        $repository = $this->getDoctrine()->getRepository(Reseaux::class);
-        $reseaux = $repository->findOneById(1);
-
-
-        $repository = $this->getDoctrine()->getRepository(Couleur::class);
-        $couleurs = $repository->findAll(
-            array('dateAffichage' => 'DESC')
-        );
-
-        // -----------------------------------------------------------------------------------
 
         //On utilise le repository pour accéder à la table Couleur
         $repository = $this->getDoctrine()->getRepository(Couleur::class);
         //On récupère toutes les données de la table Galerie et on les injecte dans l'objet $photos
         $colors = $repository->findAll();
 
-        // -----------------------------------------------------------------------------------
+// -----------------------------------------------------------------------------------
 
         $manager = $this->getDoctrine()->getManager();
         $color = $manager->find(Couleur::class, $id);
@@ -213,8 +133,7 @@ class SuperAdminController extends AbstractController
             return $this->redirectToRoute('choix-couleur');
         }
 
-        // ----------------------------------------------------------------------
-        // ----------------------------------------------------------------------
+// ----------------------------------------------------------------------
 
 
         // Dans ce cas-là, on modifie la variable date pour que la date actuelle soit générée
@@ -225,19 +144,11 @@ class SuperAdminController extends AbstractController
         // La variable permet à l'utilsateur de voir "publier" de façon dynamique
         // Et non pas envoyer ou modifier comme les vues précédentes 
         $boutonenvoi = 'Publier';
-
-
-
-
-        // -----------------------------------------------------------------------------------
+        
+// ------------------------------------------------------------------------
 
         //on injecte les données dans la vue réalisations (en incluant les données pour le footer)
         return $this->render('super-admin/couleur.html.twig', [
-            'entreprise' => $entreprise,
-            'localisations' => $localisations,
-            'competences' => $competences,
-            'reseaux' => $reseaux,
-            'couleurs' => $couleurs,
             'color' => $color,
             'colors' => $colors,
             'CouleurForm' => $form->createView(),
@@ -248,20 +159,13 @@ class SuperAdminController extends AbstractController
 
 
 
-
-
-    /*--------------------------------------------
-
-
+/*-----------------------------------------------------------------------------
 
     ╔═╗╦ ╦╦╔╦╗╔═╗╦ ╦  ╦ ╦╔═╗╔═╗╦═╗
     ╚═╗║║║║ ║ ║  ╠═╣  ║ ║╚═╗║╣ ╠╦╝
     ╚═╝╚╩╝╩ ╩ ╚═╝╩ ╩  ╚═╝╚═╝╚═╝╩╚═
 
-
-
-
--------------------------------------*/
+---------------------------------------------------------------------------*/
 
 
 
@@ -271,34 +175,11 @@ class SuperAdminController extends AbstractController
      */
     public function switchUser()
     {
-
-        $repository = $this->getDoctrine()->getRepository(Entreprise::class);
-        $entreprise = $repository->findOneById(1);
-        // Le findOneById permet de trier les données et de ne récupérer que la donnée qui a l'ID #1 
-
-        $repository = $this->getDoctrine()->getRepository(Localisation::class);
-        $localisations = $repository->findOneById(1);
-
-        $repository = $this->getDoctrine()->getRepository(Competences::class);
-        $competences = $repository->findOneById(1);
-
-        $repository = $this->getDoctrine()->getRepository(Reseaux::class);
-        $reseaux = $repository->findOneById(1);
-
-        // Le findOneById permet de trier les données et de ne récupérer que la donnée qui a l'ID #1 
-
         $repository = $this->getDoctrine()->getRepository(User::class);
         $users = $repository->findOneByRole(array('role' => 'ROLE_ADMIN'));
 
-
-
         // On retourne ensuite les éléments récupérés dans la vue qu'on injectera entre {{}} dans la vue twig ADMIN -> espaceadmin.html.twig
         return $this->render('super-admin/switch_user.html.twig', [
-            'controller_name' => 'SuperAdminController',
-            'entreprise' => $entreprise,
-            'localisations' => $localisations,
-            'competences' => $competences,
-            'reseaux' => $reseaux,
             'users' => $users
         ]);
     }
@@ -306,54 +187,28 @@ class SuperAdminController extends AbstractController
 
 
 
-    /*--------------------------------------------
+/*--------------------------------------------------------------------------
 
-╔═╗╦ ╦╔═╗╔╗╔╔═╗╔═╗╔╦╗╔═╗╔╗╔╔╦╗  ╔═╗╦  ╦╔═╗  ╔╦╗╦═╗╔═╗╔╗╔╔═╗╦╔╦╗╦╔═╗╔╗╔╔═╗
-║  ╠═╣╠═╣║║║║ ╦║╣ ║║║║╣ ║║║ ║   ╚═╗╚╗╔╝║ ╦   ║ ╠╦╝╠═╣║║║╚═╗║ ║ ║║ ║║║║╚═╗
-╚═╝╩ ╩╩ ╩╝╚╝╚═╝╚═╝╩ ╩╚═╝╝╚╝ ╩   ╚═╝ ╚╝ ╚═╝   ╩ ╩╚═╩ ╩╝╚╝╚═╝╩ ╩ ╩╚═╝╝╚╝╚═╝
+    ╔═╗╦ ╦╔═╗╔╗╔╔═╗╔═╗╔╦╗╔═╗╔╗╔╔╦╗  ╔═╗╦  ╦╔═╗  ╔╦╗╦═╗╔═╗╔╗╔╔═╗╦╔╦╗╦╔═╗╔╗╔╔═╗
+    ║  ╠═╣╠═╣║║║║ ╦║╣ ║║║║╣ ║║║ ║   ╚═╗╚╗╔╝║ ╦   ║ ╠╦╝╠═╣║║║╚═╗║ ║ ║║ ║║║║╚═╗
+    ╚═╝╩ ╩╩ ╩╝╚╝╚═╝╚═╝╩ ╩╚═╝╝╚╝ ╩   ╚═╝ ╚╝ ╚═╝   ╩ ╩╚═╩ ╩╝╚╝╚═╝╩ ╩ ╩╚═╝╝╚╝╚═╝
 
-
--------------------------------------*/
-
-
-
+---------------------------------------------------------------------------*/
 
 
     /**
      * Permet de gérer les svg de transition  
-     *
      * @Route("/super-admin/svg-transi", name="svg-transi")
      */
     public function svgTransi(Request $request)
     {
-        // Pour que le footer reçoive bien les données dont il a besoin, il faut aller chercher les données dans les tables concernées
-
-        $repository = $this->getDoctrine()->getRepository(Entreprise::class);
-        $entreprise = $repository->findOneById(1);
-
-        $repository = $this->getDoctrine()->getRepository(Localisation::class);
-        $localisations = $repository->findOneById(1);
-
-        $repository = $this->getDoctrine()->getRepository(Competences::class);
-        $competences = $repository->findOneById(1);
-
-        $repository = $this->getDoctrine()->getRepository(Reseaux::class);
-        $reseaux = $repository->findOneById(1);
-
-
-        $repository = $this->getDoctrine()->getRepository(Couleur::class);
-        $couleurs = $repository->findAll(
-            array('dateAffichage' => 'DESC')
-        );
-
-        // -----------------------------------------------------------------------------------
-
-        //On utilise le repository pour accéder à la table Couleur
+       
+        // On utilise le repository pour accéder à la table Couleur
         $repository = $this->getDoctrine()->getRepository(Design::class);
-        //On récupère toutes les données de la table Galerie et on les injecte dans l'objet $photos
+        // On récupère toutes les données de la table Galerie et on les injecte dans l'objet $photos
         $svgtransis = $repository->findAll();
 
-        // -----------------------------------------------------------------------------------
+// -----------------------------------------------------------------------------------
 
         // On crée un objet vide 
         $design = new Design;
@@ -375,9 +230,7 @@ class SuperAdminController extends AbstractController
             return $this->redirectToRoute('svg-transi');
         }
 
-        // ----------------------------------------------------------------------
-        // ----------------------------------------------------------------------
-
+// ----------------------------------------------------------------------
 
         // Dans ce cas-là, on modifie la variable date pour que la date actuelle soit générée
         // Cela nous permet d'avoir la date la plus recénte qui permet un affichage dans la VUE principale
@@ -388,18 +241,10 @@ class SuperAdminController extends AbstractController
         // Et non pas envoyer ou modifier comme les vues précédentes 
         $boutonenvoi = 'Publier';
 
-
-
-
-        // -----------------------------------------------------------------------------------
+// -----------------------------------------------------------------------------------
 
         //on injecte les données dans la vue réalisations (en incluant les données pour le footer)
         return $this->render('super-admin/svg-transi.html.twig', [
-            'entreprise' => $entreprise,
-            'localisations' => $localisations,
-            'competences' => $competences,
-            'reseaux' => $reseaux,
-            'couleurs' => $couleurs,
             'svgtransis' => $svgtransis,
             'design' => $design,
             'DesignForm' => $form->createView(),
@@ -416,34 +261,13 @@ class SuperAdminController extends AbstractController
      */
     public function affichageSvgTransi(Request $request, $id)
     {
-        // Pour que le footer reçoive bien les données dont il a besoin, il faut aller chercher les données dans les tables Specificites et Entreprise
-
-        $repository = $this->getDoctrine()->getRepository(Entreprise::class);
-        $entreprise = $repository->findOneById(1);
-
-        $repository = $this->getDoctrine()->getRepository(Localisation::class);
-        $localisations = $repository->findOneById(1);
-
-        $repository = $this->getDoctrine()->getRepository(Competences::class);
-        $competences = $repository->findOneById(1);
-
-        $repository = $this->getDoctrine()->getRepository(Reseaux::class);
-        $reseaux = $repository->findOneById(1);
-
-
-        $repository = $this->getDoctrine()->getRepository(Couleur::class);
-        $couleurs = $repository->findAll(
-            array('dateAffichage' => 'DESC')
-        );
-
-        // -----------------------------------------------------------------------------------
 
         //On utilise le repository pour accéder à la table Design
         $repository = $this->getDoctrine()->getRepository(Design::class);
         //On récupère toutes les données de la table Galerie et on les injecte dans l'objet $photos
         $svgtransis = $repository->findAll();
 
-        // -----------------------------------------------------------------------------------
+// -----------------------------------------------------------------------------------
 
         $manager = $this->getDoctrine()->getManager();
         $design = $manager->find(Design::class, $id);
@@ -462,9 +286,7 @@ class SuperAdminController extends AbstractController
             return $this->redirectToRoute('svg-transi');
         }
 
-        // ----------------------------------------------------------------------
-        // ----------------------------------------------------------------------
-
+// ----------------------------------------------------------------------
 
         // Dans ce cas-là, on modifie la variable date pour que la date actuelle soit générée
         // Cela nous permet d'avoir la date la plus recénte qui permet un affichage dans la VUE principale
@@ -475,18 +297,10 @@ class SuperAdminController extends AbstractController
         // Et non pas envoyer ou modifier comme les vues précédentes 
         $boutonenvoi = 'Publier';
 
-
-
-
-        // -----------------------------------------------------------------------------------
+// -----------------------------------------------------------------------------------
 
         //on injecte les données dans la vue réalisations (en incluant les données pour le footer)
         return $this->render('super-admin/svg-transi.html.twig', [
-            'entreprise' => $entreprise,
-            'localisations' => $localisations,
-            'competences' => $competences,
-            'reseaux' => $reseaux,
-            'couleurs' => $couleurs,
             'design' => $design,
             'svgtransis' => $svgtransis,
             'DesignForm' => $form->createView(),
@@ -496,18 +310,15 @@ class SuperAdminController extends AbstractController
     }
 
 
+/*----------------------------------------------------------------------------------
 
 
-
-    /*--------------------------------------------
-
-
-╦  ╔═╗╔╗ ╔═╗╦  ╔═╗  
-║  ╠═╣╠╩╗║╣ ║  ╚═╗  
-╩═╝╩ ╩╚═╝╚═╝╩═╝╚═╝  
+    ╦  ╔═╗╔╗ ╔═╗╦  ╔═╗  
+    ║  ╠═╣╠╩╗║╣ ║  ╚═╗  
+    ╩═╝╩ ╩╚═╝╚═╝╩═╝╚═╝  
 
 
--------------------------------------*/
+---------------------------------------------------------------------------------*/
 
 
 
@@ -518,33 +329,13 @@ class SuperAdminController extends AbstractController
      */
     public function labels(Request $request)
     {
-        // Pour que le footer reçoive bien les données dont il a besoin, il faut aller chercher les données dans les tables concernées
-
-        $repository = $this->getDoctrine()->getRepository(Entreprise::class);
-        $entreprise = $repository->findOneById(1);
-
-        $repository = $this->getDoctrine()->getRepository(Localisation::class);
-        $localisations = $repository->findOneById(1);
-
-        $repository = $this->getDoctrine()->getRepository(Competences::class);
-        $competences = $repository->findOneById(1);
-
-        $repository = $this->getDoctrine()->getRepository(Reseaux::class);
-        $reseaux = $repository->findOneById(1);
-
-        $repository = $this->getDoctrine()->getRepository(Couleur::class);
-        $couleurs = $repository->findAll(
-            array('dateAffichage' => 'DESC')
-        );
-
-        // -----------------------------------------------------------------------------------
 
         //On utilise le repository pour accéder à la table Couleur
         $repository = $this->getDoctrine()->getRepository(Icons::class);
         //On récupère toutes les données de la table Galerie et on les injecte dans l'objet $photos
         $icons = $repository->findAll();
 
-        // -----------------------------------------------------------------------------------
+// -----------------------------------------------------------------------------------
 
         // On crée un objet vide 
         $labels = new Labels;
@@ -566,7 +357,7 @@ class SuperAdminController extends AbstractController
             return $this->redirectToRoute('superadmin-labels');
         }
 
-        // ----------------------------------------------------------------------
+// ----------------------------------------------------------------------
 
         //On utilise le repository pour accéder à la table Couleur
         $repository = $this->getDoctrine()->getRepository(Icons::class);
@@ -574,10 +365,7 @@ class SuperAdminController extends AbstractController
         $iconsaffiches = $repository->findAll();
 
 
-
-        // ----------------------------------------------------------------------
-
-
+// ----------------------------------------------------------------------
 
         //On veut limiter le nombre de labels possibles à 5. 
 
@@ -594,15 +382,10 @@ class SuperAdminController extends AbstractController
             ->getQuery()
             ->getResult();
 
-        // ----------------------------------------------------------------------
+// ----------------------------------------------------------------------
 
         //on injecte les données dans la vue réalisations (en incluant les données pour le footer)
         return $this->render('super-admin/labels.html.twig', [
-            'entreprise' => $entreprise,
-            'localisations' => $localisations,
-            'competences' => $competences,
-            'reseaux' => $reseaux,
-            'couleurs' => $couleurs,
             'icons' => $icons,
             'labels' => $labels,
             'LabelsForm' => $form->createView(),
@@ -634,32 +417,9 @@ class SuperAdminController extends AbstractController
         $this->addFlash('success', 'Le label a bien été supprimé.');
         return $this->redirectToRoute('superadmin-labels');
 
-        // ----------------------------------------------------------------------
-
-        // On récupère et on renvoie les informations nécessaires pour l'affichage de la VUE
-        $repository = $this->getDoctrine()->getRepository(Entreprise::class);
-        $entreprise = $repository->findOneById(1);
-
-        $repository = $this->getDoctrine()->getRepository(Localisation::class);
-        $localisations = $repository->findAll();
-
-        $repository = $this->getDoctrine()->getRepository(Competences::class);
-        $competences = $repository->findAll();
-
-        $repository = $this->getDoctrine()->getRepository(Reseaux::class);
-        $reseaux = $repository->findOneById(1);
-
-        $repository = $this->getDoctrine()->getRepository(Couleur::class);
-        $couleurs = $repository->findAll(
-            array('dateAffichage' => 'DESC')
-        );
+// ----------------------------------------------------------------------
 
         return $this->render('super-admin/labels.html.twig', [
-            'entreprise' => $entreprise,
-            'localisations' => $localisations,
-            'competences' => $competences,
-            'reseaux' => $reseaux,
-            'couleurs' => $couleurs,
             'label' => $label,
         ]);
     }
