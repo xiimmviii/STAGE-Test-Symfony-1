@@ -161,13 +161,13 @@ Cette feuille de CSS sert pour le placement des SVG dans les différentes sectio
 
 #top-trs-plombier {
     width: 100% !important;
-    top: -1vh;
+    top: -2vh;
     position: relative;
 }
 
 #bottom-trs-plombier {
     width: 100% !important;
-    top: 1vh;
+    top: 2vh;
     position: relative;
     transform: rotate(180deg);
 }
