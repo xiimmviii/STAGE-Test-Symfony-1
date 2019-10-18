@@ -27,14 +27,14 @@ Cette feuille de CSS sert pour le placement des SVG dans les différentes sectio
 
 #top-trs-avocat {
     width: 100%;
-    bottom: 12vh;
+    bottom: 0vh;
     position: relative;
 }
 
 #bottom-trs-avocat {
     width: 100%;
     transform: rotate(180deg);
-    top: 12vh;
+    top: 0vh;
     position: relative;
 }
 
@@ -44,14 +44,14 @@ Cette feuille de CSS sert pour le placement des SVG dans les différentes sectio
 
 #top-trs-boulanger {
     width: 100%;
-    top: -7vh;
+    top: -2vh;
     position: relative;
     transform: rotate(180deg);
 }
 
 #bottom-trs-boulanger {
     width: 100%;
-    top: 7vh;
+    top: 1vh;
     position: relative;
 }
 
