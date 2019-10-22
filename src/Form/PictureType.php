@@ -42,8 +42,6 @@ class PictureType extends AbstractType
 				'label' => 'Photo'
 			))
 
-			// ->add('galerie', TextType::class,array('required' => true))
-
 			->add('galerie', EntityType::class, [
 				'class' => Galerie::class,
 				'choice_value' => function (Galerie $Galerie = null) {
