@@ -16,6 +16,7 @@ use App\Form\MobileType;
 use App\Form\TarifsType;
 use App\Form\ContenuType;
 use App\Form\GalerieType;
+use App\Form\PictureType;
 use App\Form\ReseauxType;
 use App\Entity\Entreprise;
 use App\Form\HorairesType;
@@ -23,6 +24,7 @@ use App\Entity\Competences;
 use App\Entity\Partenaires;
 use App\Entity\Localisation;
 use App\Form\EntrepriseType;
+use App\Form\GalerieBisType;
 use App\Form\CompetencesType;
 use App\Form\PartenairesType;
 use App\Form\LocalisationType;
@@ -45,12 +47,11 @@ class AdminController extends AbstractController
 
         // Cette fonction est vide car elle n'a besoin d'aucune information pour fonctionner/s'afficher 
 
-// -------------------------------------------------------------------------
+        // -------------------------------------------------------------------------
 
         // On retourne ensuite les éléments récupérés dans la vue 
         // Qu'on injectera entre {{}} dans la vue twig ADMIN -> espaceadmin.html.twig
-        return $this->render('admin/espaceadmin.html.twig', [
-        ]);
+        return $this->render('admin/espaceadmin.html.twig', []);
     }
 
     /* ---------------------------------------------------------------------------------------------------
@@ -148,7 +149,7 @@ class AdminController extends AbstractController
             return $this->redirectToRoute('gestiongaleries');
         }
 
-// ----------------------------------------------------------------------
+        // ----------------------------------------------------------------------
 
         //On veut limiter le nombre de galeries possible à 10. 
 
@@ -165,16 +166,16 @@ class AdminController extends AbstractController
             ->getQuery()
             ->getResult();
 
-// ----------------------------------------------------------------------
+        // ----------------------------------------------------------------------
 
         // On récupère toutes les galeries déjà dans la BDD
         $repository = $this->getDoctrine()->getRepository(Galerie::class);
         // Le findAll permet de récupérer toutes les informations stockées en BDB 
         $galeries = $repository->findAll();
 
-// ----------------------------------------------------------------------
+        // ----------------------------------------------------------------------
 
-     
+
 
         // On envoie toutes les informations dans la vue GestionGaleries.html.twig
         return $this->render('admin/gestiongaleries.html.twig', [
@@ -198,6 +199,7 @@ class AdminController extends AbstractController
         // On trouve l'élément concerné dans la table Picture via son $ID et on lui applique une variable
         $photo = $manager->find(Picture::class, $id);
 
+
         // Le MANAGER enregistre l'info et transmet ensuite à la BDD la suppression de l'objet
         // NOTE : Grâce au bundle VICH, le fichier de la photo est lui aussi supprimé en automatique dans le dossier de destination. (Pas besoin de créer le code pour cette suppression)
         $manager->remove($photo);
@@ -207,11 +209,9 @@ class AdminController extends AbstractController
         $this->addFlash('success', 'La photo a bien été supprimée.');
         return $this->redirectToRoute('gestiongaleries');
 
-// ----------------------------------------------------------------------
+        // ----------------------------------------------------------------------
 
-        return $this->render('admin/gestiongalerie.html.twig', [
-           
-        ]);
+        return $this->render('admin/gestiongalerie.html.twig', []);
     }
 
 
@@ -238,11 +238,9 @@ class AdminController extends AbstractController
         $this->addFlash('success', 'La galerie a bien été supprimée.');
         return $this->redirectToRoute('gestiongaleries');
 
-// ----------------------------------------------------------------------
+        // ----------------------------------------------------------------------
 
-        return $this->render('admin/gestiongaleries.html.twig', [
-  
-        ]);
+        return $this->render('admin/gestiongaleries.html.twig', []);
     }
 
 
@@ -255,8 +253,10 @@ class AdminController extends AbstractController
         $manager = $this->getDoctrine()->getManager();
         $galerie1 = $manager->find(Galerie::class, $id);
 
-        // On créé la vue d'un formulaire qui provient du dossier FORM > GalerieType.php 
-        $form = $this->createForm(GalerieType::class, $galerie1);
+        //------ Modification du texte et titres
+
+        // On créé la vue d'un formulaire qui provient du dossier FORM > GalerieBisType.php 
+        $form = $this->createForm(GalerieBisType::class, $galerie1);
 
         // On gère les informations du formulaire 
         $form->handleRequest($request);
@@ -273,6 +273,34 @@ class AdminController extends AbstractController
             return $this->redirectToRoute('gestiongaleries');
         }
 
+        //-----------Ajout de photo
+
+        // On crée un objet vide qu'on pourra ensuite réutiliser
+        $pic = new Picture;
+
+        //on crée la variable $galerieId pour que l'image ajoutée appartienne bien à la galerie en question
+        $galerieId = $id;
+
+
+        // On créé la vue d'un formulaire qui provient du dossier FORM > PictureType.php 
+        $formPic = $this->createForm(PictureType::class, $pic);
+
+        // On gère les informations du formulaire 
+        $formPic->handleRequest($request);
+
+        // Conditions du formulaire >> CF l.81/85
+        if ($formPic->isSubmitted() && $formPic->isValid()) {
+
+            $manager->persist($pic);
+
+            $manager->flush();
+
+            // Message qui confirme l'action et retour à la route 
+            $this->addFlash('success', 'La photo a bien été ajoutée');
+            return $this->redirectToRoute('gestiongaleries');
+        }
+
+        //----------------------------
 
         // On récupère toutes les photos déjà dans la BDD
         $repository = $this->getDoctrine()->getRepository(Picture::class);
@@ -282,7 +310,7 @@ class AdminController extends AbstractController
         $pictures = $repository->findByGalerie($id);
 
 
-//-------------------------------------------------------------
+        //-------------------------------------------------------------
 
         // On veut limiter le nombre de photos dans une galerie à 4. 
 
@@ -307,12 +335,14 @@ class AdminController extends AbstractController
             ->getQuery()
             ->getResult();
 
-//-------------------------------------------------------------
+        //-------------------------------------------------------------
 
         return $this->render('admin/modifiergalerie.html.twig', [
-            'galerieForm' => $form->createView(),
+            'galerieBisForm' => $form->createView(),
+            'pictureForm' => $formPic->createView(),
             'pictures' => $pictures,
             'totalPictures' => $totalPictures,
+            'galerieId' => $galerieId,
         ]);
     }
 
@@ -332,13 +362,13 @@ class AdminController extends AbstractController
      */
     public function histoireEntreprise(Request $request)
     {
-        
-// -------------------------------------------------------------------
+
+        // -------------------------------------------------------------------
 
         $repository = $this->getDoctrine()->getRepository(Contenu::class);
         $historiques = $repository->findAll();
 
-// --------------------------------------------------------------------
+        // --------------------------------------------------------------------
 
         // On crée un objet vide 
         $historique = new Contenu;
@@ -360,7 +390,7 @@ class AdminController extends AbstractController
             return $this->redirectToRoute('histoireentreprise');
         }
 
-// -------------------------------------------------------------------
+        // -------------------------------------------------------------------
 
         // On crée la variable date pour pouvoir ensuite générer une date dynamique qui sera renvoyée dans le formulaire
         // Cela permet de générer une date, que l'on traitera ensuite pour classer les éléments 
@@ -375,7 +405,7 @@ class AdminController extends AbstractController
         // Le bouton est adapté à chaque situation 
         $boutonenvoi = 'Envoyer';
 
-// -------------------------------------------------------------------
+        // -------------------------------------------------------------------
 
         // On renvoie les informations dans la VUE 
 
@@ -393,7 +423,7 @@ class AdminController extends AbstractController
     public function setHistorique(Request $request, $id)
     {
 
-        
+
 
         $repository = $this->getDoctrine()->getRepository(Contenu::class);
         $historiques = $repository->findAll();
@@ -419,7 +449,7 @@ class AdminController extends AbstractController
             return $this->redirectToRoute('histoireentreprise');
         }
 
-// -------------------------------------------------------------------
+        // -------------------------------------------------------------------
 
         // Dans ce cas-là, on modifie la variable date pour que la date actuelle soit générée
         // Cela nous permet d'avoir la date la plus recénte qui permet un affichage dans la VUE principale
@@ -430,7 +460,7 @@ class AdminController extends AbstractController
         // Et non pas envoyer ou modifier comme les vues précédentes 
         $boutonenvoi = 'Publier';
 
-// -------------------------------------------------------------------
+        // -------------------------------------------------------------------
 
         return $this->render('admin/histoire-entreprise.html.twig', [
             'historiques' => $historiques,
@@ -515,15 +545,14 @@ class AdminController extends AbstractController
         $this->addFlash('success', 'Le texte de présentation a bien été supprimé.');
         return $this->redirectToRoute('histoireentreprise');
 
-// -------------------------------------------------------------------
+        // -------------------------------------------------------------------
 
 
         // On renvoie les informations dans la VUE
-        return $this->render('admin/espaceadmin.html.twig', [
-        ]);
+        return $this->render('admin/espaceadmin.html.twig', []);
     }
 
- /* ---------------------------------------------------------------------------------------------------
+    /* ---------------------------------------------------------------------------------------------------
 
 
         ╦═╗╔═╗╔═╗╔═╗╔═╗╦ ╦═╗ ╦  ╔═╗╔═╗╔═╗╦╔═╗╦ ╦═╗ ╦
@@ -594,7 +623,7 @@ class AdminController extends AbstractController
         $repository = $this->getDoctrine()->getRepository(Localisation::class);
         $localisations = $repository->findAll();
 
-// -------------------------------------------------------------------
+        // -------------------------------------------------------------------
 
         $localisation = new Localisation;
 
@@ -614,7 +643,7 @@ class AdminController extends AbstractController
             return $this->redirectToRoute('localisation');
         }
 
-// ----------------------------------------------------------------------
+        // ----------------------------------------------------------------------
 
         //On veut limiter le nombre de localisations possibles à 10. 
 
@@ -631,7 +660,7 @@ class AdminController extends AbstractController
             ->getQuery()
             ->getResult();
 
-// ----------------------------------------------------------------------
+        // ----------------------------------------------------------------------
 
 
         // On renvoie les informations dans la VUE
@@ -647,12 +676,12 @@ class AdminController extends AbstractController
      */
     public function localisationDelete($id)
     {
-       
+
         $repository = $this->getDoctrine()->getRepository(Localisation::class);
         $localisations = $repository->findAll();
 
 
-// -------------------------------------------------------------------
+        // -------------------------------------------------------------------
 
         $manager = $this->getDoctrine()->getManager();
         $local = $manager->find(Localisation::class, $id);
@@ -663,7 +692,7 @@ class AdminController extends AbstractController
         $this->addFlash('success', 'Localisation supprimée.');
         return $this->redirectToRoute('localisation');
 
-// -------------------------------------------------------------------
+        // -------------------------------------------------------------------
 
         // On renvoie les informations dans la VUE
         return $this->render('admin/localisation.html.twig', [
@@ -671,25 +700,25 @@ class AdminController extends AbstractController
         ]);
     }
 
-/* ------------------------------------------------------------------------------
+    /* ------------------------------------------------------------------------------
 
         ╔═╗╔═╗╔╦╗╔═╗╔═╗╔╦╗╔═╗╔╗╔╔═╗╔═╗╔═╗
         ║  ║ ║║║║╠═╝║╣  ║ ║╣ ║║║║  ║╣ ╚═╗
         ╚═╝╚═╝╩ ╩╩  ╚═╝ ╩ ╚═╝╝╚╝╚═╝╚═╝╚═╝
 
 --------------------------------------------------------------------------------- */
-   
+
 
     /**
      * @Route("/admin/competences", name="competences")
      */
     public function competence(Request $request)
     {
-       
+
         $repository = $this->getDoctrine()->getRepository(Competences::class);
         $competences = $repository->findAll(1);
-       
- // -------------------------------------------------------------------
+
+        // -------------------------------------------------------------------
 
         $competence = new Competences;
 
@@ -709,7 +738,7 @@ class AdminController extends AbstractController
             return $this->redirectToRoute('competences');
         }
 
-// ----------------------------------------------------------------------
+        // ----------------------------------------------------------------------
 
         //On veut limiter le nombre de competences possibles à 10. 
 
@@ -725,8 +754,8 @@ class AdminController extends AbstractController
             ->select('count(c.id)')
             ->getQuery()
             ->getResult();
-        
-// -------------------------------------------------------------------
+
+        // -------------------------------------------------------------------
 
         // On renvoie les informations dans la VUE
         return $this->render('admin/competences.html.twig', [
@@ -741,11 +770,11 @@ class AdminController extends AbstractController
      */
     public function competenceDelete($id)
     {
-       
+
         $repository = $this->getDoctrine()->getRepository(Competences::class);
         $competences = $repository->findAll();
 
-// -------------------------------------------------------------------
+        // -------------------------------------------------------------------
 
         $manager = $this->getDoctrine()->getManager();
         $local = $manager->find(Competences::class, $id);
@@ -756,7 +785,7 @@ class AdminController extends AbstractController
         $this->addFlash('success', 'Compétence supprimée.');
         return $this->redirectToRoute('competences');
 
-// -------------------------------------------------------------------
+        // -------------------------------------------------------------------
 
         // On renvoie les informations dans la VUE
         return $this->render('admin/competence.html.twig', [
@@ -764,7 +793,7 @@ class AdminController extends AbstractController
         ]);
     }
 
-/* ---------------------------------------------------------------------------------------------------
+    /* ---------------------------------------------------------------------------------------------------
 
     ╔═╗╔═╗╦═╗╔╦╗╔═╗╔╗╔╔═╗╦╦═╗╔═╗╔═╗
     ╠═╝╠═╣╠╦╝ ║ ║╣ ║║║╠═╣║╠╦╝║╣ ╚═╗
@@ -825,7 +854,7 @@ class AdminController extends AbstractController
         // On récupère les informations d'un partenaire par son $ID
         $partenaire = $manager->find(Partenaires::class, $id);
 
-// -------------------------------------------------------------------
+        // -------------------------------------------------------------------
 
         // On supprime le logo puis le partenaire et on enregistre/envoie l'information en BDD 
         $partenaire->removeLogo();
@@ -836,14 +865,13 @@ class AdminController extends AbstractController
         $this->addFlash('success', 'Le partenaire a bien été supprimé');
         return $this->redirectToRoute('partenaires');
 
-// -------------------------------------------------------------------
+        // -------------------------------------------------------------------
 
         // On renvoie les informations nécessaires à la VUE 
-        return $this->render('admin/partenaires.html.twig', [
-        ]);
+        return $this->render('admin/partenaires.html.twig', []);
     }
 
-/* ---------------------------------------------------------------------------------------------------
+    /* ---------------------------------------------------------------------------------------------------
        ╔╦╗╔═╗╦═╗╦╔═╗╔═╗
         ║ ╠═╣╠╦╝║╠╣ ╚═╗
         ╩ ╩ ╩╩╚═╩╚  ╚═╝
@@ -899,7 +927,7 @@ class AdminController extends AbstractController
         $tarifs = $repository->findAll();
 
 
-// -------------------------------------------------------------------
+        // -------------------------------------------------------------------
 
 
         $boutonenvoi = 'Modifier';
@@ -921,7 +949,7 @@ class AdminController extends AbstractController
             return $this->redirectToRoute('tarifs-admin');
         }
 
-// --------------------------------------------------------------
+        // --------------------------------------------------------------
 
         return $this->render('admin/tarifs.html.twig', [
             'tarifs' => $tarifs,
@@ -944,14 +972,12 @@ class AdminController extends AbstractController
         $this->addFlash('success', 'La prestation a bien été supprimée.');
         return $this->redirectToRoute('tarifs-admin');
 
-// -------------------------------------------------------------------
+        // -------------------------------------------------------------------
 
-        return $this->render('admin/espaceadmin.html.twig', [
-
-        ]);
+        return $this->render('admin/espaceadmin.html.twig', []);
     }
 
-/* ---------------------------------------------------------------------------------------------------
+    /* ---------------------------------------------------------------------------------------------------
 
             ╦ ╦╔═╗╦═╗╔═╗╦╦═╗╔═╗╔═╗
             ╠═╣║ ║╠╦╝╠═╣║╠╦╝║╣ ╚═╗
@@ -966,12 +992,12 @@ class AdminController extends AbstractController
      */
     public function horairesAdmin(Request $request)
     {
-       
+
 
         $repository = $this->getDoctrine()->getRepository(Horaires::class);
         $horaires = $repository->findAll();
 
-// --------------------------------------------------------------------
+        // --------------------------------------------------------------------
 
 
         $boutonenvoi = 'Ajouter';
@@ -993,7 +1019,7 @@ class AdminController extends AbstractController
             return $this->redirectToRoute('horaires-admin');
         }
 
-// ----------------------------------------------------------------------
+        // ----------------------------------------------------------------------
 
         return $this->render('admin/horaires.html.twig', [
             'horaires' => $horaires,
@@ -1009,11 +1035,11 @@ class AdminController extends AbstractController
     public function updateHorairesAdmin($id, Request $request)
     {
 
-      
+
         $repository = $this->getDoctrine()->getRepository(Horaires::class);
         $horaires = $repository->findAll();
 
-// -------------------------------------------------------------------
+        // -------------------------------------------------------------------
 
         $boutonenvoi = 'Modifier';
 
@@ -1034,7 +1060,7 @@ class AdminController extends AbstractController
             return $this->redirectToRoute('horaires-admin');
         }
 
-// -----------------------------------------------------------------
+        // -----------------------------------------------------------------
 
         return $this->render('admin/horaires.html.twig', [
             'horaires' => $horaires,
@@ -1057,7 +1083,6 @@ class AdminController extends AbstractController
 
         $this->addFlash('success', 'L\'horaire a bien été supprimé.');
         return $this->redirectToRoute('horaires-admin');
-
     }
 
 
@@ -1112,7 +1137,7 @@ class AdminController extends AbstractController
 
 
 
-     /* ---------------------------------------------------------------------------------------------------
+    /* ---------------------------------------------------------------------------------------------------
 
   
     ╔═╗╔═╗╔╗╔╔╦╗╔═╗╔╗╔╦ ╦  ╔╦╗╔═╗╔╗ ╦╦  ╔═╗
@@ -1127,13 +1152,13 @@ class AdminController extends AbstractController
      */
     public function contenuMobile(Request $request)
     {
-        
+
 
 
         $repository = $this->getDoctrine()->getRepository(Mobile::class);
         $mobiles = $repository->findAll();
 
-// --------------------------------------------------------------------
+        // --------------------------------------------------------------------
 
         // On crée un objet vide 
         $mobile = new Mobile;
@@ -1155,7 +1180,7 @@ class AdminController extends AbstractController
             return $this->redirectToRoute('contenumobile');
         }
 
-// -------------------------------------------------------------------
+        // -------------------------------------------------------------------
 
         // On crée la variable date pour pouvoir ensuite générer une date dynamique qui sera renvoyée dans le formulaire
         // Cela permet de générer une date, que l'on traitera ensuite pour classer les éléments 
@@ -1170,7 +1195,7 @@ class AdminController extends AbstractController
         // Le bouton est adapté à chaque situation 
         $boutonenvoi = 'Envoyer';
 
-// -------------------------------------------------------------------
+        // -------------------------------------------------------------------
 
         // On renvoie les informations dans la VUE 
 
@@ -1178,7 +1203,7 @@ class AdminController extends AbstractController
             'mobiles' => $mobiles,
             'MobileForm' => $form->createView(),
             'date' => $date,
-            'boutonenvoi' => $boutonenvoi   
+            'boutonenvoi' => $boutonenvoi
         ]);
     }
 
@@ -1191,7 +1216,7 @@ class AdminController extends AbstractController
         $repository = $this->getDoctrine()->getRepository(Mobile::class);
         $mobiles = $repository->findAll();
 
-// -------------------------------------------------------------------
+        // -------------------------------------------------------------------
 
 
         $manager = $this->getDoctrine()->getManager();
@@ -1212,7 +1237,7 @@ class AdminController extends AbstractController
             return $this->redirectToRoute('contenumobile');
         }
 
-// -------------------------------------------------------------------
+        // -------------------------------------------------------------------
 
         // Dans ce cas-là, on modifie la variable date pour que la date actuelle soit générée
         // Cela nous permet d'avoir la date la plus recénte qui permet un affichage dans la VUE principale
@@ -1223,7 +1248,7 @@ class AdminController extends AbstractController
         // Et non pas envoyer ou modifier comme les vues précédentes 
         $boutonenvoi = 'Publier';
 
-// -------------------------------------------------------------------
+        // -------------------------------------------------------------------
 
         return $this->render('admin/contenu-mobile.html.twig', [
             'mobiles' => $mobiles,
@@ -1244,7 +1269,7 @@ class AdminController extends AbstractController
         $mobiles = $repository->findAll();
 
 
-// -------------------------------------------------------------------
+        // -------------------------------------------------------------------
 
         $manager = $this->getDoctrine()->getManager();
         $mobile = $manager->find(Mobile::class, $id);
@@ -1269,7 +1294,7 @@ class AdminController extends AbstractController
         }
 
 
-// -------------------------------------------------------------------
+        // -------------------------------------------------------------------
 
         // Ici, on indique que la variable $date passe à 0 pour que la date de l'entrée en BDD ne change pas
         // Elle passe à 0 ce qui nous permet dans le tri effectué pour l'affichage de la VUE SECTIONS => section-histoire-etp 
@@ -1279,7 +1304,7 @@ class AdminController extends AbstractController
         // Le $boutonenvoi devient modofier et non plus envoyer pour indiquer qu'on modifie
         $boutonenvoi = 'Modifier';
 
-// -------------------------------------------------------------------
+        // -------------------------------------------------------------------
 
         // On renvoie les informations dans la VUE 
         return $this->render('admin/contenu-mobile.html.twig', [
@@ -1309,8 +1334,6 @@ class AdminController extends AbstractController
 
 
         // On renvoie les informations dans la VUE
-        return $this->render('admin/espaceadmin.html.twig', [
-
-            ]);
+        return $this->render('admin/espaceadmin.html.twig', []);
     }
 }

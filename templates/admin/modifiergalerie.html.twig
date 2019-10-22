@@ -50,31 +50,36 @@
 
                     <h1>Modifier la galerie</h1>
                     <hr>
-                    {{ form_start(galerieForm) }}
+                    {{ form_start(galerieBisForm) }}
 
-                    {{ form_row(galerieForm.nom, {'label' : 'Nom de la galerie'}) }}
-                    {{ form_row(galerieForm.description, {'label' : 'Description'}) }}
+                    {{ form_row(galerieBisForm.nom, {'label' : 'Nom de la galerie'}) }}
+                    {{ form_row(galerieBisForm.description, {'label' : 'Description'}) }}
 
-
+                    {{ form_row(galerieBisForm.submit, { 'label' : 'Envoyer', 'attr' : {'class': 'col-12 btn btn-outline-success mt-3'} } ) }}
+                    {{ form_end(galerieBisForm) }}
                     {% set totalPictures2 = totalPictures.0 %}
-                    {# {{ dump(totalPictures2) }} #}
 
                     {% if totalPictures2.1 < 4 %}
+
+                    {{ form_start(pictureForm) }}
+
+                    <div style="display: none">
+                    {{ form_label(pictureForm.galerie) }}
+                    {{ form_widget(pictureForm.galerie, {'value': galerieId}) }}
+                    </div>
                     
-                        {{ form_widget(galerieForm.pictureFiles, {'label' : 'Ajouter une photo'}) }}
+                        {# {{ form_widget(PictureForm.pictureFiles, {'label' : 'Ajouter une photo'}) }} #}
+
+                    {{ form_end(pictureForm) }}
 
                     {% else %}
 
                         <p>Vous avez atteint la limite de 4 photos autorisées, supprimez-en une pour pouvoir en créer une nouvelle.</p>
 
-                        <div style="display: none">
+                        {# <div style="display: none">
                             {{ form_widget(galerieForm.pictureFiles, {'label' : 'Ajouter une photo'}) }}
-                        </div>
+                        </div> #}
                     {% endif %}
-
-                    {{ form_row(galerieForm.submit, { 'label' : 'Envoyer', 'attr' : {'class': 'col-12 btn btn-outline-success mt-3'} } ) }}
-
-                    {{ form_end(galerieForm) }}
                 </div>
             </div>
         </div>

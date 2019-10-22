@@ -74,7 +74,7 @@
                         <!-- On met en display none ces champs pour pouvoir y injecter des valeurs sans que l'utilisateur s'en rende compte /sans qu'il puisse y toucher. -->
                         <!-- Dans BaseController on crée une variable $date. Dedans on injecte des données selon la route sélectionée (update, delete, afficher...). On met ensuite cette variable en valeur du champ "dateAffichage" afin d'injecter ces données. (c'est ce qui nous permet de gérer le choix de l'affichage. CF. AdminController.-->
                         {{ form_label(ContenuForm.dateAffichage) }}
-                    {{ form_widget(ContenuForm.dateAffichage, {'value': date}) }}
+                        {{ form_widget(ContenuForm.dateAffichage, {'value': date}) }}
                     </div>
 
                     {{ form_row(ContenuForm.titre, {'label' : 'Titre *'}) }}
