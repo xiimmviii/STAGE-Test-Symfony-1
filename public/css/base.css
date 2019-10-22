@@ -63,7 +63,7 @@ svg {
     height: 50px;
     border-radius: 50%;
     font-size: 1.2em;
-    box-shadow: 2px 2px 5px dimgrey;
+    box-shadow: 2px 2px 5px rgb(0, 0, 0);
 }
 
 .link-item:hover {
@@ -306,7 +306,7 @@ transition-duration: 0.3s;
         height: 50px;
         border-radius: 50%;
         font-size: 1.2em;
-        box-shadow: 2px 2px 5px dimgrey;
+        box-shadow: 2px 2px 5px rgb(0, 0, 0);
     }
 
     .link-item2 {
@@ -318,7 +318,7 @@ transition-duration: 0.3s;
         height: 50px;
         border-radius: 50%;
         font-size: 1.2em;
-        box-shadow: 2px 2px 5px dimgrey;
+        box-shadow: 2px 2px 5px rgb(0, 0, 0);
     }
     
     .link-item1:hover {
