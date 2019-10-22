@@ -23,7 +23,7 @@ class PictureType extends AbstractType
 			// On déclare le champ, on lui applique une classe qui définit son type
 			// On peut ensuite ajouter des spécificités à ces champs 
 
-			->add('filename', FileType::class, array(
+			->add('imagefile', FileType::class, array(
 				'constraints' => array(
 					// On définit les formats d'image qui peuvent être envoyés 
 					new Assert\Image(array(

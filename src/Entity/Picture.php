@@ -2,8 +2,7 @@
 
 namespace App\Entity;
 
-use Serializable;
-use Symfony\Component\Serializer\Serializer;
+
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
@@ -13,7 +12,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Entity(repositoryClass="App\Repository\PictureRepository")
  * @Vich\Uploadable()
  */
-class Picture implements \Serializable
+class Picture
 {
     /**
      * @ORM\Id()
@@ -74,70 +73,27 @@ class Picture implements \Serializable
      * @param null|File $imageFile
      * @return self
      */
-    public function setImageFile(?File $imageFile): self
+    public function setImageFile(?File $imageFile = null): void
     {
         $this->imageFile = $imageFile;
-        return $this;
+                // VERY IMPORTANT:
+        // It is required that at least one field changes if you are using Doctrine,
+        // otherwise the event listeners won't be called and the file is lost
+        if (null !== $imageFile) {
+            // if 'updatedAt' is not defined in your entity, use another property
+            $this->updatedAt = new \DateTime('now');
+        }
     }
 
 
-
-    //------------------------------------- FONCTION POUR LA PHOTO -------------------------
-
-    public function setFilename(UploadedFile $filename): self
+    public function setFilename(?string $filename): void
     {
         $this->filename = $filename;
-        return $this;
     }
 
-    public function getFilename()
+    public function getFilename(): ?string
     {
         return $this->filename;
     }
 
-
-    //2 objectifs :
-    // permettre l'enregistrement de la photo dans la BDD (après qu'elle soit renommée)
-    // Enregistrer la photo sur le serveur /public/photo
-
-    public function uploadFile()
-    {
-        // On récupère le nom de la photo
-        $nom = $this->filename->getClientOriginalName(); //$_FILE['file']['name']
-        $new_nom = $this->renamePhoto($nom);
-        $this->imageFile = $new_nom; // /!\ sera enregistré en BDD
-
-        //-----
-        $this->filename->move($this->dirPhoto(), $new_nom);
-        // déplace la photo depuis son emplacement temporaire jusqu'à son emplacement définitif (chemin + nom)
-    }
-
-    // renomme la photo de manière unique
-    public function renamePhoto($name)
-    {
-        return 'photo_' . time() . '_' . rand(1, 99999) . '_' . $name;
-        //photo_1550000000_87534_nom.jpg
-    }
-
-    // Nous retourne le chemin du dossier photo
-    public function dirPhoto()
-    {
-        return __DIR__ . '/../../public/photo/';
-    }
-
-    // Supprimer un fichier photo
-    public function removePhoto()
-    {
-        $filename = $this->dirPhoto() . $this->getImageFile();
-        if (file_exists($filename) && $this->getImageFile() != 'default.jpg') {
-            unlink($filename);
-        }
-    }
-    //------------------------------------- /FONCTION POUR LA PHOTO ------------------------------------------------
-
-
-    public function serialize()
-    { }
-    public function unserialize($arg)
-    { }
 }
