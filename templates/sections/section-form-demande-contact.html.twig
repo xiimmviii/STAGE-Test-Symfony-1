@@ -1,11 +1,8 @@
-<section class="form-cont-bg  pt-5  display-none-small">
-<div class="row">
+<section class="form-cont-bg row pt-5 mb-n1 pt-n1 display-none-small">
     <div class="col-10 offset-1 col-md-3 offset-md-7 px-0 pt-5 pb-3 form-cont-contact">
         {{form_start(form)}}
         <div class="row">
-            <div class="col-10 h4 mx-auto text-center pb-3">
-                Vous voulez être recontacté(e) ?
-            </div>
+            <div class="col-10 h4 mx-auto text-center pb-3"> Vous voulez être recontacté(e) ? </div>
         </div>
         <div class="row">
             {# Ici, on récupère le formulaire de CONTACT -- CONTACTTYPE #}
@@ -30,10 +27,11 @@
         {{form_end(form)}}
     </div>
 
-</div>
-{% for svgTransi in svgTransis | sortbyfield('dateAffichage') | slice(0, 1) %}
-    {{ svgTransi.bottomTrsW | raw}}
-{% endfor %}
 
+    {% for svgTransi in svgTransis | sortbyfield('dateAffichage') | slice(0, 1) %}
+    {{ svgTransi.bottomTrsW | raw}}
+    {% endfor %}
+
+    {# {{ svgTopW.code | raw }} #}
 
 </section>
