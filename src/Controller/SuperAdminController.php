@@ -203,7 +203,7 @@ class SuperAdminController extends AbstractController
     public function svgTransi(Request $request)
     {
        
-        // On utilise le repository pour accéder à la table Couleur
+        // On utilise le repository pour accéder à la table Design
         $repository = $this->getDoctrine()->getRepository(Design::class);
         // On récupère toutes les données de la table Galerie et on les injecte dans l'objet $photos
         $svgtransis = $repository->findAll();
@@ -264,7 +264,7 @@ class SuperAdminController extends AbstractController
 
         //On utilise le repository pour accéder à la table Design
         $repository = $this->getDoctrine()->getRepository(Design::class);
-        //On récupère toutes les données de la table Galerie et on les injecte dans l'objet $photos
+        //On récupère toutes les données de la table Design et on les injecte dans l'objet $svgtransis
         $svgtransis = $repository->findAll();
 
 // -----------------------------------------------------------------------------------
@@ -272,7 +272,7 @@ class SuperAdminController extends AbstractController
         $manager = $this->getDoctrine()->getManager();
         $design = $manager->find(Design::class, $id);
 
-        // On créé la vue d'un formulaire qui provient du dossier FORM > EntrepriseType.php 
+        // On créé la vue d'un formulaire qui provient du dossier FORM > DesignType.php 
         $form = $this->createForm(DesignType::class, $design);
         $form->handleRequest($request);
 
@@ -289,7 +289,7 @@ class SuperAdminController extends AbstractController
 // ----------------------------------------------------------------------
 
         // Dans ce cas-là, on modifie la variable date pour que la date actuelle soit générée
-        // Cela nous permet d'avoir la date la plus recénte qui permet un affichage dans la VUE principale
+        // Cela nous permet d'avoir la date la plus récente qui permet un affichage dans la VUE principale
         // C-A-D qu'on trie par DATE DESC et qu'on affiche 1 seule valur 
         $date = date("Y-m-d H-i-s");
 
@@ -299,7 +299,7 @@ class SuperAdminController extends AbstractController
 
 // -----------------------------------------------------------------------------------
 
-        //on injecte les données dans la vue réalisations (en incluant les données pour le footer)
+     
         return $this->render('super-admin/svg-transi.html.twig', [
             'design' => $design,
             'svgtransis' => $svgtransis,
